@@ -243,7 +243,20 @@ public class SQSConnector {
     @Processor
     public void removePermission(String label) throws SQSException {
         msgQueue.removePermission(label);
-    }
+    }   
+    
+    /**
+     * Gets the visibility timeout for the queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-approximate-number-of-messages}
+     *
+     * @throws SQSException wraps checked exceptions
+     * @return the approximate number of messages in the queue
+     */
+    @Processor
+    public int getApproximateNumberOfMessages() throws SQSException {
+        return msgQueue.getApproximateNumberOfMessages();
+    }   
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
