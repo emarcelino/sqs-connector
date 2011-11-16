@@ -10,14 +10,20 @@
 
 package org.mule.modules.amazon;
 
-import com.xerox.amazonws.sqs2.Message;
-import com.xerox.amazonws.sqs2.MessageQueue;
-import com.xerox.amazonws.sqs2.QueueAttribute;
-import com.xerox.amazonws.sqs2.SQSException;
-import com.xerox.amazonws.sqs2.SQSUtils;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Source;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
@@ -26,9 +32,11 @@ import org.mule.api.callback.SourceCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import com.xerox.amazonws.sqs2.Message;
+import com.xerox.amazonws.sqs2.MessageQueue;
+import com.xerox.amazonws.sqs2.QueueAttribute;
+import com.xerox.amazonws.sqs2.SQSException;
+import com.xerox.amazonws.sqs2.SQSUtils;
 
 /**
  * Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging service introduced by Amazon.com in
@@ -128,30 +136,51 @@ public class SQSConnector {
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
      * @param callback Callback to call when a new message is available.
+     * @param retries Quantity of retries if the callback with the message had an error.
      */
     @Source
-    public void receiveMessages(SourceCallback callback) {
+    public void receiveMessages(SourceCallback callback, @Optional @Default("0") int retries) {
         Message msg = null;
+        int count = 0;
         while (true) {
             try {
                 msg = msgQueue.receiveMessage();
                 if (msg == null) {
-                    try {
+                    try
+                    {
                         Thread.sleep(1000);
-                    } catch (Exception ex) {
+                    } 
+                    catch (Exception ex) {
                     }
                     continue;
                 }
-                msgQueue.deleteMessage(msg);
 
                 Map<String, Object> properties = new HashMap<String, Object>();
                 properties.putAll(msg.getAttributes());
                 properties.put("sqs.message.id", msg.getMessageId());
                 properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
-
+                
                 callback.process(msg.getMessageBody(), properties);
+                
+                msgQueue.deleteMessage(msg);
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
+                if(count == retries) 
+                {
+                    try
+                    {
+                        msgQueue.deleteMessage(msg);
+                    }
+                    catch (SQSException e1)
+                    {
+                        logger.error(e.getMessage(), e);
+                    }
+                    count = 0;
+                }
+                else
+                {
+                    count++;
+                }
             }
         }
     }
