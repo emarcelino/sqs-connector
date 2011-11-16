@@ -28,3 +28,9 @@
 <!-- BEGIN_INCLUDE(sqs:remove-permission) -->
 <sqs:remove-permission label="message"/>
 <!-- END_INCLUDE(sqs:remove-permission) -->
+<!-- BEGIN_INCLUDE(sqs:get-approximate-number-of-messages) -->
+<sqs:get-approximate-number-of-messages/>
+<!-- END_INCLUDE(sqs:get-approximate-number-of-messages) -->
+
+
+
