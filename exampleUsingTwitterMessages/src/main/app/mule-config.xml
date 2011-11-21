@@ -50,134 +50,30 @@
     <flow name="producer">
         <description>Gets at least 20 most recent twitter statuses posted from the authenticating user, and one by one, add them to the queue.</description>
         <inbound-endpoint address="http://localhost:9090/get-tweets-to-save"/>
-        <twitter:get-user-timeline /> 
-        <collection-splitter/> 
-        <logger level="ERROR" message="#[payload]" />
+        <twitter:get-user-timeline count = "20"/> 
+        <collection-splitter/>
+        <expression-transformer expression='return payload.getText()' evaluator="groovy"/>        
         <sqs:send-message/>
     </flow>
     
     <flow name="consumer">
         <description>Get a message from the queue, and add it to a mongo DB</description>
         <sqs:receive-messages/>
-        <expression-transformer expression='{ "text": "#[groovy: payload.getText()]", "source" : "#[groovy: payload.getSource()]" } ' evaluator="string"/>
-        <mongo:json-to-dbobject />
-        <logger level="ERROR" message="Received message with #[payload]" />
-        <mongo:insert-object  collection="status" dbObject-ref='#[payload]'/>
-    </flow>
-
-    
-<!--    <flow name="GetAllCustomers">
-        <description>Retrieves the full list of customers</description>
-        <http:inbound-endpoint host="localhost" port="9092" path="getAllCustomers" />
-        <quickbooks:find-objects type="CUSTOMER" /> -->
-        <!-- <scripting:component>
+        <scripting:component>
             <scripting:script engine="groovy">
-                <![CDATA[        
-                String str = "";
-                for(String aux : payload) {
-                    str += "Customer: " + aux.getId().getValue() + "\n";
-                    str += "   Given Name: " + aux.getGivenName() + "\n";
-                    str += "   Middle Name: " + aux.getMiddleName() + "\n";
-                    str += "   Family Name: " + aux.getFamilyName() + "\n"
-                    str += "   Gender: ";
-                    str += aux.getGender() == null ? "N/A": aux.getGender().getValue();
-                    str += "\n\n";
-                }
+                <![CDATA[
+                import org.apache.commons.lang.StringEscapeUtils;
+                
+                String str = " { ";
+                str += "\"text\" : \"" + StringEscapeUtils.escapeJavaScript(payload) + "\" } ";
                 
                 return str;      
                 ]]>
             </scripting:script>
-        </scripting:component> Use this when scripting works with OAuth!-->
-<!--     </flow> -->
-  
-  
-<!--    <flow name="CreateShipments">
-    <description>Gets All Shipment Items and an Address from a Mongo Collection, gets a preview for them, and creates the necessary shipments. This
-    flows does NOT set items as SHIPPED, use set-inbound-shipment-status operation for marking it as SHIPPED</description>
-    <http:inbound-endpoint host="localhost" port="9091" path="fws-demo-inbound-create-shipment" />
-     <message-properties-transformer scope="session">
-        <add-message-property key="shipmentName" value="#[header:inbound:shipmentName]" />
-     </message-properties-transformer>
-     <enricher target="#[header:session:fromAddress]">
-        <flow-ref name="GetAddress"/>
-     </enricher>
-    <flow-ref name="GetItems"/>
-    <fws:get-inbound-shipment-preview address-ref="#[header:session:fromAddress]" >
-      <fws:items ref="#[payload]"/>
-    </fws:get-inbound-shipment-preview>
-    <collection-splitter/>
-    <fws:put-inbound-shipment 
-      shipFromAddress-ref="#[header:session:fromAddress]"
-      shipmentName="#[header:session:shipmentName]"
-      shipmentId="#[groovy:payload.shipmentId]" 
-      destinationFulfillmentCenter="#[groovy:payload.destinationFulfillmentCenter]" 
-       >
-       <fws:item-quantities ref="#[groovy:payload.merchantSKUQuantityItem as List]"/> 
-     </fws:put-inbound-shipment>
-  </flow>
-  
-  
-  <flow name="AddItem">
-    <description>Adds an item. This flow register it in Amazon FBA and adds it to the Items collection.
-    Please notice that you still need to manually list this item in the Amazon Seller Center before executing this flow</description>
-    <http:inbound-endpoint host="localhost" port="9091" path="fws-demo-inbound-add-item" />
-    <fws:get-fulfillment-identifier-for-msku merchantSku="#[header:inbound:merchantSku]"/>
-    <expression-transformer expression='{ "quantity": "#[header:inbound:quantity]", "merchantSKU" : "#[header:inbound:merchantSku]" } ' evaluator="string"/>
-    <mongo:json-to-dbobject />
-    <mongo:insert-object  collection="Items" dbObject-ref='#[payload]'/>
-  </flow>
-  
-  <flow name="AddFromAddress">
-    <description>Adds an address. This flow adds it to the Address collection </description>
-    <http:inbound-endpoint host="localhost" port="9091" path="fws-demo-inbound-add-from-address" />
-    
-    <expression-transformer expression='{
-          "addressLine1" : "#[header:inbound:addressLine1]", 
-          "city" : "#[header:inbound:city]",
-          "countryCode" : "#[header:inbound:countryCode]",
-          "name" : "#[header:inbound:name]",
-          "postalCode" : "#[header:inbound:postalCode]",
-          "stateOrProvinceCode": "#[header:inbound:stateOrProvinceCode]"
-         }' evaluator="string"/>
-    <mongo:json-to-dbobject/>    
-    <mongo:insert-object collection="Addresses" dbObject-ref='#[payload]'/>
-  </flow>
-  
-   <flow name="GetItems">
-   <description>Converts the items into proper MerchantSKUQuantityItem instances</description>
-   <mongo:find-objects collection="Items"/>
-    <scripting:component>
-      <scripting:script engine="groovy">
-      <![CDATA[  
-        import com.amazonaws.fba_inbound.doc._2007_05_10.MerchantSKUQuantityItem;
-        return payload.collect({ o -> 
-                new MerchantSKUQuantityItem( 
-                  quantity: o['quantity'] as Integer, 
-                  merchantSKU: o['merchantSKU']) });
-      ]]>
-     </scripting:script>
-    </scripting:component>
-  </flow>
-  
-    <flow name="GetAddress">
-    
-    <expression-transformer expression='{ "name": "#[header:inbound:addressName]" }' evaluator="string"/>
-    <mongo:json-to-dbobject/>        
-    <mongo:find-one-object collection="Addresses" query-ref='#[payload]' />
-    <scripting:component>
-      <scripting:script engine="groovy">
-      <![CDATA[  
-        import org.mule.module.fws.api.Address;
-        def o = payload
-        return new Address( 
-              addressLine1: o['addressLine1'],
-              city: o['city'],
-              countryCode: o['countryCode'],
-              name: o['name'],
-              postalCode: o['postalCode'],
-              stateOrProvinceCode: o['stateOrProvinceCode']);
-      ]]>
-     </scripting:script>
-    </scripting:component>
-  </flow> -->
+        </scripting:component>
+        <expression-transformer expression=' #[payload] ' evaluator="string"/>
+        <mongo:json-to-dbobject />
+        <mongo:insert-object  collection="status" dbObject-ref='#[payload]'/>
+    </flow>
+
 </mule>

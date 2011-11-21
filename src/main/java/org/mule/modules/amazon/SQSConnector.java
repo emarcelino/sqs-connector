@@ -109,8 +109,8 @@ public class SQSConnector {
      * @throws SQSException if something goes wrong
      */
     @Processor
-    public void sendMessage(@Payload final byte[] payload) throws SQSException {
-        msgQueue.sendMessage(new String(org.apache.commons.codec.binary.Base64.encodeBase64(payload)));
+    public void sendMessage(@Payload final String payload) throws SQSException {
+        msgQueue.sendMessage(payload);
     }
 
     /**
