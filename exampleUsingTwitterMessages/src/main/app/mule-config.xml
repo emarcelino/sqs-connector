@@ -27,7 +27,7 @@
             http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
             http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.2/mule-json.xsd
             http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/2.0/mule-mongo.xsd
-            http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter/2.1/mule-twitter.xsd
+            http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter/2.3/mule-twitter.xsd
             http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/1.0/mule-sqs.xsd">
                           
     <http:connector name="connector.http.mule.default"
@@ -38,7 +38,7 @@
                 secretAccessKey="${sqsSecretAccessKey}"
                 queueName="mule-test"/>
                 
-     <twitter:config consumerKey="${twitterConsumerKey}" 
+    <twitter:config consumerKey="${twitterConsumerKey}" 
                     consumerSecret="${twitterConsumerSecret}" 
                     accessKey="${twitterAccessKey}" 
                     accessSecret="${twitterAccessSecret}"/>
@@ -56,7 +56,7 @@
         <sqs:send-message/>
     </flow>
     
-    <flow name="consumer">
+   <flow name="consumer">
         <description>Get a message from the queue, and add it to a mongo DB</description>
         <sqs:receive-messages/>
         <scripting:component>
