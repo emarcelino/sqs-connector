@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule Amazon Connector
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    The software in this package is published under the terms of the CPAL v1.0
+    license, a copy of which has been included with this distribution in the
+    LICENSE.txt file.
+
+-->
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs"
+      xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo"
+      xmlns:twitter="http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter"
+      xmlns:json="http://www.mulesoft.org/schema/mule/json"
+      xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+            http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.2/mule-scripting.xsd
+            http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
+            http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/3.2/mule-json.xsd
+            http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/2.0/mule-mongo.xsd
+            http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter http://repository.mulesoft.org/releases/org/mule/modules/mule-module-twitter/2.1/mule-twitter.xsd
+            http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/1.0/mule-sqs.xsd">
+                          
+    <http:connector name="connector.http.mule.default"
+                    enableCookies="true" 
+                    keepAlive="true"/>
+    
+    <sqs:config accessKey="${sqsAccessKey}" 
+                secretAccessKey="${sqsSecretAccessKey}"
+                queueName="mule-test"/>
+                
+     <twitter:config consumerKey="${twitterConsumerKey}" 
+                    consumerSecret="${twitterConsumerSecret}" 
+                    accessKey="${twitterAccessKey}" 
+                    accessSecret="${twitterAccessSecret}"/>
+    
+    <mongo:config  name="twitterDB"  
+                   username="blablabla"
+                   password="blablabla" />
+    
+    <flow name="producer">
+        <description>Gets at least 20 most recent twitter statuses posted from the authenticating user, and one by one, add them to the queue.</description>
+        <inbound-endpoint address="http://localhost:9090/get-tweets-to-save"/>
+        <twitter:get-user-timeline /> 
+        <collection-splitter/> 
+        <logger level="ERROR" message="#[payload]" />
+        <sqs:send-message/>
+    </flow>
+    
+    <flow name="consumer">
+        <description>Get a message from the queue, and add it to a mongo DB</description>
+        <sqs:receive-messages/>
+        <expression-transformer expression='{ "text": "#[groovy: payload.getText()]", "source" : "#[groovy: payload.getSource()]" } ' evaluator="string"/>
+        <mongo:json-to-dbobject />
+        <logger level="ERROR" message="Received message with #[payload]" />
+        <mongo:insert-object  collection="status" dbObject-ref='#[payload]'/>
+    </flow>
+
+    
+<!--    <flow name="GetAllCustomers">
+        <description>Retrieves the full list of customers</description>
+        <http:inbound-endpoint host="localhost" port="9092" path="getAllCustomers" />
+        <quickbooks:find-objects type="CUSTOMER" /> -->
+        <!-- <scripting:component>
+            <scripting:script engine="groovy">
+                <![CDATA[        
+                String str = "";
+                for(String aux : payload) {
+                    str += "Customer: " + aux.getId().getValue() + "\n";
+                    str += "   Given Name: " + aux.getGivenName() + "\n";
+                    str += "   Middle Name: " + aux.getMiddleName() + "\n";
+                    str += "   Family Name: " + aux.getFamilyName() + "\n"
+                    str += "   Gender: ";
+                    str += aux.getGender() == null ? "N/A": aux.getGender().getValue();
+                    str += "\n\n";
+                }
+                
+                return str;      
+                ]]>
+            </scripting:script>
+        </scripting:component> Use this when scripting works with OAuth!-->
+<!--     </flow> -->
+  
+  
+<!--    <flow name="CreateShipments">
+    <description>Gets All Shipment Items and an Address from a Mongo Collection, gets a preview for them, and creates the necessary shipments. This
+    flows does NOT set items as SHIPPED, use set-inbound-shipment-status operation for marking it as SHIPPED</description>
+    <http:inbound-endpoint host="localhost" port="9091" path="fws-demo-inbound-create-shipment" />
+     <message-properties-transformer scope="session">
+        <add-message-property key="shipmentName" value="#[header:inbound:shipmentName]" />
+     </message-properties-transformer>
+     <enricher target="#[header:session:fromAddress]">
+        <flow-ref name="GetAddress"/>
+     </enricher>
+    <flow-ref name="GetItems"/>
+    <fws:get-inbound-shipment-preview address-ref="#[header:session:fromAddress]" >
+      <fws:items ref="#[payload]"/>
+    </fws:get-inbound-shipment-preview>
+    <collection-splitter/>
+    <fws:put-inbound-shipment 
+      shipFromAddress-ref="#[header:session:fromAddress]"
+      shipmentName="#[header:session:shipmentName]"
+      shipmentId="#[groovy:payload.shipmentId]" 
+      destinationFulfillmentCenter="#[groovy:payload.destinationFulfillmentCenter]" 
+       >
+       <fws:item-quantities ref="#[groovy:payload.merchantSKUQuantityItem as List]"/> 
+     </fws:put-inbound-shipment>
+  </flow>
+  
+  
+  <flow name="AddItem">
+    <description>Adds an item. This flow register it in Amazon FBA and adds it to the Items collection.
+    Please notice that you still need to manually list this item in the Amazon Seller Center before executing this flow</description>
+    <http:inbound-endpoint host="localhost" port="9091" path="fws-demo-inbound-add-item" />
+    <fws:get-fulfillment-identifier-for-msku merchantSku="#[header:inbound:merchantSku]"/>
+    <expression-transformer expression='{ "quantity": "#[header:inbound:quantity]", "merchantSKU" : "#[header:inbound:merchantSku]" } ' evaluator="string"/>
+    <mongo:json-to-dbobject />
+    <mongo:insert-object  collection="Items" dbObject-ref='#[payload]'/>
+  </flow>
+  
+  <flow name="AddFromAddress">
+    <description>Adds an address. This flow adds it to the Address collection </description>
+    <http:inbound-endpoint host="localhost" port="9091" path="fws-demo-inbound-add-from-address" />
+    
+    <expression-transformer expression='{
+          "addressLine1" : "#[header:inbound:addressLine1]", 
+          "city" : "#[header:inbound:city]",
+          "countryCode" : "#[header:inbound:countryCode]",
+          "name" : "#[header:inbound:name]",
+          "postalCode" : "#[header:inbound:postalCode]",
+          "stateOrProvinceCode": "#[header:inbound:stateOrProvinceCode]"
+         }' evaluator="string"/>
+    <mongo:json-to-dbobject/>    
+    <mongo:insert-object collection="Addresses" dbObject-ref='#[payload]'/>
+  </flow>
+  
+   <flow name="GetItems">
+   <description>Converts the items into proper MerchantSKUQuantityItem instances</description>
+   <mongo:find-objects collection="Items"/>
+    <scripting:component>
+      <scripting:script engine="groovy">
+      <![CDATA[  
+        import com.amazonaws.fba_inbound.doc._2007_05_10.MerchantSKUQuantityItem;
+        return payload.collect({ o -> 
+                new MerchantSKUQuantityItem( 
+                  quantity: o['quantity'] as Integer, 
+                  merchantSKU: o['merchantSKU']) });
+      ]]>
+     </scripting:script>
+    </scripting:component>
+  </flow>
+  
+    <flow name="GetAddress">
+    
+    <expression-transformer expression='{ "name": "#[header:inbound:addressName]" }' evaluator="string"/>
+    <mongo:json-to-dbobject/>        
+    <mongo:find-one-object collection="Addresses" query-ref='#[payload]' />
+    <scripting:component>
+      <scripting:script engine="groovy">
+      <![CDATA[  
+        import org.mule.module.fws.api.Address;
+        def o = payload
+        return new Address( 
+              addressLine1: o['addressLine1'],
+              city: o['city'],
+              countryCode: o['countryCode'],
+              name: o['name'],
+              postalCode: o['postalCode'],
+              stateOrProvinceCode: o['stateOrProvinceCode']);
+      ]]>
+     </scripting:script>
+    </scripting:component>
+  </flow> -->
+</mule>
