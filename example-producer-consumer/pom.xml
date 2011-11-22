@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.demos</groupId>
-    <artifactId>mule-module-amazon-exampleUsingTwitterMessages</artifactId>
+    <artifactId>mule-module-amazon-example-producer-consumer</artifactId>
     <packaging>mule</packaging>
-    <name>Mule Amazon Cloud Demo</name>
+    <name>Mule Amazon SQS Demo</name>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -13,12 +13,11 @@
         <mule.devkit.version>3.0.1-SNAPSHOT</mule.devkit.version>
         <junit.version>4.8.2</junit.version>
         <mule.amazon.version>1.0-SNAPSHOT</mule.amazon.version>
-        <mule.twitter.version>2.4-SNAPSHOT</mule.twitter.version>
         <mule.mongo.version>2.0-SNAPSHOT</mule.mongo.version>
         <ibeans.version>1.1</ibeans.version>
     </properties>
 
-    <description>Example using twitter statuses, adding them to an Amazon queue; and then insert each in a mongo db.</description>
+    <description>Example of a simple producer-consumer scenario, adding a status to an Amazon queue; and then insert it in a mongo DB.</description>
 
 
     <build>
@@ -74,10 +73,6 @@
                             <artifactId>mule-module-mongo</artifactId>
                         </inclusion>
                         <inclusion>
-                            <groupId>org.mule.modules</groupId>
-                            <artifactId>mule-module-twitter</artifactId>
-                        </inclusion>
-                        <inclusion>
                             <groupId>org.mule.tools.devkit</groupId>
                             <artifactId>mule-devkit-annotations</artifactId>
                         </inclusion>
@@ -126,23 +121,8 @@
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-ognl</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-ibeans</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-scripting</artifactId>
             <version>${mule.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-twitter</artifactId>
-            <version>${mule.twitter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
