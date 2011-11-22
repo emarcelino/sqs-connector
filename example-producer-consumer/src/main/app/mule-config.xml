@@ -28,10 +28,6 @@
             http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/2.0/mule-mongo.xsd
             http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/1.0/mule-sqs.xsd">
                                               
-    <http:connector name="connector.http.mule.default"
-                    enableCookies="true" 
-                    keepAlive="true"/>
-    
     <sqs:config accessKey="${sqsAccessKey}" 
                 secretAccessKey="${sqsSecretAccessKey}"
                 queueName="mule-test"/>
@@ -42,7 +38,7 @@
     <flow name="producerEchoInMongo">
         <description>Puts a new status in the mongo DB.</description>
         <inbound-endpoint address="http://localhost:9090/add-status-to-mongo"/>
-        <logger level="INFO" message="PULL FROM THE QUEUE: #[payload]" />
+        <logger level="DEBUG" message="Pushing message #[payload] to the queue" />
         <expression-transformer expression="#[header:inbound:status]" evaluator="string"/>
         <sqs:send-message/>
     </flow>
@@ -62,7 +58,7 @@
                  ]]> 
             </scripting:script>
         </scripting:component>
-        <logger level="INFO" message="PULL FROM THE QUEUE: #[payload]" />
+        <logger level="INFO" message="Pulling message #[payload] from the queue" />
         <expression-transformer expression=' #[payload] ' evaluator="string"/>
         <mongo:json-to-dbobject />
         <mongo:insert-object  collection="status" dbObject-ref='#[payload]'/>

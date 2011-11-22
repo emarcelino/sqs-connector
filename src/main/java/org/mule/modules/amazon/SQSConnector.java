@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.Validate;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Configurable;
@@ -124,6 +125,7 @@ public class SQSConnector {
     public URL getUrl() {
         return msgQueue.getUrl();
     }
+    
 
     /**
      * Attempts to receive a message from the queue. Every attribute of the incoming
@@ -136,53 +138,81 @@ public class SQSConnector {
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
      * @param callback Callback to call when a new message is available.
-     * @param retries Quantity of retries if the callback with the message had an error.
+     * @param maxRetries Quantity of retries if the callback with the message had an error.
+     * @throws SQSException 
      */
     @Source
-    public void receiveMessages(SourceCallback callback, @Optional @Default("0") int retries) {
+    public void receiveMessages(SourceCallback callback, @Optional @Default("0") int maxRetries) throws SQSException {
+        Validate.isTrue(maxRetries >= 0, "Retries must be a non negative integer");
         Message msg = null;
-        int count = 0;
-        while (true) {
-            try {
-                msg = msgQueue.receiveMessage();
-                if (msg == null) {
-                    try
-                    {
-                        Thread.sleep(1000);
-                    } 
-                    catch (Exception ex) {
-                    }
-                    continue;
-                }
+        Retries retries = new Retries(maxRetries);
+        while (!Thread.interrupted()) {
+            msg = msgQueue.receiveMessage();
+            if (msg == null) {
+                waitAtMost(1000);
+                continue;
+            }
+            processWithRetries(callback, msg, retries);
+            msgQueue.deleteMessage(msg);
+        }
+    }
 
-                Map<String, Object> properties = new HashMap<String, Object>();
-                properties.putAll(msg.getAttributes());
-                properties.put("sqs.message.id", msg.getMessageId());
-                properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
-                
-                callback.process(msg.getMessageBody(), properties);
-                
-                msgQueue.deleteMessage(msg);
-            } catch (Exception e) {
+    /**
+     * @param callback
+     * @param msg
+     * @param retries
+     * @throws SQSException
+     */
+    public void processWithRetries(SourceCallback callback, Message msg, Retries retries)
+    {
+        while(!Thread.interrupted()) {
+            try
+            {
+                callback.process(msg.getMessageBody(), createProperties(msg));
+                break;
+            }
+            catch (Exception e)
+            {
                 logger.error(e.getMessage(), e);
-                if(count == retries) 
+                if (retries.maxRetriesAchieved())
                 {
-                    try
-                    {
-                        msgQueue.deleteMessage(msg);
-                    }
-                    catch (SQSException e1)
-                    {
-                        logger.error(e.getMessage(), e);
-                    }
-                    count = 0;
+                    logger.info("Message with ID: " + msg.getMessageId() + ", has been descarded");
+                    retries.reset();
+                    break;
                 }
                 else
                 {
-                    count++;
+                    logger.info("Message with ID: " + msg.getMessageId() + ", could not be processed. Retriying.");
+                    retries.next();
                 }
             }
         }
+    }
+
+    /**
+    	 * @param millis
+    	 */
+    public void waitAtMost(int millis)
+    {
+        try
+        {
+            Thread.sleep(millis);
+        } 
+        catch (Exception ex) {
+        }
+    }
+
+    /**
+    	 * @param msg
+    	 * @return
+    	 */
+    public Map<String, Object> createProperties(Message msg)
+    {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.putAll(msg.getAttributes());
+        properties.put("sqs.message.id", msg.getMessageId());
+        properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
+        return properties;
     }
 
     /**
@@ -293,5 +323,32 @@ public class SQSConnector {
 
     public void setSecretAccessKey(String secretAccessKey) {
         this.secretAccessKey = secretAccessKey;
+    }
+    
+    class Retries
+    {
+        final int maxRetries;
+        int count = 0;
+
+        private Retries(int maxRetries)
+        {
+            super();
+            this.maxRetries = maxRetries;
+        }
+
+        void reset()
+        {
+            count = 0;
+        }
+
+        boolean maxRetriesAchieved()
+        {
+            return count >= maxRetries;
+        }
+
+        void next()
+        {
+            count++;
+        }
     }
 }
