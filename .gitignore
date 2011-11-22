@@ -1,8 +1,4 @@
-/.classpath
-/.settings
-/.project
-/.jruby
-/*.iml
-/*.ipr
-/*.iws
-/target
+.classpath
+.project
+.settings
+target
