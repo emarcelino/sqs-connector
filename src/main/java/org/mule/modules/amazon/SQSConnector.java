@@ -10,14 +10,21 @@
 
 package org.mule.modules.amazon;
 
-import com.xerox.amazonws.sqs2.Message;
-import com.xerox.amazonws.sqs2.MessageQueue;
-import com.xerox.amazonws.sqs2.QueueAttribute;
-import com.xerox.amazonws.sqs2.SQSException;
-import com.xerox.amazonws.sqs2.SQSUtils;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.Validate;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Source;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
@@ -26,9 +33,11 @@ import org.mule.api.callback.SourceCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import com.xerox.amazonws.sqs2.Message;
+import com.xerox.amazonws.sqs2.MessageQueue;
+import com.xerox.amazonws.sqs2.QueueAttribute;
+import com.xerox.amazonws.sqs2.SQSException;
+import com.xerox.amazonws.sqs2.SQSUtils;
 
 /**
  * Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging service introduced by Amazon.com in
@@ -70,7 +79,7 @@ public class SQSConnector {
     public void connect(@ConnectionKey String queueName)
             throws ConnectionException {
         try {
-            MessageQueue msgQueue = SQSUtils.connectToQueue(queueName, accessKey, secretAccessKey);
+            msgQueue = SQSUtils.connectToQueue(queueName, accessKey, secretAccessKey);
             msgQueue.setEncoding(false);
         } catch (SQSException e) {
             throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
@@ -101,8 +110,8 @@ public class SQSConnector {
      * @throws SQSException if something goes wrong
      */
     @Processor
-    public void sendMessage(@Payload final byte[] payload) throws SQSException {
-        msgQueue.sendMessage(new String(org.apache.commons.codec.binary.Base64.encodeBase64(payload)));
+    public void sendMessage(@Payload final String payload) throws SQSException {
+        msgQueue.sendMessage(payload);
     }
 
     /**
@@ -116,6 +125,7 @@ public class SQSConnector {
     public URL getUrl() {
         return msgQueue.getUrl();
     }
+    
 
     /**
      * Attempts to receive a message from the queue. Every attribute of the incoming
@@ -128,32 +138,81 @@ public class SQSConnector {
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
      * @param callback Callback to call when a new message is available.
+     * @param maxRetries Quantity of retries if the callback with the message had an error.
+     * @throws SQSException 
      */
     @Source
-    public void receiveMessages(SourceCallback callback) {
+    public void receiveMessages(SourceCallback callback, @Optional @Default("0") int maxRetries) throws SQSException {
+        Validate.isTrue(maxRetries >= 0, "Retries must be a non negative integer");
         Message msg = null;
-        while (true) {
-            try {
-                msg = msgQueue.receiveMessage();
-                if (msg == null) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (Exception ex) {
-                    }
-                    continue;
-                }
-                msgQueue.deleteMessage(msg);
+        Retries retries = new Retries(maxRetries);
+        while (!Thread.interrupted()) {
+            msg = msgQueue.receiveMessage();
+            if (msg == null) {
+                waitAtMost(1000);
+                continue;
+            }
+            processWithRetries(callback, msg, retries);
+            msgQueue.deleteMessage(msg);
+        }
+    }
 
-                Map<String, Object> properties = new HashMap<String, Object>();
-                properties.putAll(msg.getAttributes());
-                properties.put("sqs.message.id", msg.getMessageId());
-                properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
-
-                callback.process(msg.getMessageBody(), properties);
-            } catch (Exception e) {
+    /**
+     * @param callback
+     * @param msg
+     * @param retries
+     * @throws SQSException
+     */
+    public void processWithRetries(SourceCallback callback, Message msg, Retries retries)
+    {
+        while(!Thread.interrupted()) {
+            try
+            {
+                callback.process(msg.getMessageBody(), createProperties(msg));
+                break;
+            }
+            catch (Exception e)
+            {
                 logger.error(e.getMessage(), e);
+                if (retries.maxRetriesAchieved())
+                {
+                    logger.info("Message with ID: " + msg.getMessageId() + ", has been descarded");
+                    retries.reset();
+                    break;
+                }
+                else
+                {
+                    logger.info("Message with ID: " + msg.getMessageId() + ", could not be processed. Retriying.");
+                    retries.next();
+                }
             }
         }
+    }
+
+    /**
+    	 * @param millis
+    	 */
+    public void waitAtMost(int millis)
+    {
+        try
+        {
+            Thread.sleep(millis);
+        } 
+        catch (Exception ex) {
+        }
+    }
+
+    /**
+    	 * @param msg
+    	 * @return
+    	 */
+    public Map<String, Object> createProperties(Message msg)
+    {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.putAll(msg.getAttributes());
+        properties.put("sqs.message.id", msg.getMessageId());
+        properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
+        return properties;
     }
 
     /**
@@ -243,7 +302,20 @@ public class SQSConnector {
     @Processor
     public void removePermission(String label) throws SQSException {
         msgQueue.removePermission(label);
-    }
+    }   
+    
+    /**
+     * Gets the visibility timeout for the queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-approximate-number-of-messages}
+     *
+     * @throws SQSException wraps checked exceptions
+     * @return the approximate number of messages in the queue
+     */
+    @Processor
+    public int getApproximateNumberOfMessages() throws SQSException {
+        return msgQueue.getApproximateNumberOfMessages();
+    }   
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
@@ -251,5 +323,32 @@ public class SQSConnector {
 
     public void setSecretAccessKey(String secretAccessKey) {
         this.secretAccessKey = secretAccessKey;
+    }
+    
+    class Retries
+    {
+        final int maxRetries;
+        int count = 0;
+
+        private Retries(int maxRetries)
+        {
+            super();
+            this.maxRetries = maxRetries;
+        }
+
+        void reset()
+        {
+            count = 0;
+        }
+
+        boolean maxRetriesAchieved()
+        {
+            return count >= maxRetries;
+        }
+
+        void next()
+        {
+            count++;
+        }
     }
 }
