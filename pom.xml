@@ -4,7 +4,7 @@
 	  <parent>
 		  <groupId>org.mule.tools.devkit</groupId>
 		  <artifactId>mule-devkit-parent</artifactId>
-		  <version>LATEST</version>
+		  <version>3.0</version>
 	  </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -35,4 +35,20 @@
         </developerConnection>
         <url>http://github.com/mulesoft/mule-module-amazon</url>
     </scm>
+    
+    <repositories>
+        <repository>
+            <id>mulesoft.releases</id>
+            <name>Muleforge Releases Repository</name>
+            <url>https://repository.mulesoft.org/releases/</url>
+        </repository>
+        <repository>
+            <id>mulesoft.snapshots</id>
+            <name>Muleforge Snapshots Repository</name>
+            <url>https://repository.mulesoft.org/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
