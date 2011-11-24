@@ -10,6 +10,8 @@
 
 package org.mulesoft.demo.amazon;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.mule.api.transport.PropertyScope;
@@ -30,22 +32,17 @@ public class AmazonFunctionalTestDriver extends FunctionalTestCase
     {
         return "mule-config.xml";
     }
-    
+
     @Test
-    public void testUsingTwitterStatus() throws Exception
-    {
-        MuleEvent process = lookupFlowConstruct("producer").process(getTestEvent(""));
-        System.out.println(process.getMessage().getPayload());
-    }
-    
-    @Test
-    public void testPutSomeStatusInMongo() throws Exception
+    public void testProduceAndConsume() throws Exception
     {
         MuleEvent event = getTestEvent("");
         event.getMessage().setProperty("status", "Hello world", PropertyScope.INBOUND);
-        MuleEvent process = lookupFlowConstruct("producerEchoInMongo").process(event);
-        System.out.println(process.getMessage().getPayload());
+        MuleEvent process = lookupFlowConstruct("producer").process(event);
+        assertNull(process.getMessage().getExceptionPayload());
     }
+
+
 
     private Flow lookupFlowConstruct(final String name)
     {
