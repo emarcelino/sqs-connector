@@ -137,15 +137,21 @@ public class SQSConnector {
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
      * @param callback Callback to call when a new message is available.
-     * @param maxRetries Quantity of retries if the callback with the message had an error.
+     * @param visibilityTimeout the duration (in seconds) the retrieved message is hidden from
+     *                          subsequent calls to retrieve.
+     * @param preserveMessages Flag that indicates if you want to preserve the messages
+     *                         in the queue. False by default, so the messages are
+     *                         going to be deleted.
      * @throws SQSException 
      */
     @Source
-    public void receiveMessages(SourceCallback callback) throws SQSException {
+    public void receiveMessages(SourceCallback callback, 
+                                @Optional Integer visibilityTimeout, 
+                                @Optional @Default("false") Boolean preserveMessages) throws SQSException {
         Message msg = null;
         
         while (!Thread.interrupted()) {
-            msg = msgQueue.receiveMessage();
+            msg = (visibilityTimeout == null)? msgQueue.receiveMessage() : msgQueue.receiveMessage(visibilityTimeout);
             if (msg == null) {
                 waitAtMost(1000);
                 continue;
@@ -158,7 +164,9 @@ public class SQSConnector {
             {
                 logger.error(e.getMessage(), e);
             }
-            msgQueue.deleteMessage(msg);
+            if(!preserveMessages) {
+                msgQueue.deleteMessage(msg);
+            }
         }
     }
 
