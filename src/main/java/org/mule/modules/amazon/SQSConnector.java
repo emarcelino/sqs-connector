@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Configurable;
@@ -142,56 +141,30 @@ public class SQSConnector {
      * @throws SQSException 
      */
     @Source
-    public void receiveMessages(SourceCallback callback, @Optional @Default("0") int maxRetries) throws SQSException {
-        Validate.isTrue(maxRetries >= 0, "Retries must be a non negative integer");
+    public void receiveMessages(SourceCallback callback) throws SQSException {
         Message msg = null;
-        Retries retries = new Retries(maxRetries);
+        
         while (!Thread.interrupted()) {
             msg = msgQueue.receiveMessage();
             if (msg == null) {
                 waitAtMost(1000);
                 continue;
             }
-            processWithRetries(callback, msg, retries);
+            try
+            {
+                callback.process(msg.getMessageBody(), createProperties(msg));
+            }
+            catch (Exception e)
+            {
+                logger.error(e.getMessage(), e);
+            }
             msgQueue.deleteMessage(msg);
         }
     }
 
     /**
-     * @param callback
-     * @param msg
-     * @param retries
-     * @throws SQSException
+     * @param millis
      */
-    public void processWithRetries(SourceCallback callback, Message msg, Retries retries)
-    {
-        while(!Thread.interrupted()) {
-            try
-            {
-                callback.process(msg.getMessageBody(), createProperties(msg));
-                break;
-            }
-            catch (Exception e)
-            {
-                logger.error(e.getMessage(), e);
-                if (retries.maxRetriesAchieved())
-                {
-                    logger.info("Message with ID: " + msg.getMessageId() + ", has been descarded");
-                    retries.reset();
-                    break;
-                }
-                else
-                {
-                    logger.info("Message with ID: " + msg.getMessageId() + ", could not be processed. Retriying.");
-                    retries.next();
-                }
-            }
-        }
-    }
-
-    /**
-    	 * @param millis
-    	 */
     public void waitAtMost(int millis)
     {
         try
@@ -203,9 +176,9 @@ public class SQSConnector {
     }
 
     /**
-    	 * @param msg
-    	 * @return
-    	 */
+     * @param msg
+     * @return
+     */
     public Map<String, Object> createProperties(Message msg)
     {
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -323,32 +296,5 @@ public class SQSConnector {
 
     public void setSecretAccessKey(String secretAccessKey) {
         this.secretAccessKey = secretAccessKey;
-    }
-    
-    class Retries
-    {
-        final int maxRetries;
-        int count = 0;
-
-        private Retries(int maxRetries)
-        {
-            super();
-            this.maxRetries = maxRetries;
-        }
-
-        void reset()
-        {
-            count = 0;
-        }
-
-        boolean maxRetriesAchieved()
-        {
-            return count >= maxRetries;
-        }
-
-        void next()
-        {
-            count++;
-        }
     }
 }
