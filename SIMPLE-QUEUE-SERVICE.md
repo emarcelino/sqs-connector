@@ -55,7 +55,7 @@ Every time our _messages Consumer_ receives a message it will execute the rest o
 The _preserveMessages_ parameter is a flag that indicates if you want to preserve the messages (_true_), or delete them (_false_) from the queue after you get them.
 By default, it will delete them.
 
-The _visibilityTimeout_ it's an integer that represents the duration (in seconds) the retrieved message is hidden from subsequent calls to retrieve.
+The _visibilityTimeout_ is an integer that represents the duration (in seconds) the retrieved message is hidden from subsequent calls to retrieve.
 For example, if you only have a message in the queue, and you retrieve it with a _visibilityTimeout_ of 5 second, you will have an "empty" queue, until "appears" again in 5 seconds.
 
 ### Example
