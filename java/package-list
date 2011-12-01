@@ -1,0 +1,4 @@
+org.mule.modules.amazon
+org.mule.modules.amazon.config
+org.mule.modules.amazon.config.spring
+
