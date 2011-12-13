@@ -111,15 +111,23 @@
       <span id="masthead-title">Mule Amazon Module</span>
     
     <ul id="header-tabs" class="mule">
+    
     	<li id="guide"><a href="../guide/install.html">
 	    	<span class="en">Install Guide</span>
     	</a></li>
+    
+    	<li id="sqs"><a href="../simple-queue-service.html">
+	    	<span class="en">SQS Guide</span>
+    	</a></li>
+    
     	<li id="java"><a href="../java/packages.html">
-	    	<span class="en">Java API</span>
+	    	<span class="en">Java API Reference</span>
     	</a></li>
+    
     	<li id="mule"><a href="../mule/modules.html">
-	    	<span class="en">Mule API</span>
+	    	<span class="en">Mule API Reference</span>
     	</a></li>
+    
     </ul>
     </div>
     <div id="headerRight">
@@ -229,7 +237,7 @@ Summary:
  arising from the common producer-consumer problem or connectivity between producer and consumer.
  <p/>
  This connector does not provide a method for creating a queue. The reason being that it will automatically
- create it when its needed instead of having to manually specify so.<br/></p>
+ create it when its needed instead of having to manually specify so.</p>
 
 
 </div><!-- jd-descr -->
@@ -472,7 +480,7 @@ resolution.</p>
     
       <tr class=" api apilevel-" >
           <td class="jd-linkcol"><nobr>queueName</nobr></td>
-          <td class="jd-descrcol" width="100%">The name of the queue to connect to<br/></td>
+          <td class="jd-descrcol" width="100%">The name of the queue to connect to</td>
       </tr>
       
     
@@ -511,21 +519,23 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Adds a permission to this message queue.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>label</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">A name for this permission<br/></td>
+                    <td class="jd-descrcol" width="100%">A name for this permission</td>
                 </tr>
                 
                 
@@ -534,7 +544,7 @@ attribute on each operation.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>accountId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The AWS account ID for the account to share this queue with<br/></td>
+                    <td class="jd-descrcol" width="100%">The AWS account ID for the account to share this queue with</td>
                 </tr>
                 
                 
@@ -543,33 +553,38 @@ attribute on each operation.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>action</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)<br/></td>
+                    <td class="jd-descrcol" width="100%">A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class=" api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -581,13 +596,15 @@ attribute on each operation.</p>
       </table>
   </div>
   
+    
+  
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
       <table class="jd-tagtable">
         <tr>
             <th>SQSException</td>
             <td>wraps checked exceptions
-<br/></td>
+</td>
         </tr>
       </table>
   </div>
@@ -611,14 +628,16 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Deletes the message identified by message object on the queue this object represents.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-message receiptHandle="xxx"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-message receiptHandle="xxx"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
@@ -626,39 +645,46 @@ attribute on each operation.</p>
                     <td class="jd-linkcol"><nobr>receiptHandle</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Receipt handle of the message to be deleted
-<br/></td>
+</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class=" api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
           
       </table>
   </div>
+  
+    
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
@@ -689,42 +715,51 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Deletes the message queue represented by this object. Will delete non-empty queue.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-queue queueName="abc"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-queue queueName="abc"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
           
-            <tr class=" api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class="alt-color api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
       </table>
   </div>
+  
+    
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
@@ -732,7 +767,7 @@ attribute on each operation.</p>
         <tr>
             <th>SQSException</td>
             <td>wraps checked exceptions
-<br/></td>
+</td>
         </tr>
       </table>
   </div>
@@ -756,38 +791,45 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Gets the visibility timeout for the queue.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-approximate-number-of-messages/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-approximate-number-of-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
           
-            <tr class=" api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class="alt-color api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
       </table>
@@ -796,14 +838,16 @@ attribute on each operation.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>the approximate number of messages in the queue
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
       <table class="jd-tagtable">
         <tr>
             <th>SQSException</td>
-            <td>wraps checked exceptions<br/></td>
+            <td>wraps checked exceptions</td>
         </tr>
       </table>
   </div>
@@ -834,47 +878,54 @@ attribute on each operation.</p>
  RequestPayer
  Policy
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="MAXIUMUM_MESSAGE_SIZE"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="MAXIUMUM_MESSAGE_SIZE"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>attribute</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Attribute to get<br/></td>
+                    <td class="jd-descrcol" width="100%">Attribute to get</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class=" api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -884,15 +935,17 @@ attribute on each operation.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>a map of attributes and their values<br/></li></ul>
+      <ul class="nolist"><li>a map of attributes and their values</li></ul>
   </div>
+    
+  
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
       <table class="jd-tagtable">
         <tr>
             <th>SQSException</td>
             <td>wraps checked exceptions
-<br/></td>
+</td>
         </tr>
       </table>
   </div>
@@ -916,38 +969,45 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>This method provides the URL for the message queue represented by this object.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-url/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-url/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
           
-            <tr class=" api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class="alt-color api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
       </table>
@@ -956,8 +1016,10 @@ attribute on each operation.</p>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
       <ul class="nolist"><li>generated queue service url
-<br/></li></ul>
+</li></ul>
   </div>
+    
+  
 
     </div>
 </div>
@@ -978,47 +1040,54 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Removes a permission from this message queue.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:remove-permission label="message"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:remove-permission label="message"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>label</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">A name for the permission to be removed<br/></td>
+                    <td class="jd-descrcol" width="100%">A name for the permission to be removed</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class=" api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1026,13 +1095,15 @@ attribute on each operation.</p>
       </table>
   </div>
   
+    
+  
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
       <table class="jd-tagtable">
         <tr>
             <th>SQSException</td>
             <td>wraps checked exceptions
-<br/></td>
+</td>
         </tr>
       </table>
   </div>
@@ -1056,47 +1127,54 @@ attribute on each operation.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:send-message/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:send-message/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>payload</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Payload of the message to send. Defaults to the payload of the Mule message.<br/></td>
+                    <td class="jd-descrcol" width="100%">Payload of the message to send. Defaults to the payload of the Mule message.</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class=" api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1104,13 +1182,15 @@ attribute on each operation.</p>
       </table>
   </div>
   
+    
+  
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
       <table class="jd-tagtable">
         <tr>
             <th>SQSException</td>
             <td>if something goes wrong
-<br/></td>
+</td>
         </tr>
       </table>
   </div>
@@ -1135,21 +1215,23 @@ attribute on each operation.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Sets a queue attribute. This is provided to expose the underlying functionality, although
  the only attribute at this time is visibility timeout.
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VISIBILITY_TIMEOUT" value="86400"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VISIBILITY_TIMEOUT" value="86400"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>attribute</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Name of the attribute being set<br/></td>
+                    <td class="jd-descrcol" width="100%">Name of the attribute being set</td>
                 </tr>
                 
                 
@@ -1158,33 +1240,38 @@ attribute on each operation.</p>
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>value</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The value being set for this attribute<br/></td>
+                    <td class="jd-descrcol" width="100%">The value being set for this attribute</td>
                 </tr>
                 
                 
           
           
-            <tr class=" api apilevel-" >
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
+            
+          
+          
+          
+            <tr><th colspan="12">Retry and Reconnect<br/><span style="font-weight: 200;">This message processor supports automatic retry and reconnect. If the API call fail for a known error then the API will be automatically retried. This does not happen on every type of error, only a few that has been selected and are known to be recoverable from.</span></th></tr>
+            <tr class="alt-color api apilevel-" >
                 <td class="jd-linkcol"><nobr>retryMax</nobr></td>
                 <td class="jd-descrcol">1</td>
                 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
             </tr>
             
           
-        
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1194,13 +1281,15 @@ attribute on each operation.</p>
       </table>
   </div>
   
+    
+  
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>
       <table class="jd-tagtable">
         <tr>
             <th>SQSException</td>
             <td>wraps checked exceptions
-<br/></td>
+</td>
         </tr>
       </table>
   </div>
@@ -1239,24 +1328,26 @@ attribute on each operation.</p>
  sqs.message.id = containing the message identification
  sqs.message.receipt.handle = containing the message identification
  <p/>
- <br/><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;flow name="main"&gt;
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;flow name="main"&gt;
     &lt;sqs:receive-messages/&gt;
     &lt;logger level="INFO" message="Received message with #[payload]"/&gt;
 &lt;/flow&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
-      <table class="jd-tagtable">
-      <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-      <td class="jd-descrcol"></td>
-      <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>callback</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Callback to call when a new message is available.<br/></td>
+                    <td class="jd-descrcol" width="100%">Callback to call when a new message is available.</td>
                 </tr>
                 
                 
@@ -1266,7 +1357,7 @@ attribute on each operation.</p>
                     <td class="jd-linkcol"><nobr>visibilityTimeout</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The duration (in seconds) the retrieved message is hidden from
-                          subsequent calls to retrieve.<br/></td>
+                          subsequent calls to retrieve.</td>
                 </tr>
                 
                 
@@ -1277,33 +1368,30 @@ attribute on each operation.</p>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Flag that indicates if you want to preserve the messages
                          in the queue. False by default, so the messages are
-                         going to be deleted.<br/></td>
+                         going to be deleted.</td>
                 </tr>
                 
                 
           
           
-            <tr class="alt-color api apilevel-" >
-                <td class="jd-linkcol"><nobr>retryMax</nobr></td>
-                <td class="jd-descrcol">1</td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify how many times this operation can be retried automatically</td>
-            </tr>
+          <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+            
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>queueName</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                </tr>
+                
             
           
-        
-            <tr class=" api apilevel-" >
-                <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                <td class="jd-descrcol"></td>
-                <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to<br/></td>
-            </tr>
-        
-        
-      </table>
+          
+          
+          
+        </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Child Elements</h5>
-
-      <table class="jd-tagtable">
+        <table id="lconfig" class="jd-sumtable">
           
           
             
@@ -1314,6 +1402,8 @@ attribute on each operation.</p>
           
       </table>
   </div>
+  
+    
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Exception Payload</h5>

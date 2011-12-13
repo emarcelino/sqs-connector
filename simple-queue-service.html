@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule Amazon Module." />
+
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<title>
+
+
+| Mule Amazon Module
+
+</title>
+<link href="./assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="./assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="./assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="./assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="./assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="./assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="./assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("./", "./assets/");
+</script>
+<script src="./assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+<body class="gc-documentation">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule Amazon Module</span>
+    
+    <ul id="header-tabs" class="sqs">
+    
+    	<li id="guide"><a href="./guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="sqs"><a href="./simple-queue-service.html">
+	    	<span class="en">SQS Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="./java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="./mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="./assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, './')"
+                      onkeyup="return search_changed(event, false, './')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+<div class="g-unit" id="all-content">
+
+<div id="jd-content">
+
+<p>Amazon Simple Queue Service (Amazon SQS) offers a reliable, highly scalable hosted queue for storing messages as they travel between computers.
+By using Amazon SQS, developers can simply move data between distributed application components performing different tasks, without losing messages or requiring each 
+component to be always available. Amazon SQS makes it easy to build an automated workflow, working in close conjunction with the Amazon Elastic Compute Cloud (Amazon EC2) 
+and the other AWS infrastructure web services.</p>
+
+<h3>Important</h3>
+
+<p>Although it is called Queue, Amazon SQS does not guarantee FIFO access to messages in Amazon SQS queues, mainly because of the distributed nature of the Amazon SQS. 
+If you require specific message ordering, you should design your application to handle it.</p>
+
+<h2>Sending a message to the Queue</h2>
+
+<p>You can send a message by using <em>send-message</em> as follows:</p>
+
+<pre><code>&lt;sqs:send-message&gt;
+</code></pre>
+
+<p>That will send your payload as a STRING, so, if you want to send some other object, you will have to convert it to a string, and then when you are receiving it, you'll have to
+revert that conversion, to get your original object.</p>
+
+<h3>Example</h3>
+
+<pre><code>&lt;flow name="producer"&gt;
+    &lt;description&gt;Puts a text message in the message queue.&lt;/description&gt;
+    &lt;inbound-endpoint address="http://localhost:9090/add-status-to-mongo"/&gt;
+    &lt;expression-transformer expression="#[header:inbound:status]" evaluator="string"/&gt;
+    &lt;sqs:send-message/&gt;
+&lt;/flow&gt;
+</code></pre>
+
+<p>In this example, we can view how to send to the queue a message created from the parameter status of the url <em>http://localhost:9090/add-status-to-mongo</em>
+As you can see, we have to make that status, the new payload, so it could be sent.</p>
+
+<h2>Receiving messages from the Queue</h2>
+
+<p>You can start receiving messages by using <em>recieve-messages</em> that acts like an inbound endpoint and it
+can be used as such.</p>
+
+<pre><code>&lt;flow name="messagesConsumer"&gt;
+    &lt;!-- INBOUND ENDPOINT --&gt;
+    &lt;sqs:recieve-messages visibilityTimeout="5" 
+                          preserveMessages="false"/&gt;
+    &lt;!-- REST OF YOUR FLOW --&gt;
+    &lt;logger level="INFO" message="Received a message: #[payload]"/&gt;
+&lt;/flow&gt;
+</code></pre>
+
+<p>A Mule flow is divided in two. The first portion of it is usually an inbound endpoint or a message source. It is an entity that will receive/generate events that will later
+be processed by the rest of the flow. The other portion is a collection of message processors which will processes the messages received/generated by the inbound
+endpoint.</p>
+
+<p>Every time our <em>messages Consumer</em> receives a message it will execute the rest of the flow. In the case, it will log a message at INFO level.</p>
+
+<h3>Parameters</h3>
+
+<p>The <em>preserveMessages</em> parameter is a flag that indicates if you want to preserve the messages (<em>true</em>), or delete them (<em>false</em>) from the queue after you get them.
+By default, it will delete them.</p>
+
+<p>The <em>visibilityTimeout</em> is an integer that represents the duration (in seconds) the retrieved message is hidden from subsequent calls to retrieve.
+For example, if you only have a message in the queue, and you retrieve it with a <em>visibilityTimeout</em> of 5 second, you will have an "empty" queue, until "appears" again in 5 seconds.</p>
+
+<h3>Example</h3>
+
+<pre><code>&lt;flow name="consumer"&gt;
+    &lt;sqs:receive-messages /&gt;
+    &lt;mongo:insert-object-from-map collection="status"&gt;
+      &lt;mongo:element-attributes&gt;
+        &lt;mongo:element-attribute key="text"&gt;#[payload]&lt;/mongo:element-attribute&gt;
+      &lt;/mongo:element-attributes&gt;
+    &lt;/mongo:insert-object-from-map&gt;
+&lt;/flow&gt;
+</code></pre>
+
+<p>This example gets a message from the queue, and add it to a <em>Mongo DB</em>. Because <em>receive-messages</em> is a <em>Source</em>, you don't have to run it, because it will be running from the beginning.
+Then every message received from the queue, will be inserted in the collection status from our Mongo DB. As you can see, every command that follows the <em>receive-message</em> will used each 
+message that retrieves.</p>
+
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div><!-- end jd-content -->
+</div> <!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>
