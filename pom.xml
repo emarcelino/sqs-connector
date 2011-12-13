@@ -3,7 +3,7 @@
 	  <parent>
 		  <groupId>org.mule.tools.devkit</groupId>
 		  <artifactId>mule-devkit-parent</artifactId>
-		  <version>3.0</version>
+		  <version>3.0.3-SNAPSHOT</version>
 	  </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -84,7 +84,7 @@
                         -hdf project.snapshotRepo.id "${project.distributionManagement.snapshotRepository.id}"
                         -hdf project.snapshotRepo.url "${project.distributionManagement.snapshotRepository.url}"
                         -d ${project.build.directory}/apidocs
-                        -markdown streaming ${basedir}/SIMPLE-QUEUE-SERVICE.md "SQS Guide"
+                        -markdown sqs ${basedir}/SIMPLE-QUEUE-SERVICE.md "SQS Guide" 
                     </additionalparam>
                     <useStandardDocletOptions>false</useStandardDocletOptions>
                     <additionalJOption>-J-Xmx1024m</additionalJOption>

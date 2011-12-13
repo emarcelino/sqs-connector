@@ -31,8 +31,38 @@ import com.xerox.amazonws.sqs2.SQSException;
 
 public class SQSRemoveMessageTestDriver
 {
+    private class InterruptCallback implements SourceCallback
+    {
+        @Override
+        public Object process(Object payload, Map<String, Object> properties) throws Exception
+        {
+            interrupt();
+            return null;
+        }
+
+        @Override
+        public Object process(Object payload) throws Exception
+        {
+            interrupt();
+            return null;
+
+        }
+
+        @Override
+        public Object process() throws Exception
+        {
+            interrupt();
+            return null;
+        }
+
+        private void interrupt()
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     private static SQSConnector module;
-    
+
     @BeforeClass
     public static void init() throws ConnectionException, SQSException {
         module = new SQSConnector();
@@ -41,65 +71,39 @@ public class SQSRemoveMessageTestDriver
         module.connect("test5613809");
         assertTrue(module.getApproximateNumberOfMessages()==0);
     }
-    
+
     @Before
     public void addOneMessage() throws SQSException {
         module.sendMessage("Hello");
     }
-    
+
     @Test
     public void retrieveMessageWithPreserveMessagesFlagTrue() throws SQSException {
         final Holder<String> id = new Holder<String>();
-        
-        SourceCallback callback = new SourceCallback()
-        {
+
+        SourceCallback callback = new InterruptCallback() {
             @Override
             public Object process(Object payload, Map<String, Object> properties) throws Exception
             {
                 id.value = (String) properties.get("sqs.message.receipt.handle");
-                Thread.currentThread().interrupt();
-                return null;
-            }
-            
-            @Override
-            public Object process(Object payload) throws Exception
-            {
-                Thread.currentThread().interrupt();
-                return null;
-                
+                return super.process(payload, properties);
             }
         };
         module.receiveMessages(callback, 0, true);
-        
+
         assertTrue(module.getApproximateNumberOfMessages()!=0);
-        
+
         module.deleteMessage(id.value);
-        
+
         assertTrue(module.getApproximateNumberOfMessages()==0);
     }
-    
+
     @Test
     public void retrieveMessageWithPreserveMessagesFlagFalse() throws SQSException {
-        
-        SourceCallback callback = new SourceCallback()
-        {
-            @Override
-            public Object process(Object payload, Map<String, Object> properties) throws Exception
-            {
-                Thread.currentThread().interrupt();
-                return null;
-            }
-            
-            @Override
-            public Object process(Object payload) throws Exception
-            {
-                Thread.currentThread().interrupt();
-                return null;
-                
-            }
-        };
+
+        SourceCallback callback = new InterruptCallback();
         module.receiveMessages(callback, 0, false);
-        
+
         assertTrue(module.getApproximateNumberOfMessages()==0);
     }
 }
