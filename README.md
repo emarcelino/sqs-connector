@@ -1,7 +1,11 @@
 Mule Amazon Connector
 =========================
 
-<TBD>
+The Amazon Connector allows Mule to connect to different Amazon Web Services (AWS). It currenly supports [Amazon SQS](http://aws.amazon.com/sqs/), but new services, like EC2 may be added in the future. 
+
+For accessing S3, please check [mule-s3-connector](https://github.com/mulesoft/s3-connector). For FWS support, check [mule-fws-connector](https://github.com/mulesoft/fws-connector).
+
+
 
 Installation and Usage
 ----------------------
