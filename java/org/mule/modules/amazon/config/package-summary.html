@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -103,6 +106,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Amazon Module";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -185,10 +209,18 @@
                 
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/amazon/package-summary.html">org.mule.modules.amazon</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/amazon/adapters/package-summary.html">org.mule.modules.amazon.adapters</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/amazon/config/package-summary.html">org.mule.modules.amazon.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/amazon/config/spring/package-summary.html">org.mule.modules.amazon.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/amazon/processors/package-summary.html">org.mule.modules.amazon.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/amazon/sources/package-summary.html">org.mule.modules.amazon.sources</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/amazon/transformers/package-summary.html">org.mule.modules.amazon.transformers</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -198,21 +230,33 @@
               
     <li><h2>Classes</h2>
       <ul>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/AddPermissionDefinitionParser.html">AddPermissionDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteQueueDefinitionParser.html">DeleteQueueDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/GetApproximateNumberOfMessagesDefinitionParser.html">GetApproximateNumberOfMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/GetQueueAttributesDefinitionParser.html">GetQueueAttributesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/GetUrlDefinitionParser.html">GetUrlDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/QueueAttributeEnumTransformer.html">QueueAttributeEnumTransformer</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/ReceiveMessagesDefinitionParser.html">ReceiveMessagesDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/ReceiveMessagesMessageSource.html">ReceiveMessagesMessageSource</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/RemovePermissionDefinitionParser.html">RemovePermissionDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorCapabilitiesAdapter.html">SQSConnectorCapabilitiesAdapter</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorConnectionManager.html">SQSConnectorConnectionManager</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorConnectionManager.ConnectionParameters.html">SQSConnectorConnectionManager.ConnectionParameters</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorLifecycleAdapter.html">SQSConnectorLifecycleAdapter</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorNamespaceHandler.html">SQSConnectorNamespaceHandler</a></li>
       </ul>
     </li>
               
@@ -286,24 +330,48 @@
     
   <table class="jd-sumtable-expando">
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/AddPermissionDefinitionParser.html">AddPermissionDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">AddPermissionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String)">addPermission(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">DeleteMessageMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteQueueDefinitionParser.html">DeleteQueueDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">DeleteQueueMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#deleteQueue()">deleteQueue()</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/GetApproximateNumberOfMessagesDefinitionParser.html">GetApproximateNumberOfMessagesDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetApproximateNumberOfMessagesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#getApproximateNumberOfMessages()">getApproximateNumberOfMessages()</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/GetQueueAttributesDefinitionParser.html">GetQueueAttributesDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetQueueAttributesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)">getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/GetUrlDefinitionParser.html">GetUrlDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a></td>
@@ -314,16 +382,32 @@
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/ReceiveMessagesDefinitionParser.html">ReceiveMessagesDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/ReceiveMessagesMessageSource.html">ReceiveMessagesMessageSource</a></td>
               <td class="jd-descrcol" width="100%">ReceiveMessagesMessageSource wraps <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean)">receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code> as a message source capable of generating Mule events.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/RemovePermissionDefinitionParser.html">RemovePermissionDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">RemovePermissionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#removePermission(java.lang.String)">removePermission(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">SendMessageMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#sendMessage(java.lang.String)">sendMessage(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></td>
@@ -334,16 +418,24 @@
               <td class="jd-descrcol" width="100%">A <code>SQSConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorConnectionManager.html">SQSConnectorConnectionManager</a></td>
               <td class="jd-descrcol" width="100%">A <code>SQSConnectorConnectionManager</code> is a wrapper around <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code> that adds connection management capabilities to the pojo.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorConnectionManager.ConnectionParameters.html">SQSConnectorConnectionManager.ConnectionParameters</a></td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorLifecycleAdapter.html">SQSConnectorLifecycleAdapter</a></td>
               <td class="jd-descrcol" width="100%">A <code>SQSConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/amazon/config/SQSConnectorNamespaceHandler.html">SQSConnectorNamespaceHandler</a></td>
+              <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sqs</code>.&nbsp;</td>
           </tr>
   </table>
     </div>

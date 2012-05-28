@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <style>
     .jd-hierarchy-spacer {
@@ -93,6 +95,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -111,6 +114,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Amazon Module";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 
@@ -193,9 +217,17 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/amazon/package-summary.html">org.mule.modules.amazon</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/amazon/adapters/package-summary.html">org.mule.modules.amazon.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/amazon/config/package-summary.html">org.mule.modules.amazon.config</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/amazon/config/spring/package-summary.html">org.mule.modules.amazon.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/amazon/processors/package-summary.html">org.mule.modules.amazon.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/amazon/sources/package-summary.html">org.mule.modules.amazon.sources</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/amazon/transformers/package-summary.html">org.mule.modules.amazon.transformers</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -284,6 +316,58 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="2">
     
+        <a href="../java/org/mule/modules/amazon/adapters/SQSConnectorCapabilitiesAdapter.html">SQSConnectorCapabilitiesAdapter</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Capabilities
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="1">
+    
+        <a href="../java/org/mule/modules/amazon/adapters/SQSConnectorLifecycleAdapter.html">SQSConnectorLifecycleAdapter</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="2">
+    
         <a href="../java/org/mule/modules/amazon/config/SQSConnectorCapabilitiesAdapter.html">SQSConnectorCapabilitiesAdapter</a>
     
     </td>
@@ -338,6 +422,74 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/amazon/adapters/SQSConnectorConnectionManager.html">SQSConnectorConnectionManager</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Capabilities
+         &nbsp;&nbsp;
+    
+        
+            ConnectionManager
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/adapters/SQSConnectorConnectionManager.ConnectionKey.html">SQSConnectorConnectionManager.ConnectionKey</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/config/AddPermissionDefinitionParser.html">AddPermissionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/amazon/config/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a>
     
     </td>
@@ -369,6 +521,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -426,6 +598,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/amazon/config/DeleteQueueDefinitionParser.html">DeleteQueueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/amazon/config/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a>
     
     </td>
@@ -457,6 +649,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/config/GetApproximateNumberOfMessagesDefinitionParser.html">GetApproximateNumberOfMessagesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -514,6 +726,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/amazon/config/GetQueueAttributesDefinitionParser.html">GetQueueAttributesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/amazon/config/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a>
     
     </td>
@@ -558,6 +790,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/amazon/config/GetUrlDefinitionParser.html">GetUrlDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/amazon/config/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a>
     
     </td>
@@ -589,6 +841,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/config/ReceiveMessagesDefinitionParser.html">ReceiveMessagesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -650,6 +922,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/amazon/config/RemovePermissionDefinitionParser.html">RemovePermissionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/amazon/config/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a>
     
     </td>
@@ -681,6 +973,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -738,6 +1050,26 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/amazon/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/amazon/config/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a>
     
     </td>
@@ -769,6 +1101,26 @@
     
         
             MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
          &nbsp;&nbsp;
     
     &nbsp;
@@ -1033,6 +1385,450 @@
     
         
             BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html">ReceiveMessagesMessageSource</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Runnable
+         &nbsp;&nbsp;
+    
+        
+            SourceCallback
+         &nbsp;&nbsp;
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageSource
          &nbsp;&nbsp;
     
     &nbsp;
