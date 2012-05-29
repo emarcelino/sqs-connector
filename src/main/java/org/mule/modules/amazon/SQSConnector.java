@@ -27,7 +27,6 @@ import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.api.annotations.param.Payload;
 import org.mule.api.callback.SourceCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,12 +104,12 @@ public class SQSConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:send-message}
      *
-     * @param payload Payload of the message to send. Defaults to the payload of the Mule message.
+     * @param message the message to send. Defaults to the payload of the Mule message.
      * @throws SQSException if something goes wrong
      */
     @Processor
-    public void sendMessage(@Payload final String payload) throws SQSException {
-        msgQueue.sendMessage(payload);
+    public void sendMessage(@Optional @Default("#[payload]") final String message) throws SQSException {
+        msgQueue.sendMessage(message);
     }
 
     /**
@@ -136,50 +135,49 @@ public class SQSConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
-     * @param callback Callback to call when a new message is available.
+     * @param callback 			Callback to call when a new message is available.
      * @param visibilityTimeout the duration (in seconds) the retrieved message is hidden from
      *                          subsequent calls to retrieve.
-     * @param preserveMessages Flag that indicates if you want to preserve the messages
-     *                         in the queue. False by default, so the messages are
-     *                         going to be deleted.
+     * @param preserveMessages 	Flag that indicates if you want to preserve the messages
+     *                         	in the queue. False by default, so the messages are
+     *                         	going to be deleted.
+     * @param pollPeriod 		time in milliseconds to wait between polls. Default period is 1000 ms.
+     * @param numberOfMessages 	the number of messages to be retrieved on each call. By default, 
+     * 							1 message will be retrieved.			                        
      * @throws SQSException 
      */
     @Source
     public void receiveMessages(SourceCallback callback, 
                                 @Optional Integer visibilityTimeout, 
-                                @Optional @Default("false") Boolean preserveMessages) throws SQSException {
-        Message msg = null;
+                                @Optional @Default("false") Boolean preserveMessages,
+                                @Optional @Default("1000") Long pollPeriod,
+                                @Optional @Default("1") Integer numberOfMessages) throws SQSException {
+        Message[] messages;
         
         while (!Thread.interrupted()) {
-            msg = (visibilityTimeout == null)? msgQueue.receiveMessage() : msgQueue.receiveMessage(visibilityTimeout);
-            if (msg == null) {
-                waitAtMost(1000);
-                continue;
-            }
+            messages = (visibilityTimeout == null) ? msgQueue.receiveMessages(numberOfMessages) 
+            		: msgQueue.receiveMessages(numberOfMessages, visibilityTimeout);
             try
             {
-                callback.process(msg.getMessageBody(), createProperties(msg));
+                if (messages.length == 0) {
+                	Thread.sleep(pollPeriod);
+                    continue;
+                }
+                for (Message msg : messages) {
+                	callback.process(msg.getMessageBody(), createProperties(msg));
+                	if (!preserveMessages) {
+                		msgQueue.deleteMessage(msg);
+                	}
+                }
+            }
+            catch (InterruptedException e)
+            {
+            	logger.error(e.getMessage(), e);
             }
             catch (Exception e)
             {
-                logger.error(e.getMessage(), e);
+                throw new SQSException("Error while processing message.", e);
             }
-            if(!preserveMessages) {
-                msgQueue.deleteMessage(msg);
-            }
-        }
-    }
-
-    /**
-     * @param millis
-     */
-    public void waitAtMost(int millis)
-    {
-        try
-        {
-            Thread.sleep(millis);
-        } 
-        catch (Exception ex) {
         }
     }
 

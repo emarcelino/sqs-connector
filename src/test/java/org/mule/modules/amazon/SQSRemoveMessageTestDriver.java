@@ -89,7 +89,7 @@ public class SQSRemoveMessageTestDriver
                 return super.process(payload, properties);
             }
         };
-        module.receiveMessages(callback, 0, true);
+        module.receiveMessages(callback, 0, true, 1000L, 1);
 
         assertTrue(module.getApproximateNumberOfMessages()!=0);
 
@@ -102,7 +102,7 @@ public class SQSRemoveMessageTestDriver
     public void retrieveMessageWithPreserveMessagesFlagFalse() throws SQSException {
 
         SourceCallback callback = new InterruptCallback();
-        module.receiveMessages(callback, 0, false);
+        module.receiveMessages(callback, 0, false, 1000L, 1);
 
         assertTrue(module.getApproximateNumberOfMessages()==0);
     }
