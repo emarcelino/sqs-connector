@@ -663,7 +663,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#_payloadType">_payloadType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#_messageType">_messageType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -722,6 +722,17 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#message">message</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
@@ -729,7 +740,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -742,7 +753,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -752,17 +763,6 @@ org.mule.api.lifecycle.Stoppable
           <td class="jd-descrcol" width="100%">Mule Pattern Info
  
 </td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#payload">payload</a></td>
-          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -925,9 +925,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#setMessage(java.lang.Object)">setMessage</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
+        <div class="jd-descrdiv">Sets message</div>
   
   </td></tr>
 
@@ -943,9 +943,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
-        <div class="jd-descrdiv">Set the Mule context</div>
+        <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
   </td></tr>
 
@@ -961,9 +961,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#setPayload(java.lang.Object)">setPayload</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/processors/SendMessageMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
-        <div class="jd-descrdiv">Sets payload</div>
+        <div class="jd-descrdiv">Set the Mule context</div>
   
   </td></tr>
 
@@ -1578,7 +1578,7 @@ From interface
 
 
 
-<A NAME="_payloadType"></A>
+<A NAME="_messageType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1588,7 +1588,7 @@ From interface
          
         String
       </span>
-        _payloadType
+        _messageType
     </h4>
       <div class="api-level">
         
@@ -1732,6 +1732,36 @@ From interface
 
 
 
+<A NAME="message"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        message
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="moduleObject"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1821,36 +1851,6 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Mule Pattern Info
  
 </p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="payload"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        payload
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -2168,6 +2168,47 @@ From interface
 </div>
 
 
+<A NAME="setMessage(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setMessage</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets message</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setModuleObject(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2241,47 +2282,6 @@ From interface
         <tr>
           <th>context</td>
           <td>Mule context to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setPayload(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setPayload</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets payload</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
 </td>
         </tr>
       </table>

@@ -464,7 +464,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>ReceiveMessagesMessageSource wraps <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean)">receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code> as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
+<p>ReceiveMessagesMessageSource wraps <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer)">receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/amazon/SQSConnector.html">SQSConnector</a></code> as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
  
 </p>
 
@@ -634,6 +634,28 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
+          Integer</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#_numberOfMessagesType">_numberOfMessagesType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Long</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#_pollPeriodType">_pollPeriodType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           Boolean</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#_preserveMessagesType">_preserveMessagesType</a></td>
           <td class="jd-descrcol" width="100%"></td>
@@ -711,6 +733,28 @@ org.mule.api.lifecycle.Stoppable
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#numberOfMessages">numberOfMessages</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#pollPeriod">pollPeriod</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -961,6 +1005,42 @@ org.mule.api.lifecycle.Stoppable
         <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#setNumberOfMessages(java.lang.Object)">setNumberOfMessages</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets numberOfMessages</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/amazon/sources/ReceiveMessagesMessageSource.html#setPollPeriod(java.lang.Object)">setPollPeriod</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets pollPeriod</div>
   
   </td></tr>
 
@@ -1671,6 +1751,66 @@ From interface
 
 
 
+<A NAME="_numberOfMessagesType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Integer
+      </span>
+        _numberOfMessagesType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="_pollPeriodType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Long
+      </span>
+        _pollPeriodType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="_preserveMessagesType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1882,6 +2022,66 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Mule Context
  
 </p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="numberOfMessages"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        numberOfMessages
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="pollPeriod"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        pollPeriod
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -2442,6 +2642,88 @@ From interface
         <tr>
           <th>context</td>
           <td>Mule context to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setNumberOfMessages(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setNumberOfMessages</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets numberOfMessages</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setPollPeriod(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setPollPeriod</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets pollPeriod</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
 </td>
         </tr>
       </table>

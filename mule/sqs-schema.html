@@ -437,6 +437,11 @@ create it when its needed instead of having to manually specify so.&lt;/xs:docum
             &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;message&quot; default=&quot;#[payload]&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the message to send. Defaults to the payload of the Mule message.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;retryMax&quot; default=&quot;1&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;Specify how many times this operation can be retried automatically.&lt;/xs:documentation&gt;
@@ -741,6 +746,16 @@ sqs.message.receipt.handle = containing the message identification
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;preserveMessages&quot; default=&quot;false&quot; use=&quot;optional&quot; type=&quot;booleanType&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;Flag that indicates if you want to preserve the messages in the queue. False by default, so the messages are going to be deleted.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;pollPeriod&quot; default=&quot;1000&quot; use=&quot;optional&quot; type=&quot;longType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;time in milliseconds to wait between polls. Default period is 1000 ms.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;numberOfMessages&quot; default=&quot;1&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the number of messages to be retrieved on each call. By default, 1 message will be retrieved.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;

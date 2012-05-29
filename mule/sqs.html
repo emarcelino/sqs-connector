@@ -1181,9 +1181,9 @@ attribute on each operation.</p>
           
                 
                 <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>payload</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Payload of the message to send. Defaults to the payload of the Mule message.</td>
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol">#[payload]</td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The message to send. Defaults to the payload of the Mule message.</td>
                 </tr>
                 
                 
@@ -1411,8 +1411,27 @@ attribute on each operation.</p>
                     <td class="jd-linkcol"><nobr>preserveMessages</nobr></td>
                     <td class="jd-descrcol">false</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Flag that indicates if you want to preserve the messages
-                         in the queue. False by default, so the messages are
-                         going to be deleted.</td>
+                         	in the queue. False by default, so the messages are
+                         	going to be deleted.</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>pollPeriod</nobr></td>
+                    <td class="jd-descrcol">1000</td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Time in milliseconds to wait between polls. Default period is 1000 ms.</td>
+                </tr>
+                
+                
+          
+                
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>numberOfMessages</nobr></td>
+                    <td class="jd-descrcol">1</td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The number of messages to be retrieved on each call. By default, 
+ 							1 message will be retrieved.			                        </td>
                 </tr>
                 
                 
@@ -1437,6 +1456,10 @@ attribute on each operation.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
+          
+            
           
             
           
