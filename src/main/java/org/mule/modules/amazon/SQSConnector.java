@@ -142,7 +142,7 @@ public class SQSConnector {
      *                         	in the queue. False by default, so the messages are
      *                         	going to be deleted.
      * @param pollPeriod 		time in milliseconds to wait between polls. Default period is 1000 ms.
-     * @param numberOfMessages 	the number of messages to be retrieved on each call (10 messages max). 
+     * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max). 
      * 							By default, 1 message will be retrieved.			                        
      * @throws SQSException 
      */
