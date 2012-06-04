@@ -135,13 +135,14 @@ public class SQSConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
-     * @param callback 			Callback to call when a new message is available.
+     * @param callback          Callback to call when a new message is available.
      * @param visibilityTimeout the duration (in seconds) the retrieved message is hidden from
      *                          subsequent calls to retrieve.
      * @param preserveMessages 	Flag that indicates if you want to preserve the messages
      *                         	in the queue. False by default, so the messages are
      *                         	going to be deleted.
-     * @param pollPeriod 		time in milliseconds to wait between polls. Default period is 1000 ms.
+     * @param pollPeriod        time in milliseconds to wait between polls (when no messages were retrieved). 
+     *                          Default period is 1000 ms.
      * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max). 
      * 							By default, 1 message will be retrieved.			                        
      * @throws SQSException 
