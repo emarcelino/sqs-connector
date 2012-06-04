@@ -750,7 +750,7 @@ sqs.message.receipt.handle = containing the message identification
         &lt;/xs:attribute&gt;
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;pollPeriod&quot; default=&quot;1000&quot; use=&quot;optional&quot; type=&quot;longType&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;time in milliseconds to wait between polls. Default period is 1000 ms.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;time in milliseconds to wait between polls (when no messages were retrieved). Default period is 1000 ms.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;numberOfMessages&quot; default=&quot;1&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
