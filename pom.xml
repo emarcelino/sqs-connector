@@ -15,6 +15,7 @@
 
     <properties>
         <category>Community</category>
+	<licensePath>LICENSE.md</licensePath>
     </properties>
 
     <dependencies>
