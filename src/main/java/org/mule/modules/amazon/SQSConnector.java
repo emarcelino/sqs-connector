@@ -21,6 +21,7 @@ import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Source;
 import org.mule.api.annotations.ValidateConnection;
@@ -75,7 +76,7 @@ public class SQSConnector {
      */
     @Connect
     public void connect(@ConnectionKey String queueName)
-            throws ConnectionException {
+             throws ConnectionException {
         try {
             msgQueue = SQSUtils.connectToQueue(queueName, accessKey, secretAccessKey);
             msgQueue.setEncoding(false);
@@ -108,8 +109,9 @@ public class SQSConnector {
      * @throws SQSException if something goes wrong
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void sendMessage(@Optional @Default("#[payload]") final String message) throws SQSException {
-        msgQueue.sendMessage(message);
+    	msgQueue.sendMessage(message);
     }
 
     /**
@@ -148,8 +150,9 @@ public class SQSConnector {
      * @throws SQSException 	wraps checked exceptions
      */
     @Source
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void receiveMessages(SourceCallback callback, 
-                                @Optional Integer visibilityTimeout, 
+                                @Optional @Default("30") Integer visibilityTimeout, 
                                 @Optional @Default("false") Boolean preserveMessages,
                                 @Optional @Default("1000") Long pollPeriod,
                                 @Optional @Default("1") Integer numberOfMessages) throws SQSException {
