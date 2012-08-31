@@ -145,7 +145,7 @@ public class SQSConnector {
      *                          Default period is 1000 ms.
      * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max). 
      * 							By default, 1 message will be retrieved.			                        
-     * @throws SQSException 
+     * @throws SQSException 	wraps checked exceptions
      */
     @Source
     public void receiveMessages(SourceCallback callback, 
@@ -201,6 +201,7 @@ public class SQSConnector {
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:delete-message}
      *
      * @param receiptHandle Receipt handle of the message to be deleted
+     * @throws SQSException wraps checked exceptions
      */
     @Processor
     public void deleteMessage(@Optional @Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle)
@@ -303,5 +304,13 @@ public class SQSConnector {
 
     public void setSecretAccessKey(String secretAccessKey) {
         this.secretAccessKey = secretAccessKey;
+    }
+    
+    public String getAccessKey() {
+    	return accessKey;
+    }
+    
+    public String getSecretAccessKey() {
+    	return secretAccessKey;
     }
 }

@@ -5,10 +5,7 @@
 <sqs:get-url/>
 <!-- END_INCLUDE(sqs:get-url) -->
 <!-- BEGIN_INCLUDE(sqs:receive-messages) -->
-<flow name="main">
     <sqs:receive-messages/>
-    <logger level="INFO" message="Received message with #[payload]"/>
-</flow>
 <!-- END_INCLUDE(sqs:receive-messages) -->
 <!-- BEGIN_INCLUDE(sqs:delete-message) -->
 <sqs:delete-message receiptHandle="xxx"/>
