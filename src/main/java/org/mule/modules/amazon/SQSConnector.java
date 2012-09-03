@@ -207,6 +207,7 @@ public class SQSConnector {
      * @throws SQSException wraps checked exceptions
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void deleteMessage(@Optional @Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle)
             throws SQSException {
         msgQueue.deleteMessage(receiptHandle);
@@ -220,6 +221,7 @@ public class SQSConnector {
      * @throws SQSException wraps checked exceptions
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void deleteQueue() throws SQSException {
         msgQueue.deleteQueue();
     }
@@ -241,6 +243,7 @@ public class SQSConnector {
      * @throws SQSException wraps checked exceptions
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public Map<String, String> getQueueAttributes(QueueAttribute attribute) throws SQSException {
         return msgQueue.getQueueAttributes(attribute);
     }
@@ -256,6 +259,7 @@ public class SQSConnector {
      * @throws SQSException wraps checked exceptions
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void setQueueAttribute(QueueAttribute attribute, String value) throws SQSException {
         msgQueue.setQueueAttribute(attribute.name(), value);
     }
@@ -271,6 +275,7 @@ public class SQSConnector {
      * @throws SQSException wraps checked exceptions
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void addPermission(String label, String accountId, String action) throws SQSException {
         msgQueue.addPermission(label, accountId, action);
     }
@@ -284,6 +289,7 @@ public class SQSConnector {
      * @throws SQSException wraps checked exceptions
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public void removePermission(String label) throws SQSException {
         msgQueue.removePermission(label);
     }   
@@ -297,6 +303,7 @@ public class SQSConnector {
      * @return the approximate number of messages in the queue
      */
     @Processor
+    @InvalidateConnectionOn(exception = SQSException.class)
     public int getApproximateNumberOfMessages() throws SQSException {
         return msgQueue.getApproximateNumberOfMessages();
     }   
