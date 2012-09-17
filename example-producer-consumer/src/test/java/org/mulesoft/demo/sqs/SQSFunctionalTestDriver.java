@@ -1,5 +1,5 @@
 /**
- * Mule Amazon Connector
+ * Mule SQS Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mulesoft.demo.amazon;
+package org.mulesoft.demo.sqs;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +24,7 @@ import org.mule.tck.junit4.FunctionalTestCase;
  * @since Nov 16, 2011
  */
 
-public class AmazonFunctionalTestDriver extends FunctionalTestCase
+public class SQSFunctionalTestDriver extends FunctionalTestCase
 {
 
     @Override

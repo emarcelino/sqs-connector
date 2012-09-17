@@ -1,5 +1,5 @@
 /**
- * Mule Amazon Connector
+ * Mule SQS Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.amazon;
+package org.mule.modules.sqs;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class SQSConnector {
      * AWS secret access id
      */
     @Configurable
-    private String secretAccessKey;
+    private String secretKey;
 
     /**
      * Message Queue
@@ -78,7 +78,7 @@ public class SQSConnector {
     public void connect(@ConnectionKey String queueName)
              throws ConnectionException {
         try {
-            msgQueue = SQSUtils.connectToQueue(queueName, accessKey, secretAccessKey);
+            msgQueue = SQSUtils.connectToQueue(queueName, accessKey, secretKey);
             msgQueue.setEncoding(false);
         } catch (SQSException e) {
             throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
@@ -312,15 +312,15 @@ public class SQSConnector {
         this.accessKey = accessKey;
     }
 
-    public void setSecretAccessKey(String secretAccessKey) {
-        this.secretAccessKey = secretAccessKey;
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
     
     public String getAccessKey() {
     	return accessKey;
     }
     
-    public String getSecretAccessKey() {
-    	return secretAccessKey;
+    public String getSecretKey() {
+    	return secretKey;
     }
 }

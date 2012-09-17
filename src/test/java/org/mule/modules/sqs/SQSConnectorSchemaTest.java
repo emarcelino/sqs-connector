@@ -1,5 +1,5 @@
 /**
- * Mule Amazon Connector
+ * Mule SQS Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -9,7 +9,7 @@
  */
 
 
-package org.mule.modules.amazon;
+package org.mule.modules.sqs;
 
 import org.mule.tck.junit4.FunctionalTestCase;
 
