@@ -9,10 +9,10 @@
     
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
-    <artifactId>mule-module-amazon</artifactId>
+    <artifactId>mule-module-sqs</artifactId>
     <version>1.2.2-SNAPSHOT</version>
     <packaging>mule-module</packaging>
-    <name>Mule Amazon Module</name>
+    <name>Mule SQS Module</name>
 
     <properties>
         <category>Community</category>
@@ -44,9 +44,9 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com:mulesoft/amazon-connector.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/amazon-connector.git</developerConnection>
-        <url>http://github.com/mulesoft/amazon-connector</url>
+        <connection>scm:git:git://github.com:mulesoft/sqs-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/sqs-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/sqs-connector</url>
     </scm>
 
     <build>

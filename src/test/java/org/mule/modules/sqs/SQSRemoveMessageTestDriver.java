@@ -1,5 +1,5 @@
 /**
- * Mule Amazon Connector
+ * Mule SQS Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.amazon;
+package org.mule.modules.sqs;
 
 import static org.junit.Assert.*;
 
@@ -67,7 +67,7 @@ public class SQSRemoveMessageTestDriver
     public static void init() throws ConnectionException, SQSException {
         module = new SQSConnector();
         module.setAccessKey(System.getenv("sqsAccessKey"));
-        module.setSecretAccessKey(System.getenv("sqsSecretAccessKey"));
+        module.setSecretKey(System.getenv("sqsSecretKey"));
         module.connect("test5613809");
         assertTrue(module.getApproximateNumberOfMessages()==0);
     }

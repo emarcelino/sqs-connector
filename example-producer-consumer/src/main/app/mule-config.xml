@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 
-    Mule Amazon Connector
+    Mule SQS Connector
 
     Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
 
@@ -29,7 +29,7 @@
             http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/1.0/mule-sqs.xsd">
                                               
     <sqs:config accessKey="${sqsAccessKey}" 
-                secretAccessKey="${sqsSecretAccessKey}"
+                secretAccessKey="${sqsAccessKey}"
                 queueName="mule-test"/>
     
     <mongo:config username="${mongoUsername}"

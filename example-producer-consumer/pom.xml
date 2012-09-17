@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.demos</groupId>
-    <artifactId>mule-module-amazon-example-producer-consumer</artifactId>
+    <artifactId>mule-module-sqs-example-producer-consumer</artifactId>
     <packaging>mule</packaging>
-    <name>Mule Amazon SQS Demo</name>
+    <name>Mule SQS Demo</name>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <mule.version>3.2.0</mule.version>
         <mule.devkit.version>3.0.1-SNAPSHOT</mule.devkit.version>
         <junit.version>4.8.2</junit.version>
-        <mule.amazon.version>1.0-SNAPSHOT</mule.amazon.version>
+        <mule.sqs.version>1.2.2-SNAPSHOT</mule.sqs.version>
         <mule.mongo.version>2.0-SNAPSHOT</mule.mongo.version>
         <ibeans.version>1.1</ibeans.version>
     </properties>
@@ -66,7 +66,7 @@
                     <inclusions>
                         <inclusion>
                             <groupId>org.mule.modules</groupId>
-                            <artifactId>mule-module-amazon</artifactId>
+                            <artifactId>mule-module-sqs</artifactId>
                         </inclusion>
                         <inclusion>
                             <groupId>org.mule.modules</groupId>
@@ -105,8 +105,8 @@
     <dependencies>
         <dependency>
             <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-amazon</artifactId>
-            <version>${mule.amazon.version}</version>
+            <artifactId>mule-module-sqs</artifactId>
+            <version>${mule.sqs.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mule.tests</groupId>

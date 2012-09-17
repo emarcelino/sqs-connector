@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <!--
 
-    Mule Amazon Connector Copyright (c) MuleSoft, Inc. All rights
+    Mule SQS Connector Copyright (c) MuleSoft, Inc. All rights
     reserved. http://www.mulesoft.com The software in this package is
     published under the terms of the CPAL v1.0 license, a copy of which
     has been included with this distribution in the LICENSE.txt file.
@@ -20,7 +20,7 @@
     <context:property-placeholder location="classpath:credentials.properties" />
   </spring:beans>
 
-  <sqs:config accessKey="${aws.accessKey}" secretAccessKey="${aws.secretAccessKey}" />
+  <sqs:config accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" />
 
   <flow name="Send">
     <sqs:send-message queueName="test" />
