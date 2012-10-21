@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mule SQS Connector Copyright (c) MuleSoft, Inc. All rights reserved. 
+    http://www.mulesoft.com The software in this package is published under the 
+    terms of the CPAL v1.0 license, a copy of which has been included with this 
+    distribution in the LICENSE.txt file. -->
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+    xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/current/mule-sqs.xsd
+        http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+
+    <sqs:config name="mule-test" accessKey="${sqsAccessKey}" secretKey="${sqsSecretKey}" queueName="mule-test" />
+
+    <flow name="producer" doc:description="Puts a text message in the message queue">
+        <http:inbound-endpoint host="localhost" method="POST" port="9090" path="status"/>
+        <logger level="DEBUG" message="Pushing message #[payload] to the queue" />
+        <sqs:send-message />
+    </flow>
+
+    <flow name="consumer"
+        doc:description="Get a message from the queue, and write it to a file">
+        <sqs:receive-messages />
+        <logger level="DEBUG" message="Pulling message #[payload] from the queue" />
+        <file:outbound-endpoint path="${statusDir}" outputPattern="#[function:datestamp].msg" />
+    </flow>
+
+</mule>
