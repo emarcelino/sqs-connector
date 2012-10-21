@@ -12,7 +12,7 @@ HOW TO DEMO:
 
   2. Run the SQSFunctionalTestDriver, or deploy this demo an a Mule Container. 
     a. store status as a file
-        Run the testPutSomeStatusInMongo test or alternatively run curl
+        Run the testProduceAndConsume test or alternatively run curl
         Example:
             curl -X POST -d 'happy camper' http://localhost:9090/status
         
