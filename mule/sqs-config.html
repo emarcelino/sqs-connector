@@ -70,7 +70,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule Amazon Module." />
+  <meta name="description" content="Documentation for Mule SQS Module." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
 <title>
@@ -78,7 +78,7 @@
   SQSConnector
 
 
-| Mule Amazon Module
+| Mule SQS Module
 
 </title>
 <link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -119,7 +119,7 @@
   feedback_widget_options.color = "#2F74AE";
   feedback_widget_options.style = "question";
 
-  feedback_widget_options.tag = "Mule Amazon Module";
+  feedback_widget_options.tag = "Mule SQS Module";
 
   feedback_widget_options.limit = "3";
 
@@ -132,7 +132,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule Amazon Module</span>
+      <span id="masthead-title">Mule SQS Module</span>
     
     <ul id="header-tabs" class="mule">
     
@@ -221,7 +221,7 @@ Summary:
 
 <div id="jd-header">
     org.mule.modules
-<h1>mule-module-amazon</h1>
+<h1>mule-module-sqs</h1>
     config
 
 </div><!-- end header -->
@@ -253,13 +253,16 @@ Summary:
 
 
 <h2>Module Overview</h2>
-<p>Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging service introduced by Amazon.com in
- April of 2006. It supports programmatic sending of messages via web service applications as a way to communicate
- over the internet. The intent of SQS is to provide a highly scalable hosted message queue that resolves issues
- arising from the common producer-consumer problem or connectivity between producer and consumer.
+<p>Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging
+ service introduced by Amazon.com in April of 2006. It supports programmatic
+ sending of messages via web service applications as a way to communicate over
+ the internet. The intent of SQS is to provide a highly scalable hosted
+ message queue that resolves issues arising from the common producer-consumer
+ problem or connectivity between producer and consumer.
  <p/>
- This connector does not provide a method for creating a queue. The reason being that it will automatically
- create it when its needed instead of having to manually specify so.</p>
+ This connector does not provide a method for creating a queue. The reason
+ being that it will automatically create it when its needed instead of having
+ to manually specify so.</p>
 
 
 </div><!-- jd-descr -->
@@ -328,69 +331,10 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#add-permission">&lt;sqs:add-permission&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Adds a permission to this message queue.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sqs-config.html#delete-message">&lt;sqs:delete-message&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object represents.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#delete-queue">&lt;sqs:delete-queue&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Deletes the message queue represented by this object.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#get-approximate-number-of-messages">&lt;sqs:get-approximate-number-of-messages&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Gets the visibility timeout for the queue.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#get-queue-attributes">&lt;sqs:get-queue-attributes&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Gets queue attributes.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#get-url">&lt;sqs:get-url&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">This method provides the URL for the message queue represented by this object.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#remove-permission">&lt;sqs:remove-permission&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Removes a permission from this message queue.</div>
+        <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object
+ represents.</div>
         
   </td></tr>
 
@@ -401,16 +345,6 @@ Summary:
         <span class="sympad"><a href="../mule/sqs-config.html#send-message">&lt;sqs:send-message&gt;</a></nobr>
         
         <div class="jd-descrdiv">Sends a message to a specified queue.</div>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../mule/sqs-config.html#set-queue-attribute">&lt;sqs:set-queue-attribute&gt;</a></nobr>
-        
-        <div class="jd-descrdiv">Sets a queue attribute.</div>
         
   </td></tr>
 
@@ -485,7 +419,20 @@ specify which configuration to use.</p>
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>secretAccessKey</nobr></td>
+          <td class="jd-linkcol"><nobr>region</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The Region of the SQS connection
+</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>secretKey</nobr></td>
           <td class="jd-descrcol"></td>
           <td class="jd-descrcol" width="100%">AWS secret access id
 </td>
@@ -592,111 +539,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
     
 
 
-<A NAME="add-permission"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:add-permission&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Adds a permission to this message queue.
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>label</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">A name for this permission</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                
-                
-          
-                
-                    <tr class="alt-color api apilevel-" >
-                        <td class="jd-linkcol"><nobr>accountId</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The AWS account ID for the account to share this queue with</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                
-                
-          
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>action</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                
-                
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class="alt-color api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-    
-  
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="delete-message"></A>
 
 <div class="jd-details api apilevel-">
@@ -710,7 +552,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message identified by message object on the queue this object represents.
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message identified by message object on the queue this object
+ represents.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-message receiptHandle="xxx"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
@@ -732,7 +575,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>receiptHandle</nobr></td>
                         <td class="jd-descrcol">#[header:inbound:sqs.message.receipt.handle]</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Receipt handle of the message to be deleted</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Receipt handle of the message to be deleted
+</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -761,422 +605,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   
     
   
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="delete-queue"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:delete-queue&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message queue represented by this object. Will delete non-empty queue.
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-queue queueName="abc"/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-    
-  
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="get-approximate-number-of-messages"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:get-approximate-number-of-messages&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Gets the visibility timeout for the queue.
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-approximate-number-of-messages/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-      <div class="jd-tagdata">
-         <h5 class="jd-tagtitle">Returns</h5>
-         <table id="lconfig" class="jd-sumtable">
-             <tr>
-                <th>Return Type</th>
-                <th>Description</th>
-             </tr>
-             <tr>
-                <td class="jd-descrcol">int</td>
-                <td class="jd-descrcol">the approximate number of messages in the queue
-</td>
-             </tr>
-         </table>
-  </div>
-    
-  
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="get-queue-attributes"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:get-queue-attributes&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Gets queue attributes. This is provided to expose the underlying functionality.
- Currently supported attributes are;
- ApproximateNumberOfMessages
- CreatedTimestamp
- LastModifiedTimestamp
- VisibilityTimeout
- RequestPayer
- Policy
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="MAXIUMUM_MESSAGE_SIZE"/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>attribute</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">Attribute to get</td>
-                        <td class="jd-descrcol">QueueAttribute</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol"></td>
-                    </tr>
-                
-                
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class="alt-color api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-      <div class="jd-tagdata">
-         <h5 class="jd-tagtitle">Returns</h5>
-         <table id="lconfig" class="jd-sumtable">
-             <tr>
-                <th>Return Type</th>
-                <th>Description</th>
-             </tr>
-             <tr>
-                <td class="jd-descrcol">Map&lt;String,&nbsp;String&gt;</td>
-                <td class="jd-descrcol">a map of attributes and their values</td>
-             </tr>
-         </table>
-  </div>
-    
-  
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="get-url"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:get-url&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>This method provides the URL for the message queue represented by this object.
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-url/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-      <div class="jd-tagdata">
-         <h5 class="jd-tagtitle">Returns</h5>
-         <table id="lconfig" class="jd-sumtable">
-             <tr>
-                <th>Return Type</th>
-                <th>Description</th>
-             </tr>
-             <tr>
-                <td class="jd-descrcol">URL</td>
-                <td class="jd-descrcol">generated queue service url
-</td>
-             </tr>
-         </table>
-  </div>
-    
-  
-
-    </div>
-</div>
-
-
-<A NAME="remove-permission"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:remove-permission&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Removes a permission from this message queue.
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:remove-permission label="message"/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>label</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">A name for the permission to be removed</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                
-                
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class="alt-color api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-    
-  
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>
@@ -1195,7 +623,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
+  <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and
+ 256K bytes long.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:send-message/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
@@ -1217,7 +646,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>message</nobr></td>
                         <td class="jd-descrcol">#[payload]</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The message to send. Defaults to the payload of the Mule message.</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The message to send. Defaults to the payload of the Mule
+            message.
+</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1246,112 +677,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   
     
   
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>if something goes wrong
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="set-queue-attribute"></A>
-
-<div class="jd-details api apilevel-">
-    <h4 class="jd-details-title">
-      <span class="sympad">&lt;sqs:set-queue-attribute&gt;</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets a queue attribute. This is provided to expose the underlying functionality, although
- the only attribute at this time is visibility timeout.
- <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VISIBILITY_TIMEOUT" value="86400"/&gt;</pre></div></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Attributes</h5>
-
-        <table id="lconfig" class="jd-sumtable">
-        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-        <tr>
-          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-        </tr>
-          
-          
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>attribute</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">Name of the attribute being set</td>
-                        <td class="jd-descrcol">QueueAttribute</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol"></td>
-                    </tr>
-                
-                
-          
-                
-                    <tr class="alt-color api apilevel-" >
-                        <td class="jd-linkcol"><nobr>value</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The value being set for this attribute</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                
-                
-          
-          
-              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
-                
-                    <tr class=" api apilevel-" >
-                        <td class="jd-linkcol"><nobr>queueName</nobr></td>
-                        <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
-                        <td class="jd-descrcol">String</td>
-                        <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol">UTF-8</td>
-                    </tr>
-                    
-                
-          
-          
-        </table>
-  </div>
-  
-  
-    
-  
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>
@@ -1385,9 +710,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive a message from the queue. Every attribute of the incoming
- message will be added as an inbound property. Also the following properties
- will also be added:
+  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive a message from the queue. Every attribute of the
+ incoming message will be added as an inbound property. Also the following
+ properties will also be added:
  <p/>
  sqs.message.id = containing the message identification
  sqs.message.receipt.handle = containing the message identification
@@ -1425,7 +750,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>visibilityTimeout</nobr></td>
                         <td class="jd-descrcol">30</td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The duration (in seconds) the retrieved message is hidden from
-                          subsequent calls to retrieve.</td>
+            subsequent calls to retrieve.</td>
                         <td class="jd-descrcol">Integer</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1437,9 +762,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>preserveMessages</nobr></td>
                         <td class="jd-descrcol">false</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Flag that indicates if you want to preserve the messages
-                         	in the queue. False by default, so the messages are
-                         	going to be deleted.</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Flag that indicates if you want to preserve the messages in
+            the queue. False by default, so the messages are going to be
+            deleted.</td>
                         <td class="jd-descrcol">Boolean</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1451,8 +776,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>pollPeriod</nobr></td>
                         <td class="jd-descrcol">1000</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Time in milliseconds to wait between polls (when no messages were retrieved). 
-                          Default period is 1000 ms.</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Time in milliseconds to wait between polls (when no messages
+            were retrieved). Default period is 1000 ms.</td>
                         <td class="jd-descrcol">Long</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1464,8 +789,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>numberOfMessages</nobr></td>
                         <td class="jd-descrcol">1</td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The number of messages to be retrieved on each call (10 messages max). 
- 							By default, 1 message will be retrieved.			                        </td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The number of messages to be retrieved on each call (10
+            messages max). By default, 1 message will be retrieved.
+</td>
                         <td class="jd-descrcol">Integer</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
@@ -1494,18 +820,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   
     
   
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payloads</h5>
-      <table class="jd-sumtable">
-        <tr><th>Payload Class</th><th>Description</th></tr>
-        
-        <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
-</td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>

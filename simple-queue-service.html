@@ -69,13 +69,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule Amazon Module." />
+  <meta name="description" content="Documentation for Mule SQS Module." />
 
 <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 <title>
 
 
-| Mule Amazon Module
+| Mule SQS Module
 
 </title>
 <link href="./assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -116,7 +116,7 @@
   feedback_widget_options.color = "#2F74AE";
   feedback_widget_options.style = "question";
 
-  feedback_widget_options.tag = "Mule Amazon Module";
+  feedback_widget_options.tag = "Mule SQS Module";
 
   feedback_widget_options.limit = "3";
 
@@ -129,7 +129,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule Amazon Module</span>
+      <span id="masthead-title">Mule SQS Module</span>
     
     <ul id="header-tabs" class="sqs">
     
@@ -233,16 +233,13 @@ revert that conversion, to get your original object.</p>
 
 <h3>Example</h3>
 
-<pre><code>&lt;flow name="producer"&gt;
-    &lt;description&gt;Puts a text message in the message queue.&lt;/description&gt;
-    &lt;inbound-endpoint address="http://localhost:9090/add-status-to-mongo"/&gt;
-    &lt;expression-transformer expression="#[header:inbound:status]" evaluator="string"/&gt;
-    &lt;sqs:send-message/&gt;
+<pre><code>&lt;flow name="producer" doc:description="Puts a text message in the message queue"&gt;
+    &lt;http:inbound-endpoint host="localhost" method="POST" port="9090" path="status"/&gt;
+    &lt;sqs:send-message /&gt;
 &lt;/flow&gt;
 </code></pre>
 
-<p>In this example, we can view how to send to the queue a message created from the parameter status of the url <em>http://localhost:9090/add-status-to-mongo</em>
-As you can see, we have to make that status, the new payload, so it could be sent.</p>
+<p>In this example, we can view how to send to the queue a message created from the POST data sent to <em>http://localhost:9090/status</em></p>
 
 <h2>Receiving messages from the Queue</h2>
 
@@ -254,7 +251,7 @@ can be used as such.</p>
     &lt;sqs:recieve-messages visibilityTimeout="5" 
                           preserveMessages="false"/&gt;
     &lt;!-- REST OF YOUR FLOW --&gt;
-    &lt;logger level="INFO" message="Received a message: #[payload]"/&gt;
+    &lt;logger level="DEBUG" message="Received a message: #[payload]"/&gt;
 &lt;/flow&gt;
 </code></pre>
 
@@ -276,16 +273,12 @@ For example, if you only have a message in the queue, and you retrieve it with a
 
 <pre><code>&lt;flow name="consumer"&gt;
     &lt;sqs:receive-messages /&gt;
-    &lt;mongo:insert-object-from-map collection="status"&gt;
-      &lt;mongo:element-attributes&gt;
-        &lt;mongo:element-attribute key="text"&gt;#[payload]&lt;/mongo:element-attribute&gt;
-      &lt;/mongo:element-attributes&gt;
-    &lt;/mongo:insert-object-from-map&gt;
+    &lt;file:outbound-endpoint path="${statusDir}" outputPattern="#[function:datestamp].msg" /&gt;
 &lt;/flow&gt;
 </code></pre>
 
-<p>This example gets a message from the queue, and add it to a <em>Mongo DB</em>. Because <em>receive-messages</em> is a <em>Source</em>, you don't have to run it, because it will be running from the beginning.
-Then every message received from the queue, will be inserted in the collection status from our Mongo DB. As you can see, every command that follows the <em>receive-message</em> will used each 
+<p>This example gets a message from the queue, and writes it to a file. Because <em>receive-messages</em> is a <em>Source</em>, you don't have to run it, because it will be running from the beginning.
+Then every message received from the queue, will end up as a new file in the status dir. As you can see, every command that follows the <em>receive-message</em> will used each 
 message that retrieves.</p>
 
 

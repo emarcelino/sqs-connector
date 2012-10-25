@@ -1,12 +1,9 @@
-com.xerox.amazonws.sqs2.transformers
-org.mule.modules.amazon
-org.mule.modules.amazon.adapters
-org.mule.modules.amazon.agents
-org.mule.modules.amazon.config
-org.mule.modules.amazon.config.spring
-org.mule.modules.amazon.connectivity
-org.mule.modules.amazon.process
-org.mule.modules.amazon.processors
-org.mule.modules.amazon.sources
-org.mule.modules.amazon.transformers
+org.mule.modules.sqs
+org.mule.modules.sqs.adapters
+org.mule.modules.sqs.agents
+org.mule.modules.sqs.config
+org.mule.modules.sqs.connectivity
+org.mule.modules.sqs.process
+org.mule.modules.sqs.processors
+org.mule.modules.sqs.sources
 
