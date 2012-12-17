@@ -44,9 +44,9 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com:mulesoft/amazon-connector.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/amazon-connector.git</developerConnection>
-        <url>http://github.com/mulesoft/amazon-connector</url>
+        <connection>scm:git:git://github.com:mulesoft/sqs-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/sqs-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/sqs-connector</url>
     </scm>
 
     <build>
