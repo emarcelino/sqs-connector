@@ -11,16 +11,23 @@ package org.mule.modules.sqs;
 
 import java.util.Map;
 
+import org.mule.api.MuleEvent;
+import org.mule.api.MuleException;
 import org.mule.api.callback.SourceCallback;
 
-class InterruptCallback implements SourceCallback {
+abstract class InterruptCallback implements SourceCallback {
       @Override
       public Object process(Object payload, Map<String, Object> properties) throws Exception {
          interrupt();
          return null;
       }
 
-      @Override
+    @Override
+    public MuleEvent processEvent(MuleEvent muleEvent) throws MuleException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
       public Object process(Object payload) throws Exception {
          interrupt();
          return null;

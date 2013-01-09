@@ -65,7 +65,7 @@ import com.google.common.collect.Lists;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "sqs")
+@Connector(name = "sqs", friendlyName = "Amazon SQS")
 public class SQSConnector {
 
     @VisibleForTesting
