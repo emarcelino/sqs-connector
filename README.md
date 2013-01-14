@@ -1,7 +1,7 @@
-Mule SQS Connector
+Mule Amazon SQS Connector
 =========================
 
-The SQS Connector allows Mule to connect to [Amazon SQS](http://aws.amazon.com/sqs/).
+The Amazon SQS Connector allows Mule to connect to [Amazon SQS](http://aws.amazon.com/sqs/).
 
 For accessing S3, please check [mule-s3-connector](https://github.com/mulesoft/s3-connector). For FWS support, check [mule-fws-connector](https://github.com/mulesoft/fws-connector).
 

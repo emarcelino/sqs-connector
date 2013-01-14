@@ -1,5 +1,5 @@
 /**
- * Mule SQS Connector
+ * Mule Amazon SQS Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -7,6 +7,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+
 package org.mule.modules.sqs;
 
 import java.util.Map;

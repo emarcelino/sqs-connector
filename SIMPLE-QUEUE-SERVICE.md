@@ -20,12 +20,15 @@ revert that conversion, to get your original object.
 
 ### Example
 
-    <flow name="producer" doc:description="Puts a text message in the message queue">
-        <http:inbound-endpoint host="localhost" method="POST" port="9090" path="status"/>
-        <sqs:send-message />
+    <flow name="producer">
+        <description>Puts a text message in the message queue.</description>
+        <inbound-endpoint address="http://localhost:9090/add-status-to-mongo"/>
+        <expression-transformer expression="#[header:inbound:status]" evaluator="string"/>
+        <sqs:send-message/>
     </flow>
     
-In this example, we can view how to send to the queue a message created from the POST data sent to _http://localhost:9090/status_
+In this example, we can view how to send to the queue a message created from the parameter status of the url _http://localhost:9090/add-status-to-mongo_
+As you can see, we have to make that status, the new payload, so it could be sent.
 
 Receiving messages from the Queue
 ---------------------------------
@@ -38,7 +41,7 @@ can be used as such.
         <sqs:recieve-messages visibilityTimeout="5" 
                               preserveMessages="false"/>
         <!-- REST OF YOUR FLOW -->
-        <logger level="DEBUG" message="Received a message: #[payload]"/>
+        <logger level="INFO" message="Received a message: #[payload]"/>
     </flow>
 
 A Mule flow is divided in two. The first portion of it is usually an inbound endpoint or a message source. It is an entity that will receive/generate events that will later
@@ -59,9 +62,13 @@ For example, if you only have a message in the queue, and you retrieve it with a
 
     <flow name="consumer">
         <sqs:receive-messages />
-        <file:outbound-endpoint path="${statusDir}" outputPattern="#[function:datestamp].msg" />
+        <mongo:insert-object-from-map collection="status">
+          <mongo:element-attributes>
+            <mongo:element-attribute key="text">#[payload]</mongo:element-attribute>
+          </mongo:element-attributes>
+        </mongo:insert-object-from-map>
     </flow>
     
-This example gets a message from the queue, and writes it to a file. Because _receive-messages_ is a _Source_, you don't have to run it, because it will be running from the beginning.
-Then every message received from the queue, will end up as a new file in the status dir. As you can see, every command that follows the _receive-message_ will used each 
+This example gets a message from the queue, and add it to a _Mongo DB_. Because _receive-messages_ is a _Source_, you don't have to run it, because it will be running from the beginning.
+Then every message received from the queue, will be inserted in the collection status from our Mongo DB. As you can see, every command that follows the _receive-message_ will used each 
 message that retrieves.
