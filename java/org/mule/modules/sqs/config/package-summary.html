@@ -70,7 +70,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule SQS Module." />
+  <meta name="description" content="Documentation for Mule Amazon SQS Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
@@ -78,7 +78,7 @@
   org.mule.modules.sqs.config
 
 
-| Mule SQS Module
+| Mule Amazon SQS Connector
 
 </title>
 <link href="../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -121,7 +121,7 @@
   feedback_widget_options.color = "#2F74AE";
   feedback_widget_options.style = "question";
 
-  feedback_widget_options.tag = "Mule SQS Module";
+  feedback_widget_options.tag = "Mule Amazon SQS Connector";
 
   feedback_widget_options.limit = "3";
 
@@ -134,7 +134,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule SQS Module</span>
+      <span id="masthead-title">Mule Amazon SQS Connector</span>
     
     <ul id="header-tabs" class="java">
     
@@ -208,6 +208,8 @@
               <ul>
                 
     <li class="api apilevel-">
+  <a href="../../../../../../java/com/xerox/amazonws/sqs2/transformers/package-summary.html">com.xerox.amazonws.sqs2.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/adapters/package-summary.html">org.mule.modules.sqs.adapters</a></li>
@@ -238,9 +240,16 @@
     <li><h2>Classes</h2>
       <ul>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/AbstractDefinitionParser.html">AbstractDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/AddPermissionDefinitionParser.html">AddPermissionDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/DeleteQueueDefinitionParser.html">DeleteQueueDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/GetApproximateNumberOfMessagesDefinitionParser.html">GetApproximateNumberOfMessagesDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/GetQueueAttributesDefinitionParser.html">GetQueueAttributesDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/GetUrlDefinitionParser.html">GetUrlDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/ReceiveMessagesDefinitionParser.html">ReceiveMessagesDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/RemovePermissionDefinitionParser.html">RemovePermissionDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/config/SqsNamespaceHandler.html">SqsNamespaceHandler</a></li>
       </ul>
@@ -331,11 +340,35 @@
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a></td>
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/AddPermissionDefinitionParser.html">AddPermissionDefinitionParser</a></td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/DeleteQueueDefinitionParser.html">DeleteQueueDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/GetApproximateNumberOfMessagesDefinitionParser.html">GetApproximateNumberOfMessagesDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/GetQueueAttributesDefinitionParser.html">GetQueueAttributesDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/GetUrlDefinitionParser.html">GetUrlDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/ReceiveMessagesDefinitionParser.html">ReceiveMessagesDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/RemovePermissionDefinitionParser.html">RemovePermissionDefinitionParser</a></td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
@@ -343,10 +376,14 @@
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a></td>
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a></td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/config/SqsNamespaceHandler.html">SqsNamespaceHandler</a></td>
               <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sqs</code>.&nbsp;</td>
           </tr>

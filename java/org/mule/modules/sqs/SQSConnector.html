@@ -69,7 +69,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule SQS Module." />
+  <meta name="description" content="Documentation for Mule Amazon SQS Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.ico" />
 <title>
@@ -77,7 +77,7 @@
   SQSConnector
 
 
-| Mule SQS Module
+| Mule Amazon SQS Connector
 
 </title>
 <link href="../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -120,7 +120,7 @@
   feedback_widget_options.color = "#2F74AE";
   feedback_widget_options.style = "question";
 
-  feedback_widget_options.tag = "Mule SQS Module";
+  feedback_widget_options.tag = "Mule Amazon SQS Connector";
 
   feedback_widget_options.limit = "3";
 
@@ -133,7 +133,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule SQS Module</span>
+      <span id="masthead-title">Mule Amazon SQS Connector</span>
     
     <ul id="header-tabs" class="">
     
@@ -206,6 +206,8 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../../../../../java/com/xerox/amazonws/sqs2/transformers/package-summary.html">com.xerox.amazonws.sqs2.transformers</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="api apilevel-">
@@ -228,17 +230,9 @@
           <div id="classes-nav">
             <ul>
               
-    <li><h2>Interfaces</h2>
-      <ul>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/sqs/SQSConnection.html">SQSConnection</a></li>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a></li>
-      </ul>
-    </li>
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/sqs/AWSSQSConnection.html">AWSSQSConnection</a></li>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/sqs/AWSSQSConnection.Builder.html">AWSSQSConnection.Builder</a></li>
           <li class="selected api apilevel-"><a href="../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></li>
       </ul>
     </li>
@@ -470,16 +464,13 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging
- service introduced by Amazon.com in April of 2006. It supports programmatic
- sending of messages via web service applications as a way to communicate over
- the internet. The intent of SQS is to provide a highly scalable hosted
- message queue that resolves issues arising from the common producer-consumer
- problem or connectivity between producer and consumer.
+<p>Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging service introduced by Amazon.com in
+ April of 2006. It supports programmatic sending of messages via web service applications as a way to communicate
+ over the internet. The intent of SQS is to provide a highly scalable hosted message queue that resolves issues
+ arising from the common producer-consumer problem or connectivity between producer and consumer.
  <p/>
- This connector does not provide a method for creating a queue. The reason
- being that it will automatically create it when its needed instead of having
- to manually specify so.</p>
+ This connector does not provide a method for creating a queue. The reason being that it will automatically
+ create it when its needed instead of having to manually specify so.</p>
 
 
 
@@ -543,55 +534,11 @@ Summary:
     
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
+          private
+          static
           
-          
-          
-          <a href="../../../../../java/org/mule/modules/sqs/SQSConnection.html">SQSConnection</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#connection">connection</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          final
-          <a href="../../../../../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#connectionBuilder">connectionBuilder</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          
-          MessageApi</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#messageApi">messageApi</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          
-          URI</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#queue">queue</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          
-          QueueApi</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#queueApi">queueApi</a></td>
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -601,9 +548,9 @@ Summary:
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#region">region</a></td>
-          <td class="jd-descrcol" width="100%">The Region of the SQS connection
+          MessageQueue</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#msgQueue">msgQueue</a></td>
+          <td class="jd-descrcol" width="100%">Message Queue
 </td>
       </tr>
       
@@ -645,22 +592,6 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#SQSConnector(org.mule.modules.sqs.SQSConnection.Builder)">SQSConnector</a></span>(<a href="../../../../../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a> connectionBuilder)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            </nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#SQSConnector()">SQSConnector</a></span>()</nobr>
         
   </td></tr>
@@ -690,7 +621,41 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String)">addPermission</a></span>(String label, String accountId, String action)</nobr>
+        
+        <div class="jd-descrdiv">Adds a permission to this message queue.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#connect(java.lang.String)">connect</a></span>(String queueName)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Map&lt;String,&nbsp;Object&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#createProperties(com.xerox.amazonws.sqs2.Message)">createProperties</a></span>(Message msg)</nobr>
         
   </td></tr>
 
@@ -701,13 +666,15 @@ Summary:
             
             
             
-            static
             
-            Map&lt;String,&nbsp;Object&gt;</nobr>
+            
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#createProperties(org.jclouds.sqs.domain.Message)">createProperties</a></span>(Message msg)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage</a></span>(String receiptHandle)</nobr>
         
+        <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object represents.</div>
+  
   </td></tr>
 
 
@@ -722,10 +689,9 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage</a></span>(String receiptHandle)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#deleteQueue()">deleteQueue</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object
- represents.</div>
+        <div class="jd-descrdiv">Deletes the message queue represented by this object.</div>
   
   </td></tr>
 
@@ -754,10 +720,10 @@ Summary:
             
             
             
-            boolean</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#equals(java.lang.Object)">equals</a></span>(Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getAccessKey()">getAccessKey</a></span>()</nobr>
         
   </td></tr>
 
@@ -770,11 +736,13 @@ Summary:
             
             
             
-            String</nobr>
+            int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getAccessKey()">getAccessKey</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages()">getApproximateNumberOfMessages</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Gets the visibility timeout for the queue.</div>
+  
   </td></tr>
 
 
@@ -802,11 +770,13 @@ Summary:
             
             
             
-            String</nobr>
+            Map&lt;String,&nbsp;String&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getRegion()">getRegion</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)">getQueueAttributes</a></span>(QueueAttribute attribute)</nobr>
         
+        <div class="jd-descrdiv">Gets queue attributes.</div>
+  
   </td></tr>
 
 
@@ -834,11 +804,13 @@ Summary:
             
             
             
-            int</nobr>
+            URL</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#hashCode()">hashCode</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getUrl()">getUrl</a></span>()</nobr>
         
+        <div class="jd-descrdiv">This method provides the URL for the message queue represented by this object.</div>
+  
   </td></tr>
 
 
@@ -887,9 +859,9 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage</a></span>(String message)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String)">removePermission</a></span>(String label)</nobr>
         
-        <div class="jd-descrdiv">Sends a message to a specified queue.</div>
+        <div class="jd-descrdiv">Removes a permission from this message queue.</div>
   
   </td></tr>
 
@@ -905,8 +877,10 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setAccessKey(java.lang.String)">setAccessKey</a></span>(String accessKey)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage</a></span>(String message)</nobr>
         
+        <div class="jd-descrdiv">Sends a message to a specified queue.</div>
+  
   </td></tr>
 
 
@@ -921,7 +895,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setRegion(java.lang.String)">setRegion</a></span>(String region)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setAccessKey(java.lang.String)">setAccessKey</a></span>(String accessKey)</nobr>
         
   </td></tr>
 
@@ -937,8 +911,10 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setSecretKey(java.lang.String)">setSecretKey</a></span>(String secretKey)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)">setQueueAttribute</a></span>(QueueAttribute attribute, String value)</nobr>
         
+        <div class="jd-descrdiv">Sets a queue attribute.</div>
+  
   </td></tr>
 
 
@@ -950,10 +926,10 @@ Summary:
             
             
             
-            String</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#toString()">toString</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setSecretKey(java.lang.String)">setSecretKey</a></span>(String secretKey)</nobr>
         
   </td></tr>
 
@@ -1237,17 +1213,17 @@ From class
 
 
 
-<A NAME="connection"></A>
+<A NAME="logger"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
+        private 
+        static 
          
-         
-         
-        <a href="../../../../../java/org/mule/modules/sqs/SQSConnection.html">SQSConnection</a>
+        Logger
       </span>
-        connection
+        logger
     </h4>
       <div class="api-level">
         
@@ -1267,127 +1243,7 @@ From class
 
 
 
-<A NAME="connectionBuilder"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-         
-         
-        final 
-        <a href="../../../../../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a>
-      </span>
-        connectionBuilder
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="messageApi"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-         
-         
-         
-        MessageApi
-      </span>
-        messageApi
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="queue"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-         
-         
-         
-        URI
-      </span>
-        queue
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="queueApi"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-         
-         
-         
-        QueueApi
-      </span>
-        queueApi
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="region"></A>
+<A NAME="msgQueue"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1395,9 +1251,9 @@ From class
         private 
          
          
-        String
+        MessageQueue
       </span>
-        region
+        msgQueue
     </h4>
       <div class="api-level">
         
@@ -1409,7 +1265,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The Region of the SQS connection
+  <div class="jd-tagdata jd-tagdescr"><p>Message Queue
 </p></div>
 
     
@@ -1458,46 +1314,6 @@ From class
 
 
 
-<A NAME="SQSConnector(org.mule.modules.sqs.SQSConnection.Builder)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        
-      </span>
-      <span class="sympad">SQSConnector</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a> connectionBuilder)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>connectionBuilder</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="SQSConnector()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1542,6 +1358,66 @@ From class
 
 <h2>Public Methods</h2>
 
+
+
+<A NAME="addPermission(java.lang.String, java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">addPermission</span>
+      <span class="normal">(String label, String accountId, String action)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Adds a permission to this message queue.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>label</td>
+          <td>A name for this permission</td>
+        </tr>
+        <tr>
+          <th>accountId</td>
+          <td>The AWS account ID for the account to share this queue with</td>
+        </tr>
+        <tr>
+          <th>action</td>
+          <td>A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
 
 
 <A NAME="connect(java.lang.String)"></A>
@@ -1594,13 +1470,13 @@ From class
 </div>
 
 
-<A NAME="createProperties(org.jclouds.sqs.domain.Message)"></A>
+<A NAME="createProperties(com.xerox.amazonws.sqs2.Message)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
+         
          
          
          
@@ -1625,9 +1501,14 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>msg</td>
-          <td></td>
+          <td>Message to extract properties from.</td>
         </tr>
       </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>map with properties
+</li></ul>
   </div>
 
     </div>
@@ -1659,8 +1540,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message identified by message object on the queue this object
- represents.
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message identified by message object on the queue this object represents.
  <p/>
  </p></div>
   <div class="jd-tagdata">
@@ -1668,7 +1548,59 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>receiptHandle</td>
-          <td>Receipt handle of the message to be deleted
+          <td>Receipt handle of the message to be deleted</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteQueue()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteQueue</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message queue represented by this object. Will delete non-empty queue.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
 </td>
         </tr>
       </table>
@@ -1709,46 +1641,6 @@ From class
 </div>
 
 
-<A NAME="equals(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        boolean
-      </span>
-      <span class="sympad">equals</span>
-      <span class="normal">(Object obj)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>obj</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="getAccessKey()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1775,6 +1667,53 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getApproximateNumberOfMessages()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        int
+      </span>
+      <span class="sympad">getApproximateNumberOfMessages</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the visibility timeout for the queue.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the approximate number of messages in the queue
+</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions</td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>
@@ -1811,7 +1750,7 @@ From class
 </div>
 
 
-<A NAME="getRegion()"></A>
+<A NAME="getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1821,10 +1760,10 @@ From class
          
          
          
-        String
+        Map&lt;String,&nbsp;String&gt;
       </span>
-      <span class="sympad">getRegion</span>
-      <span class="normal">()</span>
+      <span class="sympad">getQueueAttributes</span>
+      <span class="normal">(QueueAttribute attribute)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1836,7 +1775,39 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Gets queue attributes. This is provided to expose the underlying functionality.
+ Currently supported attributes are;
+ ApproximateNumberOfMessages
+ CreatedTimestamp
+ LastModifiedTimestamp
+ VisibilityTimeout
+ RequestPayer
+ Policy
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>attribute</td>
+          <td>Attribute to get</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a map of attributes and their values</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
+</td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>
@@ -1873,7 +1844,7 @@ From class
 </div>
 
 
-<A NAME="hashCode()"></A>
+<A NAME="getUrl()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1883,9 +1854,9 @@ From class
          
          
          
-        int
+        URL
       </span>
-      <span class="sympad">hashCode</span>
+      <span class="sympad">getUrl</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1898,7 +1869,14 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>This method provides the URL for the message queue represented by this object.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>generated queue service url
+</li></ul>
+  </div>
 
     </div>
 </div>
@@ -1960,9 +1938,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive a message from the queue. Every attribute of the
- incoming message will be added as an inbound property. Also the following
- properties will also be added:
+  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive a message from the queue. Every attribute of the incoming
+ message will be added as an inbound property. Also the following properties
+ will also be added:
  <p/>
  sqs.message.id = containing the message identification
  sqs.message.receipt.handle = containing the message identification
@@ -1978,23 +1956,84 @@ From class
         <tr>
           <th>visibilityTimeout</td>
           <td>The duration (in seconds) the retrieved message is hidden from
-            subsequent calls to retrieve.</td>
+                          subsequent calls to retrieve.</td>
         </tr>
         <tr>
           <th>preserveMessages</td>
-          <td>Flag that indicates if you want to preserve the messages in
-            the queue. False by default, so the messages are going to be
-            deleted.</td>
+          <td>Flag that indicates if you want to preserve the messages
+                         	in the queue. False by default, so the messages are
+                         	going to be deleted.</td>
         </tr>
         <tr>
           <th>pollPeriod</td>
-          <td>Time in milliseconds to wait between polls (when no messages
-            were retrieved). Default period is 1000 ms.</td>
+          <td>Time in milliseconds to wait between polls (when no messages were retrieved). 
+                          Default period is 1000 ms.</td>
         </tr>
         <tr>
           <th>numberOfMessages</td>
-          <td>The number of messages to be retrieved on each call (10
-            messages max). By default, 1 message will be retrieved.
+          <td>The number of messages to be retrieved on each call (10 messages max). 
+ 							By default, 1 message will be retrieved.			                        </td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="removePermission(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">removePermission</span>
+      <span class="normal">(String label)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Removes a permission from this message queue.
+ <p/>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>label</td>
+          <td>A name for the permission to be removed</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
 </td>
         </tr>
       </table>
@@ -2029,8 +2068,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and
- 256K bytes long.
+  <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
  <p/>
  </p></div>
   <div class="jd-tagdata">
@@ -2038,8 +2076,16 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>message</td>
-          <td>The message to send. Defaults to the payload of the Mule
-            message.
+          <td>The message to send. Defaults to the payload of the Mule message.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>if something goes wrong
 </td>
         </tr>
       </table>
@@ -2089,7 +2135,7 @@ From class
 </div>
 
 
-<A NAME="setRegion(java.lang.String)"></A>
+<A NAME="setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2101,8 +2147,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setRegion</span>
-      <span class="normal">(String region)</span>
+      <span class="sympad">setQueueAttribute</span>
+      <span class="normal">(QueueAttribute attribute, String value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2114,13 +2160,30 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets a queue attribute. This is provided to expose the underlying functionality, although
+ the only attribute at this time is visibility timeout.
+ <p/>
+ </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>region</td>
-          <td></td>
+          <th>attribute</td>
+          <td>Name of the attribute being set</td>
+        </tr>
+        <tr>
+          <th>value</td>
+          <td>The value being set for this attribute</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>SQSException</td>
+            <td>wraps checked exceptions
+</td>
         </tr>
       </table>
   </div>
@@ -2164,37 +2227,6 @@ From class
         </tr>
       </table>
   </div>
-
-    </div>
-</div>
-
-
-<A NAME="toString()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">toString</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>

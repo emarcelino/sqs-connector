@@ -78,7 +78,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule SQS Module." />
+  <meta name="description" content="Documentation for Mule Amazon SQS Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
 <title>
@@ -86,7 +86,7 @@
   Class Hierarchy
 
 
-| Mule SQS Module
+| Mule Amazon SQS Connector
 
 </title>
 <link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -129,7 +129,7 @@
   feedback_widget_options.color = "#2F74AE";
   feedback_widget_options.style = "question";
 
-  feedback_widget_options.tag = "Mule SQS Module";
+  feedback_widget_options.tag = "Mule Amazon SQS Connector";
 
   feedback_widget_options.limit = "3";
 
@@ -141,7 +141,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule SQS Module</span>
+      <span id="masthead-title">Mule Amazon SQS Connector</span>
     
     <ul id="header-tabs" class="java">
     
@@ -214,6 +214,8 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../java/com/xerox/amazonws/sqs2/transformers/package-summary.html">com.xerox.amazonws.sqs2.transformers</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="api apilevel-">
@@ -298,46 +300,6 @@
     &nbsp;
     </td>
 </tr>
-
-
-<tr>
-    <td class="jd-hierarchy-spacer"></td>
-    <td class="jd-hierarchy-data" colspan="6">
-    
-        <a href="../java/org/mule/modules/sqs/AWSSQSConnection.html">AWSSQSConnection</a>
-    
-    </td>
-    <td class="jd-hierarchy-data">
-    
-        
-            <a href="../java/org/mule/modules/sqs/SQSConnection.html">SQSConnection</a>
-         &nbsp;&nbsp;
-    
-    &nbsp;
-    </td>
-</tr>
-
-
-
-
-<tr>
-    <td class="jd-hierarchy-spacer"></td>
-    <td class="jd-hierarchy-data" colspan="6">
-    
-        <a href="../java/org/mule/modules/sqs/AWSSQSConnection.Builder.html">AWSSQSConnection.Builder</a>
-    
-    </td>
-    <td class="jd-hierarchy-data">
-    
-        
-            <a href="../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a>
-         &nbsp;&nbsp;
-    
-    &nbsp;
-    </td>
-</tr>
-
-
 
 
 <tr>
@@ -518,6 +480,22 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="5">
     
+        <a href="../java/org/mule/modules/sqs/config/AddPermissionDefinitionParser.html">AddPermissionDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
         <a href="../java/org/mule/modules/sqs/config/DeleteMessageDefinitionParser.html">DeleteMessageDefinitionParser</a>
     
     </td>
@@ -534,7 +512,87 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="5">
     
+        <a href="../java/org/mule/modules/sqs/config/DeleteQueueDefinitionParser.html">DeleteQueueDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
+        <a href="../java/org/mule/modules/sqs/config/GetApproximateNumberOfMessagesDefinitionParser.html">GetApproximateNumberOfMessagesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
+        <a href="../java/org/mule/modules/sqs/config/GetQueueAttributesDefinitionParser.html">GetQueueAttributesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
+        <a href="../java/org/mule/modules/sqs/config/GetUrlDefinitionParser.html">GetUrlDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
         <a href="../java/org/mule/modules/sqs/config/ReceiveMessagesDefinitionParser.html">ReceiveMessagesDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
+        <a href="../java/org/mule/modules/sqs/config/RemovePermissionDefinitionParser.html">RemovePermissionDefinitionParser</a>
     
     </td>
     <td class="jd-hierarchy-data">
@@ -567,6 +625,22 @@
     <td class="jd-hierarchy-data" colspan="5">
     
         <a href="../java/org/mule/modules/sqs/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="5">
+    
+        <a href="../java/org/mule/modules/sqs/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a>
     
     </td>
     <td class="jd-hierarchy-data">
@@ -874,6 +948,42 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/sqs/processors/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a>
     
     </td>
@@ -910,7 +1020,223 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
+        <a href="../java/org/mule/modules/sqs/processors/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/sqs/processors/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/sqs/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/sqs/processors/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
         <a href="../java/org/mule/modules/sqs/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a>
     
     </td>
     <td class="jd-hierarchy-data">

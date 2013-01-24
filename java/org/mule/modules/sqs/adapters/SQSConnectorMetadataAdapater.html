@@ -69,7 +69,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule SQS Module." />
+  <meta name="description" content="Documentation for Mule Amazon SQS Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
@@ -77,7 +77,7 @@
   SQSConnectorMetadataAdapater
 
 
-| Mule SQS Module
+| Mule Amazon SQS Connector
 
 </title>
 <link href="../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -120,7 +120,7 @@
   feedback_widget_options.color = "#2F74AE";
   feedback_widget_options.style = "question";
 
-  feedback_widget_options.tag = "Mule SQS Module";
+  feedback_widget_options.tag = "Mule Amazon SQS Connector";
 
   feedback_widget_options.limit = "3";
 
@@ -133,7 +133,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule SQS Module</span>
+      <span id="masthead-title">Mule Amazon SQS Connector</span>
     
     <ul id="header-tabs" class="">
     
@@ -206,6 +206,8 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../../../../../../java/com/xerox/amazonws/sqs2/transformers/package-summary.html">com.xerox.amazonws.sqs2.transformers</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="selected api apilevel-">
@@ -648,55 +650,11 @@ Summary:
     
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
+          private
+          static
           
-          
-          
-          <a href="../../../../../../java/org/mule/modules/sqs/SQSConnection.html">SQSConnection</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#connection">connection</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          final
-          <a href="../../../../../../java/org/mule/modules/sqs/SQSConnection.Builder.html">SQSConnection.Builder</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#connectionBuilder">connectionBuilder</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          
-          MessageApi</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#messageApi">messageApi</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          
-          URI</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#queue">queue</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          
-          
-          
-          QueueApi</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#queueApi">queueApi</a></td>
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -706,9 +664,9 @@ Summary:
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#region">region</a></td>
-          <td class="jd-descrcol" width="100%">The Region of the SQS connection
+          MessageQueue</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#msgQueue">msgQueue</a></td>
+          <td class="jd-descrcol" width="100%">Message Queue
 </td>
       </tr>
       
@@ -931,7 +889,41 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String)">addPermission</a></span>(String label, String accountId, String action)</nobr>
+        
+        <div class="jd-descrdiv">Adds a permission to this message queue.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#connect(java.lang.String)">connect</a></span>(String queueName)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Map&lt;String,&nbsp;Object&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#createProperties(com.xerox.amazonws.sqs2.Message)">createProperties</a></span>(Message msg)</nobr>
         
   </td></tr>
 
@@ -942,13 +934,15 @@ From class
             
             
             
-            static
             
-            Map&lt;String,&nbsp;Object&gt;</nobr>
+            
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#createProperties(org.jclouds.sqs.domain.Message)">createProperties</a></span>(Message msg)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage</a></span>(String receiptHandle)</nobr>
         
+        <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object represents.</div>
+  
   </td></tr>
 
 
@@ -963,10 +957,9 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage</a></span>(String receiptHandle)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteQueue()">deleteQueue</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object
- represents.</div>
+        <div class="jd-descrdiv">Deletes the message queue represented by this object.</div>
   
   </td></tr>
 
@@ -995,10 +988,10 @@ From class
             
             
             
-            boolean</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#equals(java.lang.Object)">equals</a></span>(Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getAccessKey()">getAccessKey</a></span>()</nobr>
         
   </td></tr>
 
@@ -1011,11 +1004,13 @@ From class
             
             
             
-            String</nobr>
+            int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getAccessKey()">getAccessKey</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages()">getApproximateNumberOfMessages</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Gets the visibility timeout for the queue.</div>
+  
   </td></tr>
 
 
@@ -1043,11 +1038,13 @@ From class
             
             
             
-            String</nobr>
+            Map&lt;String,&nbsp;String&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getRegion()">getRegion</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)">getQueueAttributes</a></span>(QueueAttribute attribute)</nobr>
         
+        <div class="jd-descrdiv">Gets queue attributes.</div>
+  
   </td></tr>
 
 
@@ -1075,11 +1072,13 @@ From class
             
             
             
-            int</nobr>
+            URL</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#hashCode()">hashCode</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getUrl()">getUrl</a></span>()</nobr>
         
+        <div class="jd-descrdiv">This method provides the URL for the message queue represented by this object.</div>
+  
   </td></tr>
 
 
@@ -1128,9 +1127,9 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage</a></span>(String message)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String)">removePermission</a></span>(String label)</nobr>
         
-        <div class="jd-descrdiv">Sends a message to a specified queue.</div>
+        <div class="jd-descrdiv">Removes a permission from this message queue.</div>
   
   </td></tr>
 
@@ -1146,8 +1145,10 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setAccessKey(java.lang.String)">setAccessKey</a></span>(String accessKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage</a></span>(String message)</nobr>
         
+        <div class="jd-descrdiv">Sends a message to a specified queue.</div>
+  
   </td></tr>
 
 
@@ -1162,7 +1163,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setRegion(java.lang.String)">setRegion</a></span>(String region)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setAccessKey(java.lang.String)">setAccessKey</a></span>(String accessKey)</nobr>
         
   </td></tr>
 
@@ -1178,8 +1179,10 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setSecretKey(java.lang.String)">setSecretKey</a></span>(String secretKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)">setQueueAttribute</a></span>(QueueAttribute attribute, String value)</nobr>
         
+        <div class="jd-descrdiv">Sets a queue attribute.</div>
+  
   </td></tr>
 
 
@@ -1191,10 +1194,10 @@ From class
             
             
             
-            String</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#toString()">toString</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setSecretKey(java.lang.String)">setSecretKey</a></span>(String secretKey)</nobr>
         
   </td></tr>
 
@@ -1714,7 +1717,7 @@ From interface
         <span class="jd-tagtitle">Constant Value: </span>
         <span>
             
-                "2.0.0-SNAPSHOT"
+                "2.0.1-SNAPSHOT"
             
         </span>
         </div>

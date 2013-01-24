@@ -1,3 +1,4 @@
+com.xerox.amazonws.sqs2.transformers
 org.mule.modules.sqs
 org.mule.modules.sqs.adapters
 org.mule.modules.sqs.agents
