@@ -24,7 +24,6 @@ public class SQSConnectorSchemaTest extends FunctionalTestCase
         return "sqs-schema-test.xml";
     }
 
-    @Ignore("FIXME - This test never worked!")
     @Test
     public void testCanParseXmlWithoutSchemaValidationErrors() throws Exception
     {

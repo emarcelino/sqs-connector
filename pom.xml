@@ -12,7 +12,7 @@
     <artifactId>mule-module-sqs</artifactId>
     <version>2.0.1-SNAPSHOT</version>
     <packaging>mule-module</packaging>
-    <name>Mule Amazon SQS Module</name>
+    <name>Mule Amazon SQS Connector</name>
 
     <properties>
         <category>Community</category>
