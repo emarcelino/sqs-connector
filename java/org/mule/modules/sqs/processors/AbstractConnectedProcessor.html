@@ -507,7 +507,7 @@ Summary:
           </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">GetQueueAttributesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)">getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+              <td class="jd-descrcol" width="100%">GetQueueAttributesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String)">getQueueAttributes(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a></td>
@@ -527,7 +527,7 @@ Summary:
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">SetQueueAttributeMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)">setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+              <td class="jd-descrcol" width="100%">SetQueueAttributeMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String)">setQueueAttribute(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
           </tr>
   </table>
       </div>
@@ -592,7 +592,29 @@ Summary:
           
           
           String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#_accessKeyType">_accessKeyType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#_queueNameType">_queueNameType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#_secretKeyType">_secretKeyType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -603,7 +625,29 @@ Summary:
           
           
           Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#accessKey">accessKey</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#queueName">queueName</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#secretKey">secretKey</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -662,9 +706,49 @@ Summary:
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#getAccessKey()">getAccessKey</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves accessKey
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#getQueueName()">getQueueName</a></span>()</nobr>
         
         <div class="jd-descrdiv">Retrieves queueName
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#getSecretKey()">getSecretKey</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves secretKey
  
 </div>
   
@@ -682,9 +766,45 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#setAccessKey(java.lang.Object)">setAccessKey</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets accessKey</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#setQueueName(java.lang.Object)">setQueueName</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets queueName</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/AbstractConnectedProcessor.html#setSecretKey(java.lang.Object)">setSecretKey</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets secretKey</div>
   
   </td></tr>
 
@@ -1161,6 +1281,36 @@ From class
 
 
 
+<A NAME="_accessKeyType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _accessKeyType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="_queueNameType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1191,6 +1341,66 @@ From class
 
 
 
+<A NAME="_secretKeyType"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        String
+      </span>
+        _secretKeyType
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="accessKey"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        accessKey
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="queueName"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1202,6 +1412,36 @@ From class
         Object
       </span>
         queueName
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="secretKey"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+        Object
+      </span>
+        secretKey
     </h4>
       <div class="api-level">
         
@@ -1276,6 +1516,39 @@ From class
 
 
 
+<A NAME="getAccessKey()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getAccessKey</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves accessKey
+ 
+</p></div>
+
+    </div>
+</div>
+
+
 <A NAME="getQueueName()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1309,6 +1582,80 @@ From class
 </div>
 
 
+<A NAME="getSecretKey()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Object
+      </span>
+      <span class="sympad">getSecretKey</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves secretKey
+ 
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="setAccessKey(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAccessKey</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets accessKey</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setQueueName(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1335,6 +1682,47 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets queueName</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setSecretKey(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setSecretKey</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets secretKey</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">

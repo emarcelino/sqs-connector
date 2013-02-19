@@ -454,52 +454,6 @@ similar to the following:</p>
 &lt;/mule&gt;
 </pre>
 
-<p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
-the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
-its own name.</p>
-<p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
-specify which configuration to use.</p>
-<table id="lconfig" class="jd-sumtable">
-<tr><th colspan="12">Attributes</th></tr>
-<tr><th>Type</th><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
-<td class="jd-typecol"><nobr>xs:string</nobr></td>
-<td class="jd-linkcol"><nobr>name</nobr></td>
-<td class="jd-descrcol"></td>
-<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Give a name to this configuration so it can be later referenced.</td>
-<td/><td/><td/>
-
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>accessKey</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">AWS access id
-</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          xs:string</nobr></td>
-          <td class="jd-linkcol"><nobr>secretKey</nobr></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol" width="100%">AWS secret access id
-</td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-          <td class="jd-descrcol"></td>
-      </tr>
-      
-    
-    
-    
-</table>
-
-
 
 
 
@@ -525,6 +479,26 @@ resolution.</p>
 <td class="jd-descrcol"></td>
 <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td><td/><td/><td/></tr>
 
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%">AWS access key</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%">AWS secret key</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
     
       <tr class=" api apilevel-" >
           <td class="jd-linkcol"><nobr>queueName</nobr></td>
@@ -663,6 +637,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -686,8 +680,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -744,6 +745,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -767,8 +788,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -813,6 +841,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -836,8 +884,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -882,6 +937,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -919,8 +994,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions</td>
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.</td>
         </tr>
       </table>
   </div>
@@ -951,7 +1033,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
  RequestPayer
  Policy
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="MAXIUMUM_MESSAGE_SIZE"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="CreatedTimestamp"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -972,15 +1054,35 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>attribute</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">Attribute to get</td>
-                        <td class="jd-descrcol">QueueAttribute</td>
+                        <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">UTF-8</td>
                     </tr>
                 
                 
           
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
@@ -1019,8 +1121,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1065,6 +1174,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -1088,7 +1217,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol">URL</td>
+                <td class="jd-descrcol">String</td>
                 <td class="jd-descrcol">generated queue service url
 </td>
              </tr>
@@ -1148,6 +1277,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -1171,8 +1320,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1229,6 +1385,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -1252,8 +1428,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>if something goes wrong
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1279,7 +1462,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   <div class="jd-tagdata jd-tagdescr"><p>Sets a queue attribute. This is provided to expose the underlying functionality, although
  the only attribute at this time is visibility timeout.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VISIBILITY_TIMEOUT" value="86400"/&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VisibilityTimeout" value="86400"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1300,9 +1483,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>attribute</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">Name of the attribute being set</td>
-                        <td class="jd-descrcol">QueueAttribute</td>
+                        <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
-                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">UTF-8</td>
                     </tr>
                 
                 
@@ -1321,6 +1504,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
@@ -1346,8 +1549,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1477,6 +1687,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
                     <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS access key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>secretKey</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>AWS secret key</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
@@ -1500,8 +1730,15 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr><th>Payload Class</th><th>Description</th></tr>
         
         <tr>
-            <td>SQSException</td>
-            <td>wraps checked exceptions
+            <td>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>
+        <tr>
+            <td>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>

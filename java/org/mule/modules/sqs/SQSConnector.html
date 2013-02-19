@@ -523,18 +523,6 @@ Summary:
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#accessKey">accessKey</a></td>
-          <td class="jd-descrcol" width="100%">AWS access id
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
           static
           
           Logger</nobr></td>
@@ -543,26 +531,26 @@ Summary:
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
-          MessageQueue</nobr></td>
+          AmazonSQSClient</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#msgQueue">msgQueue</a></td>
           <td class="jd-descrcol" width="100%">Message Queue
 </td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#secretKey">secretKey</a></td>
-          <td class="jd-descrcol" width="100%">AWS secret access id
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#queueUrl">queueUrl</a></td>
+          <td class="jd-descrcol" width="100%">Queue URL
 </td>
       </tr>
       
@@ -639,7 +627,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#connect(java.lang.String)">connect</a></span>(String queueName)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#connect(java.lang.String, java.lang.String, java.lang.String)">connect</a></span>(String accessKey, String secretKey, String queueName)</nobr>
         
   </td></tr>
 
@@ -655,7 +643,7 @@ Summary:
             Map&lt;String,&nbsp;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#createProperties(com.xerox.amazonws.sqs2.Message)">createProperties</a></span>(Message msg)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#createProperties(com.amazonaws.services.sqs.model.Message)">createProperties</a></span>(Message msg)</nobr>
         
   </td></tr>
 
@@ -720,22 +708,6 @@ Summary:
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getAccessKey()">getAccessKey</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -743,22 +715,6 @@ Summary:
         
         <div class="jd-descrdiv">Gets the visibility timeout for the queue.</div>
   
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getMessageQueueUrl()">getMessageQueueUrl</a></span>()</nobr>
-        
   </td></tr>
 
 
@@ -773,7 +729,7 @@ Summary:
             Map&lt;String,&nbsp;String&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)">getQueueAttributes</a></span>(QueueAttribute attribute)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String)">getQueueAttributes</a></span>(String attribute)</nobr>
         
         <div class="jd-descrdiv">Gets queue attributes.</div>
   
@@ -791,7 +747,7 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getSecretKey()">getSecretKey</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueUrl()">getQueueUrl</a></span>()</nobr>
         
   </td></tr>
 
@@ -804,7 +760,7 @@ Summary:
             
             
             
-            URL</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#getUrl()">getUrl</a></span>()</nobr>
@@ -895,8 +851,10 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setAccessKey(java.lang.String)">setAccessKey</a></span>(String accessKey)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String)">setQueueAttribute</a></span>(String attribute, String value)</nobr>
         
+        <div class="jd-descrdiv">Sets a queue attribute.</div>
+  
   </td></tr>
 
 
@@ -911,25 +869,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)">setQueueAttribute</a></span>(QueueAttribute attribute, String value)</nobr>
-        
-        <div class="jd-descrdiv">Sets a queue attribute.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setSecretKey(java.lang.String)">setSecretKey</a></span>(String secretKey)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueUrl(java.lang.String)">setQueueUrl</a></span>(String queueUrl)</nobr>
         
   </td></tr>
 
@@ -1182,37 +1122,6 @@ From class
 
 
 
-<A NAME="accessKey"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        accessKey
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>AWS access id
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="logger"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1251,7 +1160,7 @@ From class
         private 
          
          
-        MessageQueue
+        AmazonSQSClient
       </span>
         msgQueue
     </h4>
@@ -1274,7 +1183,7 @@ From class
 
 
 
-<A NAME="secretKey"></A>
+<A NAME="queueUrl"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1284,7 +1193,7 @@ From class
          
         String
       </span>
-        secretKey
+        queueUrl
     </h4>
       <div class="api-level">
         
@@ -1296,7 +1205,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>AWS secret access id
+  <div class="jd-tagdata jd-tagdescr"><p>Queue URL
 </p></div>
 
     
@@ -1409,8 +1318,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1420,7 +1336,7 @@ From class
 </div>
 
 
-<A NAME="connect(java.lang.String)"></A>
+<A NAME="connect(java.lang.String, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1433,7 +1349,7 @@ From class
         void
       </span>
       <span class="sympad">connect</span>
-      <span class="normal">(String queueName)</span>
+      <span class="normal">(String accessKey, String secretKey, String queueName)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1449,6 +1365,14 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
+        <tr>
+          <th>accessKey</td>
+          <td>AWS access key</td>
+        </tr>
+        <tr>
+          <th>secretKey</td>
+          <td>AWS secret key</td>
+        </tr>
         <tr>
           <th>queueName</td>
           <td>The name of the queue to connect to</td>
@@ -1470,7 +1394,7 @@ From class
 </div>
 
 
-<A NAME="createProperties(com.xerox.amazonws.sqs2.Message)"></A>
+<A NAME="createProperties(com.amazonaws.services.sqs.model.Message)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1556,8 +1480,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1599,8 +1530,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1623,37 +1561,6 @@ From class
         void
       </span>
       <span class="sympad">disconnect</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getAccessKey()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getAccessKey</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1709,8 +1616,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions</td>
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.</td>
         </tr>
       </table>
   </div>
@@ -1719,38 +1633,7 @@ From class
 </div>
 
 
-<A NAME="getMessageQueueUrl()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getMessageQueueUrl</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getQueueAttributes(com.xerox.amazonws.sqs2.QueueAttribute)"></A>
+<A NAME="getQueueAttributes(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1763,7 +1646,7 @@ From class
         Map&lt;String,&nbsp;String&gt;
       </span>
       <span class="sympad">getQueueAttributes</span>
-      <span class="normal">(QueueAttribute attribute)</span>
+      <span class="normal">(String attribute)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1802,8 +1685,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -1813,7 +1703,7 @@ From class
 </div>
 
 
-<A NAME="getSecretKey()"></A>
+<A NAME="getQueueUrl()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1825,7 +1715,7 @@ From class
          
         String
       </span>
-      <span class="sympad">getSecretKey</span>
+      <span class="sympad">getQueueUrl</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1854,7 +1744,7 @@ From class
          
          
          
-        URL
+        String
       </span>
       <span class="sympad">getUrl</span>
       <span class="normal">()</span>
@@ -1980,8 +1870,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -2032,8 +1929,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -2084,8 +1988,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>if something goes wrong
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -2095,47 +2006,7 @@ From class
 </div>
 
 
-<A NAME="setAccessKey(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setAccessKey</span>
-      <span class="normal">(String accessKey)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>accessKey</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setQueueAttribute(com.xerox.amazonws.sqs2.QueueAttribute, java.lang.String)"></A>
+<A NAME="setQueueAttribute(java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2148,7 +2019,7 @@ From class
         void
       </span>
       <span class="sympad">setQueueAttribute</span>
-      <span class="normal">(QueueAttribute attribute, String value)</span>
+      <span class="normal">(String attribute, String value)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2181,8 +2052,15 @@ From class
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>SQSException</td>
-            <td>wraps checked exceptions
+            <th>AmazonClientException</td>
+            <td>If any internal errors are encountered inside the client while
+             attempting to make the request or handle the response.  For example
+             if a network connection is not available.</td>
+        </tr>  
+        <tr>
+            <th>AmazonServiceException</td>
+            <td>If an error response is returned by AmazonSQS indicating
+             either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>
@@ -2192,7 +2070,7 @@ From class
 </div>
 
 
-<A NAME="setSecretKey(java.lang.String)"></A>
+<A NAME="setQueueUrl(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2204,8 +2082,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setSecretKey</span>
-      <span class="normal">(String secretKey)</span>
+      <span class="sympad">setQueueUrl</span>
+      <span class="normal">(String queueUrl)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2222,7 +2100,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>secretKey</td>
+          <th>queueUrl</td>
           <td></td>
         </tr>
       </table>
