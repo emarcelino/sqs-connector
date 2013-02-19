@@ -24,8 +24,6 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.callback.SourceCallback;
 
-import com.xerox.amazonws.sqs2.SQSException;
-
 /**
  * @author Gaston Ponti
  * @since Nov 24, 2011
@@ -71,21 +69,19 @@ public class SQSRemoveMessageTestDriver
     private static SQSConnector module;
 
     @BeforeClass
-    public static void init() throws ConnectionException, SQSException {
+    public static void init() throws ConnectionException {
         module = new SQSConnector();
-        module.setAccessKey(System.getenv("sqsAccessKey"));
-        module.setSecretKey(System.getenv("sqsSecretKey"));
-        module.connect("test5613809");
+        module.connect(System.getenv("sqsAccessKey"), System.getenv("sqsSecretKey"), "test5613809");
         assertTrue(module.getApproximateNumberOfMessages()==0);
     }
 
     @Before
-    public void addOneMessage() throws SQSException {
+    public void addOneMessage() {
         module.sendMessage("Hello");
     }
 
     @Test
-    public void retrieveMessageWithPreserveMessagesFlagTrue() throws SQSException {
+    public void retrieveMessageWithPreserveMessagesFlagTrue() {
         final Holder<String> id = new Holder<String>();
 
         SourceCallback callback = new InterruptCallback() {
@@ -106,7 +102,7 @@ public class SQSRemoveMessageTestDriver
     }
 
     @Test
-    public void retrieveMessageWithPreserveMessagesFlagFalse() throws SQSException {
+    public void retrieveMessageWithPreserveMessagesFlagFalse() {
 
         SourceCallback callback = new InterruptCallback();
         module.receiveMessages(callback, 0, false, 1000L, 1);

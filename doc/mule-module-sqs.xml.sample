@@ -14,10 +14,10 @@
 <sqs:delete-queue queueName="abc"/>
 <!-- END_INCLUDE(sqs:delete-queue) -->
 <!-- BEGIN_INCLUDE(sqs:get-queue-attributes) -->
-<sqs:get-queue-attributes attribute="MAXIUMUM_MESSAGE_SIZE"/>
+<sqs:get-queue-attributes attribute="CreatedTimestamp"/>
 <!-- END_INCLUDE(sqs:get-queue-attributes) -->
 <!-- BEGIN_INCLUDE(sqs:set-queue-attribute) -->
-<sqs:set-queue-attribute attribute="VISIBILITY_TIMEOUT" value="86400"/>
+<sqs:set-queue-attribute attribute="VisibilityTimeout" value="86400"/>
 <!-- END_INCLUDE(sqs:set-queue-attribute) -->
 <!-- BEGIN_INCLUDE(sqs:add-permission) -->
 <sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/>
