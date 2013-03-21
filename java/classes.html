@@ -211,13 +211,25 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/adapter/package-summary.html">org.mule.modules.sqs.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/adapters/package-summary.html">org.mule.modules.sqs.adapters</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/agents/package-summary.html">org.mule.modules.sqs.agents</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/basic/package-summary.html">org.mule.modules.sqs.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/callback/package-summary.html">org.mule.modules.sqs.callback</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/config/package-summary.html">org.mule.modules.sqs.config</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/connection/package-summary.html">org.mule.modules.sqs.connection</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/connectivity/package-summary.html">org.mule.modules.sqs.connectivity</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/devkit/package-summary.html">org.mule.modules.sqs.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/oauth/package-summary.html">org.mule.modules.sqs.oauth</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/process/package-summary.html">org.mule.modules.sqs.process</a></li>
     <li class="api apilevel-">
@@ -272,14 +284,18 @@
 
 <div class="jd-letterlist">
     <a href="#letter_A">A</a>
+    <a href="#letter_C">C</a>
     <a href="#letter_D">D</a>
     <a href="#letter_G">G</a>
+    <a href="#letter_H">H</a>
     <a href="#letter_M">M</a>
     <a href="#letter_N">N</a>
+    <a href="#letter_O">O</a>
     <a href="#letter_P">P</a>
     <a href="#letter_Q">Q</a>
     <a href="#letter_R">R</a>
     <a href="#letter_S">S</a>
+    <a href="#letter_U">U</a>
 </div>
 
 
@@ -333,6 +349,37 @@
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">AddPermissionMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String)">addPermission(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_C">C</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/basic/Capabilities.html">Capabilities</a></td>
+            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module annotated class, to dynamically query what its capabilities are.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/basic/Capability.html">Capability</a></td>
+            <td class="jd-descrcol" width="100%">Enumeration of possible capabilities of Mule modules.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/Connection.html">Connection</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/ConnectionManager.html">ConnectionManager</a>&lt;K,&nbsp;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/sqs/connection/Connection.html">Connection</a>&gt;</td>
+            <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.Connector annotated class that will infuse it with connection management capabilities.&nbsp;</td>
         </tr>
     
     
@@ -421,6 +468,25 @@
 </table>
 
 
+<h2 id="letter_H">H</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/callback/HttpCallback.html">HttpCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapter/HttpCallbackAdapter.html">HttpCallbackAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
 <h2 id="letter_M">M</h2>
 <table class="jd-sumtable">
     
@@ -437,6 +503,12 @@
         </tr>
     
     
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/basic/MetadataAware.html">MetadataAware</a></td>
+            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module and org.mule.api.annotations.Connector annotated class and its purpose is to define a contract to query the annotated class about its metadata.&nbsp;</td>
+        </tr>
+    
+    
 </table>
 
 
@@ -450,6 +522,44 @@
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/NotAuthorizedException.html">NotAuthorizedException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_O">O</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuth1Adapter.html">OAuth1Adapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuth2Adapter.html">OAuth2Adapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuthAdapter.html">OAuthAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuthManager.html">OAuthManager</a>&lt;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/sqs/oauth/OAuthAdapter.html">OAuthAdapter</a>&gt;</td>
+            <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.oauth.OAuth annotated class that will infuse it with
+ access token management capabilities.&nbsp;</td>
+        </tr>
+    
+    
 </table>
 
 
@@ -458,8 +568,38 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapter/PoolManager.html">PoolManager</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessAdapter.html">ProcessAdapter</a>&lt;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessCallback.html">ProcessCallback</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">Callback with logic to execute within a controlled environment provided by <code><a href="../java/org/mule/modules/sqs/process/ProcessTemplate.html">ProcessTemplate</a></code>&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessCallbackProcessInterceptor.html">ProcessCallbackProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessInterceptor.html">ProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessTemplate.html">ProcessTemplate</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">ProcessTemplate provides a processing context for message processing.&nbsp;</td>
         </tr>
     
     
@@ -508,6 +648,12 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/RestoreAccessTokenCallback.html">RestoreAccessTokenCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/RetryProcessInterceptor.html">RetryProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
@@ -521,61 +667,79 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/SaveAccessTokenCallback.html">SaveAccessTokenCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">SendMessageMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">SetQueueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String)">setQueueAttribute(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/callback/SourceCallback.html">SourceCallback</a></td>
+            <td class="jd-descrcol" width="100%">Callback interface used by org.mule.api.annotations.Source annotated methods to dispatch messages.&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/devkit/SplashScreenAgent.html">SplashScreenAgent</a></td>
+            <td class="jd-descrcol" width="100%">Marks DevKit org.mule.api.agent.Agent implementations to take care of logging information at Mule app level mainly for troubleshooting purposes.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></td>
             <td class="jd-descrcol" width="100%">Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging service introduced by Amazon.com in
  April of 2006.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapters/SQSConnectorCapabilitiesAdapter.html">SQSConnectorCapabilitiesAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SQSConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/SQSConnectorConfigDefinitionParser.html">SQSConnectorConfigDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connectivity/SQSConnectorConnectionFactory.html">SQSConnectorConnectionFactory</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapters/SQSConnectorConnectionIdentifierAdapter.html">SQSConnectorConnectionIdentifierAdapter</a></td>
-            <td class="jd-descrcol" width="100%">A <code>SQSConnectorConnectionIdentifierAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that implements org.mule.api.Connection interface.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">A <code>SQSConnectorConnectionIdentifierAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that implements org.mule.devkit.dynamic.api.helper.Connection interface.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connectivity/SQSConnectorConnectionKey.html">SQSConnectorConnectionKey</a></td>
             <td class="jd-descrcol" width="100%">A tuple of connection parameters
  
@@ -583,33 +747,78 @@
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connectivity/SQSConnectorConnectionManager.html">SQSConnectorConnectionManager</a></td>
             <td class="jd-descrcol" width="100%">A <code>SQSConnectorConnectionManager</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that adds connection management capabilities to the pojo.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapters/SQSConnectorLifecycleAdapter.html">SQSConnectorLifecycleAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SQSConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html">SQSConnectorMetadataAdapater</a></td>
             <td class="jd-descrcol" width="100%">A <code>SQSConnectorMetadataAdapater</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that adds support for querying metadata about the extension.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapters/SQSConnectorProcessAdapter.html">SQSConnectorProcessAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SQSConnectorProcessAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that enables custom processing strategies.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/SqsNamespaceHandler.html">SqsNamespaceHandler</a></td>
             <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sqs</code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/callback/StopSourceCallback.html">StopSourceCallback</a></td>
+            <td class="jd-descrcol" width="100%">Callback returned by methods that are annotated with @Source
+ <p/>
+ It will be executed when the MessageSource is being stopped.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_U">U</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/UnableToAcquireAccessTokenException.html">UnableToAcquireAccessTokenException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the access token needed for accessing a protected resource cannot be acquired
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/UnableToAcquireConnectionException.html">UnableToAcquireConnectionException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the connection needed for executing an
+  operation is null.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/UnableToAcquireRequestTokenException.html">UnableToAcquireRequestTokenException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the request token needed for building the authorization URL cannot be acquired
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/UnableToReleaseConnectionException.html">UnableToReleaseConnectionException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the release connection operation of the
+  connection manager fails.&nbsp;</td>
         </tr>
     
     
