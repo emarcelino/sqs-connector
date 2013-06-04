@@ -37,9 +37,6 @@ If you haven't installed Mule Studio on your computer yet, it's time to download
 
 Now that you've got your Mule Studio up and running, it's time to work on the Mule App. Create a new Mule Project by clicking on "File \> New \> Mule Project". In the new project dialog box, the only thing you are required to enter is the name of the project. You can click on "Next" to go through the rest of pages.
 
-![](images/image001.png)
-
-
 The first thing to do in your new app is to configure the connection to Amazon SQS. In the message flow editor, click on "Global Elements" tab on the bottom of the page. Then click on "Create" button on the top right of the tab. In the "Choose Global Element" type dialog box that opens select "Amazon SQS" under "Cloud Connectors" and click.
 
 ![](images/s3sqsCreateConfigRef.png)
