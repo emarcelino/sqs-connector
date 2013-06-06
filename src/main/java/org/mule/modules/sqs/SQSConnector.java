@@ -22,14 +22,9 @@ import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.*;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.InvalidateConnectionOn;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.Source;
-import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.*;
+import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
@@ -63,9 +58,19 @@ public class SQSConnector {
     private String queueUrl;
 
     /**
+     * Queue Region
+     */
+    @Optional
+    @Configurable
+    @Placement(group = "Optional Parameters") @FriendlyName("Region Endpoint")
+    private RegionEndpoint region;
+
+
+    /**
      * @param accessKey AWS access key
      * @param secretKey AWS secret key
      * @param queueName The name of the queue to connect to
+//     * @param region select a different region for the queue
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
@@ -73,6 +78,11 @@ public class SQSConnector {
              throws ConnectionException {
         try {
             msgQueue = new AmazonSQSClient(new BasicAWSCredentials(accessKey, secretKey));
+
+            if(region != null) {
+                msgQueue.setEndpoint(region.value());
+            }
+
             CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
             setQueueUrl(msgQueue.createQueue(createQueueRequest).getQueueUrl());
         } catch (Exception e) {
@@ -383,5 +393,13 @@ public class SQSConnector {
         List<String> list = new ArrayList<String>();
         list.add(element);
         return list;
+    }
+
+    public RegionEndpoint getRegion() {
+        return region;
+    }
+
+    public void setRegion(RegionEndpoint region) {
+        this.region = region;
     }
 }
