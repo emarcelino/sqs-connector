@@ -454,6 +454,39 @@ similar to the following:</p>
 &lt;/mule&gt;
 </pre>
 
+<p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
+the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
+its own name.</p>
+<p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
+specify which configuration to use.</p>
+<table id="lconfig" class="jd-sumtable">
+<tr><th colspan="12">Attributes</th></tr>
+<tr><th>Type</th><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+<td class="jd-typecol"><nobr>xs:string</nobr></td>
+<td class="jd-linkcol"><nobr>name</nobr></td>
+<td class="jd-descrcol"></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Give a name to this configuration so it can be later referenced.</td>
+<td/><td/><td/>
+
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          </nobr></td>
+          <td class="jd-linkcol"><nobr>region</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Queue Region
+</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+    
+    
+</table>
+
+
 
 
 
@@ -503,7 +536,8 @@ resolution.</p>
       <tr class=" api apilevel-" >
           <td class="jd-linkcol"><nobr>queueName</nobr></td>
           <td class="jd-descrcol"><nobr></nobr></td>
-          <td class="jd-descrcol" width="100%">The name of the queue to connect to</td>
+          <td class="jd-descrcol" width="100%">The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
           <td class="jd-descrcol">String</td>
           <td class="jd-descrcol">*/*</td>
           <td class="jd-descrcol">UTF-8</td>
@@ -659,7 +693,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -767,7 +802,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -863,7 +899,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -959,7 +996,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1087,7 +1125,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1196,7 +1235,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1299,7 +1339,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1407,7 +1448,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1528,7 +1570,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1709,7 +1752,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>queueName</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of the queue to connect to
+//     * @param region select a different region for the queue</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>

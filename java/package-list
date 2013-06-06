@@ -13,4 +13,5 @@ org.mule.modules.sqs.oauth
 org.mule.modules.sqs.process
 org.mule.modules.sqs.processors
 org.mule.modules.sqs.sources
+org.mule.modules.sqs.transformers
 

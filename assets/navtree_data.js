@@ -2,6 +2,7 @@ var NAVTREE_DATA =
 [ [ "com.xerox.amazonws.sqs2.transformers", "com/xerox/amazonws/sqs2/transformers/package-summary.html", [ [ "Classes", null, [ [ "QueueAttributeEnumTransformer", "com/xerox/amazonws/sqs2/transformers/QueueAttributeEnumTransformer.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "org.mule.modules.sqs", "org/mule/modules/sqs/package-summary.html", [ [ "Classes", null, [ [ "SQSConnector", "org/mule/modules/sqs/SQSConnector.html", null, "" ] ]
+, "" ], [ "Enums", null, [ [ "RegionEndpoint", "org/mule/modules/sqs/RegionEndpoint.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "org.mule.modules.sqs.adapter", "org/mule/modules/sqs/adapter/package-summary.html", [ [ "Interfaces", null, [ [ "HttpCallbackAdapter", "org/mule/modules/sqs/adapter/HttpCallbackAdapter.html", null, "" ], [ "PoolManager", "org/mule/modules/sqs/adapter/PoolManager.html", null, "" ] ]
 , "" ] ]
@@ -33,6 +34,8 @@ var NAVTREE_DATA =
 , "" ], [ "org.mule.modules.sqs.processors", "org/mule/modules/sqs/processors/package-summary.html", [ [ "Classes", null, [ [ "AbstractConnectedProcessor", "org/mule/modules/sqs/processors/AbstractConnectedProcessor.html", null, "" ], [ "AbstractExpressionEvaluator", "org/mule/modules/sqs/processors/AbstractExpressionEvaluator.html", null, "" ], [ "AbstractListeningMessageProcessor", "org/mule/modules/sqs/processors/AbstractListeningMessageProcessor.html", null, "" ], [ "AbstractMessageProcessor", "org/mule/modules/sqs/processors/AbstractMessageProcessor.html", null, "" ], [ "AddPermissionMessageProcessor", "org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html", null, "" ], [ "DeleteMessageMessageProcessor", "org/mule/modules/sqs/processors/DeleteMessageMessageProcessor.html", null, "" ], [ "DeleteQueueMessageProcessor", "org/mule/modules/sqs/processors/DeleteQueueMessageProcessor.html", null, "" ], [ "GetApproximateNumberOfMessagesMessageProcessor", "org/mule/modules/sqs/processors/GetApproximateNumberOfMessagesMessageProcessor.html", null, "" ], [ "GetQueueAttributesMessageProcessor", "org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html", null, "" ], [ "GetUrlMessageProcessor", "org/mule/modules/sqs/processors/GetUrlMessageProcessor.html", null, "" ], [ "RemovePermissionMessageProcessor", "org/mule/modules/sqs/processors/RemovePermissionMessageProcessor.html", null, "" ], [ "SendMessageMessageProcessor", "org/mule/modules/sqs/processors/SendMessageMessageProcessor.html", null, "" ], [ "SetQueueAttributeMessageProcessor", "org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "org.mule.modules.sqs.sources", "org/mule/modules/sqs/sources/package-summary.html", [ [ "Classes", null, [ [ "ReceiveMessagesMessageSource", "org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html", null, "" ] ]
+, "" ] ]
+, "" ], [ "org.mule.modules.sqs.transformers", "org/mule/modules/sqs/transformers/package-summary.html", [ [ "Classes", null, [ [ "RegionEndpointEnumTransformer", "org/mule/modules/sqs/transformers/RegionEndpointEnumTransformer.html", null, "" ] ]
 , "" ] ]
 , "" ] ]
 
