@@ -13,6 +13,6 @@ About the Demo
 
 The demo includes the following options:
 * Send a message to the queue: http://localhost:8081/status?message=[message]
-* Pull a message from the queue and write it in a file (under /tmp/amazon-sqs)
+* Pull a message from the queue and write it in a file (under /tmp/amazon-sqs in your file system)
 * Get queue url: http://localhost:8081/getUrl
-* Get queue attributes: http://localhost:8081/getQueueAttribute
+* Get queue attributes: http://localhost:8081/getQueueAttributes

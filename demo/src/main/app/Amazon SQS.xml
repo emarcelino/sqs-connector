@@ -3,7 +3,7 @@
 <mule xmlns:context="http://www.springframework.org/schema/context" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:file="http://www.mulesoft.org/schema/mule/file"
     xmlns:http="http://www.mulesoft.org/schema/mule/http"
     xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz"
-    xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+    xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
@@ -34,6 +34,12 @@ http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/q
     <flow name="GetQueueAttributes" doc:name="GetQueueAttributes">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="getQueueAttributes" doc:name="HTTP"/>
         <sqs:get-queue-attributes config-ref="Sqs" attribute="ApproximateNumberOfMessages" doc:name="Get queue attributes"/>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+    </flow>
+    <flow name="SetAndGetQueueAttributes" doc:name="SetAndGetQueueAttributes">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="setAndGetQueueAttributes" doc:name="HTTP"/>
+        <sqs:set-queue-attribute config-ref="Sqs" attribute="MaximumMessageSize" value="1024" doc:name="Set queue attribute"/>
+        <sqs:get-queue-attributes config-ref="Sqs" attribute="MaximumMessageSize" doc:name="Get queue attributes"/>
         <json:object-to-json-transformer doc:name="Object to JSON"/>
     </flow>
 </mule>
