@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "sqs", friendlyName = "Amazon SQS", minMuleVersion = "3.4")
+@Connector(name = "sqs", friendlyName = "Amazon SQS", minMuleVersion = "3.5")
 public class SQSConnector {
     private static Logger logger = LoggerFactory.getLogger(SQSConnector.class);
 
