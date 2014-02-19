@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * A <code>SQSConnectorLifecycleAdapter</code> is a wrapper around {@link SQSConnector } that adds lifecycle methods to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T11:49:58-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:18:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SQSConnectorLifecycleAdapter
     extends SQSConnectorMetadataAdapater
     implements Disposable, Initialisable, Startable, Stoppable

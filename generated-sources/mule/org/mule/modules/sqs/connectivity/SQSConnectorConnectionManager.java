@@ -37,7 +37,7 @@ import org.mule.modules.sqs.processors.AbstractConnectedProcessor;
  * A {@code SQSConnectorConnectionManager} is a wrapper around {@link SQSConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T11:49:58-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:18:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SQSConnectorConnectionManager
     extends ExpressionEvaluatorSupport
     implements MetadataAware, MuleContextAware, ProcessAdapter<SQSConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectionManager<SQSConnectorConnectionKey, SQSConnectorConnectionIdentifierAdapter>
@@ -74,7 +74,7 @@ public class SQSConnectorConnectionManager
     protected PoolingProfile connectionPoolingProfile;
     protected RetryPolicyTemplate retryPolicyTemplate;
     private final static String MODULE_NAME = "Amazon SQS";
-    private final static String MODULE_VERSION = "2.2.4-SNAPSHOT";
+    private final static String MODULE_VERSION = "2.3.0-SNAPSHOT";
     private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
     private final static String DEVKIT_BUILD = "UNKNOWN_BUILDNUMBER";
     private final static String MIN_MULE_VERSION = "3.5";

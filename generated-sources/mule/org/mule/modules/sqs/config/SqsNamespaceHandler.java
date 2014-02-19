@@ -13,7 +13,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sqs</code>.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T11:49:58-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:18:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SqsNamespaceHandler
     extends NamespaceHandlerSupport
 {

@@ -11,7 +11,7 @@ import org.mule.modules.sqs.SQSConnector;
  * A <code>SQSConnectorCapabilitiesAdapter</code> is a wrapper around {@link SQSConnector } that implements {@link org.mule.api.Capabilities} interface.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T11:49:58-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:18:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SQSConnectorCapabilitiesAdapter
     extends SQSConnector
     implements Capabilities
