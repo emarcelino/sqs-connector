@@ -13,7 +13,7 @@
 '/opt/j2ee/domains/bamboo.mulesource.com/corp/webapps/atlassian-bamboo/data/atlassian-bamboo-4.0.1/xml-data/build-dir/CLDCONNECT-AMAZONSQS-DOC/src/main/java:/opt/j2ee/domains/bamboo.mulesource.com/corp/webapps/atlassian-bamboo/data/atlassian-bamboo-4.0.1/xml-data/build-dir/CLDCONNECT-AMAZONSQS-DOC/target/generated-sources/mule'
 -hdf project.artifactId "mule-module-sqs"
                         -hdf project.groupId "org.mule.modules"
-                        -hdf project.version "2.3.0-SNAPSHOT"
+                        -hdf project.version "2.3.1-SNAPSHOT"
                         -hdf project.name "Mule Amazon SQS Connector"
                         -hdf project.repo.name "MuleSoft Repository"
                         -hdf project.repo.id "mulesoft-releases"

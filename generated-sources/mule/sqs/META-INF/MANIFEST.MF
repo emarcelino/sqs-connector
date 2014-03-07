@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Amazon SQS
 Bundle-SymbolicName: org.mule.tooling.ui.contribution.sqs.3.5.0;singleton:=true
-Bundle-Version: 2.3.0.201403071428
+Bundle-Version: 2.3.1.201403071432
 Bundle-Activator: org.mule.tooling.ui.contribution.SqsActivator
 Bundle-Vendor: MuleSoft, Inc.
 Require-Bundle: org.eclipse.ui,
