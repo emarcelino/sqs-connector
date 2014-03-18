@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/current/mule-sqs.xsd">
+
+	<!-- <context:property-placeholder location="${AMAZON_SQS_CREDENTIALS}" 
+		/> -->
+	<context:property-placeholder location="sqs-automation.properties" />
+
+
+	<sqs:config name="Sqs" accessKey="${sqs.accessKey}"
+		secretKey="${sqs.secretKey}" queueName="${sqs.queueName}" doc:name="Sqs"></sqs:config>
+
+	<flow name="send-message-empty-message" doc:name="SendMessage">
+		<sqs:send-message config-ref="Sqs" />
+	</flow>
+
+	<flow name="send-message-from-payload" doc:name="SendMessage">
+		<sqs:send-message config-ref="Sqs" />
+	</flow>
+
+	<flow name="send-message-custom-message" doc:name="SendMessage">
+		<sqs:send-message config-ref="Sqs" message="#[flowVars.message] " />
+	</flow>
+
+
+	<flow name="get-url" doc:name="GetUrl">
+		<sqs:get-url config-ref="Sqs" />
+	</flow>
+
+	<flow name="delete-message-no-optional" doc:name="DeleteMessage">
+		<sqs:delete-message config-ref="Sqs" />
+	</flow>
+
+	<flow name="delete-message" doc:name="DeleteMessage">
+		<sqs:delete-message config-ref="Sqs" />
+	</flow>
+
+
+	<flow name="delete-queue" doc:name="DeleteQueue">
+		<sqs:delete-queue config-ref="Sqs" />
+	</flow>
+
+
+	<flow name="get-queue-attributes" doc:name="GetQueueAttributes">
+		<sqs:get-queue-attributes config-ref="Sqs"
+			attribute="#[flowVars.attribute]" />
+	</flow>
+
+
+
+	<flow name="set-queue-attribute" doc:name="SetQueueAttribute">
+		<sqs:set-queue-attribute config-ref="Sqs"
+			attribute="#[flowVars.attribute]" value="#[flowVars.value]" />
+	</flow>
+
+
+	<flow name="add-permission" doc:name="AddPermission">
+		<sqs:add-permission config-ref="Sqs" label="#[flowVars.label]"
+			accountId="#[flowVars.accountId]" action="#[flowVars.action]" />
+	</flow>
+
+
+	<flow name="remove-permission" doc:name="RemovePermission">
+		<sqs:remove-permission config-ref="Sqs"
+			label="#[flowVars.label]" />
+	</flow>
+
+
+	<flow name="get-approximate-number-of-messages" doc:name="GetApproximateNumberOfMessages">
+		<sqs:get-approximate-number-of-messages
+			config-ref="Sqs" />
+	</flow>
+
+
+<!-- 	<flow name="receive-message-no-optional" doc:name="receive-message"> -->
+<!-- 		<sqs:receive-messages config-ref="Sqs" doc:name="Amazon SQS (Streaming)" /> -->
+<!-- 	</flow> -->
+	
+<!-- 	<flow name="receive-message" doc:name="receive-message"> -->
+<!-- 		<sqs:receive-messages config-ref="Sqs" doc:name="Amazon SQS (Streaming)"  -->
+<!-- 		numberOfMessages="#[flowVars.numberOfMessages]"  -->
+<!-- 		pollPeriod="#[flowVars.pollPeriod]"  -->
+<!-- 		visibilityTimeout="#[flowVars.visibilityTimeout]"  -->
+<!-- 		preserveMessages="#[flowVars.preserveMessages]"/> -->
+<!-- 	</flow> -->
+
+</mule>
