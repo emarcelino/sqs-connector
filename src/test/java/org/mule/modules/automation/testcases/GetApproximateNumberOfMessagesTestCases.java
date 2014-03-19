@@ -12,62 +12,33 @@
 package org.mule.modules.automation.testcases;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.tests.ConnectorTestUtils;
 
-public class GetApproximateNumberOfMessagesTestCases
-    extends SqsTestParent
-{
-    @Before
-    public void setup() {
-    }
+public class GetApproximateNumberOfMessagesTestCases extends SqsTestParent {
 
-    @After
-    public void tearDown() throws Exception {
-    	
-    	deleteQueue();
-    }
+	@Before
+	public void setup() {
+		initializeTestRunMessage("testGetApproximateNumberOfMessagesTestData");
+	}
 
-    @Category({
-        RegressionTests.class,
-        SmokeTests.class
-    })
-    @Test
-    public void testGetApproximateNumberOfMessages()
-        throws Exception
-    {
-    	initializeTestRunMessage("testGetApproximateNumberOfMessagesTestData");
+	@After
+	public void tearDown() throws Exception {
+		deleteQueue();
+	}
 
-    	Integer numberOfMessages = 0;
-    	Integer result = null; 
-    	try{
-    		result = runFlowAndGetPayload("get-approximate-number-of-messages");
-
-    	} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-
-    	assertEquals(numberOfMessages, result);
-
-    	sendMessage("firstMessage");
-    	sendMessage("secondMessage");
-        sendMessage("thirdMessage");
-        sendMessage("fourthMessage");
-    	numberOfMessages = 4;
-
-        try{
-        	result = runFlowAndGetPayload("get-approximate-number-of-messages");
-        	
-    	} catch (Exception e) {
-			fail(ConnectorTestUtils.getStackTrace(e));
-		}
-        
-        assertEquals(numberOfMessages, result );
-    }
+	@Category({ RegressionTests.class, SmokeTests.class })
+	@Test
+	public void testGetApproximateNumberOfMessages() throws Exception {
+		assertEquals(0, getApproximateNumberOfMessages());
+		sendMessage("firstMessage");
+		sendMessage("secondMessage");
+		sendMessage("thirdMessage");
+		sendMessage("fourthMessage");
+		assertEquals(4, getApproximateNumberOfMessages());
+	}
 
 }
