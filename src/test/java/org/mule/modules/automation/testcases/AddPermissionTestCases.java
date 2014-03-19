@@ -8,40 +8,29 @@
  * LICENSE.txt file.
  */
 
-
 package org.mule.modules.automation.testcases;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class AddPermissionTestCases
-    extends SqsTestParent
-{
+public class AddPermissionTestCases extends SqsTestParent {
 
+	@Before
+	public void setup() {
+	}
 
-    @Before
-    public void setup() {
-        //TODO: Add setup required to run test or remove method
-        initializeTestRunMessage("addPermissionTestData");
-    }
+	@After
+	public void tearDown() {
+	}
 
-    @After
-    public void tearDown() {
-        //TODO: Add code to reset sandbox state to the one before the test was run or remove
-    }
+	@Category({ RegressionTests.class, SmokeTests.class })
+	@Test
+	@Ignore
+	public void testAddPermission() throws Exception {
 
-    @Category({
-        RegressionTests.class,
-        SmokeTests.class
-    })
-    @Test
-    public void testAddPermission()
-        throws Exception
-    {
-        Object result = runFlowAndGetPayload("add-permission");
-        throw new RuntimeException("NOT IMPLEMENTED METHOD");
-    }
+	}
 
 }

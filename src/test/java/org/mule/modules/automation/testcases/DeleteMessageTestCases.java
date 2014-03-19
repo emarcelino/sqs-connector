@@ -8,38 +8,30 @@
  * LICENSE.txt file.
  */
 
-
 package org.mule.modules.automation.testcases;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-public class DeleteMessageTestCases
-    extends SqsTestParent
-{
+public class DeleteMessageTestCases extends SqsTestParent {
 
-    @Before
-    public void setup() {
-        initializeTestRunMessage("deleteMessageTestData");
-    }
+	@Before
+	public void setUp() throws Exception {
+	}
 
-    @After
-    public void tearDown() {
-    }
+	@After
+	public void tearDown() throws Exception {
+		deleteQueue();
+	}
 
-    @Category({
-        RegressionTests.class,
-        SmokeTests.class
-    })
-    @Test
-    public void testDeleteMessage()
-        throws Exception
-    {
-    	
-        Object result = runFlowAndGetPayload("delete-message");
-        throw new RuntimeException("NOT IMPLEMENTED METHOD");
-    }
+	@Category({ RegressionTests.class, SmokeTests.class })
+	@Test
+	@Ignore
+	public void testDeleteMessage() throws Exception {
+
+	}
 
 }
