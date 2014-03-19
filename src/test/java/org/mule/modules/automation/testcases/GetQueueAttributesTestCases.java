@@ -11,25 +11,18 @@
 
 package org.mule.modules.automation.testcases;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class GetQueueAttributesTestCases
     extends SqsTestParent
 {
-
-
-    @Before
-    public void setup() {
-        //TODO: Add setup required to run test or remove method
-        initializeTestRunMessage("getQueueAttributesTestData");
-    }
-
     @After
-    public void tearDown() {
-        //TODO: Add code to reset sandbox state to the one before the test was run or remove
+    public void tearDown() throws Exception {
+        deleteQueue();
     }
 
     @Category({
@@ -37,11 +30,11 @@ public class GetQueueAttributesTestCases
         SmokeTests.class
     })
     @Test
-    public void testGetQueueAttributes()
+    public void testGetDefaultQueueAttributes()
         throws Exception
     {
-        Object result = runFlowAndGetPayload("get-queue-attributes");
-        throw new RuntimeException("NOT IMPLEMENTED METHOD");
+    	assertEquals("0", getQueueAttribute("DelaySeconds"));
+    	assertEquals("262144", getQueueAttribute("MaximumMessageSize"));
+    	assertEquals("345600", getQueueAttribute("MessageRetentionPeriod"));
     }
-
 }
