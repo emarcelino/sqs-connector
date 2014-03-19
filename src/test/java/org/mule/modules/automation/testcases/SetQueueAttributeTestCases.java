@@ -8,40 +8,49 @@
  * LICENSE.txt file.
  */
 
-
 package org.mule.modules.automation.testcases;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.api.MessagingException;
 
-public class SetQueueAttributeTestCases
-    extends SqsTestParent
-{
+public class SetQueueAttributeTestCases extends SqsTestParent {
 
+	@After
+	public void tearDown() throws Exception {
+		deleteQueue();
+	}
 
-    @Before
-    public void setup() {
-        //TODO: Add setup required to run test or remove method
-        initializeTestRunMessage("setQueueAttributeTestData");
-    }
+	@Category({ RegressionTests.class, SmokeTests.class })
+	@Test
+	public void testSetGetQueueAttribute() throws Exception {
+		setQueueAttribute("MaximumMessageSize", "1111");
+		assertEquals("1111", getQueueAttribute("MaximumMessageSize"));
+	}
 
-    @After
-    public void tearDown() {
-        //TODO: Add code to reset sandbox state to the one before the test was run or remove
-    }
+	@Test
+	public void testSetInvalidQueueAttribute() throws Exception {
+		try {
+			setQueueAttribute("MaximumSizeMessage", "1111");
+		} catch (MessagingException e) {
+			System.out.println(e.getSummaryMessage());
+			assertTrue(e.getSummaryMessage().contains("InvalidAttributeName"));
+		}
+	}
 
-    @Category({
-        RegressionTests.class,
-        SmokeTests.class
-    })
-    @Test
-    public void testSetQueueAttribute()
-        throws Exception
-    {
-        Object result = runFlowAndGetPayload("set-queue-attribute");
-        throw new RuntimeException("NOT IMPLEMENTED METHOD");
-    }
+	@Test
+	public void setInvalidQueueAttributeValue() throws Exception {
+		try {
+			// value must be between 1024 and 262144
+			setQueueAttribute("MaximumMessageSize", "1000");
+		} catch (MessagingException e) {
+			System.out.println(e.getSummaryMessage());
+			assertTrue(e.getSummaryMessage().contains("InvalidAttributeValue"));
+		}
+	}
 
 }
