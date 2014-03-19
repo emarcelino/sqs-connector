@@ -11,37 +11,40 @@
 
 package org.mule.modules.automation.testcases;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.api.MessagingException;
 
-public class DeleteQueueTestCases
-    extends SqsTestParent
-{
+public class DeleteQueueTestCases extends SqsTestParent {
+	private boolean queueDeleted = false;
 
+	@Before
+	public void setup() {
+		initializeTestRunMessage("testDeleteQueueTestData");
+	}
 
-    @Before
-    public void setup() {
-        //TODO: Add setup required to run test or remove method
-        initializeTestRunMessage("deleteQueueTestData");
-    }
+	@After
+	public void tearDown() throws Exception {
+		if (!queueDeleted) {
+			deleteQueue();
+		}
+	}
 
-    @After
-    public void tearDown() {
-        //TODO: Add code to reset sandbox state to the one before the test was run or remove
-    }
-
-    @Category({
-        RegressionTests.class,
-        SmokeTests.class
-    })
-    @Test
-    public void testDeleteQueue()
-        throws Exception
-    {
-        Object result = runFlowAndGetPayload("delete-queue");
-        throw new RuntimeException("NOT IMPLEMENTED METHOD");
-    }
+	@Category({ RegressionTests.class, SmokeTests.class })
+	@Test
+	public void testDeleteQueue() throws Exception {
+		assertEquals(0, getApproximateNumberOfMessages());
+		deleteQueue();
+		queueDeleted = true;
+		try {
+			getApproximateNumberOfMessages();
+		} catch (MessagingException e) {
+			assertTrue(e.getSummaryMessage().contains("NonExistentQueue"));
+		}
+	}
 
 }
