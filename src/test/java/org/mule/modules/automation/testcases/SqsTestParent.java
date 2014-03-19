@@ -10,6 +10,8 @@
 
 package org.mule.modules.automation.testcases;
 
+import java.util.Map;
+
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import org.mule.api.ConnectionException;
@@ -23,7 +25,7 @@ public class SqsTestParent extends ConnectorTestCase {
 	
 	@Rule
 	// Increase timeout to allow some retrying
-	public Timeout timeout = new Timeout(120 * 1000);
+	public Timeout globalTimeout = new Timeout(120 * 1000);
 	
 	private static final int MAX_RETRIES = 10;
 	private static final long RECREATE_QUEUE_DELAY = 61 * 1000;
@@ -31,9 +33,27 @@ public class SqsTestParent extends ConnectorTestCase {
 	private static final String CONNECTION_ERROR_MSG = "Failed to connect after "
 			+ MAX_RETRIES + " retries";
 
+	protected String getQueueAttribute(String attribute)
+			throws Exception {
+		upsertOnTestRunMessage("attribute", attribute);
+		Map<String, String> attributes = runFlowAndGetPayload("get-queue-attributes");
+		return attributes.get(attribute);
+	}
+	
+	protected void setQueueAttribute(String attribute, String value)
+			throws Exception {
+		upsertOnTestRunMessage("attribute", attribute);
+		upsertOnTestRunMessage("value", value);
+		runFlowAndGetPayload("set-queue-attribute");
+	}
+
 	protected void deleteQueue() throws Exception {
 		initializeTestRunMessage("testDeleteQueueTestData");
 		runFlowAndGetPayload("delete-queue");
+	}
+	
+	protected int getApproximateNumberOfMessages() throws Exception {
+		return runFlowAndGetPayload("get-approximate-number-of-messages");
 	}
 
 	protected void sendMessage(String message) throws Exception {
