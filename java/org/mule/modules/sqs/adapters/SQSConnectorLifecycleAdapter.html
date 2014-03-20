@@ -65,49 +65,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -250,8 +207,6 @@
               <ul>
                 
     <li class="api apilevel-">
-  <a href="../../../../../../java/com/xerox/amazonws/sqs2/transformers/package-summary.html">com.xerox.amazonws.sqs2.transformers</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/adapter/package-summary.html">org.mule.modules.sqs.adapter</a></li>
@@ -374,20 +329,6 @@
    
   
   
-  
-  
-
-  
-   
-  
-  
-  
-  
-
-  
-   
-  
-  
    
   
   
@@ -416,6 +357,20 @@
   
   
    
+  
+  
+  
+
+  
+   
+  
+  
+  
+  
+
+  
+   
+  
   
   
   
@@ -728,19 +683,12 @@ Summary:
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">String</td>
-        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#MIN_MULE_VERSION">MIN_MULE_VERSION</a></td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">String</td>
         <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#MODULE_NAME">MODULE_NAME</a></td>
         <td class="jd-descrcol" width="100%"></td>
     </tr>
     
     
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">String</td>
         <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#MODULE_VERSION">MODULE_VERSION</a></td>
         <td class="jd-descrcol" width="100%"></td>
@@ -751,10 +699,6 @@ Summary:
   </div>
 </div>
 </td></tr>
-
-
-
-
 
 
 
@@ -885,6 +829,10 @@ org.mule.api.lifecycle.Stoppable
   </div>
 </div>
 </td></tr>
+
+
+
+
 
 
 </table>
@@ -1139,6 +1087,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#getDevkitBuild()">getDevkitBuild</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the build of the DevKit used to create this module
+</div>
+  
   </td></tr>
 
 
@@ -1155,6 +1106,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#getDevkitVersion()">getDevkitVersion</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the version of the DevKit used to create this module
+</div>
+  
   </td></tr>
 
 
@@ -1169,8 +1123,11 @@ From class
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#getMinMuleVersion()">getMinMuleVersion</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#getModuleName()">getModuleName</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the user-friendly name of this module
+</div>
+  
   </td></tr>
 
 
@@ -1185,24 +1142,11 @@ From class
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#getModuleName()">getModuleName</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorMetadataAdapater.html#getModuleVersion()">getModuleVersion</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Returns the version of this module
+</div>
+  
   </td></tr>
 
 
@@ -1243,7 +1187,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.api.devkit.capability.ModuleCapability)">isCapableOf</a></span>(ModuleCapability capability)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/adapters/SQSConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.modules.sqs.basic.Capability)">isCapableOf</a></span>(<a href="../../../../../../java/org/mule/modules/sqs/basic/Capability.html">Capability</a> capability)</nobr>
         
         <div class="jd-descrdiv">Returns true if this module implements such capability
  
@@ -1797,154 +1741,6 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.MetadataAware" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.MetadataAware-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.MetadataAware
-
-<div id="inherited-methods-org.mule.api.MetadataAware">
-  <div id="inherited-methods-org.mule.api.MetadataAware-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.MetadataAware-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getDevkitBuild</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getDevkitVersion</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getMinMuleVersion</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getModuleName</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getModuleVersion</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.devkit.capability.Capabilities" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.devkit.capability.Capabilities-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.devkit.capability.Capabilities
-
-<div id="inherited-methods-org.mule.api.devkit.capability.Capabilities">
-  <div id="inherited-methods-org.mule.api.devkit.capability.Capabilities-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.devkit.capability.Capabilities-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isCapableOf</span>(ModuleCapability arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
           ><img id="inherited-methods-org.mule.api.lifecycle.Disposable-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -2101,6 +1897,153 @@ From interface
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">stop</span>()</nobr>
         
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.sqs.basic.Capabilities" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.sqs.basic.Capabilities-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../../../../../org/mule/modules/sqs/basic/Capabilities.html">org.mule.modules.sqs.basic.Capabilities</a>
+
+<div id="inherited-methods-org.mule.modules.sqs.basic.Capabilities">
+  <div id="inherited-methods-org.mule.modules.sqs.basic.Capabilities-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.modules.sqs.basic.Capabilities-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/basic/Capabilities.html#isCapableOf(org.mule.modules.sqs.basic.Capability)">isCapableOf</a></span>(<a href="../../../../../../java/org/mule/modules/sqs/basic/Capability.html">Capability</a> capability)</nobr>
+        
+        <div class="jd-descrdiv">Returns true if this module implements such
+ capability</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.sqs.basic.MetadataAware" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.sqs.basic.MetadataAware-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../../../../../org/mule/modules/sqs/basic/MetadataAware.html">org.mule.modules.sqs.basic.MetadataAware</a>
+
+<div id="inherited-methods-org.mule.modules.sqs.basic.MetadataAware">
+  <div id="inherited-methods-org.mule.modules.sqs.basic.MetadataAware-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.modules.sqs.basic.MetadataAware-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/basic/MetadataAware.html#getDevkitBuild()">getDevkitBuild</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the build of the DevKit used to create this module
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/basic/MetadataAware.html#getDevkitVersion()">getDevkitVersion</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the version of the DevKit used to create this module
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/basic/MetadataAware.html#getModuleName()">getModuleName</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the user-friendly name of this module
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/basic/MetadataAware.html#getModuleVersion()">getModuleVersion</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the version of this module
+</div>
+  
   </td></tr>
 
 

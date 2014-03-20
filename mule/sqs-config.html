@@ -66,49 +66,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -287,7 +244,7 @@ Summary:
           <th>Schema Version</th><td>1.0</td>
         </tr>
 <tr>
-          <th>Minimum Mule Version</th><td>3.5</td>
+          <th>Minimum Mule Version</th><td>3.4</td>
         </tr>
     </tbody></table>
   </div>
@@ -632,11 +589,6 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
 
 
 
-
-
-
-
-
 <!-- ========= MESSAGE PROCESSOR DETAIL ======== -->
 <!-- Message Processors -->
 <h2>Message Processors</h2>
@@ -661,13 +613,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Adds a permission to this message queue.
+  <div class="jd-tagdata jd-tagdescr"><p>Adds a permission to this message queue.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -684,44 +632,38 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>label</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">A name for this permission</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>label</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">A name for this permission</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>accountId</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The AWS account ID for the account to share this queue with</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accountId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The AWS account ID for the account to share this queue with</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>action</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>action</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -804,13 +746,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Deletes the message identified by message object on the queue this object represents.
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message identified by message object on the queue this object represents.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-message receiptHandle="xxx"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-message receiptHandle="xxx"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -827,16 +765,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>receiptHandle</nobr></td>
-                            <td class="jd-descrcol">#[header:inbound:sqs.message.receipt.handle]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Receipt handle of the message to be deleted</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>receiptHandle</nobr></td>
+                        <td class="jd-descrcol">#[header:inbound:sqs.message.receipt.handle]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Receipt handle of the message to be deleted</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -919,13 +855,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Deletes the message queue represented by this object. Will delete non-empty queue.
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes the message queue represented by this object. Will delete non-empty queue.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-queue queueName="abc"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:delete-queue queueName="abc"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1020,13 +952,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Gets the visibility timeout for the queue.
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the visibility timeout for the queue.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-approximate-number-of-messages/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-approximate-number-of-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1090,12 +1018,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">int</td>
-                    <td class="jd-descrcol">the approximate number of messages in the queue
+                <td class="jd-descrcol">int</td>
+                <td class="jd-descrcol">the approximate number of messages in the queue
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -1137,9 +1062,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Gets queue attributes. This is provided to expose the underlying functionality.
+  <div class="jd-tagdata jd-tagdescr"><p>Gets queue attributes. This is provided to expose the underlying functionality.
  Currently supported attributes are;
  ApproximateNumberOfMessages
  CreatedTimestamp
@@ -1148,9 +1071,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
  RequestPayer
  Policy
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="CreatedTimestamp"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-queue-attributes attribute="CreatedTimestamp"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1167,16 +1088,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>attribute</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Attribute to get</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>attribute</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Attribute to get</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1228,11 +1147,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">Map&lt;String,&nbsp;String&gt;</td>
-                    <td class="jd-descrcol">a map of attributes and their values</td>
-                
-
+                <td class="jd-descrcol">Map&lt;String,&nbsp;String&gt;</td>
+                <td class="jd-descrcol">a map of attributes and their values</td>
              </tr>
          </table>
   </div>
@@ -1275,13 +1191,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        This method provides the URL for the message queue represented by this object.
+  <div class="jd-tagdata jd-tagdescr"><p>This method provides the URL for the message queue represented by this object.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-url/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:get-url/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1345,12 +1257,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                
-                    <td class="jd-descrcol">String</td>
-                    <td class="jd-descrcol">generated queue service url
+                <td class="jd-descrcol">String</td>
+                <td class="jd-descrcol">generated queue service url
 </td>
-                
-
              </tr>
          </table>
   </div>
@@ -1374,13 +1283,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Removes a permission from this message queue.
+  <div class="jd-tagdata jd-tagdescr"><p>Removes a permission from this message queue.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:remove-permission label="message"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:remove-permission label="message"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1397,16 +1302,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>label</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">A name for the permission to be removed</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>label</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">A name for the permission to be removed</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1489,13 +1392,9 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
+  <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:send-message/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:send-message/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1512,16 +1411,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>message</nobr></td>
-                            <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The message to send. Defaults to the payload of the Mule message.</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>message</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The message to send. Defaults to the payload of the Mule message.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1604,14 +1501,10 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Sets a queue attribute. This is provided to expose the underlying functionality, although
+  <div class="jd-tagdata jd-tagdescr"><p>Sets a queue attribute. This is provided to expose the underlying functionality, although
  the only attribute at this time is visibility timeout.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VisibilityTimeout" value="86400"/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:set-queue-attribute attribute="VisibilityTimeout" value="86400"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1628,30 +1521,26 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>attribute</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Name of the attribute being set</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>attribute</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Name of the attribute being set</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>value</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">The value being set for this attribute</td>
-                            <td class="jd-descrcol">String</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol">UTF-8</td>
-                        </tr>
-                    
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>value</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The value being set for this attribute</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
                 
                 
           
@@ -1749,18 +1638,14 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-      
-        Attempts to receive a message from the queue. Every attribute of the incoming
+  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive a message from the queue. Every attribute of the incoming
  message will be added as an inbound property. Also the following properties
  will also be added:
  <p/>
  sqs.message.id = containing the message identification
  sqs.message.receipt.handle = containing the message identification
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:receive-messages/&gt;</pre></div>
-      
-  </p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:receive-messages/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1777,77 +1662,67 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>callback</nobr></td>
-                            <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Callback to call when a new message is available.</td>
-                            <td class="jd-descrcol">SourceCallback</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>callback</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Callback to call when a new message is available.</td>
+                        <td class="jd-descrcol">SourceCallback</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>visibilityTimeout</nobr></td>
-                            <td class="jd-descrcol">30</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The duration (in seconds) the retrieved message is hidden from
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>visibilityTimeout</nobr></td>
+                        <td class="jd-descrcol">30</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The duration (in seconds) the retrieved message is hidden from
                           subsequent calls to retrieve.</td>
-                            <td class="jd-descrcol">Integer</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>preserveMessages</nobr></td>
-                            <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Flag that indicates if you want to preserve the messages
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>preserveMessages</nobr></td>
+                        <td class="jd-descrcol">false</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Flag that indicates if you want to preserve the messages
                          	in the queue. False by default, so the messages are
                          	going to be deleted.</td>
-                            <td class="jd-descrcol">Boolean</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">Boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class="alt-color api apilevel-" >
-                            <td class="jd-linkcol"><nobr>pollPeriod</nobr></td>
-                            <td class="jd-descrcol">1000</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Time in milliseconds to wait between polls (when no messages were retrieved). 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>pollPeriod</nobr></td>
+                        <td class="jd-descrcol">1000</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Time in milliseconds to wait between polls (when no messages were retrieved). 
                           Default period is 1000 ms.</td>
-                            <td class="jd-descrcol">Long</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">Long</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
                 
-                    
-                        <tr class=" api apilevel-" >
-                            <td class="jd-linkcol"><nobr>numberOfMessages</nobr></td>
-                            <td class="jd-descrcol">1</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The number of messages to be retrieved on each call (10 messages max). 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>numberOfMessages</nobr></td>
+                        <td class="jd-descrcol">1</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The number of messages to be retrieved on each call (10 messages max). 
  							By default, 1 message will be retrieved.			                        </td>
-                            <td class="jd-descrcol">Integer</td>
-                            <td class="jd-descrcol">*/*</td>
-                            <td class="jd-descrcol"></td>
-                        </tr>
-                    
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
                 
                 
           
