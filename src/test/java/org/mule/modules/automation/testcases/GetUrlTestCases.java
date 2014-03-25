@@ -14,6 +14,8 @@ package org.mule.modules.automation.testcases;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,11 +24,12 @@ import org.junit.experimental.categories.Category;
 public class GetUrlTestCases
     extends SqsTestParent
 {
-
-
+	private String queueName;
+	
     @Before
     public void setup() {
-        initializeTestRunMessage("testGetUrlTestData");
+        Properties props = getBeanFromContext("testAccountCredentials");
+        queueName = props.getProperty("sqs.queueName");
     }
 
     @After
@@ -41,10 +44,9 @@ public class GetUrlTestCases
     public void testGetUrl()
         throws Exception
     {
-        String result = runFlowAndGetPayload("get-url");
+        String result = getQueueUrl();
         assertNotNull(result);
         
-        String queueName = "testQueue";
         String urlFormat = "https://sqs.us-east-1.amazonaws.com/.*/"+queueName;
         
         assertTrue(result.matches(urlFormat));

@@ -72,12 +72,12 @@ public class SQSRemoveMessageTestDriver
     public static void init() throws ConnectionException {
         module = new SQSConnector();
         module.connect(System.getenv("sqsAccessKey"), System.getenv("sqsSecretKey"), "test5613809");
-        assertTrue(module.getApproximateNumberOfMessages()==0);
+        assertTrue(module.getApproximateNumberOfMessages(null)==0);
     }
 
     @Before
     public void addOneMessage() {
-        module.sendMessage("Hello");
+        module.sendMessage("Hello", null);
     }
 
     @Test
@@ -92,21 +92,21 @@ public class SQSRemoveMessageTestDriver
                 return super.process(payload, properties);
             }
         };
-        module.receiveMessages(callback, 0, true, 1000L, 1);
+        module.receiveMessages(callback, 0, true, 1000L, 1, null);
 
-        assertTrue(module.getApproximateNumberOfMessages()!=0);
+        assertTrue(module.getApproximateNumberOfMessages(null)!=0);
 
-        module.deleteMessage(id.value);
+        module.deleteMessage(id.value, null);
 
-        assertTrue(module.getApproximateNumberOfMessages()==0);
+        assertTrue(module.getApproximateNumberOfMessages(null)==0);
     }
 
     @Test
     public void retrieveMessageWithPreserveMessagesFlagFalse() {
 
         SourceCallback callback = new InterruptCallback();
-        module.receiveMessages(callback, 0, false, 1000L, 1);
+        module.receiveMessages(callback, 0, false, 1000L, 1, null);
 
-        assertTrue(module.getApproximateNumberOfMessages()==0);
+        assertTrue(module.getApproximateNumberOfMessages(null)==0);
     }
 }

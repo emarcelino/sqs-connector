@@ -20,6 +20,8 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.*;
+
+import org.apache.commons.lang.StringUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
@@ -53,17 +55,19 @@ public class SQSConnector {
     private AmazonSQSClient msgQueue;
 
     /**
-     * Queue URL
-     */
-    private String queueUrl;
-
-    /**
      * Queue Region
      */
     @Optional
     @Configurable
     @Placement(group = "Optional Parameters") @FriendlyName("Region Endpoint")
     private RegionEndpoint region;
+    
+    @Optional
+    @Configurable
+    @Placement(group = "Optional Parameters") @FriendlyName("Queue URL")
+    private String queueUrl;
+
+	private String accessKey;
 
 
     /**
@@ -74,7 +78,7 @@ public class SQSConnector {
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
-    public void connect(@ConnectionKey String accessKey, String secretKey, String queueName)
+    public void connect(@ConnectionKey String accessKey, String secretKey, @Optional String queueName)
              throws ConnectionException {
         try {
             msgQueue = new AmazonSQSClient(new BasicAWSCredentials(accessKey, secretKey));
@@ -82,15 +86,30 @@ public class SQSConnector {
             if(region != null) {
                 msgQueue.setEndpoint(region.value());
             }
-
-            CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
-            setQueueUrl(msgQueue.createQueue(createQueueRequest).getQueueUrl());
+            if (queueName != null) {
+	            CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
+	            setQueueUrl(msgQueue.createQueue(createQueueRequest).getQueueUrl());
+            } else if (queueUrl != null) {
+            	setQueueUrl(queueUrl);
+            } else {
+            	throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null, "A queue name or queue URL must be specified to make a connection.");
+            }
         } catch (Exception e) {
             throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
         }
+        setAccessKey(accessKey);
     }
 
-    @Disconnect
+    public void setAccessKey(String accessKey) {
+		this.accessKey = accessKey;
+	}
+    
+    @ConnectionIdentifier
+    public String getAccessKey() {
+    	return this.accessKey;
+    }
+
+	@Disconnect
     public void disconnect() {
         msgQueue = null;
     }
@@ -116,9 +135,9 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void sendMessage(@Optional @Default("#[payload]") final String message)
+    public SendMessageResult sendMessage(@Optional @Default("#[payload]") final String message, @Optional String queueUrl)
             throws AmazonServiceException {
-    	msgQueue.sendMessage(new SendMessageRequest(getQueueUrl(), message));
+    	return msgQueue.sendMessage(new SendMessageRequest(getQueueUrl(queueUrl), message));
     }
 
     /**
@@ -130,7 +149,7 @@ public class SQSConnector {
      */
     @Processor
     public String getUrl() {
-        return getQueueUrl();
+        return this.queueUrl;
     }
     
 
@@ -168,12 +187,13 @@ public class SQSConnector {
                                 @Optional @Default("30") Integer visibilityTimeout, 
                                 @Optional @Default("false") Boolean preserveMessages,
                                 @Optional @Default("1000") Long pollPeriod,
-                                @Optional @Default("1") Integer numberOfMessages)
+                                @Optional @Default("1") Integer numberOfMessages,
+                                @Optional String queueUrl)
             throws AmazonServiceException {
 
         List<Message> messages;
         ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest();
-        receiveMessageRequest.setQueueUrl(getQueueUrl());
+        receiveMessageRequest.setQueueUrl(getQueueUrl(queueUrl));
 
         if (visibilityTimeout != null) {
             receiveMessageRequest.setVisibilityTimeout(visibilityTimeout);
@@ -191,7 +211,7 @@ public class SQSConnector {
                 for (Message msg : messages) {
                 	callback.process(msg.getBody(), createProperties(msg));
                 	if (!preserveMessages) {
-                		msgQueue.deleteMessage(new DeleteMessageRequest(getQueueUrl(), msg.getReceiptHandle()));
+                		msgQueue.deleteMessage(new DeleteMessageRequest(getQueueUrl(queueUrl), msg.getReceiptHandle()));
                 	}
                 }
             }
@@ -235,9 +255,10 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void deleteMessage(@Optional @Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle)
+    public void deleteMessage(@Optional @Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle,
+    		@Optional String queueUrl)
             throws AmazonServiceException {
-        msgQueue.deleteMessage(new DeleteMessageRequest(getQueueUrl(), receiptHandle));
+        msgQueue.deleteMessage(new DeleteMessageRequest(getQueueUrl(queueUrl), receiptHandle));
     }
 
     /**
@@ -255,8 +276,8 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void deleteQueue() throws AmazonServiceException {
-        msgQueue.deleteQueue(new DeleteQueueRequest(getQueueUrl()));
+    public void deleteQueue(@Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.deleteQueue(new DeleteQueueRequest(getQueueUrl(queueUrl)));
     }
 
     /**
@@ -283,10 +304,10 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public Map<String, String> getQueueAttributes(String attribute)
+    public Map<String, String> getQueueAttributes(String attribute, @Optional String queueUrl)
             throws AmazonServiceException {
         return msgQueue.getQueueAttributes(
-                new GetQueueAttributesRequest(getQueueUrl()).withAttributeNames(attribute)).getAttributes();
+                new GetQueueAttributesRequest(getQueueUrl(queueUrl)).withAttributeNames(attribute)).getAttributes();
     }
 
     /**
@@ -307,11 +328,11 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void setQueueAttribute(String attribute, String value)
+    public void setQueueAttribute(String attribute, String value, @Optional String queueUrl)
             throws AmazonServiceException {
         Map<String, String> attributes = new HashMap<String, String>();
         attributes.put(attribute, value);
-        msgQueue.setQueueAttributes(new SetQueueAttributesRequest(getQueueUrl(), attributes));
+        msgQueue.setQueueAttributes(new SetQueueAttributesRequest(getQueueUrl(queueUrl), attributes));
     }
 
     /**
@@ -332,9 +353,9 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void addPermission(String label, String accountId, String action)
+    public void addPermission(String label, String accountId, String action, @Optional String queueUrl)
             throws AmazonServiceException {
-        msgQueue.addPermission(new AddPermissionRequest(getQueueUrl(), label,
+        msgQueue.addPermission(new AddPermissionRequest(getQueueUrl(queueUrl), label,
                 toList(accountId), toList(action)));
     }
 
@@ -354,8 +375,8 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void removePermission(String label) throws AmazonServiceException {
-        msgQueue.removePermission(new RemovePermissionRequest(getQueueUrl(), label));
+    public void removePermission(String label, @Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.removePermission(new RemovePermissionRequest(getQueueUrl(queueUrl), label));
     }   
     
     /**
@@ -374,15 +395,22 @@ public class SQSConnector {
      */
     @Processor
     @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public int getApproximateNumberOfMessages() throws AmazonServiceException {
+    public int getApproximateNumberOfMessages(@Optional String queueUrl) throws AmazonServiceException {
         return Integer.parseInt(msgQueue.getQueueAttributes(
-                new GetQueueAttributesRequest(getQueueUrl()).withAttributeNames(
+                new GetQueueAttributesRequest(getQueueUrl(queueUrl)).withAttributeNames(
                         "ApproximateNumberOfMessages")).getAttributes().get("ApproximateNumberOfMessages"));
     }
 
-    @ConnectionIdentifier
-    public String getQueueUrl() {
-        return queueUrl;
+    public String getQueueUrl(String queueParameter) {
+        if (StringUtils.isNotEmpty(queueParameter)) {
+        	return queueParameter;
+        }
+        if (StringUtils.isNotEmpty(this.queueUrl)) {
+        	return this.queueUrl;
+        }
+        else {
+        	return null;
+        }
     }
 
     public void setQueueUrl(String queueUrl) {

@@ -10,28 +10,49 @@
 
 package org.mule.modules.automation.testcases;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.api.MessagingException;
 
 public class RemovePermissionTestCases extends SqsTestParent {
 
+	String accountId;
+	
 	@Before
 	public void setup() {
-
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
+		deleteQueue();
+		deleteAltQueue();
 	}
 
 	@Category({ RegressionTests.class, SmokeTests.class })
 	@Test
-	@Ignore
 	public void testRemovePermission() throws Exception {
+		String queueUrl = getQueueUrl();
+		assertEquals(0, getApproximateNumberOfMessages());
+		addPermission("fooPermission", getAltPrincipalId(), "SendMessage", queueUrl);
+		sendMessageFromAlt("sup", queueUrl);
+		assertEquals(1, getApproximateNumberOfMessages());
+		removePermission("fooPermission", queueUrl);
+		try {
+			sendMessageFromAlt("hi", queueUrl);
+			fail("An access denied error should have been thrown");
+		} catch (MessagingException e) {
+			assertTrue(e.getSummaryMessage().contains("AccessDenied"));
+		}
+	}
 
+	private void removePermission(String label, String queueUrl) throws Exception {
+		initializeTestRunMessage("label", label);
+		upsertOnTestRunMessage("queueUrl", queueUrl);
+		runFlowAndGetPayload("remove-permission");
 	}
 
 }

@@ -11,29 +11,26 @@
 
 package org.mule.modules.automation.testcases;
 
+import static org.junit.Assert.assertEquals;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
+
+import org.bouncycastle.util.encoders.Hex;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+
+import com.amazonaws.services.sqs.model.SendMessageResult;
 
 public class SendMessageTestCases
     extends SqsTestParent
 {
-
-
-    @Before
-    public void setup() {
-    }
-
     @After
     public void tearDown() throws Exception {
-    	//FIXME configure console so the messages last only a couple of seconds
-    	//in that case, deleting the queue will not be needed
     	deleteQueue();
-    	//Amazon forces you to wait 60secs before re-creating the queue
-    	Thread.sleep(59000);
     }
-
 
 	@Category({
         RegressionTests.class,
@@ -43,13 +40,15 @@ public class SendMessageTestCases
     public void testSendMessage()
         throws Exception
     {
-		initializeTestRunMessage("testSendMessageFromPayloadTestData");
-		
-        runFlowAndGetPayload("send-message-from-payload");
-        
-        
-        
-        
+		String message = UUID.randomUUID().toString();
+		assertEquals(0, getApproximateNumberOfMessages());
+		SendMessageResult result = sendMessage(message);
+		assertEquals(1, getApproximateNumberOfMessages());
+		assertEquals(md5(message), result.getMD5OfMessageBody());
     }
+	
+	private String md5(String string) throws NoSuchAlgorithmException {
+		return new String(Hex.encode(MessageDigest.getInstance("MD5").digest(string.getBytes())));
+	}
 
 }

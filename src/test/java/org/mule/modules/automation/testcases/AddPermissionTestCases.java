@@ -10,27 +10,35 @@
 
 package org.mule.modules.automation.testcases;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.api.MessagingException;
 
 public class AddPermissionTestCases extends SqsTestParent {
 
-	@Before
-	public void setup() {
-	}
-
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
+		deleteQueue();
+		deleteAltQueue();
 	}
 
 	@Category({ RegressionTests.class, SmokeTests.class })
 	@Test
-	@Ignore
 	public void testAddPermission() throws Exception {
-
+		assertEquals(0, getApproximateNumberOfMessages());
+		try {
+			sendMessageFromAlt("sup", getQueueUrl());
+			fail("An access denied error should have been thrown");
+		} catch (MessagingException e) {
+			assertTrue(e.getSummaryMessage().contains("AccessDenied"));
+		}
+		addPermission("fooPermission", getAltPrincipalId(), "SendMessage", getQueueUrl());
+		sendMessageFromAlt("sup", getQueueUrl());
+		assertEquals(1, getApproximateNumberOfMessages());
 	}
+	
 
 }

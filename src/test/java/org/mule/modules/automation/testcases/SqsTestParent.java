@@ -11,6 +11,7 @@
 package org.mule.modules.automation.testcases;
 
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Rule;
 import org.junit.rules.Timeout;
@@ -20,6 +21,7 @@ import org.mule.api.MessagingException;
 import org.mule.modules.tests.ConnectorTestCase;
 
 import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 
 public class SqsTestParent extends ConnectorTestCase {
 	
@@ -55,11 +57,20 @@ public class SqsTestParent extends ConnectorTestCase {
 	protected int getApproximateNumberOfMessages() throws Exception {
 		return runFlowAndGetPayload("get-approximate-number-of-messages");
 	}
+	
+	protected String getQueueUrl() throws Exception {
+		return runFlowAndGetPayload("get-url");
+	}
 
-	protected void sendMessage(String message) throws Exception {
-		initializeTestRunMessage("testSendMessageTestData");
+	protected SendMessageResult sendMessage(String message, String queueUrl) throws Exception {
 		upsertOnTestRunMessage("message", message);
-		runFlowAndGetPayload("send-message-custom-message");
+		upsertOnTestRunMessage("queueUrl", queueUrl);
+		return runFlowAndGetPayload("send-message-custom-message");
+	}
+	
+	protected SendMessageResult sendMessage(String message) throws Exception {
+		upsertOnTestRunMessage("message", message);
+		return runFlowAndGetPayload("send-message");
 	}
 
 	private void sleepOnException(MessagingException e,
@@ -97,6 +108,34 @@ public class SqsTestParent extends ConnectorTestCase {
 		}
 		throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null,
 				CONNECTION_ERROR_MSG);
+	}
+
+	protected void sendMessageFromAlt(String message, String queueUrl)
+			throws Exception {
+				upsertOnTestRunMessage("message", message);
+				upsertOnTestRunMessage("queueUrl", queueUrl);
+				runFlowAndGetPayload("send-message-from-alt");
+			}
+
+	protected void addPermission(String label, String accountId, String action,
+			String queueUrl) throws Exception {
+				upsertOnTestRunMessage("label", label);
+				upsertOnTestRunMessage("accountId", accountId);
+				upsertOnTestRunMessage("action", action);
+				upsertOnTestRunMessage("queueUrl", queueUrl);
+				runFlowAndGetPayload("add-permission");
+			}
+
+	protected void deleteAltQueue() throws Exception {
+		runFlowAndGetPayload("delete-alt-queue");
+	}
+	
+	protected Properties getAltCredentials() {
+		return getBeanFromContext("testAccountCredentials");
+	}
+	
+	protected String getAltPrincipalId() {
+		return getAltCredentials().getProperty("sqs2.principalId");
 	}
 
 }
