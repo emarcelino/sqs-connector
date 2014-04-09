@@ -58,6 +58,7 @@ sqs.message.receipt.handle = containing the message identification
         <integer step="1" min="0" defaultValue="30" javaType="java.lang.Integer" required="false" description="The duration (in seconds) the retrieved message is hidden from subsequent calls to retrieve." caption="Visibility Timeout" name="visibilityTimeout"></integer>
         <integer step="1" min="0" defaultValue="1000" javaType="java.lang.Long" required="false" description="Time in milliseconds to wait between polls (when no messages were retrieved). Default period is 1000 ms." caption="Poll Period" name="pollPeriod"></integer>
         <integer step="1" min="0" defaultValue="1" javaType="java.lang.Integer" required="false" description="The number of messages to be retrieved on each call (10 messages max). By default, 1 message will be retrieved." caption="Number Of Messages" name="numberOfMessages"></integer>
+        <string javaType="java.lang.String" required="false" description="The queue URL where messages are to be fetched from." caption="Queue Url" name="queueUrl"></string>
         <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Flag that indicates if you want to preserve the messages in the queue. False by default, so the messages are going to be deleted." caption="Preserve Messages" name="preserveMessages"></boolean>
       </group>
     </attribute-category>
@@ -70,7 +71,7 @@ sqs.message.receipt.handle = containing the message identification
       <group caption="Connection" id="connection">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
       <group caption="Optional Parameters" id="optional Parameters">
         <enum allowsCustom="true" javaType="org.mule.modules.sqs.RegionEndpoint" required="false" supportsExpressions="true" description="Queue Region." caption="Region Endpoint" name="region">
@@ -83,6 +84,8 @@ sqs.message.receipt.handle = containing the message identification
           <option value="USWEST1"></option>
           <option value="USWEST2"></option>
         </enum>
+        <string javaType="java.lang.String" required="false" description="The queue URL to connect to. It takes priority over the queue name defined
+in the connection parameters." caption="Queue URL" name="queueUrl"></string>
       </group>
     </attribute-category>
     <attribute-category description="Pooling profile options." caption="Pooling Profile">
@@ -133,6 +136,7 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="true" description="The AWS account ID for the account to share this queue with." caption="Account Id" name="accountId"></string>
         <string javaType="java.lang.String" required="true" description="A value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)." caption="Action" name="action"></string>
         <string javaType="java.lang.String" required="true" description="A name for this permission." caption="Label" name="label"></string>
+        <string javaType="java.lang.String" required="false" description="Permissions will be added to the queue represented by this URL." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
     <attribute-category description="Connection." caption="Connection">
@@ -141,13 +145,14 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
   <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="icons/large/sqs-connector-48x32.png" localId="delete-message" icon="icons/small/sqs-connector-24x16.png" caption="Delete Message">
     <attribute-category description="General." caption="General">
       <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="The URL of the queue to delete messages from." caption="Queue Url" name="queueUrl"></string>
         <string defaultValue="#[header:inbound:sqs.message.receipt.handle]" javaType="java.lang.String" required="false" description="Receipt handle of the message to be deleted." caption="Receipt Handle" name="receiptHandle"></string>
       </group>
     </attribute-category>
@@ -157,31 +162,39 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
   <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="icons/large/sqs-connector-48x32.png" localId="delete-queue" icon="icons/small/sqs-connector-24x16.png" caption="Delete Queue">
-    <attribute-category description="General." caption="General"></attribute-category>
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="The URL of the queue to delete." caption="Queue Url" name="queueUrl"></string>
+      </group>
+    </attribute-category>
     <attribute-category description="Connection." caption="Connection">
       <group caption="Connection" id="connection">
         <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
   <cloud-connector returnType="int" metaData="static" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="icons/large/sqs-connector-48x32.png" localId="get-approximate-number-of-messages" icon="icons/small/sqs-connector-24x16.png" caption="Get Approximate Number Of Messages">
-    <attribute-category description="General." caption="General"></attribute-category>
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="The URL of the queue." caption="Queue Url" name="queueUrl"></string>
+      </group>
+    </attribute-category>
     <attribute-category description="Connection." caption="Connection">
       <group caption="Connection" id="connection">
         <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -189,6 +202,7 @@ create it when its needed instead of having to manually specify so." caption="Am
     <attribute-category description="General." caption="General">
       <group caption="General" id="general">
         <string javaType="java.lang.String" required="true" description="Attribute to get." caption="Attribute" name="attribute"></string>
+        <string javaType="java.lang.String" required="false" description="The URL of the queue." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
     <attribute-category description="Connection." caption="Connection">
@@ -197,7 +211,7 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -209,7 +223,7 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -217,6 +231,7 @@ create it when its needed instead of having to manually specify so." caption="Am
     <attribute-category description="General." caption="General">
       <group caption="General" id="general">
         <string javaType="java.lang.String" required="true" description="A name for the permission to be removed." caption="Label" name="label"></string>
+        <string javaType="java.lang.String" required="false" description="Permissions will be deleted from the queue represented by this URL." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
     <attribute-category description="Connection." caption="Connection">
@@ -225,14 +240,15 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
-  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="icons/large/sqs-connector-48x32.png" localId="send-message" icon="icons/small/sqs-connector-24x16.png" caption="Send Message">
+  <cloud-connector returnType="com.amazonaws.services.sqs.model.SendMessageResult" metaData="static" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="icons/large/sqs-connector-48x32.png" localId="send-message" icon="icons/small/sqs-connector-24x16.png" caption="Send Message">
     <attribute-category description="General." caption="General">
       <group caption="General" id="general">
         <string defaultValue="#[payload]" javaType="java.lang.String" required="false" description="The message to send. Defaults to the payload of the Mule message." caption="Message" name="message"></string>
+        <string javaType="java.lang.String" required="false" description="The queue where the message is to be sent." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
     <attribute-category description="Connection." caption="Connection">
@@ -241,7 +257,7 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -249,6 +265,7 @@ create it when its needed instead of having to manually specify so." caption="Am
     <attribute-category description="General." caption="General">
       <group caption="General" id="general">
         <string javaType="java.lang.String" required="true" description="Name of the attribute being set." caption="Attribute" name="attribute"></string>
+        <string javaType="java.lang.String" required="false" description="The URL of the queue." caption="Queue Url" name="queueUrl"></string>
         <string javaType="java.lang.String" required="true" description="The value being set for this attribute." caption="Value" name="value"></string>
       </group>
     </attribute-category>
@@ -258,7 +275,7 @@ create it when its needed instead of having to manually specify so." caption="Am
         <label caption=""></label>
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
-        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to //     * @param region select a different region for the queue." caption="Queue Name" name="queueName"></string>
+        <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
       </group>
     </attribute-category>
   </cloud-connector>

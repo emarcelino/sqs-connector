@@ -37,7 +37,7 @@ import org.mule.modules.sqs.processors.AbstractConnectedProcessor;
  * A {@code SQSConnectorConnectionManager} is a wrapper around {@link SQSConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class SQSConnectorConnectionManager
     extends ExpressionEvaluatorSupport
     implements MetadataAware, MuleContextAware, ProcessAdapter<SQSConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectionManager<SQSConnectorConnectionKey, SQSConnectorConnectionIdentifierAdapter>
@@ -56,6 +56,7 @@ public class SQSConnectorConnectionManager
      */
     private String queueName;
     private RegionEndpoint region;
+    private String queueUrl;
     /**
      * Mule Context
      * 
@@ -94,6 +95,23 @@ public class SQSConnectorConnectionManager
      */
     public RegionEndpoint getRegion() {
         return this.region;
+    }
+
+    /**
+     * Sets queueUrl
+     * 
+     * @param value Value to set
+     */
+    public void setQueueUrl(String value) {
+        this.queueUrl = value;
+    }
+
+    /**
+     * Retrieves queueUrl
+     * 
+     */
+    public String getQueueUrl() {
+        return this.queueUrl;
     }
 
     /**
@@ -295,9 +313,6 @@ public class SQSConnectorConnectionManager
                 throw new UnableToAcquireConnectionException("Parameter secretKey in method connect can't be null because is not @Optional");
             }
             final String _transformedQueueName = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_queueNameType").getGenericType(), null, getQueueName()));
-            if (_transformedQueueName == null) {
-                throw new UnableToAcquireConnectionException("Parameter queueName in method connect can't be null because is not @Optional");
-            }
             return new SQSConnectorConnectionKey(_transformedAccessKey, _transformedSecretKey, _transformedQueueName);
         }
         return getDefaultConnectionKey();

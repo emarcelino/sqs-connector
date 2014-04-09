@@ -17,7 +17,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class SQSConnectorConfigDefinitionParser
     extends AbstractDevkitBasedDefinitionParser
 {
@@ -31,6 +31,7 @@ public class SQSConnectorConfigDefinitionParser
         setInitMethodIfNeeded(builder, SQSConnectorConnectionManager.class);
         setDestroyMethodIfNeeded(builder, SQSConnectorConnectionManager.class);
         parseProperty(builder, element, "region", "region");
+        parseProperty(builder, element, "queueUrl", "queueUrl");
         parseProperty(builder, element, "accessKey", "accessKey");
         parseProperty(builder, element, "secretKey", "secretKey");
         parseProperty(builder, element, "queueName", "queueName");

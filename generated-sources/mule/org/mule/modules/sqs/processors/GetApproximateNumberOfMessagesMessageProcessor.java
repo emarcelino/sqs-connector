@@ -32,15 +32,17 @@ import org.mule.security.oauth.callback.ProcessCallback;
 
 
 /**
- * GetApproximateNumberOfMessagesMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#getApproximateNumberOfMessages()} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+ * GetApproximateNumberOfMessagesMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#getApproximateNumberOfMessages(java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class GetApproximateNumberOfMessagesMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
 {
 
+    protected Object queueUrl;
+    protected String _queueUrlType;
 
     public GetApproximateNumberOfMessagesMessageProcessor(String operationName) {
         super(operationName);
@@ -76,6 +78,15 @@ public class GetApproximateNumberOfMessagesMessageProcessor
     }
 
     /**
+     * Sets queueUrl
+     * 
+     * @param value Value to set
+     */
+    public void setQueueUrl(Object value) {
+        this.queueUrl = value;
+    }
+
+    /**
      * Invokes the MessageProcessor.
      * 
      * @param event MuleEvent to be processed
@@ -87,6 +98,7 @@ public class GetApproximateNumberOfMessagesMessageProcessor
         Object moduleObject = null;
         try {
             moduleObject = findOrCreate(SQSConnectorConnectionManager.class, true, event);
+            final String _transformedQueueUrl = ((String) evaluateAndTransform(getMuleContext(), event, GetApproximateNumberOfMessagesMessageProcessor.class.getDeclaredField("_queueUrlType").getGenericType(), null, queueUrl));
             Object resultPayload;
             ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
@@ -103,7 +115,7 @@ public class GetApproximateNumberOfMessagesMessageProcessor
                 public Object process(Object object)
                     throws Exception
                 {
-                    return ((SQSConnector) object).getApproximateNumberOfMessages();
+                    return ((SQSConnector) object).getApproximateNumberOfMessages(_transformedQueueUrl);
                 }
 
             }

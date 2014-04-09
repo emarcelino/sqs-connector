@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Generated;
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.config.ConfigurationException;
@@ -32,10 +33,10 @@ import org.mule.security.oauth.callback.ProcessCallback;
 
 
 /**
- * SendMessageMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#sendMessage(java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+ * SendMessageMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#sendMessage(java.lang.String, java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class SendMessageMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -43,6 +44,8 @@ public class SendMessageMessageProcessor
 
     protected Object message;
     protected String _messageType;
+    protected Object queueUrl;
+    protected String _queueUrlType;
 
     public SendMessageMessageProcessor(String operationName) {
         super(operationName);
@@ -87,6 +90,15 @@ public class SendMessageMessageProcessor
     }
 
     /**
+     * Sets queueUrl
+     * 
+     * @param value Value to set
+     */
+    public void setQueueUrl(Object value) {
+        this.queueUrl = value;
+    }
+
+    /**
      * Invokes the MessageProcessor.
      * 
      * @param event MuleEvent to be processed
@@ -99,8 +111,10 @@ public class SendMessageMessageProcessor
         try {
             moduleObject = findOrCreate(SQSConnectorConnectionManager.class, true, event);
             final String _transformedMessage = ((String) evaluateAndTransform(getMuleContext(), event, SendMessageMessageProcessor.class.getDeclaredField("_messageType").getGenericType(), null, message));
+            final String _transformedQueueUrl = ((String) evaluateAndTransform(getMuleContext(), event, SendMessageMessageProcessor.class.getDeclaredField("_queueUrlType").getGenericType(), null, queueUrl));
+            Object resultPayload;
             ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
-            processTemplate.execute(new ProcessCallback<Object,Object>() {
+            resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 
                 public List<Class<? extends Exception>> getManagedExceptions() {
@@ -114,12 +128,12 @@ public class SendMessageMessageProcessor
                 public Object process(Object object)
                     throws Exception
                 {
-                    ((SQSConnector) object).sendMessage(_transformedMessage);
-                    return null;
+                    return ((SQSConnector) object).sendMessage(_transformedMessage, _transformedQueueUrl);
                 }
 
             }
             , this, event);
+            event.getMessage().setPayload(resultPayload);
             return event;
         } catch (Exception e) {
             throw e;
@@ -133,7 +147,7 @@ public class SendMessageMessageProcessor
 
     @Override
     public Result<MetaData> getOutputMetaData(MetaData inputMetadata) {
-        return new DefaultResult<MetaData>(new DefaultMetaData(getPojoOrSimpleModel(void.class)));
+        return new DefaultResult<MetaData>(new DefaultMetaData(getPojoOrSimpleModel(SendMessageResult.class)));
     }
 
     private MetaDataModel getPojoOrSimpleModel(Class clazz) {

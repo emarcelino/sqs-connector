@@ -32,10 +32,10 @@ import org.mule.security.oauth.callback.ProcessCallback;
 
 
 /**
- * RemovePermissionMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#removePermission(java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+ * RemovePermissionMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#removePermission(java.lang.String, java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class RemovePermissionMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -43,6 +43,8 @@ public class RemovePermissionMessageProcessor
 
     protected Object label;
     protected String _labelType;
+    protected Object queueUrl;
+    protected String _queueUrlType;
 
     public RemovePermissionMessageProcessor(String operationName) {
         super(operationName);
@@ -87,6 +89,15 @@ public class RemovePermissionMessageProcessor
     }
 
     /**
+     * Sets queueUrl
+     * 
+     * @param value Value to set
+     */
+    public void setQueueUrl(Object value) {
+        this.queueUrl = value;
+    }
+
+    /**
      * Invokes the MessageProcessor.
      * 
      * @param event MuleEvent to be processed
@@ -99,6 +110,7 @@ public class RemovePermissionMessageProcessor
         try {
             moduleObject = findOrCreate(SQSConnectorConnectionManager.class, true, event);
             final String _transformedLabel = ((String) evaluateAndTransform(getMuleContext(), event, RemovePermissionMessageProcessor.class.getDeclaredField("_labelType").getGenericType(), null, label));
+            final String _transformedQueueUrl = ((String) evaluateAndTransform(getMuleContext(), event, RemovePermissionMessageProcessor.class.getDeclaredField("_queueUrlType").getGenericType(), null, queueUrl));
             ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
@@ -114,7 +126,7 @@ public class RemovePermissionMessageProcessor
                 public Object process(Object object)
                     throws Exception
                 {
-                    ((SQSConnector) object).removePermission(_transformedLabel);
+                    ((SQSConnector) object).removePermission(_transformedLabel, _transformedQueueUrl);
                     return null;
                 }
 

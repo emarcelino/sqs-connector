@@ -15,7 +15,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class SendMessageDefinitionParser
     extends AbstractDevkitBasedDefinitionParser
 {
@@ -43,6 +43,7 @@ public class SendMessageDefinitionParser
         builder.setScope(BeanDefinition.SCOPE_PROTOTYPE);
         parseConfigRef(element, builder);
         parseProperty(builder, element, "message", "message");
+        parseProperty(builder, element, "queueUrl", "queueUrl");
         parseProperty(builder, element, "accessKey", "accessKey");
         parseProperty(builder, element, "secretKey", "secretKey");
         parseProperty(builder, element, "queueName", "queueName");

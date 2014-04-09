@@ -22,10 +22,10 @@ import org.mule.security.oauth.processor.AbstractListeningMessageProcessor;
 
 
 /**
- * ReceiveMessagesMessageSource wraps {@link org.mule.modules.sqs.SQSConnector#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer)} method in {@link SQSConnector } as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
+ * ReceiveMessagesMessageSource wraps {@link org.mule.modules.sqs.SQSConnector#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)} method in {@link SQSConnector } as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class ReceiveMessagesMessageSource
     extends AbstractListeningMessageProcessor
     implements Runnable, FlowConstructAware, MuleContextAware, Startable, Stoppable, MessageSource
@@ -39,6 +39,8 @@ public class ReceiveMessagesMessageSource
     protected Long _pollPeriodType;
     protected Object numberOfMessages;
     protected Integer _numberOfMessagesType;
+    protected Object queueUrl;
+    protected String _queueUrlType;
     protected Object accessKey;
     protected String _accessKeyType;
     protected Object secretKey;
@@ -99,6 +101,15 @@ public class ReceiveMessagesMessageSource
      */
     public void setNumberOfMessages(Object value) {
         this.numberOfMessages = value;
+    }
+
+    /**
+     * Sets queueUrl
+     * 
+     * @param value Value to set
+     */
+    public void setQueueUrl(Object value) {
+        this.queueUrl = value;
     }
 
     /**
@@ -165,6 +176,7 @@ public class ReceiveMessagesMessageSource
             final Boolean transformedPreserveMessages = ((Boolean) transform(getMuleContext(), ((MuleEvent) null), getClass().getDeclaredField("_preserveMessagesType").getGenericType(), null, preserveMessages));
             final Long transformedPollPeriod = ((Long) transform(getMuleContext(), ((MuleEvent) null), getClass().getDeclaredField("_pollPeriodType").getGenericType(), null, pollPeriod));
             final Integer transformedNumberOfMessages = ((Integer) transform(getMuleContext(), ((MuleEvent) null), getClass().getDeclaredField("_numberOfMessagesType").getGenericType(), null, numberOfMessages));
+            final String transformedQueueUrl = ((String) transform(getMuleContext(), ((MuleEvent) null), getClass().getDeclaredField("_queueUrlType").getGenericType(), null, queueUrl));
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 
@@ -179,7 +191,7 @@ public class ReceiveMessagesMessageSource
                 public Object process(Object object)
                     throws Exception
                 {
-                    ((SQSConnector) object).receiveMessages(sourceCallback, transformedVisibilityTimeout, transformedPreserveMessages, transformedPollPeriod, transformedNumberOfMessages);
+                    ((SQSConnector) object).receiveMessages(sourceCallback, transformedVisibilityTimeout, transformedPreserveMessages, transformedPollPeriod, transformedNumberOfMessages, transformedQueueUrl);
                     return null;
                 }
 

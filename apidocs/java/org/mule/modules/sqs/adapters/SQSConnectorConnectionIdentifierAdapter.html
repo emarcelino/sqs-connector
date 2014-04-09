@@ -931,6 +931,17 @@ org.mule.api.lifecycle.Stoppable
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#accessKey">accessKey</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
           static
           
           Logger</nobr></td>
@@ -939,7 +950,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -951,19 +962,18 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#queueUrl">queueUrl</a></td>
-          <td class="jd-descrcol" width="100%">Queue URL
-</td>
+          <td class="jd-descrcol" width="100%">The queue URL to connect to.</td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -1386,7 +1396,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String)">addPermission</a></span>(String label, String accountId, String action)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addPermission</a></span>(String label, String accountId, String action, String queueUrl)</nobr>
         
         <div class="jd-descrdiv">Adds a permission to this message queue.</div>
   
@@ -1436,7 +1446,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage</a></span>(String receiptHandle)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String, java.lang.String)">deleteMessage</a></span>(String receiptHandle, String queueUrl)</nobr>
         
         <div class="jd-descrdiv">Deletes the message identified by message object on the queue this object represents.</div>
   
@@ -1454,7 +1464,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteQueue()">deleteQueue</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#deleteQueue(java.lang.String)">deleteQueue</a></span>(String queueUrl)</nobr>
         
         <div class="jd-descrdiv">Deletes the message queue represented by this object.</div>
   
@@ -1485,13 +1495,11 @@ From class
             
             
             
-            int</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages()">getApproximateNumberOfMessages</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getAccessKey()">getAccessKey</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Gets the visibility timeout for the queue.</div>
-  
   </td></tr>
 
 
@@ -1503,12 +1511,12 @@ From class
             
             
             
-            Map&lt;String,&nbsp;String&gt;</nobr>
+            int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String)">getQueueAttributes</a></span>(String attribute)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages(java.lang.String)">getApproximateNumberOfMessages</a></span>(String queueUrl)</nobr>
         
-        <div class="jd-descrdiv">Gets queue attributes.</div>
+        <div class="jd-descrdiv">Gets an approximate number of visible messages for a queue.</div>
   
   </td></tr>
 
@@ -1521,16 +1529,34 @@ From class
             
             
             
-            String</nobr>
+            Map&lt;String,&nbsp;String&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueUrl()">getQueueUrl</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String, java.lang.String)">getQueueAttributes</a></span>(String attribute, String queueUrl)</nobr>
         
+        <div class="jd-descrdiv">Gets queue attributes.</div>
+  
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#getQueueUrl(java.lang.String)">getQueueUrl</a></span>(String queueParameter)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1546,7 +1572,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1564,7 +1590,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1580,7 +1606,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1590,7 +1616,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer)">receiveMessages</a></span>(SourceCallback callback, Integer visibilityTimeout, Boolean preserveMessages, Long pollPeriod, Integer numberOfMessages)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)">receiveMessages</a></span>(SourceCallback callback, Integer visibilityTimeout, Boolean preserveMessages, Long pollPeriod, Integer numberOfMessages, String queueUrl)</nobr>
         
         <div class="jd-descrdiv">Attempts to receive a message from the queue.</div>
   
@@ -1598,7 +1624,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1608,9 +1634,27 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String)">removePermission</a></span>(String label)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String, java.lang.String)">removePermission</a></span>(String label, String queueUrl)</nobr>
         
         <div class="jd-descrdiv">Removes a permission from this message queue.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            SendMessageResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String, java.lang.String)">sendMessage</a></span>(String message, String queueUrl)</nobr>
+        
+        <div class="jd-descrdiv">Sends a message to a specified queue.</div>
   
   </td></tr>
 
@@ -1626,10 +1670,8 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage</a></span>(String message)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setAccessKey(java.lang.String)">setAccessKey</a></span>(String accessKey)</nobr>
         
-        <div class="jd-descrdiv">Sends a message to a specified queue.</div>
-  
   </td></tr>
 
 
@@ -1644,7 +1686,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String)">setQueueAttribute</a></span>(String attribute, String value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String, java.lang.String)">setQueueAttribute</a></span>(String attribute, String value, String queueUrl)</nobr>
         
         <div class="jd-descrdiv">Sets a queue attribute.</div>
   

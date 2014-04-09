@@ -32,15 +32,17 @@ import org.mule.security.oauth.callback.ProcessCallback;
 
 
 /**
- * DeleteQueueMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#deleteQueue()} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+ * DeleteQueueMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#deleteQueue(java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T02:33:00-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T09:25:08-05:00", comments = "Build M4.1875.17b58a3")
 public class DeleteQueueMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
 {
 
+    protected Object queueUrl;
+    protected String _queueUrlType;
 
     public DeleteQueueMessageProcessor(String operationName) {
         super(operationName);
@@ -76,6 +78,15 @@ public class DeleteQueueMessageProcessor
     }
 
     /**
+     * Sets queueUrl
+     * 
+     * @param value Value to set
+     */
+    public void setQueueUrl(Object value) {
+        this.queueUrl = value;
+    }
+
+    /**
      * Invokes the MessageProcessor.
      * 
      * @param event MuleEvent to be processed
@@ -87,6 +98,7 @@ public class DeleteQueueMessageProcessor
         Object moduleObject = null;
         try {
             moduleObject = findOrCreate(SQSConnectorConnectionManager.class, true, event);
+            final String _transformedQueueUrl = ((String) evaluateAndTransform(getMuleContext(), event, DeleteQueueMessageProcessor.class.getDeclaredField("_queueUrlType").getGenericType(), null, queueUrl));
             ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
@@ -102,7 +114,7 @@ public class DeleteQueueMessageProcessor
                 public Object process(Object object)
                     throws Exception
                 {
-                    ((SQSConnector) object).deleteQueue();
+                    ((SQSConnector) object).deleteQueue(_transformedQueueUrl);
                     return null;
                 }
 
