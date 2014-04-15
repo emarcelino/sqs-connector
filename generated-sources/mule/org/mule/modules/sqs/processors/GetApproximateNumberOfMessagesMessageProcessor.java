@@ -35,7 +35,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * GetApproximateNumberOfMessagesMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#getApproximateNumberOfMessages(java.lang.String)} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-14T12:28:26-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:28:25-05:00", comments = "Build master.1915.dd1962d")
 public class GetApproximateNumberOfMessagesMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -100,7 +100,7 @@ public class GetApproximateNumberOfMessagesMessageProcessor
             moduleObject = findOrCreate(SQSConnectorConnectionManager.class, true, event);
             final String _transformedQueueUrl = ((String) evaluateAndTransform(getMuleContext(), event, GetApproximateNumberOfMessagesMessageProcessor.class.getDeclaredField("_queueUrlType").getGenericType(), null, queueUrl));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

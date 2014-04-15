@@ -15,12 +15,12 @@ import org.mule.modules.sqs.connection.ConnectionManager;
 import org.mule.modules.sqs.connection.UnableToAcquireConnectionException;
 import org.mule.modules.sqs.connection.UnableToReleaseConnectionException;
 import org.mule.modules.sqs.connectivity.SQSConnectorConnectionKey;
-import org.mule.modules.sqs.processors.AbstractConnectedProcessor;
+import org.mule.modules.sqs.processors.ConnectivityProcessor;
 import org.mule.security.oauth.callback.ProcessCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-14T12:28:26-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:28:25-05:00", comments = "Build master.1915.dd1962d")
 public class ManagedConnectionProcessInterceptor<T >
     extends ExpressionEvaluatorSupport
     implements ProcessInterceptor<T, SQSConnectorConnectionIdentifierAdapter>
@@ -44,15 +44,16 @@ public class ManagedConnectionProcessInterceptor<T >
         SQSConnectorConnectionIdentifierAdapter connection = null;
         SQSConnectorConnectionKey key = null;
         if (hasConnectionKeysOverride(messageProcessor)) {
-            final String _transformedAccessKey = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_accessKeyType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getAccessKey()));
+            ConnectivityProcessor connectivityProcessor = ((ConnectivityProcessor) messageProcessor);
+            final String _transformedAccessKey = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_accessKeyType"), null, connectivityProcessor.getAccessKey()));
             if (_transformedAccessKey == null) {
                 throw new UnableToAcquireConnectionException("Parameter accessKey in method connect can't be null because is not @Optional");
             }
-            final String _transformedSecretKey = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_secretKeyType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getSecretKey()));
+            final String _transformedSecretKey = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_secretKeyType"), null, connectivityProcessor.getSecretKey()));
             if (_transformedSecretKey == null) {
                 throw new UnableToAcquireConnectionException("Parameter secretKey in method connect can't be null because is not @Optional");
             }
-            final String _transformedQueueName = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_queueNameType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getQueueName()));
+            final String _transformedQueueName = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_queueNameType"), null, connectivityProcessor.getQueueName()));
             key = new SQSConnectorConnectionKey(_transformedAccessKey, _transformedSecretKey, _transformedQueueName);
         } else {
             key = connectionManager.getEvaluatedConnectionKey(event);
@@ -109,13 +110,14 @@ public class ManagedConnectionProcessInterceptor<T >
      * @param messageProcessor
      *     the message processor to test against the keys
      * @return
+     *     true if any of the parameters in @Connect method annotated with @ConnectionKey was override in the XML, false otherwise  
      */
     private Boolean hasConnectionKeysOverride(MessageProcessor messageProcessor) {
-        if ((messageProcessor == null)||(!(messageProcessor instanceof AbstractConnectedProcessor))) {
+        if ((messageProcessor == null)||(!(messageProcessor instanceof ConnectivityProcessor))) {
             return false;
         }
-        AbstractConnectedProcessor abstractConnectedProcessor = ((AbstractConnectedProcessor) messageProcessor);
-        if (abstractConnectedProcessor.getAccessKey()!= null) {
+        ConnectivityProcessor connectivityProcessor = ((ConnectivityProcessor) messageProcessor);
+        if (connectivityProcessor.getAccessKey()!= null) {
             return true;
         }
         return false;

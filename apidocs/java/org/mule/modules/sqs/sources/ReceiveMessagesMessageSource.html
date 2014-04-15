@@ -202,7 +202,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="search" >
+  <div id="searchContainer" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -814,24 +814,13 @@ org.mule.api.lifecycle.Stoppable
           protected
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#_accessKeyType">_accessKeyType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
           Integer</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#_numberOfMessagesType">_numberOfMessagesType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
@@ -842,24 +831,13 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
           
           Boolean</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#_preserveMessagesType">_preserveMessagesType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#_queueNameType">_queueNameType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -880,30 +858,8 @@ org.mule.api.lifecycle.Stoppable
           protected
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#_secretKeyType">_secretKeyType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
           Integer</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#_visibilityTimeoutType">_visibilityTimeoutType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#accessKey">accessKey</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -947,29 +903,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#queueName">queueName</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#queueUrl">queueUrl</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#secretKey">secretKey</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1234,24 +1168,6 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#setAccessKey(java.lang.Object)">setAccessKey</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets accessKey</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#setNumberOfMessages(java.lang.Object)">setNumberOfMessages</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets numberOfMessages</div>
@@ -1260,7 +1176,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1278,7 +1194,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1291,24 +1207,6 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#setPreserveMessages(java.lang.Object)">setPreserveMessages</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets preserveMessages</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#setQueueName(java.lang.Object)">setQueueName</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets queueName</div>
   
   </td></tr>
 
@@ -1342,24 +1240,6 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#setSecretKey(java.lang.Object)">setSecretKey</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets secretKey</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html#setVisibilityTimeout(java.lang.Object)">setVisibilityTimeout</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets visibilityTimeout</div>
@@ -1368,7 +1248,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1386,7 +1266,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2773,36 +2653,6 @@ From interface
 
 
 
-<A NAME="_accessKeyType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        String
-      </span>
-        _accessKeyType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="_numberOfMessagesType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2893,36 +2743,6 @@ From interface
 
 
 
-<A NAME="_queueNameType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        String
-      </span>
-        _queueNameType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="_queueUrlType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2953,36 +2773,6 @@ From interface
 
 
 
-<A NAME="_secretKeyType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        String
-      </span>
-        _secretKeyType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="_visibilityTimeoutType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2994,36 +2784,6 @@ From interface
         Integer
       </span>
         _visibilityTimeoutType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="accessKey"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        accessKey
     </h4>
       <div class="api-level">
         
@@ -3133,36 +2893,6 @@ From interface
 
 
 
-<A NAME="queueName"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        queueName
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="queueUrl"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3174,36 +2904,6 @@ From interface
         Object
       </span>
         queueUrl
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="secretKey"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        secretKey
     </h4>
       <div class="api-level">
         
@@ -3422,47 +3122,6 @@ From interface
 </div>
 
 
-<A NAME="setAccessKey(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setAccessKey</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets accessKey</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setNumberOfMessages(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3586,47 +3245,6 @@ From interface
 </div>
 
 
-<A NAME="setQueueName(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setQueueName</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets queueName</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setQueueUrl(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3653,47 +3271,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets queueUrl</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setSecretKey(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setSecretKey</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets secretKey</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">

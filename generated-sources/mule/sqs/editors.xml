@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" prefix="sqs" url="http://www.mulesoft.org/schema/mule/sqs">
-  <global-cloud-connector metaData="static" connectivityTesting="on" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="" localId="parentConfig" icon="" description="" caption="Amazon SQS" versions="[3.5.0,8.0.0]"></global-cloud-connector>
+  <global-cloud-connector extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="" localId="parentConfig" icon="" description="" caption="Amazon SQS" versions="[3.5.0,8.0.0]"></global-cloud-connector>
   <nested abstract="true" localId="connection-pooling-profile" description="" caption="">
-    <label description="" caption="Define connection pool configuration" name="poolingProfileLabel"></label>
-    <integer step="0" min="0" defaultValue="5" fillLine="true" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." caption="Max active" name="maxActive"></integer>
-    <integer step="0" min="0" defaultValue="5" fillLine="true" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." caption="Max idle" name="maxIdle"></integer>
-    <enum defaultValue="INITIALISE_ONE" alwaysFill="true" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" caption="Initialisation policy" name="initialisationPolicy">
+    <radioBoolean fillLine="true" description="Use default connection pool configuration." caption="Use default connection pool configuration" name="defaultPoolingProfile"></radioBoolean>
+    <radioBoolean fillLine="true" description="Define connection pool configuration." caption="Define connection pool configuration" name="customPoolingProfile"></radioBoolean>
+    <integer step="0" min="0" defaultValue="5" fillLine="true" indented="true" controlled="customPoolingProfile" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." caption="Max active" name="maxActive"></integer>
+    <integer step="0" min="0" defaultValue="5" fillLine="true" indented="true" controlled="customPoolingProfile" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." caption="Max idle" name="maxIdle"></integer>
+    <enum defaultValue="INITIALISE_ONE" indented="true" controlled="customPoolingProfile" alwaysFill="true" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" caption="Initialisation policy" name="initialisationPolicy">
       <option value="INITIALISE_NONE"></option>
       <option value="INITIALISE_ONE"></option>
       <option value="INITIALISE_ALL"></option>
     </enum>
-    <enum defaultValue="WHEN_EXHAUSTED_GROW" alwaysFill="true" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." caption="Exhausted action" name="exhaustedAction">
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" indented="true" controlled="customPoolingProfile" alwaysFill="true" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." caption="Exhausted action" name="exhaustedAction">
       <option value="WHEN_EXHAUSTED_WAIT"></option>
       <option value="WHEN_EXHAUSTED_FAIL"></option>
       <option value="WHEN_EXHAUSTED_GROW"></option>
     </enum>
-    <integer step="0" min="0" defaultValue="5" fillLine="true" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." caption="Max wait" name="maxWait"></integer>
-    <integer step="0" min="0" defaultValue="1800000" fillLine="true" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." caption="Min eviction (ms)" name="minEvictionMillis"></integer>
-    <integer step="0" min="0" defaultValue="-1" fillLine="true" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." caption="Eviction check interval (ms)" name="evictionCheckIntervalMillis"></integer>
+    <integer step="0" min="0" defaultValue="5" fillLine="true" indented="true" controlled="customPoolingProfile" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." caption="Max wait" name="maxWait"></integer>
+    <integer step="0" min="0" defaultValue="1800000" fillLine="true" indented="true" controlled="customPoolingProfile" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." caption="Min eviction (ms)" name="minEvictionMillis"></integer>
+    <integer step="0" min="0" defaultValue="-1" fillLine="true" indented="true" controlled="customPoolingProfile" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." caption="Eviction check interval (ms)" name="evictionCheckIntervalMillis"></integer>
   </nested>
   <nested abstract="true" localId="reconnectionStrategyElement" description="" caption="">
     <label description="" caption="Define how mule should attempt to handle a connection failure" name="connectionLabel"></label>
@@ -39,7 +40,7 @@ arising from the common producer-consumer problem or connectivity between produc
 This connector does not provide a method for creating a queue. The reason being that it will automatically
 create it when its needed instead of having to manually specify so." caption="Amazon SQS (Streaming)" versions="[3.5.0,8.0.0]">
     <attribute-category description="General." caption="General">
-      <group caption="Generic" id="sqsConnectorGeneric">
+      <group caption="Basic Settings" id="sqsConnectorGeneric">
         <modeSwitch alwaysCombo="true" description="Operation." caption="Operation" name="Sqs operations to execute">
           <mode modeLabel="Receive messages" modeId="http://www.mulesoft.org/schema/mule/sqs/receive-messages"></mode>
         </modeSwitch>
@@ -65,7 +66,7 @@ sqs.message.receipt.handle = containing the message identification
   </cloud-connector-message-source>
   <global-cloud-connector metaData="static" connectivityTesting="on" extends="http://www.mulesoft.org/schema/mule/sqs/parentConfig" abstract="false" image="icons/large/sqs-connector-48x32.png" localId="config" icon="icons/small/sqs-connector-24x16.png" description="Global Amazon SQS configuration information." caption="Amazon SQS" versions="[3.5.0,8.0.0]">
     <attribute-category description="Sqs configuration properties." caption="General">
-      <group caption="Generic" id="sqsGenericProperties">
+      <group caption="Basic Settings" id="sqsGenericProperties">
         <name required="true" description="Give a name to this configuration so it can be later referenced by config-ref." caption="Name" name="name"></name>
       </group>
       <group caption="Connection" id="connection">
@@ -90,7 +91,7 @@ in the connection parameters." caption="Queue URL" name="queueUrl"></string>
     </attribute-category>
     <attribute-category description="Pooling profile options." caption="Pooling Profile">
       <group caption="Pooling Profile" id="poolingProfile">
-        <childElement inplace="true" description="" caption="" name="http://www.mulesoft.org/schema/mule/sqs/connection-pooling-profile"></childElement>
+        <childElement inplace="true" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence" description="" caption="" name="http://www.mulesoft.org/schema/mule/sqs/connection-pooling-profile"></childElement>
       </group>
     </attribute-category>
     <attribute-category description="Reconnection options." caption="Reconnection">
@@ -102,8 +103,8 @@ in the connection parameters." caption="Queue URL" name="queueUrl"></string>
   </global-cloud-connector>
   <cloud-connector abstract="true" image="icons/large/sqs-connector-48x32.png" localId="abstractSqsConnectorGeneric" icon="icons/small/sqs-connector-24x16.png" description="Interact with Sqs." caption="Abstractsqsconnectorgeneric">
     <attribute-category description="General." caption="General">
-      <group caption="Generic" id="abstractSqsConnectorGeneric">
-        <globalRef requiredType="http://www.mulesoft.org/schema/mule/sqs/config" required="true" description="Specify which configuration to use for this invocation." caption="Config Reference" name="config-ref"></globalRef>
+      <group caption="Basic Settings" id="abstractSqsConnectorGeneric">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/sqs/config" required="true" description="Specify which configuration to use for this invocation." caption="Connector Configuration" name="config-ref"></globalRef>
       </group>
     </attribute-category>
   </cloud-connector>
@@ -115,7 +116,7 @@ arising from the common producer-consumer problem or connectivity between produc
 This connector does not provide a method for creating a queue. The reason being that it will automatically
 create it when its needed instead of having to manually specify so." caption="Amazon SQS" aliasId="org.mule.tooling.ui.modules.core.pattern.sqs" versions="[3.5.0,8.0.0]">
     <attribute-category description="General." caption="General">
-      <group caption="Generic" id="sqsConnectorGeneric">
+      <group caption="Basic Settings" id="sqsConnectorGeneric">
         <modeSwitch alwaysCombo="true" description="Operation." caption="Operation" name="Sqs operations to execute">
           <mode modeLabel="Add permission" modeId="http://www.mulesoft.org/schema/mule/sqs/add-permission"></mode>
           <mode modeLabel="Delete message" modeId="http://www.mulesoft.org/schema/mule/sqs/delete-message"></mode>
@@ -139,10 +140,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="false" description="Permissions will be added to the queue represented by this URL." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -156,10 +155,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string defaultValue="#[header:inbound:sqs.message.receipt.handle]" javaType="java.lang.String" required="false" description="Receipt handle of the message to be deleted." caption="Receipt Handle" name="receiptHandle"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -172,10 +169,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="false" description="The URL of the queue to delete." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -188,10 +183,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="false" description="The URL of the queue." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -205,10 +198,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="false" description="The URL of the queue." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -217,10 +208,8 @@ create it when its needed instead of having to manually specify so." caption="Am
   </cloud-connector>
   <cloud-connector returnType="java.lang.String" metaData="static" extends="http://www.mulesoft.org/schema/mule/sqs/abstractSqsConnectorGeneric" abstract="true" image="icons/large/sqs-connector-48x32.png" localId="get-url" icon="icons/small/sqs-connector-24x16.png" caption="Get Url">
     <attribute-category description="General." caption="General"></attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -234,10 +223,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="false" description="Permissions will be deleted from the queue represented by this URL." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -251,10 +238,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="false" description="The queue where the message is to be sent." caption="Queue Url" name="queueUrl"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>
@@ -269,10 +254,8 @@ create it when its needed instead of having to manually specify so." caption="Am
         <string javaType="java.lang.String" required="true" description="The value being set for this attribute." caption="Value" name="value"></string>
       </group>
     </attribute-category>
-    <attribute-category description="Connection." caption="Connection">
-      <group caption="Connection" id="connection">
-        <label caption="Use these fields to override the credentials defined in the Amazon SQS connector."></label>
-        <label caption=""></label>
+    <attribute-category description="Advanced." caption="Advanced">
+      <group caption="Connector Configuration Overrides" id="connector Configuration Overrides">
         <string javaType="java.lang.String" required="false" description="AWS access key." caption="Access Key" name="accessKey"></string>
         <string javaType="java.lang.String" required="false" description="AWS secret key." caption="Secret Key" name="secretKey"></string>
         <string javaType="java.lang.String" required="false" description="The name of the queue to connect to (optional)." caption="Queue Name" name="queueName"></string>

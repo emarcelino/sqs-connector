@@ -25,7 +25,7 @@ import org.mule.security.oauth.processor.AbstractListeningMessageProcessor;
  * ReceiveMessagesMessageSource wraps {@link org.mule.modules.sqs.SQSConnector#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)} method in {@link SQSConnector } as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-14T12:28:26-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:28:25-05:00", comments = "Build master.1915.dd1962d")
 public class ReceiveMessagesMessageSource
     extends AbstractListeningMessageProcessor
     implements Runnable, FlowConstructAware, MuleContextAware, Startable, Stoppable, MessageSource
@@ -41,12 +41,6 @@ public class ReceiveMessagesMessageSource
     protected Integer _numberOfMessagesType;
     protected Object queueUrl;
     protected String _queueUrlType;
-    protected Object accessKey;
-    protected String _accessKeyType;
-    protected Object secretKey;
-    protected String _secretKeyType;
-    protected Object queueName;
-    protected String _queueNameType;
     /**
      * Thread under which this message source will execute
      * 
@@ -110,33 +104,6 @@ public class ReceiveMessagesMessageSource
      */
     public void setQueueUrl(Object value) {
         this.queueUrl = value;
-    }
-
-    /**
-     * Sets accessKey
-     * 
-     * @param value Value to set
-     */
-    public void setAccessKey(Object value) {
-        this.accessKey = value;
-    }
-
-    /**
-     * Sets secretKey
-     * 
-     * @param value Value to set
-     */
-    public void setSecretKey(Object value) {
-        this.secretKey = value;
-    }
-
-    /**
-     * Sets queueName
-     * 
-     * @param value Value to set
-     */
-    public void setQueueName(Object value) {
-        this.queueName = value;
     }
 
     /**

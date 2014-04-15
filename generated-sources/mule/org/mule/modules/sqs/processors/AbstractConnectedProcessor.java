@@ -1,12 +1,14 @@
 
 package org.mule.modules.sqs.processors;
 
+import java.lang.reflect.Type;
 import javax.annotation.Generated;
 import org.mule.devkit.processor.DevkitBasedMessageProcessor;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-14T12:28:26-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:28:25-05:00", comments = "Build master.1915.dd1962d")
 public abstract class AbstractConnectedProcessor
     extends DevkitBasedMessageProcessor
+    implements ConnectivityProcessor
 {
 
     protected Object accessKey;
@@ -33,6 +35,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves accessKey
      * 
      */
+    @Override
     public Object getAccessKey() {
         return this.accessKey;
     }
@@ -50,6 +53,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves secretKey
      * 
      */
+    @Override
     public Object getSecretKey() {
         return this.secretKey;
     }
@@ -67,8 +71,20 @@ public abstract class AbstractConnectedProcessor
      * Retrieves queueName
      * 
      */
+    @Override
     public Object getQueueName() {
         return this.queueName;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public Type typeFor(String fieldName)
+        throws NoSuchFieldException
+    {
+        return AbstractConnectedProcessor.class.getDeclaredField(fieldName).getGenericType();
     }
 
 }
