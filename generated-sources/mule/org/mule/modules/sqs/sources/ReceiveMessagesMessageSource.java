@@ -25,7 +25,7 @@ import org.mule.security.oauth.processor.AbstractListeningMessageProcessor;
  * ReceiveMessagesMessageSource wraps {@link org.mule.modules.sqs.SQSConnector#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)} method in {@link SQSConnector } as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:28:25-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T10:16:12-05:00", comments = "Build master.1915.dd1962d")
 public class ReceiveMessagesMessageSource
     extends AbstractListeningMessageProcessor
     implements Runnable, FlowConstructAware, MuleContextAware, Startable, Stoppable, MessageSource
