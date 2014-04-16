@@ -33,7 +33,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * GetUrlMessageProcessor invokes the {@link org.mule.modules.sqs.SQSConnector#getUrl()} method in {@link SQSConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T10:16:12-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T10:18:05-05:00", comments = "Build master.1915.dd1962d")
 public class GetUrlMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled

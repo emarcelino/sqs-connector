@@ -8,7 +8,7 @@ import javax.annotation.Generated;
  * A tuple of connection parameters
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T10:16:12-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T10:18:05-05:00", comments = "Build master.1915.dd1962d")
 public class SQSConnectorConnectionKey {
 
     /**
