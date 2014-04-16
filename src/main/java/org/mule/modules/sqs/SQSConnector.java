@@ -129,6 +129,7 @@ public class SQSConnector {
      *
      * @param message the message to send. Defaults to the payload of the Mule message.
      * @param queueUrl the queue where the message is to be sent.
+     * @return The queue response of the sent message.
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
