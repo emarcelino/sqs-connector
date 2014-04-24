@@ -117,7 +117,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  ConnectionManager
+  ConnectivityProcessor
 
 
 | Mule Amazon SQS Connector
@@ -259,7 +259,7 @@
   <a href="../../../../../../java/org/mule/modules/sqs/agents/package-summary.html">org.mule.modules.sqs.agents</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/config/package-summary.html">org.mule.modules.sqs.config</a></li>
-    <li class="selected api apilevel-">
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/connection/package-summary.html">org.mule.modules.sqs.connection</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/connectivity/package-summary.html">org.mule.modules.sqs.connectivity</a></li>
@@ -269,7 +269,7 @@
   <a href="../../../../../../java/org/mule/modules/sqs/pooling/package-summary.html">org.mule.modules.sqs.pooling</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/process/package-summary.html">org.mule.modules.sqs.process</a></li>
-    <li class="api apilevel-">
+    <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/processors/package-summary.html">org.mule.modules.sqs.processors</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/sources/package-summary.html">org.mule.modules.sqs.sources</a></li>
@@ -283,20 +283,28 @@
               
     <li><h2>Interfaces</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/connection/Connection.html">Connection</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/connection/ConnectionManager.html">ConnectionManager</a>&lt;K,&nbsp;C&nbsp;extends&nbsp;<a href="../../../../../../java/org/mule/modules/sqs/connection/Connection.html">Connection</a>&gt;</li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></li>
       </ul>
     </li>
               
-              
-              
-              
-    <li><h2>Exceptions</h2>
+    <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/connection/UnableToAcquireConnectionException.html">UnableToAcquireConnectionException</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/connection/UnableToReleaseConnectionException.html">UnableToReleaseConnectionException</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></li>
       </ul>
     </li>
+              
+              
+              
               
             </ul><br/>
           </div><!-- end classes -->
@@ -378,7 +386,7 @@ Summary:
      
     
     interface
-<h1>ConnectionManager</h1>
+<h1>ConnectivityProcessor</h1>
 
 
 
@@ -397,7 +405,7 @@ Summary:
 
     <tr>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.sqs.connection.ConnectionManager&lt;K,&nbsp;C&nbsp;extends&nbsp;<a href="../../../../../../java/org/mule/modules/sqs/connection/Connection.html">org.mule.modules.sqs.connection.Connection</a>&gt;</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.sqs.processors.ConnectivityProcessor</td>
     </tr>
     
 
@@ -422,7 +430,27 @@ Summary:
               >
           
             
-              <a href="../../../../../../java/org/mule/modules/sqs/connectivity/SQSConnectorConnectionManager.html">SQSConnectorConnectionManager</a>
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a>,
+            
+              <a href="../../../../../../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a>
             
           
       </div>
@@ -431,8 +459,48 @@ Summary:
               >
   <table class="jd-sumtable-expando">
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/connectivity/SQSConnectorConnectionManager.html">SQSConnectorConnectionManager</a></td>
-              <td class="jd-descrcol" width="100%">A <code>SQSConnectorConnectionManager</code> is a wrapper around <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> that adds connection management capabilities to the pojo.&nbsp;</td>
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">AddPermissionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addPermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">DeleteMessageMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String, java.lang.String)">deleteMessage(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">DeleteQueueMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#deleteQueue(java.lang.String)">deleteQueue(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetApproximateNumberOfMessagesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages(java.lang.String)">getApproximateNumberOfMessages(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetQueueAttributesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String, java.lang.String)">getQueueAttributes(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetUrlMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#getUrl()">getUrl()</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">RemovePermissionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String, java.lang.String)">removePermission(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">SendMessageMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String, java.lang.String)">sendMessage(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">SetQueueAttributeMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String, java.lang.String)">setQueueAttribute(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
           </tr>
   </table>
       </div>
@@ -444,7 +512,9 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>Wrapper around org.mule.api.annotations.Connector annotated class that will infuse it with connection management capabilities. <p/> It can receive a org.mule.config.PoolingProfile which is a configuration object used to define the connection pooling parameters.</p>
+<p>Interface used to unify all message processors (those which use (or not) pagination) from the ManagedConnectionProcessInterceptor
+ 
+</p>
 
 
 
@@ -511,13 +581,11 @@ Summary:
             
             
             
-            C</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/connection/ConnectionManager.html#acquireConnection(K)">acquireConnection</a></span>(K connectorKey)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/ConnectivityProcessor.html#getAccessKey()">getAccessKey</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Borrow a connection from the pool</div>
-  
   </td></tr>
 
 
@@ -529,13 +597,11 @@ Summary:
             
             
             
-            void</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/connection/ConnectionManager.html#destroyConnection(K, C)">destroyConnection</a></span>(K connectorKey, C connector)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/ConnectivityProcessor.html#getQueueName()">getQueueName</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Destroy a connection</div>
-  
   </td></tr>
 
 
@@ -547,13 +613,11 @@ Summary:
             
             
             
-            K</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/connection/ConnectionManager.html#getDefaultConnectionKey()">getDefaultConnectionKey</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/ConnectivityProcessor.html#getSecretKey()">getSecretKey</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieve the default connection key</div>
-  
   </td></tr>
 
 
@@ -565,49 +629,12 @@ Summary:
             
             
             
-            K</nobr>
+            Type</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/connection/ConnectionManager.html#getEvaluatedConnectionKey(org.mule.api.MuleEvent)">getEvaluatedConnectionKey</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/processors/ConnectivityProcessor.html#typeFor(java.lang.String)">typeFor</a></span>(String fieldName)</nobr>
         
-        <div class="jd-descrdiv">Retrieve the connection key evaluated with the received mule event</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            RetryPolicyTemplate</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/connection/ConnectionManager.html#getRetryPolicyTemplate()">getRetryPolicyTemplate</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieve the reconnection strategy used by this connection
- manager.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/sqs/connection/ConnectionManager.html#releaseConnection(K, C)">releaseConnection</a></span>(K connectorKey, C connector)</nobr>
-        
-        <div class="jd-descrdiv">Return a connection to the pool</div>
+        <div class="jd-descrdiv">Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect</div>
   
   </td></tr>
 
@@ -660,7 +687,7 @@ Summary:
 
 
 
-<A NAME="acquireConnection(K)"></A>
+<A NAME="getAccessKey()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -670,117 +697,9 @@ Summary:
          
         abstract 
          
-        C
+        Object
       </span>
-      <span class="sympad">acquireConnection</span>
-      <span class="normal">(K connectorKey)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Borrow a connection from the pool</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>connectorKey</td>
-          <td>Key used to borrow the connector</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>An existing connector, or a newly created one</li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td>If the connection cannot be created
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="destroyConnection(K, C)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-        abstract 
-         
-        void
-      </span>
-      <span class="sympad">destroyConnection</span>
-      <span class="normal">(K connectorKey, C connector)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Destroy a connection</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>connectorKey</td>
-          <td>Key used to borrow the connector</td>
-        </tr>
-        <tr>
-          <th>connector</td>
-          <td>Connector to be destroyed</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td>If the connection could not be destroyed.
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="getDefaultConnectionKey()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-        abstract 
-         
-        K
-      </span>
-      <span class="sympad">getDefaultConnectionKey</span>
+      <span class="sympad">getAccessKey</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -793,18 +712,13 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the default connection key</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The default connection key
-</li></ul>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
 
 
-<A NAME="getEvaluatedConnectionKey(org.mule.api.MuleEvent)"></A>
+<A NAME="getQueueName()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -814,63 +728,9 @@ Summary:
          
         abstract 
          
-        K
+        Object
       </span>
-      <span class="sympad">getEvaluatedConnectionKey</span>
-      <span class="normal">(MuleEvent event)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the connection key evaluated with the received mule event</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>event</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The default connection key
-</li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="getRetryPolicyTemplate()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-        abstract 
-         
-        RetryPolicyTemplate
-      </span>
-      <span class="sympad">getRetryPolicyTemplate</span>
+      <span class="sympad">getQueueName</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -883,19 +743,13 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the reconnection strategy used by this connection
- manager.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The reconnection strategy 
-</li></ul>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
 
 
-<A NAME="releaseConnection(K, C)"></A>
+<A NAME="getSecretKey()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -905,10 +759,10 @@ Summary:
          
         abstract 
          
-        void
+        Object
       </span>
-      <span class="sympad">releaseConnection</span>
-      <span class="normal">(K connectorKey, C connector)</span>
+      <span class="sympad">getSecretKey</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -920,26 +774,57 @@ Summary:
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Return a connection to the pool</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="typeFor(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        Type
+      </span>
+      <span class="sympad">typeFor</span>
+      <span class="normal">(String fieldName)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>connectorKey</td>
-          <td>Key used to borrow the connector</td>
-        </tr>
-        <tr>
-          <th>connector</td>
-          <td>Connector to be returned to the pool</td>
+          <th>fieldName</td>
+          <td>Name of the field to look for</td>
         </tr>
       </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The java.lang.reflect.Type associated with the field <code>fieldName</code></li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
-            <th>Exception</td>
-            <td>If the connection cannot be returned
+            <th>NoSuchFieldException</td>
+            <td>Thrown when the <code>fieldName</code> is not a field from the current class
 </td>
         </tr>
       </table>
