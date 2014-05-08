@@ -65,49 +65,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -202,7 +159,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -258,6 +215,10 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/agents/package-summary.html">org.mule.modules.sqs.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/sqs/basic/package-summary.html">org.mule.modules.sqs.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/sqs/callback/package-summary.html">org.mule.modules.sqs.callback</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/config/package-summary.html">org.mule.modules.sqs.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/connection/package-summary.html">org.mule.modules.sqs.connection</a></li>
@@ -266,7 +227,7 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/devkit/package-summary.html">org.mule.modules.sqs.devkit</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/sqs/pooling/package-summary.html">org.mule.modules.sqs.pooling</a></li>
+  <a href="../../../../../../java/org/mule/modules/sqs/oauth/package-summary.html">org.mule.modules.sqs.oauth</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/sqs/process/package-summary.html">org.mule.modules.sqs.process</a></li>
     <li class="api apilevel-">
@@ -410,7 +371,7 @@ Summary:
   
       implements 
       
-        KeyedPoolableObjectFactory&lt;K,&nbsp;V&gt; 
+        KeyedPoolableObjectFactory 
       
   
   
@@ -889,7 +850,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">activateObject</span>(K arg0, V arg1)</nobr>
+        <span class="sympad">activateObject</span>(Object arg0, Object arg1)</nobr>
         
   </td></tr>
 
@@ -905,7 +866,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">destroyObject</span>(K arg0, V arg1)</nobr>
+        <span class="sympad">destroyObject</span>(Object arg0, Object arg1)</nobr>
         
   </td></tr>
 
@@ -918,10 +879,10 @@ From interface
             
             
             
-            V</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">makeObject</span>(K arg0)</nobr>
+        <span class="sympad">makeObject</span>(Object arg0)</nobr>
         
   </td></tr>
 
@@ -937,7 +898,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">passivateObject</span>(K arg0, V arg1)</nobr>
+        <span class="sympad">passivateObject</span>(Object arg0, Object arg1)</nobr>
         
   </td></tr>
 
@@ -953,7 +914,7 @@ From interface
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">validateObject</span>(K arg0, V arg1)</nobr>
+        <span class="sympad">validateObject</span>(Object arg0, Object arg1)</nobr>
         
   </td></tr>
 

@@ -66,49 +66,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -202,7 +159,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -258,6 +215,10 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/agents/package-summary.html">org.mule.modules.sqs.agents</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/basic/package-summary.html">org.mule.modules.sqs.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/sqs/callback/package-summary.html">org.mule.modules.sqs.callback</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/config/package-summary.html">org.mule.modules.sqs.config</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/connection/package-summary.html">org.mule.modules.sqs.connection</a></li>
@@ -266,7 +227,7 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/devkit/package-summary.html">org.mule.modules.sqs.devkit</a></li>
     <li class="api apilevel-">
-  <a href="../java/org/mule/modules/sqs/pooling/package-summary.html">org.mule.modules.sqs.pooling</a></li>
+  <a href="../java/org/mule/modules/sqs/oauth/package-summary.html">org.mule.modules.sqs.oauth</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/sqs/process/package-summary.html">org.mule.modules.sqs.process</a></li>
     <li class="api apilevel-">
@@ -326,7 +287,10 @@
     <a href="#letter_C">C</a>
     <a href="#letter_D">D</a>
     <a href="#letter_G">G</a>
+    <a href="#letter_H">H</a>
     <a href="#letter_M">M</a>
+    <a href="#letter_N">N</a>
+    <a href="#letter_O">O</a>
     <a href="#letter_P">P</a>
     <a href="#letter_R">R</a>
     <a href="#letter_S">S</a>
@@ -346,7 +310,31 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/AbstractDefinitionParser.html">AbstractDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/AbstractDefinitionParser.ParseDelegate.html">AbstractDefinitionParser.ParseDelegate</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -359,7 +347,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/AddPermissionMessageProcessor.html">AddPermissionMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">AddPermissionMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addPermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">AddPermissionMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#addPermission(java.lang.String, java.lang.String, java.lang.String)">addPermission(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -371,6 +359,18 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/basic/Capabilities.html">Capabilities</a></td>
+            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module annotated class, to dynamically query what its capabilities are.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/basic/Capability.html">Capability</a></td>
+            <td class="jd-descrcol" width="100%">Enumeration of possible capabilities of Mule modules.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/Connection.html">Connection</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
@@ -379,14 +379,6 @@
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/ConnectionManager.html">ConnectionManager</a>&lt;K,&nbsp;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/sqs/connection/Connection.html">Connection</a>&gt;</td>
             <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.Connector annotated class that will infuse it with connection management capabilities.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></td>
-            <td class="jd-descrcol" width="100%">Interface used to unify all message processors (those which use (or not) pagination) from the ManagedConnectionProcessInterceptor
- 
-&nbsp;</td>
         </tr>
     
     
@@ -413,7 +405,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/DeleteMessageMessageProcessor.html">DeleteMessageMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">DeleteMessageMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String, java.lang.String)">deleteMessage(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">DeleteMessageMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#deleteMessage(java.lang.String)">deleteMessage(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -425,13 +417,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/DeleteQueueMessageProcessor.html">DeleteQueueMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">DeleteQueueMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#deleteQueue(java.lang.String)">deleteQueue(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/pooling/DevkitGenericKeyedObjectPool.html">DevkitGenericKeyedObjectPool</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
+            <td class="jd-descrcol" width="100%">DeleteQueueMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#deleteQueue()">deleteQueue()</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -450,7 +436,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/GetApproximateNumberOfMessagesMessageProcessor.html">GetApproximateNumberOfMessagesMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetApproximateNumberOfMessagesMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages(java.lang.String)">getApproximateNumberOfMessages(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetApproximateNumberOfMessagesMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#getApproximateNumberOfMessages()">getApproximateNumberOfMessages()</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -462,7 +448,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/GetQueueAttributesMessageProcessor.html">GetQueueAttributesMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetQueueAttributesMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String, java.lang.String)">getQueueAttributes(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetQueueAttributesMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#getQueueAttributes(java.lang.String)">getQueueAttributes(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -475,6 +461,25 @@
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/GetUrlMessageProcessor.html">GetUrlMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetUrlMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#getUrl()">getUrl()</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_H">H</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/callback/HttpCallback.html">HttpCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapter/HttpCallbackAdapter.html">HttpCallbackAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -497,6 +502,63 @@
         </tr>
     
     
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/basic/MetadataAware.html">MetadataAware</a></td>
+            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module and org.mule.api.annotations.Connector annotated class and its purpose is to define a contract to query the annotated class about its metadata.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_N">N</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/NestedProcessorChain.html">NestedProcessorChain</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/NotAuthorizedException.html">NotAuthorizedException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_O">O</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuth1Adapter.html">OAuth1Adapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuth2Adapter.html">OAuth2Adapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuthAdapter.html">OAuthAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/OAuthManager.html">OAuthManager</a>&lt;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/sqs/oauth/OAuthAdapter.html">OAuthAdapter</a>&gt;</td>
+            <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.oauth.OAuth annotated class that will infuse it with
+ access token management capabilities.&nbsp;</td>
+        </tr>
+    
+    
 </table>
 
 
@@ -507,6 +569,36 @@
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/adapter/PoolManager.html">PoolManager</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessAdapter.html">ProcessAdapter</a>&lt;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessCallback.html">ProcessCallback</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">Callback with logic to execute within a controlled environment provided by <code><a href="../java/org/mule/modules/sqs/process/ProcessTemplate.html">ProcessTemplate</a></code>&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessCallbackProcessInterceptor.html">ProcessCallbackProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessInterceptor.html">ProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/ProcessTemplate.html">ProcessTemplate</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">ProcessTemplate provides a processing context for message processing.&nbsp;</td>
         </tr>
     
     
@@ -525,7 +617,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/sources/ReceiveMessagesMessageSource.html">ReceiveMessagesMessageSource</a></td>
-            <td class="jd-descrcol" width="100%">ReceiveMessagesMessageSource wraps <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)">receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> as a message source capable of generating Mule events.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">ReceiveMessagesMessageSource wraps <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer)">receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code> as a message source capable of generating Mule events.&nbsp;</td>
         </tr>
     
     
@@ -549,7 +641,19 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/RemovePermissionMessageProcessor.html">RemovePermissionMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">RemovePermissionMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String, java.lang.String)">removePermission(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">RemovePermissionMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#removePermission(java.lang.String)">removePermission(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/RestoreAccessTokenCallback.html">RestoreAccessTokenCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/process/RetryProcessInterceptor.html">RetryProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -561,26 +665,38 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/SaveAccessTokenCallback.html">SaveAccessTokenCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/SendMessageDefinitionParser.html">SendMessageDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/SendMessageMessageProcessor.html">SendMessageMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">SendMessageMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String, java.lang.String)">sendMessage(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">SendMessageMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String)">sendMessage(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/config/SetQueueAttributeDefinitionParser.html">SetQueueAttributeDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/processors/SetQueueAttributeMessageProcessor.html">SetQueueAttributeMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">SetQueueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String, java.lang.String)">setQueueAttribute(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">SetQueueAttributeMessageProcessor invokes the <code><a href="../java/org/mule/modules/sqs/SQSConnector.html#setQueueAttribute(java.lang.String, java.lang.String)">setQueueAttribute(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/sqs/SQSConnector.html">SQSConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/callback/SourceCallback.html">SourceCallback</a></td>
+            <td class="jd-descrcol" width="100%">Callback interface used by org.mule.api.annotations.Source annotated methods to dispatch messages.&nbsp;</td>
         </tr>
     
     
@@ -659,6 +775,14 @@
         </tr>
     
     
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/callback/StopSourceCallback.html">StopSourceCallback</a></td>
+            <td class="jd-descrcol" width="100%">Callback returned by methods that are annotated with @Source
+ <p/>
+ It will be executed when the MessageSource is being stopped.&nbsp;</td>
+        </tr>
+    
+    
 </table>
 
 
@@ -667,9 +791,25 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/UnableToAcquireAccessTokenException.html">UnableToAcquireAccessTokenException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the access token needed for accessing a protected resource cannot be acquired
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/connection/UnableToAcquireConnectionException.html">UnableToAcquireConnectionException</a></td>
             <td class="jd-descrcol" width="100%">Exception thrown when the connection needed for executing an
   operation is null.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/sqs/oauth/UnableToAcquireRequestTokenException.html">UnableToAcquireRequestTokenException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the request token needed for building the authorization URL cannot be acquired
+ 
+&nbsp;</td>
         </tr>
     
     
