@@ -198,7 +198,7 @@ public class SQSConnector {
             throws AmazonServiceException {
 
         List<Message> messages;
-        ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest();
+        ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All");
         receiveMessageRequest.setQueueUrl(getQueueUrl(queueUrl));
 
         if (visibilityTimeout != null) {
