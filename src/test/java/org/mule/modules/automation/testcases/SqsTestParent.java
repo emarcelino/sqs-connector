@@ -87,12 +87,13 @@ public class SqsTestParent extends ConnectorTestCase {
 			throw e;
 		}
 	}
-	
+
+
 	@Override
 	protected <T> T runFlowAndGetPayload(String flowName) throws Exception {
 		for (int retries = 0; retries < MAX_RETRIES; retries++) {
 			try {
-				Thread.sleep(5000); // compensate for reduced latency in US
+				Thread.sleep(65000); // SQS Requires at least 60 seconds between test cases.
 				return super.runFlowAndGetPayload(flowName);
 			} catch (MessagingException e) {
 				sleepOnException(e, QueueDeletedRecentlyException.class);
@@ -107,6 +108,7 @@ public class SqsTestParent extends ConnectorTestCase {
 			throws Exception {
 		for (int retries = 0; retries < MAX_RETRIES; retries++) {
 			try {
+                Thread.sleep(65000); // SQS Requires 60 seconds between test cases.
 				return super.runFlowAndGetPayload(flowName, beanId);
 			} catch (MessagingException e) {
 				sleepOnException(e, QueueDeletedRecentlyException.class);
