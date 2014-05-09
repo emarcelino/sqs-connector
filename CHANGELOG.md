@@ -1,13 +1,28 @@
 Amazon SQS Anypoint Connector Release Notes
 ==========================================
 
-Date: 07-May-2014
+Date: 09-May-2014
 
 Version: 2.3.1
-
-Supported API versions: 1.3.31 SDK
-
 Supported Mule Runtime Versions: 3.4.x, 3.5.0
+
+Supported API versions:
+------------------------------
+
+1.3.31 SDK
+
+Supported Operations:
+
+* Add permission
+* Delete Message
+* Delete Queue
+* Get approximate number of messages
+* Get Queue Attributes
+* Get URL
+* Remove Permission
+* Send Message
+* Set Queue Attribute
+
 
 New Features and Functionality
 ------------------------------
