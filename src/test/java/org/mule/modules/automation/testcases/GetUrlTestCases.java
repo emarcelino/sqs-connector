@@ -20,6 +20,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.automation.RegressionTests;
+import org.mule.modules.automation.SmokeTests;
 
 public class GetUrlTestCases
     extends SqsTestParent

@@ -23,6 +23,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import com.amazonaws.services.sqs.model.SendMessageResult;
+import org.mule.modules.automation.RegressionTests;
+import org.mule.modules.automation.SmokeTests;
 
 public class SendMessageTestCases
     extends SqsTestParent
