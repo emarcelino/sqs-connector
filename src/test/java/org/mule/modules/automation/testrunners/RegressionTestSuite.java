@@ -9,7 +9,7 @@
  */
 
 
-package org.mule.modules.automation;
+package org.mule.modules.automation.testrunners;
 
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
@@ -19,25 +19,25 @@ import org.mule.modules.automation.testcases.DeleteQueueTestCases;
 import org.mule.modules.automation.testcases.GetApproximateNumberOfMessagesTestCases;
 import org.mule.modules.automation.testcases.GetQueueAttributesTestCases;
 import org.mule.modules.automation.testcases.GetUrlTestCases;
+import org.mule.modules.automation.RegressionTests;
 import org.mule.modules.automation.testcases.RemovePermissionTestCases;
 import org.mule.modules.automation.testcases.SendMessageTestCases;
 import org.mule.modules.automation.testcases.SetQueueAttributeTestCases;
-import org.mule.modules.automation.testcases.SmokeTests;
 
 @RunWith(Categories.class)
-@Categories.IncludeCategory(SmokeTests.class)
+@Categories.IncludeCategory(RegressionTests.class)
 @org.junit.runners.Suite.SuiteClasses({
+    AddPermissionTestCases.class,
     SendMessageTestCases.class,
     GetUrlTestCases.class,
     DeleteMessageTestCases.class,
     DeleteQueueTestCases.class,
     GetQueueAttributesTestCases.class,
     SetQueueAttributeTestCases.class,
-    AddPermissionTestCases.class,
     RemovePermissionTestCases.class,
     GetApproximateNumberOfMessagesTestCases.class
 })
-public class SmokeTestSuite {
+public class RegressionTestSuite {
 
 
 }

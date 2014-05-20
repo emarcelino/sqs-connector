@@ -15,6 +15,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.automation.RegressionTests;
+import org.mule.modules.automation.SmokeTests;
 
 public class DeleteMessageTestCases extends SqsTestParent {
 

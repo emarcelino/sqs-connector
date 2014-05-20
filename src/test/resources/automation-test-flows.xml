@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <mule xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:context="http://www.springframework.org/schema/context"
+      version="EE-3.4.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/current/mule-sqs.xsd">
 
 	<context:property-placeholder location="${AMAZON_SQS_CREDENTIALS}" />
-<!-- 	<context:property-placeholder location="sqs-credentials.properties" /> -->
 
 
 	<sqs:config name="Sqs" accessKey="${sqs.accessKey}"
@@ -88,7 +86,7 @@ http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/
 <!-- 	<flow name="receive-message-no-optional" doc:name="receive-message"> -->
 <!-- 		<sqs:receive-messages config-ref="Sqs" doc:name="Amazon SQS (Streaming)" /> -->
 <!-- 	</flow> -->
-	
+
 <!-- 	<flow name="receive-message" doc:name="receive-message"> -->
 <!-- 		<sqs:receive-messages config-ref="Sqs" doc:name="Amazon SQS (Streaming)"  -->
 <!-- 		numberOfMessages="#[flowVars.numberOfMessages]"  -->

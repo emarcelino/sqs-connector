@@ -53,7 +53,7 @@ public class SqsTestParent extends ConnectorTestCase {
 		initializeTestRunMessage("testDeleteQueueTestData");
 		runFlowAndGetPayload("delete-queue");
 	}
-	
+
 	protected Integer getApproximateNumberOfMessages(String queueUrl) throws Exception {
 		upsertOnTestRunMessage("queueUrl", queueUrl);
 		return (Integer) runFlowAndGetPayload("get-approximate-number-of-messages");
@@ -87,7 +87,8 @@ public class SqsTestParent extends ConnectorTestCase {
 			throw e;
 		}
 	}
-	
+
+
 	@Override
 	protected <T> T runFlowAndGetPayload(String flowName) throws Exception {
 		for (int retries = 0; retries < MAX_RETRIES; retries++) {
@@ -107,7 +108,8 @@ public class SqsTestParent extends ConnectorTestCase {
 			throws Exception {
 		for (int retries = 0; retries < MAX_RETRIES; retries++) {
 			try {
-				return super.runFlowAndGetPayload(flowName, beanId);
+                Thread.sleep(5000); // compensate for reduced latency in US
+                return super.runFlowAndGetPayload(flowName, beanId);
 			} catch (MessagingException e) {
 				sleepOnException(e, QueueDeletedRecentlyException.class);
 			}

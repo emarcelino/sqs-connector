@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
  * @author MuleSoft, Inc.
  */
 @Connector(name = "sqs", friendlyName = "Amazon SQS", minMuleVersion = "3.5")
+@ReconnectOn(exceptions = {AmazonClientException.class})
 public class SQSConnector {
     private static Logger logger = LoggerFactory.getLogger(SQSConnector.class);
 
@@ -139,8 +140,7 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public SendMessageResult sendMessage(@Optional @Default("#[payload]") final String message, @Optional String queueUrl)
+    public SendMessageResult sendMessage(@Default("#[payload]") final String message, @Optional String queueUrl)
             throws AmazonServiceException {
     	return msgQueue.sendMessage(new SendMessageRequest(getQueueUrl(queueUrl), message));
     }
@@ -188,12 +188,11 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Source
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void receiveMessages(SourceCallback callback, 
-                                @Optional @Default("30") Integer visibilityTimeout, 
-                                @Optional @Default("false") Boolean preserveMessages,
-                                @Optional @Default("1000") Long pollPeriod,
-                                @Optional @Default("1") Integer numberOfMessages,
+    public void receiveMessages(SourceCallback callback,
+                                @Default("30") Integer visibilityTimeout,
+                                @Default("false") Boolean preserveMessages,
+                                @Default("1000") Long pollPeriod,
+                                @Default("1") Integer numberOfMessages,
                                 @Optional String queueUrl)
             throws AmazonServiceException {
 
@@ -261,8 +260,7 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
-    public void deleteMessage(@Optional @Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle,
+    public void deleteMessage(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle,
     		@Optional String queueUrl)
             throws AmazonServiceException {
         msgQueue.deleteMessage(new DeleteMessageRequest(getQueueUrl(queueUrl), receiptHandle));
@@ -282,7 +280,6 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
     public void deleteQueue(@Optional String queueUrl) throws AmazonServiceException {
         msgQueue.deleteQueue(new DeleteQueueRequest(getQueueUrl(queueUrl)));
     }
@@ -311,7 +308,6 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
     public Map<String, String> getQueueAttributes(String attribute, @Optional String queueUrl)
             throws AmazonServiceException {
         return msgQueue.getQueueAttributes(
@@ -336,7 +332,6 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
     public void setQueueAttribute(String attribute, String value, @Optional String queueUrl)
             throws AmazonServiceException {
         Map<String, String> attributes = new HashMap<String, String>();
@@ -362,7 +357,6 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
     public void addPermission(String label, String accountId, String action, @Optional String queueUrl)
             throws AmazonServiceException {
         msgQueue.addPermission(new AddPermissionRequest(getQueueUrl(queueUrl), label,
@@ -385,7 +379,6 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
     public void removePermission(String label, @Optional String queueUrl) throws AmazonServiceException {
         msgQueue.removePermission(new RemovePermissionRequest(getQueueUrl(queueUrl), label));
     }   
@@ -405,7 +398,6 @@ public class SQSConnector {
      * @return the approximate number of messages in the queue
      */
     @Processor
-    @InvalidateConnectionOn(exception = AmazonClientException.class)
     public int getApproximateNumberOfMessages(@Optional String queueUrl) throws AmazonServiceException {
         return Integer.parseInt(msgQueue.getQueueAttributes(
                 new GetQueueAttributesRequest(getQueueUrl(queueUrl)).withAttributeNames(
