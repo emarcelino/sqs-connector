@@ -10,17 +10,14 @@
 
 package org.mule.modules.sqs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.sqs.AmazonSQSAsync;
+import com.amazonaws.services.sqs.AmazonSQSAsyncClient;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.*;
-
 import org.apache.commons.lang.StringUtils;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
@@ -33,6 +30,12 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.SourceCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * Amazon Simple Queue Service (Amazon SQS) is a distributed queue messaging service introduced by Amazon.com in
@@ -54,6 +57,7 @@ public class SQSConnector {
      * Message Queue
      */
     private AmazonSQSClient msgQueue;
+    private AmazonSQSAsync msgQueueAsync;
 
     /**
      * Queue Region
@@ -85,10 +89,13 @@ public class SQSConnector {
     public void connect(@ConnectionKey String accessKey, String secretKey, @Optional String queueName)
              throws ConnectionException {
         try {
-            msgQueue = new AmazonSQSClient(new BasicAWSCredentials(accessKey, secretKey));
+            AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+            msgQueue = new AmazonSQSClient(credentials);
+            msgQueueAsync = new AmazonSQSAsyncClient(credentials);
 
             if(region != null) {
                 msgQueue.setEndpoint(region.value());
+                msgQueueAsync.setEndpoint(region.value());
             }
             if (queueName != null) {
 	            CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
@@ -156,11 +163,11 @@ public class SQSConnector {
     public String getUrl() {
         return this.queueUrl;
     }
-    
+
 
     /**
-     * Attempts to receive a message from the queue. Every attribute of the incoming
-     * message will be added as an inbound property. Also the following properties
+     * Attempts to receive messages from a queue. Every attribute of the incoming
+     * messages will be added as inbound properties. Also the following properties
      * will also be added:
      * <p/>
      * sqs.message.id = containing the message identification
@@ -168,17 +175,15 @@ public class SQSConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:receive-messages}
      *
-     * @param callback          Callback to call when a new message is available.
-     * @param visibilityTimeout the duration (in seconds) the retrieved message is hidden from
+     * @param callback          Callback to call when new messages are available.
+     * @param visibilityTimeout the duration (in seconds) the retrieved messages are hidden from
      *                          subsequent calls to retrieve.
      * @param preserveMessages 	Flag that indicates if you want to preserve the messages
      *                         	in the queue. False by default, so the messages are
      *                         	going to be deleted.
-     * @param pollPeriod        time in milliseconds to wait between polls (when no messages were retrieved). 
-     *                          Default period is 1000 ms.
-     * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max). 
-     * 							By default, 1 message will be retrieved.	
-     * @param queueUrl the queue URL where messages are to be fetched from.		                        
+     * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max).
+     * 							By default, 1 message will be retrieved.
+     * @param queueUrl the queue URL where messages are to be fetched from.
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
      *             attempting to make the request or handle the response.  For example
@@ -191,12 +196,9 @@ public class SQSConnector {
     public void receiveMessages(SourceCallback callback,
                                 @Default("30") Integer visibilityTimeout,
                                 @Default("false") Boolean preserveMessages,
-                                @Default("1000") Long pollPeriod,
                                 @Default("1") Integer numberOfMessages,
                                 @Optional String queueUrl)
             throws AmazonServiceException {
-
-        List<Message> messages;
         ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All");
         receiveMessageRequest.setQueueUrl(getQueueUrl(queueUrl));
 
@@ -204,29 +206,30 @@ public class SQSConnector {
             receiveMessageRequest.setVisibilityTimeout(visibilityTimeout);
         }
         receiveMessageRequest.setMaxNumberOfMessages(numberOfMessages);
-        
-        while (!Thread.interrupted()) {
-            messages = msgQueue.receiveMessage(receiveMessageRequest).getMessages();
-            try
-            {
-                if (messages.size() == 0) {
-                	Thread.sleep(pollPeriod);
-                    continue;
+
+        while (!Thread.currentThread().isInterrupted()) {
+            Future<ReceiveMessageResult> futureMessages = msgQueueAsync.receiveMessageAsync(receiveMessageRequest);
+            try {
+                List<Message> receivedMessages = futureMessages.get().getMessages();
+                for (Message m : receivedMessages) {
+                    try {
+                        callback.process(m.getBody(), createProperties(m));
+                    } catch (Exception e) {
+                        // If an exception is thrown here, we cannot communicate
+                        // with the Mule flow, so there is nothing we can do to
+                        // handle it.
+                        futureMessages.cancel(true);
+                        return;
+                    }
+                    if (!preserveMessages) {
+                        msgQueueAsync.deleteMessageAsync(new DeleteMessageRequest(getQueueUrl(queueUrl), m.getReceiptHandle()));
+                    }
                 }
-                for (Message msg : messages) {
-                	callback.process(msg.getBody(), createProperties(msg));
-                	if (!preserveMessages) {
-                		msgQueue.deleteMessage(new DeleteMessageRequest(getQueueUrl(queueUrl), msg.getReceiptHandle()));
-                	}
-                }
-            }
-            catch (InterruptedException e)
-            {
-            	logger.error(e.getMessage(), e);
-            }
-            catch (Exception e)
-            {
-                throw new AmazonClientException("Error while processing message.", e);
+            } catch (InterruptedException e) {
+                futureMessages.cancel(true);
+                return;
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
             }
         }
     }
