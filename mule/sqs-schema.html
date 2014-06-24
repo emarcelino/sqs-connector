@@ -66,49 +66,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -201,7 +158,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -275,7 +232,7 @@
           <th>Schema Version</th><td>1.0</td>
         </tr>
 <tr>
-          <th>Minimum Mule Version</th><td>3.5</td>
+          <th>Minimum Mule Version</th><td>3.4</td>
         </tr>
     </tbody></table>
   </div>
@@ -323,12 +280,6 @@ create it when its needed instead of having to manually specify so.&lt;/xs:docum
               &lt;xs:documentation&gt;Queue Region&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
-          &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;The queue URL to connect to. It takes priority over the queue name defined
-in the connection parameters.&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -341,7 +292,7 @@ in the connection parameters.&lt;/xs:documentation&gt;
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
         &lt;/xs:extension&gt;
@@ -367,11 +318,6 @@ in the connection parameters.&lt;/xs:documentation&gt;
             &lt;xs:documentation&gt;the message to send. Defaults to the payload of the Mule message.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;the queue where the message is to be sent.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -384,7 +330,7 @@ in the connection parameters.&lt;/xs:documentation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -416,7 +362,7 @@ in the connection parameters.&lt;/xs:documentation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -441,11 +387,6 @@ in the connection parameters.&lt;/xs:documentation&gt;
             &lt;xs:documentation&gt;Receipt handle of the message to be deleted&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The URL of the queue to delete messages from&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -458,7 +399,7 @@ in the connection parameters.&lt;/xs:documentation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -478,11 +419,6 @@ in the connection parameters.&lt;/xs:documentation&gt;
             &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The URL of the queue to delete.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -495,7 +431,7 @@ in the connection parameters.&lt;/xs:documentation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -527,11 +463,6 @@ Policy
             &lt;xs:documentation&gt;Attribute to get&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The URL of the queue&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -544,7 +475,7 @@ Policy
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -575,11 +506,6 @@ the only attribute at this time is visibility timeout.
             &lt;xs:documentation&gt;the value being set for this attribute&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The URL of the queue.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -592,7 +518,7 @@ the only attribute at this time is visibility timeout.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -627,11 +553,6 @@ the only attribute at this time is visibility timeout.
             &lt;xs:documentation&gt;a value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Permissions will be added to the queue represented by this URL.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -644,7 +565,7 @@ the only attribute at this time is visibility timeout.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -669,11 +590,6 @@ the only attribute at this time is visibility timeout.
             &lt;xs:documentation&gt;a name for the permission to be removed&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Permissions will be deleted from the queue represented by this URL.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -686,7 +602,7 @@ the only attribute at this time is visibility timeout.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -694,7 +610,7 @@ the only attribute at this time is visibility timeout.
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-approximate-number-of-messages&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetApproximateNumberOfMessagesType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Gets an approximate number of visible messages for a queue.
+      &lt;xs:documentation&gt;Gets the visibility timeout for the queue.
 &amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
@@ -706,11 +622,6 @@ the only attribute at this time is visibility timeout.
             &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The URL of the queue&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessKey&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;AWS access key&lt;/xs:documentation&gt;
@@ -723,7 +634,7 @@ the only attribute at this time is visibility timeout.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;queueName&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The name of the queue to connect to (optional)&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;The name of the queue to connect to //     * @param region select a different region for the queue&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -766,11 +677,6 @@ sqs.message.receipt.handle = containing the message identification
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;numberOfMessages&quot; default=&quot;1&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;the number of messages to be retrieved on each call (10 messages max). By default, 1 message will be retrieved.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;queueUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;the queue URL where messages are to be fetched from.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -823,19 +729,6 @@ sqs.message.receipt.handle = containing the message identification
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;OnNoTokenPolicyEnumType&quot;&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;EXCEPTION&quot;&gt;&lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;STOP_FLOW&quot;&gt;&lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;
       &lt;/xs:simpleType&gt;
       &lt;xs:simpleType&gt;
