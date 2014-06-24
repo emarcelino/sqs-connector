@@ -350,7 +350,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sqs-config.html#receive-messages">&lt;sqs:receive-messages&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Attempts to receive a message from the queue.</div>
+        <div class="jd-descrdiv">Attempts to receive messages from a queue.</div>
         
   </td></tr>
 
@@ -1881,8 +1881,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        Attempts to receive a message from the queue. Every attribute of the incoming
- message will be added as an inbound property. Also the following properties
+        Attempts to receive messages from a queue. Every attribute of the incoming
+ messages will be added as inbound properties. Also the following properties
  will also be added:
  <p/>
  sqs.message.id = containing the message identification
@@ -1911,7 +1911,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>callback</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol">Callback to call when a new message is available.</td>
+                            <td class="jd-descrcol">Callback to call when new messages are available.</td>
                             <td class="jd-descrcol">SourceCallback</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -1925,7 +1925,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>visibilityTimeout</nobr></td>
                             <td class="jd-descrcol">30</td>
-                            <td class="jd-descrcol">The duration (in seconds) the retrieved message is hidden from
+                            <td class="jd-descrcol">The duration (in seconds) the retrieved messages are hidden from
                           subsequent calls to retrieve.</td>
                             <td class="jd-descrcol">Integer</td>
                             <td class="jd-descrcol">*/*</td>
@@ -1941,8 +1941,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                             <td class="jd-linkcol"><nobr>preserveMessages</nobr></td>
                             <td class="jd-descrcol">false</td>
                             <td class="jd-descrcol">Flag that indicates if you want to preserve the messages
-                         	in the queue. False by default, so the messages are
-                         	going to be deleted.</td>
+                          in the queue. False by default, so the messages are
+                          going to be deleted.</td>
                             <td class="jd-descrcol">Boolean</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -1955,8 +1955,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>pollPeriod</nobr></td>
-                            <td class="jd-descrcol">1000</td>
-                            <td class="jd-descrcol">Time in milliseconds to wait between polls (when no messages were retrieved). 
+                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Deprecated. Time in milliseconds to wait between polls (when no messages were retrieved).
                           Default period is 1000 ms.</td>
                             <td class="jd-descrcol">Long</td>
                             <td class="jd-descrcol">*/*</td>
@@ -1971,8 +1971,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>numberOfMessages</nobr></td>
                             <td class="jd-descrcol">1</td>
-                            <td class="jd-descrcol">The number of messages to be retrieved on each call (10 messages max). 
- 							By default, 1 message will be retrieved.	</td>
+                            <td class="jd-descrcol">The number of messages to be retrieved on each call (10 messages max).
+                          By default, 1 message will be retrieved.</td>
                             <td class="jd-descrcol">Integer</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -1986,7 +1986,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>queueUrl</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The queue URL where messages are to be fetched from.		                        </td>
+                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The queue URL where messages are to be fetched from.</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2044,13 +2044,13 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         <tr>
             <td>AmazonClientException</td>
             <td>If any internal errors are encountered inside the client while
-             attempting to make the request or handle the response.  For example
-             if a network connection is not available.</td>
+                                attempting to make the request or handle the response.  For example
+                                if a network connection is not available.</td>
         </tr>
         <tr>
             <td>AmazonServiceException</td>
             <td>If an error response is returned by AmazonSQS indicating
-             either a problem with the data in the request, or a server side issue.
+                                either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>

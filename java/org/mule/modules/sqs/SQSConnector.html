@@ -615,13 +615,24 @@ Summary:
           private
           
           
+          AmazonSQSAsync</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#msgQueueAsync">msgQueueAsync</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#queueUrl">queueUrl</a></td>
           <td class="jd-descrcol" width="100%">The queue URL to connect to.</td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -909,7 +920,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#receiveMessages(org.mule.api.callback.SourceCallback, java.lang.Integer, java.lang.Boolean, java.lang.Long, java.lang.Integer, java.lang.String)">receiveMessages</a></span>(SourceCallback callback, Integer visibilityTimeout, Boolean preserveMessages, Long pollPeriod, Integer numberOfMessages, String queueUrl)</nobr>
         
-        <div class="jd-descrdiv">Attempts to receive a message from the queue.</div>
+        <div class="jd-descrdiv">Attempts to receive messages from a queue.</div>
   
   </td></tr>
 
@@ -1348,6 +1359,36 @@ From class
       
   <div class="jd-tagdata jd-tagdescr"><p>Message Queue
 </p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="msgQueueAsync"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        AmazonSQSAsync
+      </span>
+        msgQueueAsync
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -2133,8 +2174,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive a message from the queue. Every attribute of the incoming
- message will be added as an inbound property. Also the following properties
+  <div class="jd-tagdata jd-tagdescr"><p>Attempts to receive messages from a queue. Every attribute of the incoming
+ messages will be added as inbound properties. Also the following properties
  will also be added:
  <p/>
  sqs.message.id = containing the message identification
@@ -2146,32 +2187,32 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>callback</td>
-          <td>Callback to call when a new message is available.</td>
+          <td>Callback to call when new messages are available.</td>
         </tr>
         <tr>
           <th>visibilityTimeout</td>
-          <td>The duration (in seconds) the retrieved message is hidden from
+          <td>The duration (in seconds) the retrieved messages are hidden from
                           subsequent calls to retrieve.</td>
         </tr>
         <tr>
           <th>preserveMessages</td>
           <td>Flag that indicates if you want to preserve the messages
-                         	in the queue. False by default, so the messages are
-                         	going to be deleted.</td>
+                          in the queue. False by default, so the messages are
+                          going to be deleted.</td>
         </tr>
         <tr>
           <th>pollPeriod</td>
-          <td>Time in milliseconds to wait between polls (when no messages were retrieved). 
+          <td>Deprecated. Time in milliseconds to wait between polls (when no messages were retrieved).
                           Default period is 1000 ms.</td>
         </tr>
         <tr>
           <th>numberOfMessages</td>
-          <td>The number of messages to be retrieved on each call (10 messages max). 
- 							By default, 1 message will be retrieved.	</td>
+          <td>The number of messages to be retrieved on each call (10 messages max).
+                          By default, 1 message will be retrieved.</td>
         </tr>
         <tr>
           <th>queueUrl</td>
-          <td>The queue URL where messages are to be fetched from.		                        </td>
+          <td>The queue URL where messages are to be fetched from.</td>
         </tr>
       </table>
   </div>
@@ -2181,13 +2222,13 @@ From class
         <tr>
             <th>AmazonClientException</td>
             <td>If any internal errors are encountered inside the client while
-             attempting to make the request or handle the response.  For example
-             if a network connection is not available.</td>
+                                attempting to make the request or handle the response.  For example
+                                if a network connection is not available.</td>
         </tr>  
         <tr>
             <th>AmazonServiceException</td>
             <td>If an error response is returned by AmazonSQS indicating
-             either a problem with the data in the request, or a server side issue.
+                                either a problem with the data in the request, or a server side issue.
 </td>
         </tr>
       </table>

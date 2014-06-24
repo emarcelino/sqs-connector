@@ -731,8 +731,8 @@ the only attribute at this time is visibility timeout.
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;receive-messages&quot; substitutionGroup=&quot;mule:abstract-inbound-endpoint&quot; type=&quot;ReceiveMessagesType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Attempts to receive a message from the queue. Every attribute of the incoming
-message will be added as an inbound property. Also the following properties
+      &lt;xs:documentation&gt;Attempts to receive messages from a queue. Every attribute of the incoming
+messages will be added as inbound properties. Also the following properties
 will also be added:
 &amp;lt;p/&amp;gt;
 sqs.message.id = containing the message identification
@@ -750,7 +750,7 @@ sqs.message.receipt.handle = containing the message identification
         &lt;/xs:attribute&gt;
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;visibilityTimeout&quot; default=&quot;30&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;the duration (in seconds) the retrieved message is hidden from subsequent calls to retrieve.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;the duration (in seconds) the retrieved messages are hidden from subsequent calls to retrieve.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;preserveMessages&quot; default=&quot;false&quot; use=&quot;optional&quot; type=&quot;booleanType&quot;&gt;
@@ -758,9 +758,9 @@ sqs.message.receipt.handle = containing the message identification
             &lt;xs:documentation&gt;Flag that indicates if you want to preserve the messages in the queue. False by default, so the messages are going to be deleted.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;pollPeriod&quot; default=&quot;1000&quot; use=&quot;optional&quot; type=&quot;longType&quot;&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;pollPeriod&quot; use=&quot;optional&quot; type=&quot;longType&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;time in milliseconds to wait between polls (when no messages were retrieved). Default period is 1000 ms.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;Deprecated. Time in milliseconds to wait between polls (when no messages were retrieved). Default period is 1000 ms.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sqs&quot; name=&quot;numberOfMessages&quot; default=&quot;1&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
