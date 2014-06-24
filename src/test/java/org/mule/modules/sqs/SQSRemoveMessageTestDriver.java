@@ -10,12 +10,6 @@
 
 package org.mule.modules.sqs;
 
-import static org.junit.Assert.*;
-
-import java.util.Map;
-
-import javax.xml.ws.Holder;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,6 +17,11 @@ import org.mule.api.ConnectionException;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.callback.SourceCallback;
+
+import javax.xml.ws.Holder;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Gaston Ponti
@@ -92,7 +91,7 @@ public class SQSRemoveMessageTestDriver
                 return super.process(payload, properties);
             }
         };
-        module.receiveMessages(callback, 0, true, 1, null);
+        module.receiveMessages(callback, 0, true, null, 1, null);
 
         assertTrue(module.getApproximateNumberOfMessages(null)!=0);
 
@@ -105,7 +104,7 @@ public class SQSRemoveMessageTestDriver
     public void retrieveMessageWithPreserveMessagesFlagFalse() {
 
         SourceCallback callback = new InterruptCallback();
-        module.receiveMessages(callback, 0, false, 1, null);
+        module.receiveMessages(callback, 0, false, null, 1, null);
 
         assertTrue(module.getApproximateNumberOfMessages(null)==0);
     }

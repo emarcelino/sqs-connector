@@ -66,7 +66,7 @@ public class SQSConnector {
     @Configurable
     @Placement(group = "Optional Parameters") @FriendlyName("Region Endpoint")
     private RegionEndpoint region;
-    
+
     /**
      * The queue URL to connect to. It takes priority over the queue name defined
      * in the connection parameters.
@@ -114,7 +114,7 @@ public class SQSConnector {
     public void setAccessKey(String accessKey) {
 		this.accessKey = accessKey;
 	}
-    
+
     @ConnectionIdentifier
     public String getAccessKey() {
     	return this.accessKey;
@@ -124,7 +124,7 @@ public class SQSConnector {
     public void disconnect() {
         msgQueue = null;
     }
-    
+
     @ValidateConnection
     public boolean isConnected() {
         return this.msgQueue != null;
@@ -178,27 +178,33 @@ public class SQSConnector {
      * @param callback          Callback to call when new messages are available.
      * @param visibilityTimeout the duration (in seconds) the retrieved messages are hidden from
      *                          subsequent calls to retrieve.
-     * @param preserveMessages 	Flag that indicates if you want to preserve the messages
-     *                         	in the queue. False by default, so the messages are
-     *                         	going to be deleted.
+     * @param preserveMessages  Flag that indicates if you want to preserve the messages
+     *                          in the queue. False by default, so the messages are
+     *                          going to be deleted.
+     * @param pollPeriod        Deprecated. Time in milliseconds to wait between polls (when no messages were retrieved).
+     *                          Default period is 1000 ms.
      * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max).
-     * 							By default, 1 message will be retrieved.
-     * @param queueUrl the queue URL where messages are to be fetched from.
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     *                          By default, 1 message will be retrieved.
+     * @param queueUrl          the queue URL where messages are to be fetched from.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
      */
     @Source
     public void receiveMessages(SourceCallback callback,
                                 @Default("30") Integer visibilityTimeout,
                                 @Default("false") Boolean preserveMessages,
+                                @Optional Long pollPeriod,
                                 @Default("1") Integer numberOfMessages,
                                 @Optional String queueUrl)
             throws AmazonServiceException {
+        if (pollPeriod != null) {
+            logger.warn("The pollPeriod parameter has been deprecated and will be removed in future versions of this " +
+                    "connector. Messages are received asynchronously, not by polling SQS.");
+        }
+
         ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All");
         receiveMessageRequest.setQueueUrl(getQueueUrl(queueUrl));
 
@@ -384,8 +390,8 @@ public class SQSConnector {
     @Processor
     public void removePermission(String label, @Optional String queueUrl) throws AmazonServiceException {
         msgQueue.removePermission(new RemovePermissionRequest(getQueueUrl(queueUrl), label));
-    }   
-    
+    }
+
     /**
      * Gets an approximate number of visible messages for a queue.
      * <p/>
