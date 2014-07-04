@@ -76,7 +76,7 @@ public class SQSRemoveMessageTestDriver
 
     @Before
     public void addOneMessage() {
-        module.sendMessage("Hello", null);
+        module.sendMessage("Hello", null, null);
     }
 
     @Test

@@ -18,7 +18,10 @@ http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/
 		secretKey="${sqs2.secretKey}" queueName="${sqs2.queueName}" doc:name="Sqs" region="USWEST2"></sqs:config>
 		
 	<flow name="send-message-custom-message" doc:name="SendMessage">
-		<sqs:send-message config-ref="Sqs" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]" />
+		<sqs:send-message config-ref="Sqs" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]">
+            <sqs:message-attributes ref="#[flowVars.messageAttributes]">
+            </sqs:message-attributes>
+		</sqs:send-message>
 	</flow>
 	
 	<flow name="send-message" doc:name="SendMessage">
