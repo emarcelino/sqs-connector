@@ -132,11 +132,13 @@ public class SQSConnector {
 
     /**
      * Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
-     * <p/>
+     *
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:send-message}
      *
      * @param message the message to send. Defaults to the payload of the Mule message.
      * @param queueUrl the queue where the message is to be sent.
+     * @param messageAttributes a map of typed key-value pairs to be sent as message attributes. A value,
+     *                          key and data type must be specified for each entry.
      * @return The queue response of the sent message.
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -147,9 +149,10 @@ public class SQSConnector {
      *             either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public SendMessageResult sendMessage(@Default("#[payload]") final String message, @Optional String queueUrl)
-            throws AmazonServiceException {
-    	return msgQueue.sendMessage(new SendMessageRequest(getQueueUrl(queueUrl), message));
+    public SendMessageResult sendMessage(@Default("#[payload]") final String message,
+                                         @Optional String queueUrl,
+                                         @Optional Map<String, MessageAttributeValue> messageAttributes) {
+        return msgQueue.sendMessage(new SendMessageRequest(getQueueUrl(queueUrl), message).withMessageAttributes(messageAttributes));
     }
 
     /**

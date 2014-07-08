@@ -10,9 +10,9 @@
 
 package org.mule.modules.automation.testcases;
 
-import java.util.Map;
-import java.util.Properties;
-
+import com.amazonaws.services.sqs.model.MessageAttributeValue;
+import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import org.mule.api.ConnectionException;
@@ -20,8 +20,8 @@ import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.MessagingException;
 import org.mule.modules.tests.ConnectorTestCase;
 
-import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
-import com.amazonaws.services.sqs.model.SendMessageResult;
+import java.util.Map;
+import java.util.Properties;
 
 public class SqsTestParent extends ConnectorTestCase {
 	
@@ -67,10 +67,15 @@ public class SqsTestParent extends ConnectorTestCase {
 		return runFlowAndGetPayload("get-url");
 	}
 
+    protected SendMessageResult sendMessage(String message, String queueUrl, Map<String, MessageAttributeValue> messageAttributes) throws Exception {
+        upsertOnTestRunMessage("messageAttributes", messageAttributes);
+        upsertOnTestRunMessage("message", message);
+        upsertOnTestRunMessage("queueUrl", queueUrl);
+        return runFlowAndGetPayload("send-message-custom-message");
+    }
+
 	protected SendMessageResult sendMessage(String message, String queueUrl) throws Exception {
-		upsertOnTestRunMessage("message", message);
-		upsertOnTestRunMessage("queueUrl", queueUrl);
-		return runFlowAndGetPayload("send-message-custom-message");
+		return this.sendMessage(message, queueUrl, null);
 	}
 	
 	protected SendMessageResult sendMessage(String message) throws Exception {

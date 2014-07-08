@@ -10,15 +10,15 @@
 
 package org.mule.modules.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.api.MessagingException;
 import org.mule.modules.automation.RegressionTests;
 import org.mule.modules.automation.SmokeTests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SetQueueAttributeTestCases extends SqsTestParent {
 
@@ -34,7 +34,8 @@ public class SetQueueAttributeTestCases extends SqsTestParent {
 		assertEquals("1111", getQueueAttribute("MaximumMessageSize"));
 	}
 
-	@Test
+    @Category({ RegressionTests.class, SmokeTests.class })
+    @Test
 	public void testSetInvalidQueueAttribute() throws Exception {
 		try {
 			setQueueAttribute("MaximumSizeMessage", "1111");
@@ -44,7 +45,8 @@ public class SetQueueAttributeTestCases extends SqsTestParent {
 		}
 	}
 
-	@Test
+    @Category({ RegressionTests.class, SmokeTests.class })
+    @Test
 	public void setInvalidQueueAttributeValue() throws Exception {
 		try {
 			// value must be between 1024 and 262144

@@ -11,20 +11,22 @@
 
 package org.mule.modules.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
-
+import com.amazonaws.services.sqs.model.MessageAttributeValue;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.mule.modules.automation.RegressionTests;
 import org.mule.modules.automation.SmokeTests;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
 
 public class SendMessageTestCases
     extends SqsTestParent
@@ -52,7 +54,7 @@ public class SendMessageTestCases
 	private String md5(String string) throws NoSuchAlgorithmException {
 		return new String(Hex.encode(MessageDigest.getInstance("MD5").digest(string.getBytes())));
 	}
-	
+    @Category({ RegressionTests.class, SmokeTests.class })
 	@Test
 	public void testSendMessageCustomUrl() throws Exception {
 		String message = UUID.randomUUID().toString();
@@ -61,5 +63,14 @@ public class SendMessageTestCases
 		assertEquals(1, (int) getApproximateNumberOfMessages(getQueueUrl()));
 		assertEquals(md5(message), result.getMD5OfMessageBody());
 	}
+
+    @Category({ RegressionTests.class, SmokeTests.class })
+    @Test
+    public void testSendMessageWithAttributes() throws Exception {
+        Map<String, MessageAttributeValue> attributes = new HashMap<String, MessageAttributeValue>();
+        attributes.put("key", new MessageAttributeValue().withDataType("String").withStringValue("value"));
+        SendMessageResult result = sendMessage("message", getQueueUrl(), attributes);
+        assertEquals(32, result.getMD5OfMessageAttributes().length());
+    }
 
 }
