@@ -1,5 +1,9 @@
 var NAVTREE_DATA =
-[ [ "org.mule.modules.sqs", "org/mule/modules/sqs/package-summary.html", [ [ "Classes", null, [ [ "SQSConnector", "org/mule/modules/sqs/SQSConnector.html", null, "" ] ]
+[ [ "com.amazonaws.services.sqs.model.holders", "com/amazonaws/services/sqs/model/holders/package-summary.html", [ [ "Classes", null, [ [ "MessageAttributeValueExpressionHolder", "com/amazonaws/services/sqs/model/holders/MessageAttributeValueExpressionHolder.html", null, "" ] ]
+, "" ] ]
+, "" ], [ "com.amazonaws.services.sqs.model.transformers", "com/amazonaws/services/sqs/model/transformers/package-summary.html", [ [ "Classes", null, [ [ "MessageAttributeValueExpressionHolderTransformer", "com/amazonaws/services/sqs/model/transformers/MessageAttributeValueExpressionHolderTransformer.html", null, "" ] ]
+, "" ] ]
+, "" ], [ "org.mule.modules.sqs", "org/mule/modules/sqs/package-summary.html", [ [ "Classes", null, [ [ "SQSConnector", "org/mule/modules/sqs/SQSConnector.html", null, "" ] ]
 , "" ], [ "Enums", null, [ [ "RegionEndpoint", "org/mule/modules/sqs/RegionEndpoint.html", null, "" ] ]
 , "" ] ]
 , "" ], [ "org.mule.modules.sqs.adapter", "org/mule/modules/sqs/adapter/package-summary.html", [ [ "Interfaces", null, [ [ "PoolManager", "org/mule/modules/sqs/adapter/PoolManager.html", null, "" ] ]

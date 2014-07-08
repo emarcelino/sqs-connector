@@ -1580,7 +1580,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
- <p/>
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sqs:send-message/&gt;</pre></div>
       
   </p></div>
@@ -1627,6 +1627,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -1664,6 +1666,30 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sqs:message-attributes&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>A map of typed key-value pairs to be sent as message attributes. A value,
+                          key and data type must be specified for each entry.</td>
+                        <td>Map&lt;String,&nbsp;MessageAttributeValue&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">

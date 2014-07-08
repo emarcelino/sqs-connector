@@ -249,6 +249,10 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../../../../../java/com/amazonaws/services/sqs/model/holders/package-summary.html">com.amazonaws.services.sqs.model.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/com/amazonaws/services/sqs/model/transformers/package-summary.html">com.amazonaws.services.sqs.model.transformers</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/modules/sqs/package-summary.html">org.mule.modules.sqs</a></li>
     <li class="api apilevel-">
@@ -954,7 +958,7 @@ Summary:
             SendMessageResult</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String, java.lang.String)">sendMessage</a></span>(String message, String queueUrl)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/sqs/SQSConnector.html#sendMessage(java.lang.String, java.lang.String, java.util.Map<java.lang.String, com.amazonaws.services.sqs.model.MessageAttributeValue>)">sendMessage</a></span>(String message, String queueUrl, Map&lt;String,&nbsp;MessageAttributeValue&gt; messageAttributes)</nobr>
         
         <div class="jd-descrdiv">Sends a message to a specified queue.</div>
   
@@ -2301,7 +2305,7 @@ From class
 </div>
 
 
-<A NAME="sendMessage(java.lang.String, java.lang.String)"></A>
+<A NAME="sendMessage(java.lang.String, java.lang.String, java.util.Map<java.lang.String, com.amazonaws.services.sqs.model.MessageAttributeValue>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2314,7 +2318,7 @@ From class
         SendMessageResult
       </span>
       <span class="sympad">sendMessage</span>
-      <span class="normal">(String message, String queueUrl)</span>
+      <span class="normal">(String message, String queueUrl, Map&lt;String,&nbsp;MessageAttributeValue&gt; messageAttributes)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2327,7 +2331,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
- <p/>
+
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -2339,6 +2343,11 @@ From class
         <tr>
           <th>queueUrl</td>
           <td>The queue where the message is to be sent.</td>
+        </tr>
+        <tr>
+          <th>messageAttributes</td>
+          <td>A map of typed key-value pairs to be sent as message attributes. A value,
+                          key and data type must be specified for each entry.</td>
         </tr>
       </table>
   </div>

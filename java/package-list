@@ -1,3 +1,5 @@
+com.amazonaws.services.sqs.model.holders
+com.amazonaws.services.sqs.model.transformers
 org.mule.modules.sqs
 org.mule.modules.sqs.adapter
 org.mule.modules.sqs.adapters
