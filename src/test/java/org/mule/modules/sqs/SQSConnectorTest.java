@@ -21,7 +21,7 @@ import org.mule.tck.junit4.FunctionalTestCase;
 public class SQSConnectorTest extends FunctionalTestCase {
 
     @Override
-    protected String getConfigResources() {
+    protected String getConfigFile() {
         return "sqs.xml";
     }
 

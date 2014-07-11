@@ -1,11 +1,11 @@
 Amazon SQS Anypoint Connector Release Notes
 ==========================================
 
-Date: 7-Jul-2014
+Date: 14-Jul-2014
 
-Version: 2.5.1
+Version: 2.5.2
 
-Supported Mule Runtime Versions: 3.4.x, 3.5.0
+Supported Mule Runtime Versions: 3.4.x, 3.5.x
 
 Supported API versions:
 -----------------------
@@ -28,16 +28,16 @@ Supported Operations:
 New Features and Functionality
 ------------------------------
 
-Added support for sending message attributes.
-
-Updated SDK version to 1.7.13.
-
-`receiveMessages` operation now uses asynchronous delivery instead of polling, significantly improving performance. The `pollPeriod` parameter has been preserved but deprecated to maintain backwards compatibility.
-
-Fixed message source threads never shutting down when Mule shuts down or redeploys, which caused applications to hang.
+Updated the Devkit & Tested for 3.5.1 release.
 
 Previous Releases
 -----------------
+
+### 2.5.1
+- Added support for sending message attributes.
+- Updated SDK version to 1.7.13.
+- `receiveMessages` operation now uses asynchronous delivery instead of polling, significantly improving performance. The `pollPeriod` parameter has been preserved but deprecated to maintain backwards compatibility.
+- Fixed message source threads never shutting down when Mule shuts down or redeploys, which caused applications to hang.
 
 ### 2.3.1
 - Tested for 3.5.0 release.
