@@ -208,7 +208,7 @@ public class SQSConnector {
                     "connector. Messages are received asynchronously, not by polling SQS.");
         }
 
-        ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All");
+        ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All").withMessageAttributeNames("All");
         receiveMessageRequest.setQueueUrl(getQueueUrl(queueUrl));
 
         if (visibilityTimeout != null) {
@@ -251,6 +251,7 @@ public class SQSConnector {
     {
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.putAll(msg.getAttributes());
+        properties.putAll(msg.getMessageAttributes());
         properties.put("sqs.message.id", msg.getMessageId());
         properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
         return properties;
