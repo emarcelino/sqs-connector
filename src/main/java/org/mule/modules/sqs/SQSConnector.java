@@ -85,6 +85,7 @@ public class SQSConnector {
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
+    @TestConnectivity
     public void connect(@ConnectionKey String accessKey, String secretKey, @Optional String queueName)
              throws ConnectionException {
         try {
