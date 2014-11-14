@@ -68,8 +68,7 @@ public class SQSConnector {
     private RegionEndpoint region;
 
     /**
-     * The queue URL to connect to. It takes priority over the queue name defined
-     * in the connection parameters.
+     * Queue URL takes priority over the Queue Name, Required if Queue Name has not been defined.
      */
     @Optional
     @Configurable
@@ -82,7 +81,7 @@ public class SQSConnector {
     /**
      * @param accessKey AWS access key
      * @param secretKey AWS secret key
-     * @param queueName The name of the queue to connect to (optional)
+     * @param queueName Name of the queue to connect. Required if Queue URL has not been defined.
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
