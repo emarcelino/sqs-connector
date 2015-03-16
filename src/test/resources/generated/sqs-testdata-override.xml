@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <connector name="Amazon SQS">
     <properties>
-    <connectivity-support>true</connectivity-support>
-    <OAuth-authentication>false</OAuth-authentication>
-    <metadata>static</metadata>
-    <datasense-enabled>true</datasense-enabled>
-    <transformer>false</transformer>
-  </properties>
+        <connectivity-support>true</connectivity-support>
+        <OAuth-authentication>false</OAuth-authentication>
+        <metadata>static</metadata>
+        <datasense-enabled>true</datasense-enabled>
+        <transformer>false</transformer>
+    </properties>
     <simpleConfig>
-        <required caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name">AmazonSQS</required>
-        <required caption="Access Key" group="Connection" javaType="java.lang.String" name="accessKey" prefix="sqs" type="string">access_key</required>
-        <required caption="Secret Key" group="Connection" javaType="java.lang.String" name="secretKey" prefix="sqs" type="string">secret_key</required>
-        <required caption="Queue Name" group="Connection" javaType="java.lang.String" name="queueName" prefix="sqs" type="string">queueName</required>
+        <required caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name">AmazonSQS
+        </required>
+        <required caption="Access Key" group="Connection" javaType="java.lang.String" name="accessKey" prefix="sqs"
+                  type="string">access_key
+        </required>
+        <required caption="Secret Key" group="Connection" javaType="java.lang.String" name="secretKey" prefix="sqs"
+                  type="string">secret_key
+        </required>
+        <required caption="Queue Name" group="Connection" javaType="java.lang.String" name="queueName" prefix="sqs"
+                  type="string">queueName
+        </required>
     </simpleConfig>
     <message-processors>
         <send-message name="Send message">
@@ -47,7 +54,9 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute" type="string">MaximumSizeMessage</required>
+                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute"
+                          type="string">MaximumSizeMessage
+                </required>
             </attributes>
             <childElements/>
         </get-queue-attributes>
@@ -56,8 +65,11 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute" type="string">MaximumMessageSize</required>
-                <required caption="Value" group="General" javaType="java.lang.String" name="value" type="string">1111</required>
+                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute"
+                          type="string">MaximumMessageSize
+                </required>
+                <required caption="Value" group="General" javaType="java.lang.String" name="value" type="string">1111
+                </required>
             </attributes>
             <childElements/>
         </set-queue-attribute>
@@ -66,9 +78,15 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">fooPermission</required>
-                <required caption="Account Id" group="General" javaType="java.lang.String" name="accountId" type="string">055970264539</required>
-                <required caption="Action" group="General" javaType="java.lang.String" name="action" type="string">SendMessage</required>
+                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">
+                    fooPermission
+                </required>
+                <required caption="Account Id" group="General" javaType="java.lang.String" name="accountId"
+                          type="string">055970264539
+                </required>
+                <required caption="Action" group="General" javaType="java.lang.String" name="action" type="string">
+                    SendMessage
+                </required>
             </attributes>
             <childElements/>
         </add-permission>
@@ -77,7 +95,9 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">fooPermission</required>
+                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">
+                    fooPermission
+                </required>
             </attributes>
             <childElements/>
         </remove-permission>

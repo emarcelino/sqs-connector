@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <connector name="Amazon SQS">
     <properties>
-    <!-- queueName and queueUrl are both optional in the connector,
-    but unless at least one is specified, the connection fails with an exception.
-    There is no way to handle this using only the framework right now. -->
-    <connectivity-support>false</connectivity-support>
-    <OAuth-authentication>false</OAuth-authentication>
-    <metadata>static</metadata>
-    <datasense-enabled>true</datasense-enabled>
-    <transformer>false</transformer>
-  </properties>
+        <!-- queueName and queueUrl are both optional in the connector,
+        but unless at least one is specified, the connection fails with an exception.
+        There is no way to handle this using only the framework right now. -->
+        <connectivity-support>false</connectivity-support>
+        <OAuth-authentication>false</OAuth-authentication>
+        <metadata>static</metadata>
+        <datasense-enabled>true</datasense-enabled>
+        <transformer>false</transformer>
+    </properties>
     <simpleConfig>
-        <required caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name">settings</required>
-        <required caption="Access Key" group="Connection" javaType="java.lang.String" name="accessKey" prefix="sqs" type="string"></required>
-        <required caption="Secret Key" group="Connection" javaType="java.lang.String" name="secretKey" prefix="sqs" type="string"></required>
-        <required caption="Queue Name" group="Connection" javaType="java.lang.String" name="queueName" prefix="sqs" type="string"></required>
+        <required caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name">settings
+        </required>
+        <required caption="Access Key" group="Connection" javaType="java.lang.String" name="accessKey" prefix="sqs"
+                  type="string"></required>
+        <required caption="Secret Key" group="Connection" javaType="java.lang.String" name="secretKey" prefix="sqs"
+                  type="string"></required>
+        <required caption="Queue Name" group="Connection" javaType="java.lang.String" name="queueName" prefix="sqs"
+                  type="string"></required>
     </simpleConfig>
     <message-processors>
         <send-message name="Send message">
@@ -50,7 +54,9 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute" type="string">someAttribute</required>
+                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute"
+                          type="string">someAttribute
+                </required>
             </attributes>
             <childElements/>
         </get-queue-attributes>
@@ -59,8 +65,12 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute" type="string">someAttribute</required>
-                <required caption="Value" group="General" javaType="java.lang.String" name="value" type="string">attributeValue</required>
+                <required caption="Attribute" group="General" javaType="java.lang.String" name="attribute"
+                          type="string">someAttribute
+                </required>
+                <required caption="Value" group="General" javaType="java.lang.String" name="value" type="string">
+                    attributeValue
+                </required>
             </attributes>
             <childElements/>
         </set-queue-attribute>
@@ -69,9 +79,14 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">permission</required>
-                <required caption="Account Id" group="General" javaType="java.lang.String" name="accountId" type="string">123abc</required>
-                <required caption="Action" group="General" javaType="java.lang.String" name="action" type="string">add</required>
+                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">
+                    permission
+                </required>
+                <required caption="Account Id" group="General" javaType="java.lang.String" name="accountId"
+                          type="string">123abc
+                </required>
+                <required caption="Action" group="General" javaType="java.lang.String" name="action" type="string">add
+                </required>
             </attributes>
             <childElements/>
         </add-permission>
@@ -80,7 +95,9 @@
             <auto-paging>false</auto-paging>
             <query-support>false</query-support>
             <attributes>
-                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">permission</required>
+                <required caption="Label" group="General" javaType="java.lang.String" name="label" type="string">
+                    permission
+                </required>
             </attributes>
             <childElements/>
         </remove-permission>

@@ -19,7 +19,7 @@ Supported Operations:
 * Delete Queue
 * Get approximate number of messages
 * Get Queue Attributes
-* Get URL
+* ****** Get URL renamed to Get Queue URL
 * Remove Permission
 * Send Message
 * Set Queue Attribute

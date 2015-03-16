@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.6.0-M3-SNAPSHOT</version>
+        <version>3.6.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-sqs</artifactId>
-    <version>2.5.5-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>mule-module</packaging>
     <name>Mule Amazon SQS Connector</name>
 
     <properties>
         <category>Community</category>
-		<licensePath>LICENSE.md</licensePath>
+        <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
-        <apachehttp.version>4.2</apachehttp.version>
-        <connector.test.version>2.0.6</connector.test.version>
+        <connector.test.version>2.0.7</connector.test.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>1.7.13</version>
+            <artifactId>aws-java-sdk-sqs</artifactId>
+            <version>1.9.19</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.jackson</groupId>
@@ -46,58 +46,27 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.mule.transports</groupId>
-            <artifactId>mule-transport-http</artifactId>
+            <artifactId>mule-transport-vm</artifactId>
             <version>${mule.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${apachehttp.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>${apachehttp.version}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases Repository</name>
-            <url>http://repository.mulesoft.org/releases/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>mulesoft-snapshots</id>
-            <name>MuleSoft SNAPSHOTS Repository</name>
-            <url>http://repository.mulesoft.org/snapshots/</url>
-        </repository>
-    </repositories>
-
-    <scm>
-        <connection>scm:git:git://github.com:mulesoft/sqs-connector.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/sqs-connector.git</developerConnection>
-        <url>http://github.com/mulesoft/sqs-connector</url>
-    </scm>
 
     <build>
         <plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-           <plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.8</version>
@@ -131,7 +100,7 @@
                         -hdf project.snapshotRepo.id "${project.distributionManagement.snapshotRepository.id}"
                         -hdf project.snapshotRepo.url "${project.distributionManagement.snapshotRepository.url}"
                         -d ${project.build.directory}/apidocs
-                        -markdown sqs ${basedir}/SIMPLE-QUEUE-SERVICE.md "SQS Guide"
+                        -markdown sqs ${basedir}/doc/SIMPLE-QUEUE-SERVICE.md "SQS Guide"
                     </additionalparam>
                     <useStandardDocletOptions>false</useStandardDocletOptions>
                     <additionalJOption>-J-Xmx1024m</additionalJOption>
@@ -139,4 +108,39 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
+            <url>http://repository.mulesoft.org/releases/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft SNAPSHOTS Repository</name>
+            <url>http://repository.mulesoft.org/snapshots/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Repository</name>
+            <url>http://repository-master.mulesoft.org/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshot Repository</name>
+            <url>http://repository-master.mulesoft.org/snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/sqs-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/sqs-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/sqs-connector</url>
+    </scm>
+
 </project>

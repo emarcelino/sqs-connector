@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-      xmlns:context="http://www.springframework.org/schema/context"
-      version="EE-3.5.1"
+<mule xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:context="http://www.springframework.org/schema/context" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
+      version="EE-3.6.0"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/current/mule-sqs.xsd">
+http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/current/mule-sqs.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
 
-	<context:property-placeholder location="${AMAZON_SQS_CREDENTIALS}" />
+    <context:property-placeholder location="${AUTOMATION_CREDENTIALS}"/>
 
-
-	<sqs:config name="Sqs" accessKey="${sqs.accessKey}"
-		secretKey="${sqs.secretKey}" queueName="${sqs.queueName}" doc:name="Sqs" region="USWEST2"></sqs:config>
-		
-	<sqs:config name="Sqs2" accessKey="${sqs2.accessKey}"
-		secretKey="${sqs2.secretKey}" queueName="${sqs2.queueName}" doc:name="Sqs" region="USWEST2"></sqs:config>
-		
-	<flow name="send-message-custom-message" doc:name="SendMessage">
-		<sqs:send-message config-ref="Sqs" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]">
-            <sqs:message-attributes ref="#[flowVars.messageAttributes]">
-            </sqs:message-attributes>
-		</sqs:send-message>
-	</flow>
-	
-	<flow name="send-message" doc:name="SendMessage">
-		<sqs:send-message config-ref="Sqs" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]" />
-	</flow>
-	
-	<flow name="send-message-from-alt" doc:name="SendMessage">
-		<sqs:send-message config-ref="Sqs2" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"/>
-	</flow>
-	<flow name="get-url" doc:name="GetUrl">
-		<sqs:get-url config-ref="Sqs" />
-	</flow>
-	
-	<flow name="get-alt-url" doc:name="GetUrl">
-		<sqs:get-url config-ref="Sqs2" />
-	</flow>
-
-	<flow name="delete-message-no-optional" doc:name="DeleteMessage">
-		<sqs:delete-message config-ref="Sqs" />
-	</flow>
-
-	<flow name="delete-message" doc:name="DeleteMessage">
-		<sqs:delete-message config-ref="Sqs" />
-	</flow>
+    <sqs:config name="SQS" accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" queueName="${sqs.queueName}"
+                region="${sqs.region}" doc:name="Amazon SQS"></sqs:config>
 
 
-	<flow name="delete-queue" doc:name="DeleteQueue">
-		<sqs:delete-queue config-ref="Sqs" />
-	</flow>
+    <flow name="create-queue" doc:name="create-queue">
+        <sqs:create-queue queueName="#[flowVars.queueName]" region="#[flowVars.region]" config-ref="SQS"
+                          doc:name="Amazon SQS">
+            <sqs:attributes ref="#[flowVars.attributes]"/>
+        </sqs:create-queue>
+    </flow>
 
-	<flow name="delete-alt-queue" doc:name="DeleteQueue">
-		<sqs:delete-queue config-ref="Sqs2" />
-	</flow>
+    <flow name="send-message" doc:name="send-message">
+        <sqs:send-message config-ref="SQS" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"
+                          doc:name="Amazon SQS"/>
+    </flow>
 
-	<flow name="get-queue-attributes" doc:name="GetQueueAttributes">
-		<sqs:get-queue-attributes config-ref="Sqs"
-			attribute="#[flowVars.attribute]" />
-	</flow>
+    <flow name="send-message-with-attributes" doc:name="send-message-with-attributes">
+        <sqs:send-message config-ref="SQS" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"
+                          doc:name="Amazon SQS">
+            <sqs:message-attributes ref="#[flowVars.messageAttributes]"/>
+        </sqs:send-message>
+    </flow>
 
+    <flow name="send-message-batch" doc:name="send-message-batch">
+        <sqs:send-message-batch config-ref="SQS" doc:name="Amazon SQS">
+            <sqs:messages ref="#[flowVars.messages]"/>
+        </sqs:send-message-batch>
+    </flow>
 
+    <flow name="get-queue-url" doc:name="get-queue-url">
+        <sqs:get-queue-url queueName="#[flowVars.queueName]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
 
-	<flow name="set-queue-attribute" doc:name="SetQueueAttribute">
-		<sqs:set-queue-attribute config-ref="Sqs"
-			attribute="#[flowVars.attribute]" value="#[flowVars.value]" />
-	</flow>
+    <flow name="delete-message" doc:name="delete-message">
+        <sqs:delete-message config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
 
+    <flow name="delete-queue" doc:name="delete-queue">
+        <sqs:delete-queue queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
 
-	<flow name="add-permission" doc:name="AddPermission">
-		<sqs:add-permission config-ref="Sqs" label="#[flowVars.label]"
-			accountId="#[flowVars.accountId]" action="#[flowVars.action]" />
-	</flow>
+    <flow name="get-queue-attributes" doc:name="get-queue-attributes">
+        <sqs:get-queue-attributes queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS">
+            <sqs:attribute-names ref="#[flowVars.attributeNames]"/>
+        </sqs:get-queue-attributes>
+    </flow>
 
-	<flow name="remove-permission" doc:name="RemovePermission">
-		<sqs:remove-permission config-ref="Sqs"
-			label="#[flowVars.label]" />
-	</flow>
+    <flow name="set-queue-attribute" doc:name="set-queue-attribute">
+        <sqs:set-queue-attribute config-ref="SQS" attribute="#[flowVars.attribute]" value="#[flowVars.value]"
+                                 doc:name="Amazon SQS"/>
+    </flow>
 
+    <flow name="add-permission" doc:name="add-permission">
+        <sqs:add-permission config-ref="SQS" label="#[flowVars.label]"
+                            accountId="#[flowVars.accountId]" action="#[flowVars.action]" doc:name="Amazon SQS"/>
+    </flow>
 
-	<flow name="get-approximate-number-of-messages" doc:name="GetApproximateNumberOfMessages">
-		<sqs:get-approximate-number-of-messages
-			config-ref="Sqs" />
-	</flow>
+    <flow name="remove-permission" doc:name="remove-permission">
+        <sqs:remove-permission config-ref="SQS" label="#[flowVars.label]" doc:name="Amazon SQS"/>
+    </flow>
 
+    <flow name="get-approximate-number-of-messages" doc:name="get-approximate-number-of-messages">
+        <sqs:get-approximate-number-of-messages queueUrl="#flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
 
-<!-- 	<flow name="receive-message-no-optional" doc:name="receive-message"> -->
-<!-- 		<sqs:receive-messages config-ref="Sqs" doc:name="Amazon SQS (Streaming)" /> -->
-<!-- 	</flow> -->
+    <flow name="list-dead-letter-source-queues" doc:name="list-dead-letter-source-queues">
+        <sqs:list-dead-letter-source-queues queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
 
-<!-- 	<flow name="receive-message" doc:name="receive-message"> -->
-<!-- 		<sqs:receive-messages config-ref="Sqs" doc:name="Amazon SQS (Streaming)"  -->
-<!-- 		numberOfMessages="#[flowVars.numberOfMessages]"  -->
-<!-- 		pollPeriod="#[flowVars.pollPeriod]"  -->
-<!-- 		visibilityTimeout="#[flowVars.visibilityTimeout]"  -->
-<!-- 		preserveMessages="#[flowVars.preserveMessages]"/> -->
-<!-- 	</flow> -->
+    <flow name="receive-message" doc:name="receive-message" initialState="stopped">
+        <sqs:receive-messages config-ref="SQS" preserveMessages="true" doc:name="Amazon SQS"/>
+        <vm:outbound-endpoint path="receive"/>
+    </flow>
 
+    <flow name="send-message-meta-data" doc:name="send-message-meta-data">
+        <sqs:send-message config-ref="SQS" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"
+                          doc:name="Amazon SQS">
+            <sqs:message-attributes ref="#[flowVars.messageAttributes]"/>
+        </sqs:send-message>
+    </flow>
+
+    <flow name="delete-message-batch-meta-data" doc:name="delete-message-batch-meta-data">
+        <sqs:delete-message-batch config-ref="SQS" queueUrl="#[flowVars.queueUrl]" doc:name="Amazon SQS">
+            <sqs:receipt-handles ref="#[flowVars.receiptHandles]"/>
+        </sqs:delete-message-batch>
+    </flow>
 </mule>
