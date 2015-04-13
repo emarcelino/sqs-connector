@@ -1,11 +1,11 @@
 Amazon SQS Anypoint Connector Release Notes
 ==========================================
 
-Date: 14-Jul-2014
+Date: 10-Apr-2015
 
-Version: 2.5.2
+Version: 2.5.5
 
-Supported Mule Runtime Versions: 3.4.x, 3.5.x
+Supported Mule Runtime Versions: 3.5.x or Higher
 
 Supported API versions:
 -----------------------
@@ -28,10 +28,14 @@ Supported Operations:
 New Features and Functionality
 ------------------------------
 
-Updated the Devkit & Tested for 3.5.1 release.
+- Upgraded Anypoint Devkit to 3.5.3 release.
+- Added support for 3.7.0 Runtime.
 
 Previous Releases
 -----------------
+
+### 2.5.4
+- Updated the Devkit & Tested for 3.5.1 release.
 
 ### 2.5.1
 - Added support for sending message attributes.
