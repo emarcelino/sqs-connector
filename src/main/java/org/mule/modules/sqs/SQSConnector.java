@@ -56,10 +56,10 @@ public class SQSConnector {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:add-permission}
      *
-     * @param label     a name for this permission
-     * @param accountId the AWS account ID for the account to share this queue with
-     * @param action    a value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)
-     * @param queueUrl  Permissions will be added to the queue represented by this URL.
+     * @param label      a name for this permission
+     * @param accountIds the AWS account ID's for the account to share this queue with
+     * @param actions    a list to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)
+     * @param queueUrl   Permissions will be added to the queue represented by this URL.
      * @throws AmazonClientException  If any internal errors are encountered inside the client while
      *                                attempting to make the request or handle the response.  For example
      *                                if a network connection is not available.
@@ -67,9 +67,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void addPermission(String label, String accountId, String action, @Optional String queueUrl) throws AmazonServiceException {
+    public void addPermission(String label, List<String> accountIds, List<String> actions, @Optional String queueUrl) throws AmazonServiceException {
         msgQueue.addPermission(new AddPermissionRequest(getConnection().getQueueUrl(queueUrl), label,
-                toList(accountId), toList(action)));
+                accountIds, actions));
     }
 
     /**
@@ -97,7 +97,9 @@ public class SQSConnector {
         if (region != null) {
             msgQueue.setEndpoint(region.value());
         }
-        return msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
+        CreateQueueResult result = msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
+        connection.setQueueUrl(result.getQueueUrl());
+        return result;
     }
 
     /**
@@ -386,14 +388,14 @@ public class SQSConnector {
     }
 
     /**
-     * Sets a queue attribute. This is provided to expose the underlying functionality, although
-     * the only attribute at this time is visibility timeout.
+     * Sets the value of one or more queue attributes. When you change a queue's attributes, the change can take up
+     * to 60 seconds for most of the attributes to propagate throughout the SQS system. Changes made to the
+     * MessageRetentionPeriod attribute can take up to 15 minutes.
      * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:set-queue-attribute}
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:set-queue-attributes}
      *
-     * @param attribute name of the attribute being set
-     * @param value     the value being set for this attribute
-     * @param queueUrl  The URL of the queue.
+     * @param attributes A map of attributes to set.
+     * @param queueUrl   The URL of the queue.
      * @throws AmazonClientException  If any internal errors are encountered inside the client while
      *                                attempting to make the request or handle the response.  For example
      *                                if a network connection is not available.
@@ -401,10 +403,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void setQueueAttribute(String attribute, String value, @Optional String queueUrl)
+    public void setQueueAttributes(@Default("#[payload]") Map<String, String> attributes, @Optional String queueUrl)
             throws AmazonServiceException {
-        Map<String, String> attributes = new HashMap<String, String>();
-        attributes.put(attribute, value);
         msgQueue.setQueueAttributes(new SetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl), attributes));
     }
 

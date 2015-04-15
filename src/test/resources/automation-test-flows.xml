@@ -24,11 +24,6 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 
     <flow name="send-message" doc:name="send-message">
         <sqs:send-message config-ref="SQS" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"
-                          doc:name="Amazon SQS"/>
-    </flow>
-
-    <flow name="send-message-with-attributes" doc:name="send-message-with-attributes">
-        <sqs:send-message config-ref="SQS" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"
                           doc:name="Amazon SQS">
             <sqs:message-attributes ref="#[flowVars.messageAttributes]"/>
         </sqs:send-message>
@@ -45,7 +40,13 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     </flow>
 
     <flow name="delete-message" doc:name="delete-message">
-        <sqs:delete-message config-ref="SQS" doc:name="Amazon SQS"/>
+        <sqs:delete-message receiptHandle="#[flowVars.receiptHandle]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
+
+    <flow name="delete-message-batch" doc:name="delete-message-batch">
+        <sqs:delete-message-batch config-ref="SQS" doc:name="Amazon SQS">
+            <sqs:receipt-handles ref="#[flowVars.receiptHandles]"/>
+        </sqs:delete-message-batch>
     </flow>
 
     <flow name="delete-queue" doc:name="delete-queue">
@@ -59,13 +60,16 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     </flow>
 
     <flow name="set-queue-attribute" doc:name="set-queue-attribute">
-        <sqs:set-queue-attribute config-ref="SQS" attribute="#[flowVars.attribute]" value="#[flowVars.value]"
-                                 doc:name="Amazon SQS"/>
+        <sqs:set-queue-attributes config-ref="SQS" doc:name="Amazon SQS">
+            <sqs:attributes ref="#[flowVars.attributes]"/>
+        </sqs:set-queue-attributes>
     </flow>
 
     <flow name="add-permission" doc:name="add-permission">
-        <sqs:add-permission config-ref="SQS" label="#[flowVars.label]"
-                            accountId="#[flowVars.accountId]" action="#[flowVars.action]" doc:name="Amazon SQS"/>
+        <sqs:add-permission config-ref="SQS" label="#[flowVars.label]" doc:name="Amazon SQS">
+            <sqs:account-ids ref="#[flowVars.accountIds]"/>
+            <sqs:actions ref="#[flowVars.actions]"/>
+        </sqs:add-permission>
     </flow>
 
     <flow name="remove-permission" doc:name="remove-permission">
@@ -73,7 +77,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     </flow>
 
     <flow name="get-approximate-number-of-messages" doc:name="get-approximate-number-of-messages">
-        <sqs:get-approximate-number-of-messages queueUrl="#flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
+        <sqs:get-approximate-number-of-messages queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
     </flow>
 
     <flow name="list-dead-letter-source-queues" doc:name="list-dead-letter-source-queues">
@@ -81,7 +85,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     </flow>
 
     <flow name="receive-message" doc:name="receive-message" initialState="stopped">
-        <sqs:receive-messages config-ref="SQS" preserveMessages="true" doc:name="Amazon SQS"/>
+        <sqs:receive-messages config-ref="SQS" preserveMessages="#[flowVars.preserveMessages]" doc:name="Amazon SQS"/>
         <vm:outbound-endpoint path="receive"/>
     </flow>
 

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,6 @@
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
-        <connector.test.version>2.0.7</connector.test.version>
     </properties>
 
     <dependencies>

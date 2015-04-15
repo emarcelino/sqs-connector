@@ -41,10 +41,17 @@
 </sqs:get-queue-attributes>
 <!-- END_INCLUDE(sqs:get-queue-attributes) -->
 <!-- BEGIN_INCLUDE(sqs:set-queue-attribute) -->
-<sqs:set-queue-attribute attribute="VisibilityTimeout" value="86400" config-ref="SQS"/>
+<sqs:set-queue-attributes config-ref="SQS">
+<sqs:attributes>
+<sqs:attribute key="MaximumMessageSize" value="2222" />
+</sqs:attributes>
+</sqs:set-queue-attributes>
 <!-- END_INCLUDE(sqs:set-queue-attribute) -->
 <!-- BEGIN_INCLUDE(sqs:add-permission) -->
-<sqs:add-permission label="message" accountId="125074342641" action="SendMessage" config-ref="SQS"/>
+<sqs:add-permission label="message" config-ref="SQS">
+<sqs:account-ids ref="accountIds">
+<sqs:actions ref="actions"/>
+</sqs:add-permission>
 <!-- END_INCLUDE(sqs:add-permission) -->
 <!-- BEGIN_INCLUDE(sqs:remove-permission) -->
 <sqs:remove-permission label="message" config-ref="SQS"/>

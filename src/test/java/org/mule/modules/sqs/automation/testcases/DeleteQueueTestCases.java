@@ -22,6 +22,11 @@ import static org.junit.Assert.assertTrue;
 public class DeleteQueueTestCases extends SqsTestParent {
     private boolean queueDeleted = false;
 
+    @Before
+    public void setUp() throws Exception {
+        initializeTestRunMessage("deleteQueueTestData");
+    }
+
     @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testDeleteQueue() {
@@ -34,8 +39,8 @@ public class DeleteQueueTestCases extends SqsTestParent {
             } catch (MessagingException e) {
                 assertTrue(e.getSummaryMessage().contains("NonExistentQueue"));
             }
-        }catch (Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
 

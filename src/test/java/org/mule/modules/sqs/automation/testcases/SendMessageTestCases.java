@@ -7,7 +7,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.amazonaws.services.sqs.model.MessageAttributeValue;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.junit.After;
@@ -21,7 +20,6 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -37,11 +35,13 @@ public class SendMessageTestCases extends SqsTestParent {
     @Test
     public void testSendMessage() {
         try {
-            String message = UUID.randomUUID().toString();
             assertEquals(0, (int) getApproximateNumberOfMessages());
-            SendMessageResult result = sendMessage(message);
+            SendMessageResult result = runFlowAndGetPayload("send-message");
+            assertEquals(md5((String) getTestRunMessageValue("message")), result.getMD5OfMessageBody());
+
+            Thread.sleep(5000);
+
             assertEquals(1, (int) getApproximateNumberOfMessages());
-            assertEquals(md5(message), result.getMD5OfMessageBody());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -52,10 +52,14 @@ public class SendMessageTestCases extends SqsTestParent {
     @Test
     public void testSendMessageWithAttributes() {
         try {
-            Map<String, MessageAttributeValue> attributes = new HashMap<String, MessageAttributeValue>();
-            attributes.put("key", new MessageAttributeValue().withDataType("String").withStringValue("value"));
-            SendMessageResult result = sendMessage((String) getTestRunMessageValue("message"),
-                    ((GetQueueUrlResult) runFlowAndGetPayload("get-queue-url")).getQueueUrl(), attributes);
+            Map<String, MessageAttributeValue> messageAttributes = new HashMap<String, MessageAttributeValue>();
+            messageAttributes.put("AccountId", new MessageAttributeValue().withDataType("String.AccountId").withStringValue("000123456"));
+            messageAttributes.put("NumberId", new MessageAttributeValue().withDataType("Number").withStringValue("230.000000000000000001"));
+
+            upsertOnTestRunMessage("messageAttributes", messageAttributes);
+
+            SendMessageResult result = runFlowAndGetPayload("send-message");
+
             assertEquals(32, result.getMD5OfMessageAttributes().length());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));

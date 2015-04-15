@@ -6,8 +6,6 @@
 
 package org.mule.modules.sqs.automation;
 
-import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
-import com.amazonaws.services.sqs.model.MessageAttributeValue;
 import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.bouncycastle.util.encoders.Hex;
@@ -20,12 +18,11 @@ import org.mule.modules.tests.ConnectorTestCase;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
 
 public class SqsTestParent extends ConnectorTestCase {
 
     private static final int MAX_RETRIES = 10;
-    private static final long RECREATE_QUEUE_DELAY = 61 * 1000;
+    private static final long RECREATE_QUEUE_DELAY = 65 * 1000;
     private static final long RETRY_DELAY = RECREATE_QUEUE_DELAY / MAX_RETRIES;
     private static final String CONNECTION_ERROR_MSG = "Failed to connect after "
             + MAX_RETRIES + " retries";
@@ -33,26 +30,12 @@ public class SqsTestParent extends ConnectorTestCase {
     // Increase timeout to allow some retrying
     public Timeout globalTimeout = new Timeout(240 * 1000);
 
-    protected void setQueueAttribute(String attribute, String value)
-            throws Exception {
-        upsertOnTestRunMessage("attribute", attribute);
-        upsertOnTestRunMessage("value", value);
-        runFlowAndGetPayload("set-queue-attribute");
-    }
-
     protected void deleteQueue() throws Exception {
         runFlowAndGetPayload("delete-queue");
     }
 
     protected Integer getApproximateNumberOfMessages() throws Exception {
         return (Integer) runFlowAndGetPayload("get-approximate-number-of-messages");
-    }
-
-    protected SendMessageResult sendMessage(String message, String queueUrl, Map<String, MessageAttributeValue> messageAttributes) throws Exception {
-        upsertOnTestRunMessage("messageAttributes", messageAttributes);
-        upsertOnTestRunMessage("message", message);
-        upsertOnTestRunMessage("queueUrl", queueUrl);
-        return runFlowAndGetPayload("send-message-with-attributes");
     }
 
     protected SendMessageResult sendMessage(String message) throws Exception {

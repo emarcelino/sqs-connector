@@ -23,7 +23,7 @@ public class RecieveMessagesTestCases extends SqsTestParent {
 
     @Before
     public void setUp() throws Exception {
-        initializeTestRunMessage("deleteMessageTestData");
+        initializeTestRunMessage("receiveMessageTestData");
         runFlowAndGetPayload("send-message");
     }
 

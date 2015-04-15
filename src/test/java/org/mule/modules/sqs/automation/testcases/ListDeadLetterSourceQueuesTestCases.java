@@ -21,9 +21,7 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
 
@@ -34,7 +32,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
         initializeTestRunMessage("listDeadLetterSourceQueuesTestData");
 
         CreateQueueResult createQueueResult = runFlowAndGetPayload("create-queue");
-        queueUrl =createQueueResult.getQueueUrl();
+        queueUrl = createQueueResult.getQueueUrl();
         upsertOnTestRunMessage("queueUrl", queueUrl);
         Map<String, String> attributes = ((GetQueueAttributesResult) runFlowAndGetPayload("get-queue-attributes")).getAttributes();
         String redrivePolicy = String.format("{\"maxReceiveCount\":\"%s\", \"deadLetterTargetArn\":\"%s\"}",
@@ -51,7 +49,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
             ListDeadLetterSourceQueuesResult result = runFlowAndGetPayload("list-dead-letter-source-queues");
             assertTrue(result.getQueueUrls() != null);
             upsertOnTestRunMessage("queueName", getTestRunMessageValue("expectedQueueName").toString());
-            String expectedQueueUrl = ((GetQueueUrlResult)runFlowAndGetPayload("get-queue-url")).getQueueUrl();
+            String expectedQueueUrl = ((GetQueueUrlResult) runFlowAndGetPayload("get-queue-url")).getQueueUrl();
             assertEquals(expectedQueueUrl, result.getQueueUrls().get(0));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -59,7 +57,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         // Delete the DeadLetterQueue
         deleteQueue();
         // Delete the Connection Queue
