@@ -70,7 +70,7 @@ public class SQSRemoveMessageTestDriver
     @BeforeClass
     public static void init() throws ConnectionException {
         module = new SQSConnector();
-        module.connect(System.getenv("sqsAccessKey"), System.getenv("sqsSecretKey"), "test5613809");
+        module.getConnection().connect(System.getenv("sqsAccessKey"), System.getenv("sqsSecretKey"), "test5613809");
         assertTrue(module.getApproximateNumberOfMessages(null)==0);
     }
 
