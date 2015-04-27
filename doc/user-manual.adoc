@@ -1,0 +1,173 @@
+= Amazon SQS Anypoint Connector
+
+The Amazon SQS Anypoint Connector provides an easy way to interface with the Amazon SQS API,
+allowing users to manage SQS queueing services without having to deal with the API directly.
+
+---
+
+== Contents:
+
+. <<Introduction>>
+.. <<Prerequisites>>
+.. <<Requirements>>
+.. <<Dependencies>>
+.. <<Compatibility Matrix>>
+
+. Installing & Configuring
+.. Installing
+.. Configuring
+.. Upgrading from a Previous Version
+
+. Using the Connector
+.. Use Cases and Demos
+.. Best Practices
+.. Tips
+.. Integration Patterns
+.. Adding to a Flow
+.. Query Types
+.. Increasing Performance
+
+. Example Use Case
+..  Anypoint™ Studio  Visual Editor | XML Editor
+.. Example Code
+. Demo
+. F.A.Q
+. See Also
+
+== Introduction
+
+Amazon Simple Queue Service (Amazon SQS) offers a reliable, highly scalable hosted queue for storing messages as they travel between computers.
+By using Amazon SQS, developers can simply move data between distributed application components performing different tasks, without losing messages or requiring each
+component to be always available. Amazon SQS makes it easy to build an automated workflow, working in close conjunction with the Amazon Elastic Compute Cloud (Amazon EC2)
+and the other AWS infrastructure web services.
+
+The AWS SDK for Java provides a Java API for AWS infrastructure services. The Amazon SQS Anypoint Connector is built using the SDK for Java. For the complete list of
+operations supported by the connector, see link:http://mulesoft.github.io/sqs-connector/[Apidocs and Samples].
+
+Although it is called Queue, Amazon SQS does not guarantee FIFO access to messages in Amazon SQS queues, mainly because of the distributed nature of the Amazon SQS.
+If you require specific message ordering, you should design your application to handle it.
+
+=== Prerequisites
+
+This document assumes you are familiar with Mule, link:http://www.mulesoft.org/documentation/display/current/Anypoint+Connectors[Anypoint Connectors],
+and link:http://www.mulesoft.org/documentation/display/current/Anypoint+Studio+Essentials[Anypoint Studio Essentials]. To increase your familiarity with Studio,
+consider completing one or more link:http://www.mulesoft.org/documentation/display/current/Anypoint+Connector+Tutorial[Anypoint Studio Tutorials]. Further,
+this page assumes that you have a basic understanding of link:http://www.mulesoft.org/documentation/display/current/Elements+in+a+Mule+Flow[Mule flows] and
+link:http://www.mulesoft.org/documentation/display/current/Global+Elements[Mule Global Elements].
+
+This document describes implementation examples within the context of Anypoint Studio, Mule ESB’s graphical user interface, and, in parallel,
+includes configuration details for doing the same in the XML Editor.
+
+=== Requirements
+
+There are no hardware, software or technical requirements in addition to those required to run the AnyPoint Platform.
+
+=== Dependencies
+
+As the connector come pre-bundled with Anypoint Studio, you must have the following:
+
+* Install link:https://www.mulesoft.com/studio[Anypoint Studio]
+* Sign Up for Amazon Web Services and Get AWS Credentials, To access AWS with the connector, you will need credentials in the form of IAM user credentials.
+
+=== Compatibility Matrix
+
+[width="100%", options="header"]
+|=======
+|Application/Service |Version
+|Mule Runtime |3.5.0 and above
+|AWS SDK for Java |1.9.30
+|=======
+
+== Installing and Configuring
+
+You can “test drive” the Amazon SQS Connector by installing it in Anypoint Studio. Follow the instructions to download and launch Anypoint Studio,
+then follow the steps below to install the Amazon SQS Connector.
+
+=== Installing
+
+If you haven't installed Anypoint Studio on your computer yet, it's time to download link:https://www.mulesoft.com/studio[Anypoint Studio].
+You also have the option of downloading a 30 day trial of link:http://www.mulesoft.com/mule-esb-enterprise[Mule Enterprise Edition].
+There is no specific installation that you need to run. Once you unzip the zip file to your desired location, you are ready to go.
+
+To install the Amazon SQS connector in Anypoint Studio follow the instructions described in
+link:http://www.mulesoft.org/documentation/display/current/Anypoint+Exchange#AnypointExchange-InstallingaConnectorfromAnypointExchange[Installing a Connector from Anypoint Exchange].
+
+=== Configuring
+
+To use the Amazon SQS Connector, you must perform two things:
+
+* place an instance of the connector on the flow canvas by dragging it from Connectors palette.
+* a global Amazon SQS connector configuration.
+
+To create a global Amazon SQS connector configuration, follow these steps:
+
+. Click the Global Elements tab at the base of the canvas, then click Create.
+. Use the filter to locate, then select, Amazon SQS: Configuration, then click OK.
+. Configure the global connector’s parameters according to the table below.
++
+[width="100%", options="header"]
+|=======
+|Parameter |Description |Example
+|Access Key |It is alphanumeric text string that uniquely identifies the user who owns the account |AKIAIA6DBXAES37G62OA
+|Secret Key |Key that plays the role of a password |MMXcMDzAZ8MxY1zdogcwuXvWy0+cYuetl-4wAKFJB
+|Queue Name |Default queue name, automatically created if does not exists |testQueue
+|Queue URL |The URL of the Amazon SQS queue to take action on.|https://sqs.us-east-1.amazonaws.com/0955505019O07/testQueue
+|Region Endpoint |To reduce data latency in your applications, most Amazon Web Services products allow you to select a regional endpoint to make your requests |USWEST2
+|=======
+
+. Access the Pooling Profile tab to configure any settings relevant to managing multiple connections via a connection pool.
+. Access the Reconnection tab to configure any settings relevant to reconnection strategies that Mule should execute if it loses its connection to Amazon SQS.
+. Click Test Connection to confirm that the parameters of your global Amazon SQS connector are accurate, and that Mule is able to successfully connect with your credentials.
+. Click OK to save the global connector configurations.
+. Return to the Message Flow tab in Studio. Drag the Amazon SQS Connector onto the canvas, then select it to open the Properties Editor console.
+. Configure the connector’s parameters according to the table below.
++
+[width="100%", options="header"]
+|=======
+|Field |Description |Example
+|Display Name |A human-readable name for the Connector operation |Add queue permissions
+|Connector Configuration |The global configuration for the Connector to connect to Amazon SQS |Amazon_SQS_Configuration
+|Operation |The operation to perform. |Delete queue
+|Queue URL |A parameter for the operation chosen. |#[payload]
+|=======
+. Click blank space on the canvas to save your connector configurations.
+
+=== Updating From an Older Version
+
+What needs to be configured when updating from a previous version of this connector?  +
+Are there configuration items for previous MuleSoft software for this connector?
+ 
+== Using This Connector
+
+=== Use Cases and Demos
+The connector is bundled with a demo project (sqs-operations-demo) that highlights the usage of few operations. From the list of flows created in the demo, the process of sending a message along with meta data and receiving the same
+message from the queue use case is described below.
+
+== Example Use Case
+
+It's time to build the flow that adds a message to the Amazon SQS queue. Special meta data can be set on the message using the Message Attributes.
+Since receive message operation is an Inbound Message Source, We will then create another flow which logs that the message has been added to the queue along with the meta data.
+The final flows will look like :
+
+===  Anypoint Studio  Visual Editor | XML Editor
+
+*Send Message Operation Flow*:
+This is the flow which sends a message to the Amazon SQS queue. Start by dropping an HTTP connector on the flow from the palette.
+The only parameters you need to configure for this endpoint is "Host", "Port", and "Path". Change host to "localhost", port to "8081", and path to "sendmessage".
+This is the URL you'd call to start this flow. Then drop an Amazon SQS connector from the palette onto the endpoint.
+In the configuration box for the Amazon SQS connector, select the previously created Amazon SQS configuration from the Config Reference dropdown menu.
+Change the operation to "Send message", and set the Message to "#[header:INBOUND:message]". Click okay.
+
+
+=== Code Example
+
+Number code example lines and explain blocks of lines
+ 
+---
+=== F.A.Q
+
+ * Add here a all the items you consider useful.
+
+=== See Also
+
+ * Access full reference documentation for the connector.

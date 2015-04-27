@@ -1,72 +1,232 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd&#10;http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd&#10;http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd&#10;http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-	
-	<bean id="testAccountCredentials" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="${AMAZON_SQS_CREDENTIALS}"/>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <import resource="ConnectorTestCaseSpringBeans.xml"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>${AUTOMATION_CREDENTIALS}</value>
+        </property>
     </bean>
-	
-	<util:map id="testSendMessageFromPayloadTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="payloadContent" value="myTestMessage" />
-	</util:map>
-	
-		<util:map id="testSendMessageTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="message" value="" />
-	</util:map>
-	
-	<util:map id="testGetUrlTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-	</util:map>
-	
-	<util:map id="testDeleteMessageTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="receiptHandle" value="#[header:inbound:sqs.message.receipt.handle]" />
-	</util:map>
-	
-	<util:map id="testDeleteQueueTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-	</util:map>
-	
-	<util:map id="testGetQueueAttributesTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="attribute" value="" />
-		<entry key="attribute" value="" />
-	</util:map>
-	
-	
-	<util:map id="testSetQueueAttributeTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="attribute" value="" />
-		<entry key="value" value="" />
-	</util:map>
-	
-	<util:map id="testAddPermissionTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="label" value="" />
-		<entry key="accountId" value="" />
-		<entry key="action" value="" />
-	</util:map>
-	
-	<util:map id="testRemovePermissionTestData" key-type="java.lang.String"
-		map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
-		<entry key="label" value="" />
-	</util:map>
-	
-	<util:map id="testGetApproximateNumberOfMessagesTestData"
-		key-type="java.lang.String" map-class="java.util.HashMap" scope="prototype"
-		value-type="java.lang.Object">
-	</util:map>
-	
-	<util:map id="testReceiveMessageTestData"
-		key-type="java.lang.String" map-class="java.util.HashMap" scope="prototype"
-		value-type="java.lang.Object">
-		<entry key="visibilityTimeout" value="30" />
-		<entry key="preserveMessages" value="false" />
-		<entry key="pollPeriod" value="1000" />
-		<entry key="numberOfMessages" value="1" />
-	</util:map>
+
+    <bean id="randomString" class="org.mule.modules.tests.ConnectorTestUtils"
+          factory-method="generateRandomShortString" scope="prototype"/>
+
+    <util:map id="changeMessageVisibilityTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="receiptHandle" value="#[header:inbound:sqs.message.receipt.handle]"/>
+        <entry key="visibilityTimeout" value="120"/>
+        <entry key="message" value-ref="randomString"/>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="changeMessageVisibilityBatchTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="messages">
+            <list>
+                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                    <constructor-arg index="0" value="id-1"/>
+                    <constructor-arg index="1" ref="randomString"/>
+                </bean>
+                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                    <constructor-arg index="0" value="id-2"/>
+                    <constructor-arg index="1" ref="randomString"/>
+                </bean>
+            </list>
+        </entry>
+        <entry key="visibilityTimeout" value="120"/>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="createQueueTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="queueName" value="testQueue"/>
+        <entry key="region" value="USWEST1"/>
+        <entry key="attributes">
+            <util:map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="VisibilityTimeout" value="50"/>
+                <entry key="DelaySeconds" value="100"/>
+                <entry key="MessageRetentionPeriod" value="120"/>
+            </util:map>
+        </entry>
+    </util:map>
+
+    <util:map id="sendMessageTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="message" value-ref="randomString"/>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="sendMessageBatchTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="messages">
+            <list>
+                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                    <constructor-arg index="0" value="id-1"/>
+                    <constructor-arg index="1" ref="randomString"/>
+                </bean>
+                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                    <constructor-arg index="0" value="id-2"/>
+                    <constructor-arg index="1" ref="randomString"/>
+                </bean>
+            </list>
+        </entry>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="getQueueUrlTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="queueName" value="${sqs.queueName}"/>
+        <entry key="region" value="${sqs.region}"/>
+    </util:map>
+
+    <util:map id="deleteMessageTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="receiptHandle" value="#[header:inbound:sqs.message.receipt.handle]"/>
+        <entry key="message" value-ref="randomString"/>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="deleteMessageBatchTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="messages">
+            <list>
+                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                    <constructor-arg index="0" value="id-1"/>
+                    <constructor-arg index="1" ref="randomString"/>
+                </bean>
+                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                    <constructor-arg index="0" value="id-2"/>
+                    <constructor-arg index="1" ref="randomString"/>
+                </bean>
+            </list>
+        </entry>
+    </util:map>
+
+    <util:map id="deleteQueueTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="queueName" value="${sqs.queueName}"/>
+        <entry key="region" value="${sqs.region}"/>
+    </util:map>
+
+    <util:map id="getQueueAttributesTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="attributeNames">
+            <list>
+                <value>VisibilityTimeout</value>
+                <value>DelaySeconds</value>
+                <value>MessageRetentionPeriod</value>
+            </list>
+        </entry>
+        <entry key="queueName" value="testQueue"/>
+    </util:map>
+
+
+    <util:map id="setQueueAttributeTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="queueName" value="${sqs.queueName}"/>
+        <entry key="attributes">
+            <util:map key-type="java.lang.String"
+                      map-class="java.util.HashMap" scope="prototype" value-type="java.lang.String">
+                <entry key="MaximumMessageSize" value="1111"/>
+                <entry key="DelaySeconds" value="10"/>
+            </util:map>
+        </entry>
+    </util:map>
+
+    <util:map id="addPermissionTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="label" value="fooPermission"/>
+        <entry key="accountIds">
+            <list>
+                <value>${sqs.principalId}</value>
+            </list>
+        </entry>
+        <entry key="actions">
+            <list>
+                <value>SendMessage</value>
+                <value>ReceiveMessage</value>
+            </list>
+        </entry>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="removePermissionTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="label" value="offPermission"/>
+        <entry key="accountIds">
+            <list>
+                <value>${sqs.principalId}</value>
+            </list>
+        </entry>
+        <entry key="actions">
+            <list>
+                <value>DeleteMessage</value>
+            </list>
+        </entry>
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="getApproximateNumberOfMessagesTestData" key-type="java.lang.String"
+              map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
+        <entry key="messages">
+            <list>
+                <value>Amazon SQS Test Message 1</value>
+                <value>Amazon SQS Test Message 2</value>
+                <value>Amazon SQS Test Message 3</value>
+                <value>Amazon SQS Test Message 4</value>
+            </list>
+        </entry>
+    </util:map>
+
+    <util:map id="receiveMessageTestData"
+              key-type="java.lang.String" map-class="java.util.HashMap" scope="prototype"
+              value-type="java.lang.Object">
+        <entry key="message" value-ref="randomString"/>
+        <entry key="preserveMessages" value="true"/>
+        <entry key="queueName" value="${sqs.queueName}"/>
+
+    </util:map>
+
+    <util:map id="listDeadLetterSourceQueuesTestData"
+              key-type="java.lang.String" map-class="java.util.HashMap" scope="prototype"
+              value-type="java.lang.Object">
+        <entry key="message" value-ref="randomString"/>
+        <entry key="queueName" value="SQSConnectorDeadLetterQueue"/>
+        <entry key="expectedQueueName" value="${sqs.queueName}"/>
+        <entry key="maxReceiveCount" value="5"/>
+        <entry key="attributeNames">
+            <list>
+                <value>QueueArn</value>
+            </list>
+        </entry>
+    </util:map>
+
+    <util:map id="listQueuesTestData"
+              key-type="java.lang.String" map-class="java.util.HashMap" scope="prototype"
+              value-type="java.lang.Object">
+        <entry key="queuePrefix" value="T"/>
+        <entry key="queueNames">
+            <list>
+                <value>testSQSConnectorQueue</value>
+                <value>TestSQSDevQueue</value>
+                <value>SQSConnectorTestQueue</value>
+            </list>
+        </entry>
+        <entry key="expectedQueues">
+            <list>
+                <value>testQueue</value>
+            </list>
+        </entry>
+        <entry key="defaultQueueName" value="${sqs.queueName}"/>
+    </util:map>
+
+    <util:map id="purgeQueueTestData"
+              key-type="java.lang.String" map-class="java.util.HashMap" scope="prototype"
+              value-type="java.lang.Object">
+        <entry key="queueName" value="${sqs.queueName}"/>
+    </util:map>
 </beans>

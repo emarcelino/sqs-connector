@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
@@ -10,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-sqs</artifactId>
-    <version>2.5.5-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>mule-module</packaging>
     <name>Mule Amazon SQS Connector</name>
 
@@ -18,13 +19,35 @@
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
-        <amazon.sdk.version>1.7.13</amazon.sdk.version>
-        <amazon.sdk.shade.version>1_7_13</amazon.sdk.shade.version>
+        <amazon.sdk.version>1.9.30</amazon.sdk.version>
         <apache.http.version>4.4.1</apache.http.version>
-        <apache.http.shade.version>4_4_1</apache.http.shade.version>
         <joda.time.version>2.7</joda.time.version>
-        <joda.time.shade.version>2_7</joda.time.shade.version>
+        <jdk.version>1.6</jdk.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sqs</artifactId>
+            <version>${amazon.sdk.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.time.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${apache.http.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${apache.http.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -46,11 +69,11 @@
                     <relocations combine.children="append">
                         <relocation>
                             <pattern>org.apache.http</pattern>
-                            <shadedPattern>org.apache.http.${apache.http.shade.version}.shade</shadedPattern>
+                            <shadedPattern>org.apache.http.shade</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.amazonaws</pattern>
-                            <shadedPattern>com.amazonaws.${amazon.sdk.shade.version}.shade</shadedPattern>
+                            <shadedPattern>com.amazonaws.shade</shadedPattern>
                             <excludes combine.children="append">
                                 <exclude>com.amazonaws.services.sqs.model.holders.*</exclude>
                                 <exclude>com.amazonaws.services.sqs.model.transformers.*</exclude>
@@ -58,11 +81,12 @@
                         </relocation>
                         <relocation>
                             <pattern>org.joda.time</pattern>
-                            <shadedPattern>org.joda.time.${joda.time.shade.version}.shade</shadedPattern>
+                            <shadedPattern>org.joda.time.shade</shadedPattern>
                         </relocation>
                     </relocations>
                     <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
                             <resources>
                                 <resource>request.handlers</resource>
                             </resources>
@@ -70,98 +94,8 @@
                     </transformers>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <docletArtifact>
-                        <groupId>org.mule.tools.devkit</groupId>
-                        <artifactId>mule-devkit-doclet</artifactId>
-                        <version>${mule.devkit.version}</version>
-                    </docletArtifact>
-                    <doclet>org.mule.devkit.doclet.Doclava</doclet>
-                    <bootclasspath>${sun.boot.class.path}</bootclasspath>
-                    <additionalparam><!--
-                        -federate JDK http://download.oracle.com/javase/6/docs/api/index.html?
-                        -federationxml JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml -->
-                        -hdf project.artifactId "${project.artifactId}"
-                        -hdf project.groupId "${project.groupId}"
-                        -hdf project.version "${project.version}"
-                        -hdf project.name "${project.name}"
-                        -hdf project.repo.name "${project.distributionManagement.repository.name}"
-                        -hdf project.repo.id "${project.distributionManagement.repository.id}"
-                        -hdf project.repo.url "${project.distributionManagement.repository.url}"
-                        -hdf project.snapshotRepo.name "${project.distributionManagement.snapshotRepository.name}"
-                        -hdf project.snapshotRepo.id "${project.distributionManagement.snapshotRepository.id}"
-                        -hdf project.snapshotRepo.url "${project.distributionManagement.snapshotRepository.url}"
-                        -d ${project.build.directory}/apidocs
-                        -markdown sqs ${basedir}/SIMPLE-QUEUE-SERVICE.md "SQS Guide"
-                    </additionalparam>
-                    <useStandardDocletOptions>false</useStandardDocletOptions>
-                    <additionalJOption>-J-Xmx1024m</additionalJOption>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>${amazon.sdk.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-core-asl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-mapper-asl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-codec</groupId>
-                    <artifactId>commons-codec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>${joda.time.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${apache.http.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>${apache.http.version}</version>
-        </dependency>
-    </dependencies>
 
     <repositories>
         <repository>

@@ -1,11 +1,7 @@
 Mule Amazon SQS Connector
 =========================
 
-The Amazon SQS Connector allows Mule to connect to [Amazon SQS](http://aws.amazon.com/sqs/).
-
-For accessing S3, please check [mule-s3-connector](https://github.com/mulesoft/s3-connector). For FWS support, check [mule-fws-connector](https://github.com/mulesoft/fws-connector).
-
-
+Amazon Simple Queue Service (SQS) is a fast, reliable, scalable, fully managed message queuing service. SQS makes it simple and cost-effective to decouple the components of a cloud application. You can use SQS to transmit any volume of data, at any level of throughput, without losing messages or requiring other services to be always available.
 
 Installation and Usage
 ----------------------

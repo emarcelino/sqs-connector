@@ -1,39 +1,27 @@
 /**
- * Mule Amazon SQS Connector
- *
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.txt file.
+ * (c) 2003-2015 MuleSoft, Inc. The software in this package is
+ * published under the terms of the CPAL v1.0 license, a copy of which
+ * has been included with this distribution in the LICENSE.md file.
  */
 
 package org.mule.modules.sqs;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
-import com.amazonaws.services.sqs.AmazonSQSAsyncClient;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.*;
-
-import org.apache.commons.lang.StringUtils;
-import org.mule.api.ConnectionException;
-import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
-import org.mule.api.annotations.display.FriendlyName;
-import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.MetaDataStaticKey;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.SourceCallback;
 import org.mule.modules.sqs.connection.strategy.SQSConnectionManagement;
+import org.mule.modules.sqs.metadata.category.SendMessageCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,59 +38,258 @@ import java.util.concurrent.Future;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "sqs", friendlyName = "Amazon SQS", minMuleVersion = "3.5")
+@Connector(name = "sqs", friendlyName = "Amazon SQS")
 public class SQSConnector {
-   
-	private static Logger logger = LoggerFactory.getLogger(SQSConnector.class);
 
-	@ConnectionStrategy
-	private SQSConnectionManagement connection;
+    private static final Logger logger = LoggerFactory.getLogger(SQSConnector.class);
 
-    public SQSConnectionManagement getConnection() {
-		return connection;
-	}
+    @NotNull
+    @ConnectionStrategy
+    private SQSConnectionManagement connection;
 
-	public void setConnection(SQSConnectionManagement connection) {
-		this.connection = connection;
-	}
+    private AmazonSQSClient msgQueue;
+    private AmazonSQSAsync msgQueueAsync;
 
-	/**
-     * Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
+    /**
+     * Adds a permission to this message queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:add-permission}
      *
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:send-message}
-     *
-     * @param message the message to send. Defaults to the payload of the Mule message.
-     * @param queueUrl the queue where the message is to be sent.
-     * @param messageAttributes a map of typed key-value pairs to be sent as message attributes. A value,
-     *                          key and data type must be specified for each entry.
-     * @return The queue response of the sent message.
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param label      a name for this permission
+     * @param accountIds the AWS account ID's for the account to share this queue with
+     * @param actions    a list to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)
+     * @param queueUrl   Permissions will be added to the queue represented by this URL.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public SendMessageResult sendMessage(@Default("#[payload]") final String message,
-                                         @Optional String queueUrl,
-                                         @Optional Map<String, MessageAttributeValue> messageAttributes) {
-        return connection.getMsgQueue().sendMessage(new SendMessageRequest(connection.getQueueUrl(queueUrl), message).withMessageAttributes(messageAttributes));
+    public void addPermission(String label, List<String> accountIds, List<String> actions, @Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.addPermission(new AddPermissionRequest(getConnection().getQueueUrl(queueUrl), label,
+                accountIds, actions));
     }
 
     /**
-     * This method provides the URL for the message queue represented by this object.
+     * Changes the visibility timeout of a specified message in a queue to a new value. The maximum allowed timeout
+     * value you can set the value to is 12 hours. This means you can't extend the timeout of a message in an existing
+     * queue to more than a total visibility timeout of 12 hours.
      * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-url}
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:change-message-visibility}
      *
-     * @return generated queue service url
+     * @param receiptHandle     The receipt handle associated with the message whose visibility timeout should be changed.
+     * @param visibilityTimeout The new value (in seconds - from 0 to 43200 - maximum 12 hours) for the message's visibility timeout.
+     * @param queueUrl          The URL of the Amazon SQS queue to take action on.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public String getUrl() {
-        return connection.getUrl();
+    public void changeMessageVisibility(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle, Integer visibilityTimeout, @Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.changeMessageVisibility(new ChangeMessageVisibilityRequest(getConnection().getQueueUrl(queueUrl), receiptHandle, visibilityTimeout));
     }
 
+    /**
+     * Changes the visibility timeout of multiple messages. This is a batch version of ChangeMessageVisibility.
+     * The result of the action on each message is reported individually in the response. You can send up to 10
+     * ChangeMessageVisibility requests with each ChangeMessageVisibilityBatch action.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:change-message-visibility-batch}
+     *
+     * @param receiptHandles A list of receipt handles of the messages for which the visibility timeout must be changed.
+     * @param queueUrl       The URL of the Amazon SQS queue to take action on.
+     * @return ChangeMessageVisibilityBatchResult list items.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
+                                                                           @Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
+    }
+
+    /**
+     * Creates a new queue, or returns the URL of an existing one.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:create-queue}
+     *
+     * @param queueName  The name for the queue to be created.
+     * @param region     The region in which the queue to be created.
+     * @param attributes A map of attributes with their corresponding values.
+     *                   Valid Map Keys: Policy | VisibilityTimeout | MaximumMessageSize | MessageRetentionPeriod |
+     *                   ApproximateNumberOfMessages | ApproximateNumberOfMessagesNotVisible | CreatedTimestamp |
+     *                   LastModifiedTimestamp | QueueArn | ApproximateNumberOfMessagesDelayed | DelaySeconds |
+     *                   ReceiveMessageWaitTimeSeconds | RedrivePolicy
+     * @return CreateQueueResult object containing the URL of the created Amazon SQS queue.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
+                                         @Optional Map<String, String> attributes) throws AmazonServiceException {
+        if (region != null) {
+            msgQueue.setEndpoint(region.value());
+        }
+        return msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
+    }
+
+    /**
+     * Deletes the message identified by message object on the queue this object represents.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:delete-message}
+     *
+     * @param receiptHandle Receipt handle of the message to be deleted
+     * @param queueUrl      The URL of the queue to delete messages from
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public void deleteMessage(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle,
+                              @Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.deleteMessage(new DeleteMessageRequest(getConnection().getQueueUrl(queueUrl), receiptHandle));
+    }
+
+    /**
+     * Deletes up to ten messages from the specified queue. This is a batch version of DeleteMessage.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:delete-message-batch}
+     *
+     * @param receiptHandles A list of receipt handles for the messages to be deleted.
+     * @param queueUrl       The URL of the queue to delete messages as a batch from.
+     * @return DeleteMessageBatchResult
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<DeleteMessageBatchRequestEntry> receiptHandles,
+                                                       @Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
+    }
+
+    /**
+     * Deletes the message queue represented by this object. Will delete non-empty queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:delete-queue}
+     *
+     * @param queueUrl The URL of the queue to delete.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public void deleteQueue(@Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.deleteQueue(new DeleteQueueRequest(getConnection().getQueueUrl(queueUrl)));
+    }
+
+    /**
+     * Gets queue attributes. This is provided to expose the underlying functionality.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-queue-attributes}
+     *
+     * @param attributeNames A list of attribute retrieve information for.
+     * @param queueUrl       The URL of the Amazon SQS queue to take action on.
+     * @return GetQueueAttributesResult object map containing attributes and their values
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public GetQueueAttributesResult getQueueAttributes(@Optional List<String> attributeNames, @Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl))
+                .withAttributeNames(attributeNames));
+    }
+
+    /**
+     * Returns the URL of an existing queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-queue-url}
+     *
+     * @param queueName              The name of the queue whose URL must be fetched.
+     * @param queueOwnerAWSAccountId The AWS account ID of the owner that created the queue.
+     * @return GetQueueUrlResult object containing the generated queue service url
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) throws AmazonServiceException {
+        return msgQueue.getQueueUrl(new GetQueueUrlRequest(queueName).withQueueOwnerAWSAccountId(queueOwnerAWSAccountId));
+    }
+
+    /**
+     * Returns a list of your queues that have the RedrivePolicy queue attribute configured with a dead letter queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:list-dead-letter-source-queues}
+     *
+     * @param queueUrl The queue URL of a dead letter queue.
+     * @return ListDeadLetterSourceQueuesResult object containing a list of source queue URLs that have the RedrivePolicy queue attribute configured with a dead letter queue.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.listDeadLetterSourceQueues(new ListDeadLetterSourceQueuesRequest(getConnection().getQueueUrl(queueUrl)));
+    }
+
+    /**
+     * Returns a list of your queues. The maximum number of queues that can be returned is 1000.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:list-queues}
+     *
+     * @param queueNamePrefix A string to use for filtering the list results. Only those queues whose name begins
+     *                        with the specified string are returned.
+     * @return ListQueuesResult object containing list of queue URLs.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public ListQueuesResult listQueues(@Optional String queueNamePrefix) throws AmazonServiceException {
+        return msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
+    }
+
+    /**
+     * Deletes the messages in a queue specified by the queue URL.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:purge-queue}
+     *
+     * @param queueUrl the queue URL where messages are to be fetched from.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public void purgeQueue(@Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.purgeQueue(new PurgeQueueRequest(getConnection().getQueueUrl(queueUrl)));
+    }
 
     /**
      * Attempts to receive messages from a queue. Every attribute of the incoming
@@ -120,8 +307,6 @@ public class SQSConnector {
      * @param preserveMessages  Flag that indicates if you want to preserve the messages
      *                          in the queue. False by default, so the messages are
      *                          going to be deleted.
-     * @param pollPeriod        Deprecated. Time in milliseconds to wait between polls (when no messages were retrieved).
-     *                          Default period is 1000 ms.
      * @param numberOfMessages  the number of messages to be retrieved on each call (10 messages max).
      *                          By default, 1 message will be retrieved.
      * @param queueUrl          the queue URL where messages are to be fetched from.
@@ -135,17 +320,10 @@ public class SQSConnector {
     public void receiveMessages(SourceCallback callback,
                                 @Default("30") Integer visibilityTimeout,
                                 @Default("false") Boolean preserveMessages,
-                                @Optional Long pollPeriod,
                                 @Default("1") Integer numberOfMessages,
-                                @Optional String queueUrl)
-            throws AmazonServiceException {
-        if (pollPeriod != null) {
-            logger.warn("The pollPeriod parameter has been deprecated and will be removed in future versions of this " +
-                    "connector. Messages are received asynchronously, not by polling SQS.");
-        }
-
+                                @Optional String queueUrl) throws AmazonServiceException {
         ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All").withMessageAttributeNames("All");
-        receiveMessageRequest.setQueueUrl(connection.getQueueUrl(queueUrl));
+        receiveMessageRequest.setQueueUrl(getConnection().getQueueUrl(queueUrl));
 
         if (visibilityTimeout != null) {
             receiveMessageRequest.setVisibilityTimeout(visibilityTimeout);
@@ -153,13 +331,13 @@ public class SQSConnector {
         receiveMessageRequest.setMaxNumberOfMessages(numberOfMessages);
 
         while (!Thread.currentThread().isInterrupted()) {
-            Future<ReceiveMessageResult> futureMessages = connection.getMsgQueueAsync().receiveMessageAsync(receiveMessageRequest);
+            Future<ReceiveMessageResult> futureMessages = msgQueueAsync.receiveMessageAsync(receiveMessageRequest);
             try {
                 List<Message> receivedMessages = futureMessages.get().getMessages();
                 for (Message m : receivedMessages) {
-                    try {
+                    try { //NOSONAR
                         callback.process(m.getBody(), createProperties(m));
-                    } catch (Exception e) {
+                    } catch (Exception e) { //NOSONAR
                         // If an exception is thrown here, we cannot communicate
                         // with the Mule flow, so there is nothing we can do to
                         // handle it.
@@ -167,7 +345,7 @@ public class SQSConnector {
                         return;
                     }
                     if (!preserveMessages) {
-                        connection.getMsgQueueAsync().deleteMessageAsync(new DeleteMessageRequest(connection.getQueueUrl(queueUrl), m.getReceiptHandle()));
+                        msgQueueAsync.deleteMessageAsync(new DeleteMessageRequest(getConnection().getQueueUrl(queueUrl), m.getReceiptHandle()));
                     }
                 }
             } catch (InterruptedException e) {
@@ -180,11 +358,122 @@ public class SQSConnector {
     }
 
     /**
+     * Removes a permission from this message queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:remove-permission}
+     *
+     * @param label    a name for the permission to be removed
+     * @param queueUrl Permissions will be deleted from the queue represented by this URL.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public void removePermission(String label, @Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.removePermission(new RemovePermissionRequest(getConnection().getQueueUrl(queueUrl), label));
+    }
+
+    /**
+     * Sends a message to a specified queue. The message must be between 1 and 256K bytes long.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:send-message}
+     *
+     * @param message           the message body to send.
+     * @param delaySeconds      The number of seconds (0 to 900 - 15 minutes) to delay a specific message.
+     * @param queueUrl          the queue where the message is to be sent.
+     * @param messageAttributes a map of typed key-value pairs to be sent as message attributes. A value,
+     *                          key and data type must be specified for each entry.
+     * @return The queue response of the sent message.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    @MetaDataScope(SendMessageCategory.class)
+    public SendMessageResult sendMessage(String message,
+                                         @Optional Integer delaySeconds,
+                                         @MetaDataStaticKey(type = "SendMessage")
+                                         @Default("#[payload]") Map<String, Object> messageAttributes,
+                                         @Optional String queueUrl) {
+        Map<String, MessageAttributeValue> attributes = new HashMap<String, MessageAttributeValue>();
+        if (messageAttributes != null && !messageAttributes.isEmpty()) {
+            for (Map.Entry<String, Object> entry : messageAttributes.entrySet()) {
+                attributes.put(entry.getKey(), (MessageAttributeValue) entry.getValue());
+            }
+        }
+        return msgQueue.sendMessage(new SendMessageRequest(getConnection().getQueueUrl(queueUrl), message)
+                .withDelaySeconds(delaySeconds).withMessageAttributes(attributes));
+    }
+
+    /**
+     * Delivers up to ten messages to the specified queue. This is a batch version of SendMessage
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:send-message-batch}
+     *
+     * @param queueUrl the queue where the message is to be sent.
+     * @param messages A list of SendMessageBatchRequestEntry items.
+     * @return SendMessageBatchResult list items.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<SendMessageBatchRequestEntry> messages, @Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.sendMessageBatch(getConnection().getQueueUrl(queueUrl), messages);
+    }
+
+    /**
+     * Sets the value of one or more queue attributes. When you change a queue's attributes, the change can take up
+     * to 60 seconds for most of the attributes to propagate throughout the SQS system. Changes made to the
+     * MessageRetentionPeriod attribute can take up to 15 minutes.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:set-queue-attributes}
+     *
+     * @param attributes A map of attributes to set.
+     * @param queueUrl   The URL of the queue.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public void setQueueAttributes(@Default("#[payload]") Map<String, String> attributes, @Optional String queueUrl)
+            throws AmazonServiceException {
+        msgQueue.setQueueAttributes(new SetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl), attributes));
+    }
+
+    /**
+     * Gets an approximate number of visible messages for a queue.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-approximate-number-of-messages}
+     *
+     * @param queueUrl The URL of the queue
+     * @return the approximate number of messages in the queue
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public int getApproximateNumberOfMessages(@Optional String queueUrl) throws AmazonServiceException {
+        return Integer.parseInt(msgQueue.getQueueAttributes(
+                new GetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl)).withAttributeNames(
+                        "ApproximateNumberOfMessages")).getAttributes().get("ApproximateNumberOfMessages"));
+    }
+
+    /**
      * @param msg Message to extract properties from.
      * @return map with properties
      */
-    public Map<String, Object> createProperties(Message msg)
-    {
+    private Map<String, Object> createProperties(Message msg) {
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.putAll(msg.getAttributes());
         properties.putAll(msg.getMessageAttributes());
@@ -193,172 +482,14 @@ public class SQSConnector {
         return properties;
     }
 
-    /**
-     * Deletes the message identified by message object on the queue this object represents.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:delete-message}
-     *
-     * @param receiptHandle Receipt handle of the message to be deleted
-     * @param queueUrl The URL of the queue to delete messages from
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    @Processor
-    public void deleteMessage(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle,
-    		@Optional String queueUrl)
-            throws AmazonServiceException {
-        connection.getMsgQueue().deleteMessage(new DeleteMessageRequest(connection.getQueueUrl(queueUrl), receiptHandle));
+    public SQSConnectionManagement getConnection() {
+        return connection;
     }
 
-    /**
-     * Deletes the message queue represented by this object. Will delete non-empty queue.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:delete-queue}
-     * @param queueUrl The URL of the queue to delete.
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    @Processor
-    public void deleteQueue(@Optional String queueUrl) throws AmazonServiceException {
-        connection.getMsgQueue().deleteQueue(new DeleteQueueRequest(connection.getQueueUrl(queueUrl)));
+    public void setConnection(SQSConnectionManagement connection) {
+        this.connection = connection;
+        this.msgQueue = connection.getMsgQueue();
+        this.msgQueueAsync = connection.getMsgQueueAsync();
     }
-
-    /**
-     * Gets queue attributes. This is provided to expose the underlying functionality.
-     * Currently supported attributes are;
-     * ApproximateNumberOfMessages
-     * CreatedTimestamp
-     * LastModifiedTimestamp
-     * VisibilityTimeout
-     * RequestPayer
-     * Policy
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-queue-attributes}
-     *
-     * @param attribute Attribute to get
-     * @param queueUrl The URL of the queue
-     * @return a map of attributes and their values
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    @Processor
-    public Map<String, String> getQueueAttributes(String attribute, @Optional String queueUrl)
-            throws AmazonServiceException {
-        return connection.getMsgQueue().getQueueAttributes(
-                new GetQueueAttributesRequest(connection.getQueueUrl(queueUrl)).withAttributeNames(attribute)).getAttributes();
-    }
-
-    /**
-     * Sets a queue attribute. This is provided to expose the underlying functionality, although
-     * the only attribute at this time is visibility timeout.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:set-queue-attribute}
-     *
-     * @param attribute name of the attribute being set
-     * @param value     the value being set for this attribute
-     * @param queueUrl The URL of the queue.
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    @Processor
-    public void setQueueAttribute(String attribute, String value, @Optional String queueUrl)
-            throws AmazonServiceException {
-        Map<String, String> attributes = new HashMap<String, String>();
-        attributes.put(attribute, value);
-        connection.getMsgQueue().setQueueAttributes(new SetQueueAttributesRequest(connection.getQueueUrl(queueUrl), attributes));
-    }
-
-    /**
-     * Adds a permission to this message queue.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:add-permission}
-     *
-     * @param label     a name for this permission
-     * @param accountId the AWS account ID for the account to share this queue with
-     * @param action    a value to indicate how much to share (SendMessage, ReceiveMessage, ChangeMessageVisibility, DeleteMessage, GetQueueAttributes)
-     * @param queueUrl Permissions will be added to the queue represented by this URL.
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    @Processor
-    public void addPermission(String label, String accountId, String action, @Optional String queueUrl)
-            throws AmazonServiceException {
-    	connection.getMsgQueue().addPermission(new AddPermissionRequest(connection.getQueueUrl(queueUrl), label,
-                toList(accountId), toList(action)));
-    }
-
-    /**
-     * Removes a permission from this message queue.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:remove-permission}
-     *
-     * @param label a name for the permission to be removed
-     * @param queueUrl Permissions will be deleted from the queue represented by this URL.
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    @Processor
-    public void removePermission(String label, @Optional String queueUrl) throws AmazonServiceException {
-    	connection.getMsgQueue().removePermission(new RemovePermissionRequest(connection.getQueueUrl(queueUrl), label));
-    }
-
-    /**
-     * Gets an approximate number of visible messages for a queue.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-approximate-number-of-messages}
-     * @param queueUrl The URL of the queue
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonSQS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     * @return the approximate number of messages in the queue
-     */
-    @Processor
-    public int getApproximateNumberOfMessages(@Optional String queueUrl) throws AmazonServiceException {
-        return Integer.parseInt(connection.getMsgQueue().getQueueAttributes(
-                new GetQueueAttributesRequest(connection.getQueueUrl(queueUrl)).withAttributeNames(
-                        "ApproximateNumberOfMessages")).getAttributes().get("ApproximateNumberOfMessages"));
-    }
-
-
-    private List<String> toList(String element) {
-        List<String> list = new ArrayList<String>();
-        list.add(element);
-        return list;
-    }
-
 
 }

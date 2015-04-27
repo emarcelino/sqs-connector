@@ -1,33 +1,73 @@
+<!-- BEGIN_INCLUDE(sqs:create-queue) -->
+<sqs:create-queue queueName="MySqsQueue" config-ref="SQS"/>
+<!-- END_INCLUDE(sqs:create-queue) -->
 <!-- BEGIN_INCLUDE(sqs:send-message) -->
-<sqs:send-message/>
+<sqs:send-message message="Hello MuleSoft" config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:send-message) -->
-<!-- BEGIN_INCLUDE(sqs:get-url) -->
-<sqs:get-url/>
-<!-- END_INCLUDE(sqs:get-url) -->
+<!-- BEGIN_INCLUDE(sqs:send-message-batch) -->
+<sqs:send-message-batch config-ref="SQS">
+<sqs:messages ref="batchMessagesRef"/>
+</sqs:send-message-batch>
+<!-- END_INCLUDE(sqs:send-message-batch) -->
+<!-- BEGIN_INCLUDE(sqs:get-queue-url) -->
+<sqs:get-queue-url queueName="MySqsQueue" config-ref="SQS"/>
+<!-- END_INCLUDE(sqs:get-queue-url) -->
 <!-- BEGIN_INCLUDE(sqs:receive-messages) -->
-    <sqs:receive-messages/>
+<sqs:receive-messages config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:receive-messages) -->
 <!-- BEGIN_INCLUDE(sqs:delete-message) -->
-<sqs:delete-message receiptHandle="xxx"/>
+<sqs:delete-message receiptHandle="xyz123abc" config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:delete-message) -->
+<!-- BEGIN_INCLUDE(sqs:delete-message-batch) -->
+<sqs:delete-message-batch config-ref="SQS">
+<sqs:receipt-handles ref="receipts"/>
+</sqs:delete-message-batch>
+<!-- END_INCLUDE(sqs:delete-message-batch) -->
 <!-- BEGIN_INCLUDE(sqs:delete-queue) -->
-<sqs:delete-queue queueName="abc"/>
+<sqs:delete-queue config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:delete-queue) -->
+<!-- BEGIN_INCLUDE(sqs:list-dead-letter-source-queues) -->
+<sqs:list-dead-letter-source-queues config-ref="SQS"/>
+<!-- END_INCLUDE(sqs:list-dead-letter-source-queues) -->
+<!-- BEGIN_INCLUDE(sqs:list-queues) -->
+<sqs:list-queues config-ref="SQS"/>
+<!-- END_INCLUDE(sqs:list-queues) -->
+<!-- BEGIN_INCLUDE(sqs:purge-queue) -->
+<sqs:purge-queue config-ref="SQS"/>
+<!-- END_INCLUDE(sqs:purge-queue) -->
 <!-- BEGIN_INCLUDE(sqs:get-queue-attributes) -->
-<sqs:get-queue-attributes attribute="CreatedTimestamp"/>
+<sqs:get-queue-attributes config-ref="SQS">
+<sqs:attribute-names ref="#[flowVars.attributeNames]"/>
+</sqs:get-queue-attributes>
 <!-- END_INCLUDE(sqs:get-queue-attributes) -->
-<!-- BEGIN_INCLUDE(sqs:set-queue-attribute) -->
-<sqs:set-queue-attribute attribute="VisibilityTimeout" value="86400"/>
-<!-- END_INCLUDE(sqs:set-queue-attribute) -->
+<!-- BEGIN_INCLUDE(sqs:set-queue-attributes) -->
+<sqs:set-queue-attributes config-ref="SQS">
+<sqs:attributes>
+<sqs:attribute key="MaximumMessageSize" value-ref="randomValueRef" />
+</sqs:attributes>
+</sqs:set-queue-attributes>
+<!-- END_INCLUDE(sqs:set-queue-attributes) -->
 <!-- BEGIN_INCLUDE(sqs:add-permission) -->
-<sqs:add-permission label="message" accountId="125074342641" action="SendMessage"/>
+<sqs:add-permission label="message" config-ref="SQS">
+<sqs:account-ids ref="accountIds"/>
+<sqs:actions ref="actions"/>
+</sqs:add-permission>
 <!-- END_INCLUDE(sqs:add-permission) -->
 <!-- BEGIN_INCLUDE(sqs:remove-permission) -->
-<sqs:remove-permission label="message"/>
+<sqs:remove-permission label="message" config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:remove-permission) -->
 <!-- BEGIN_INCLUDE(sqs:get-approximate-number-of-messages) -->
-<sqs:get-approximate-number-of-messages/>
+<sqs:get-approximate-number-of-messages config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:get-approximate-number-of-messages) -->
+<!-- BEGIN_INCLUDE(sqs:change-message-visibility) -->
+<sqs:change-message-visibility config-ref="SQS" receiptHandle="xyz123abc" visibilityTimeout="60"/>
+<!-- END_INCLUDE(sqs:change-message-visibility) -->
+<!-- BEGIN_INCLUDE(sqs:change-message-visibility-batch) -->
+<sqs:change-message-visibility-batch config-ref="SQS">
+<sqs:receipt-handles ref="receipts"/>
+</sqs:change-message-visibility-batch>
+<!-- END_INCLUDE(sqs:change-message-visibility-batch) -->
+
 
 
 

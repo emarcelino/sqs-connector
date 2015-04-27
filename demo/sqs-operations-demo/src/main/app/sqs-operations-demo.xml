@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sqs http://www.mulesoft.org/schema/mule/sqs/current/mule-sqs.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+	<http:listener-config name="HTTP_Listener_Configuration"
+		host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration" />
+	<sqs:config name="Amazon_SQS_Connection_Management"
+		accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" queueName="${sqs.queueName}"
+		region="${sqs.region}" doc:name="Amazon SQS: Connection Management" />
+	<flow name="sqs-add-permission-operation-demo-flow">
+		<http:listener config-ref="HTTP_Listener_Configuration"
+			path="/addpermission" doc:name="HTTP" />
+		<sqs:add-permission config-ref="Amazon_SQS_Connection_Management"
+			label="#[message.inboundProperties.'http.query.params'.label]"
+			doc:name="Add Permission">
+			<sqs:account-ids>
+				<sqs:account-id>#[message.inboundProperties.'http.query.params'.accountId]</sqs:account-id>
+			</sqs:account-ids>
+			<sqs:actions>
+				<sqs:action>#[message.inboundProperties.'http.query.params'.action]</sqs:action>
+			</sqs:actions>
+		</sqs:add-permission>
+		<set-payload
+			value="Add Permission Successful, Please check Amazon SQS Console to verify."
+			doc:name="Display Message" />
+	</flow>
+	<flow name="sqs-create-delete-queue-operations-demo-flow">
+		<http:listener config-ref="HTTP_Listener_Configuration"
+			path="/createdeletequeue" doc:name="HTTP" />
+		<sqs:create-queue config-ref="Amazon_SQS_Connection_Management"
+			queueName="#[message.inboundProperties.'http.query.params'.name]"
+			doc:name="Create Queue" />
+		<logger message="Successfully created queue : #[payload.queueUrl]"
+			level="INFO" doc:name="Display Created Queue URL" />
+		<sqs:delete-queue config-ref="Amazon_SQS_Connection_Management"
+			queueUrl="#[payload.queueUrl]" doc:name="Delete Queue" />
+		<set-payload value="Create and Delete Queue operations successful"
+			doc:name="Set Payload" />
+	</flow>
+	<flow name="sqs-list-dead-letter-queues-operation-demo-flow">
+		<http:listener config-ref="HTTP_Listener_Configuration"
+			path="/listdeadletter" doc:name="HTTP" />
+		<sqs:list-dead-letter-source-queues
+			config-ref="Amazon_SQS_Connection_Management" doc:name="List Dead Letter Queues" />
+	</flow>
+	<flow name="sqs-send-message-operation-demo-flow">
+		<http:listener config-ref="HTTP_Listener_Configuration"
+			path="/sendmessage" doc:name="HTTP" />
+		<scripting:transformer doc:name="Groovy">
+			<scripting:script engine="Groovy">
+			<![CDATA[
+			import com.amazonaws.shade.services.sqs.model.MessageAttributeValue;
+			Map<String, MessageAttributeValue> messageAttributes = new HashMap<String, MessageAttributeValue>();
+            messageAttributes.put("AccountId", new MessageAttributeValue().withDataType("String.AccountId").withStringValue("000123456"));
+            messageAttributes.put("NumberId", new MessageAttributeValue().withDataType("Number").withStringValue("230.000000000000000001"));
+			return messageAttributes;
+			]]></scripting:script>
+		</scripting:transformer>
+
+		<sqs:send-message config-ref="Amazon_SQS_Connection_Management"
+			message="#[message.inboundProperties.'http.query.params'.msg]"
+			doc:name="Send Message">
+			<sqs:message-attributes ref="#[payload]" />
+		</sqs:send-message>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <logger message="Sent Message : #[payload]" level="INFO" doc:name="Display Sent Message"/>
+		<sqs:get-approximate-number-of-messages
+			config-ref="Amazon_SQS_Connection_Management" doc:name="Get Count of Messages in queue" />
+        <logger message="Approx. messages in queue : #[payload]" level="INFO" doc:name="Count Messages in Queue"/>
+		<set-payload value="Operations successful, Please check the log console for output."
+			doc:name="Display Message Count" />
+	</flow>
+	<flow name="sqs-receive-delete-message-operations-demo-flow">
+		<sqs:receive-messages config-ref="Amazon_SQS_Connection_Management"
+			doc:name="Amazon SQS (Streaming) Receive Messages" />
+		<logger message="Received Message : #[payload]" level="INFO"
+			doc:name="Display Message" />
+        <logger message="Deleting message with handle : #[header:inbound:sqs.message.receipt.handle]" level="INFO" doc:name="Display Message Handle"/>
+		<sqs:delete-message config-ref="Amazon_SQS_Connection_Management"
+			doc:name="Delete Message" />
+        <logger message="Message deleted sucessfully from queue." level="INFO" doc:name="Logger"/>
+	</flow>
+</mule>
