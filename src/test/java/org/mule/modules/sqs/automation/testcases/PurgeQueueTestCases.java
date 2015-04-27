@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -32,7 +31,7 @@ public class PurgeQueueTestCases extends SqsTestParent {
         CreateQueueResult createQueueResult = runFlowAndGetPayload("create-queue");
         queueUrl = createQueueResult.getQueueUrl();
         upsertOnTestRunMessage("queueUrl", queueUrl);
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i < 5; i++) {
             String message = UUID.randomUUID().toString();
             SendMessageResult result = sendMessage(message);
         }
@@ -40,7 +39,7 @@ public class PurgeQueueTestCases extends SqsTestParent {
 
     }
 
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({RegressionTests.class})
     @Test
     public void testPurgeQueue() {
         try {

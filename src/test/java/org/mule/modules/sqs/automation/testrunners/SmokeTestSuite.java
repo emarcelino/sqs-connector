@@ -23,7 +23,9 @@ import org.mule.modules.sqs.automation.testcases.*;
         SetQueueAttributeTestCases.class,
         AddPermissionTestCases.class,
         RemovePermissionTestCases.class,
-        GetApproximateNumberOfMessagesTestCases.class
+        RecieveMessagesTestCases.class,
+        ListDeadLetterSourceQueuesTestCases.class,
+        SQSConnectorMetaDataTestCases.class
 })
 public class SmokeTestSuite {
 

@@ -1,38 +1,64 @@
 Amazon SQS Anypoint Connector Release Notes
 ==========================================
 
-Date: 10-Apr-2015
+Date: 10-June-2015
 
-Version: 2.5.5
+Version: 3.0.0
 
 Supported Mule Runtime Versions: 3.5.x or Higher
 
 Supported API versions:
 -----------------------
 
-1.7.13 SDK
+AWS SDK for Java : v1.9.30 
 
-Supported Operations:
+Supported Actions:
 
-* Add permission
-* Delete Message
-* Delete Queue
-* Get approximate number of messages
-* Get Queue Attributes
-* ****** Get URL renamed to Get Queue URL
-* Remove Permission
-* Send Message
-* Set Queue Attribute
+* AddPermission
+* ChangeMessageVisibility
+* ChangeMessageVisibilityBatch
+* CreateQueue
+* DeleteMessage
+* DeleteMessageBatch
+* DeleteQueue
+* GetQueueAttributes
+* GetQueueUrl
+* ListDeadLetterSourceQueues
+* ListQueues
+* PurgeQueue
+* ReceiveMessage
+* RemovePermission
+* SendMessage
+* SendMessageBatch
+* SetQueueAttributes
+
+Custom Actions:
+* GetApproximateNumberOfMessages
 
 
 New Features and Functionality
 ------------------------------
+- Upgraded AWS SDK for Java to 1.9.30.
+- Upgraded Anypoint Connector Devkit to 3.6.1
+- The following new actions have been added :
+* ChangeMessageVisibility
+* ChangeMessageVisibilityBatch
+* CreateQueue 
+* DeleteMessageBatch
+* ListDeadLetterSourceQueues
+* ListQueues
+* PurgeQueues
+* SendMessageBatch
+- The GetURL operation has been renamed to Get Queue URL.
+- Added support for proxy settings.
 
-- Upgraded Anypoint Devkit to 3.5.3 release.
-- Added support for 3.7.0 Runtime.
 
 Previous Releases
 -----------------
+
+### 2.5.5
+- Upgraded Anypoint Devkit to 3.5.3 release.
+- Added support for 3.7.0 Runtime.
 
 ### 2.5.4
 - Updated the Devkit & Tested for 3.5.1 release.

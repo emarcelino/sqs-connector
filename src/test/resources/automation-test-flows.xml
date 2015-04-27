@@ -80,14 +80,40 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
         <sqs:get-approximate-number-of-messages queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
     </flow>
 
+    <flow name="list-queues" doc:name="list-queues">
+        <sqs:list-queues queueNamePrefix="#[flowVars.queuePrefix]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
+
     <flow name="list-dead-letter-source-queues" doc:name="list-dead-letter-source-queues">
         <sqs:list-dead-letter-source-queues queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
     </flow>
 
-    <flow name="receive-message" doc:name="receive-message" initialState="stopped">
-        <sqs:receive-messages config-ref="SQS" preserveMessages="#[flowVars.preserveMessages]" doc:name="Amazon SQS"/>
+    <flow name="purge-queue" doc:name="purge-queue">
+        <sqs:purge-queue queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
+    </flow>
+
+    <flow name="receive-messages" doc:name="receive-messages" initialState="stopped">
+        <sqs:receive-messages config-ref="SQS" preserveMessages="true" doc:name="Amazon SQS"/>
+        <set-payload
+                value="#[['messageId' : message.inboundProperties['sqs.message.id'],
+                'messageBody' : message.payload,
+                'receiptHandle' : message.inboundProperties['sqs.message.receipt.handle']]]"
+                doc:name="Amazon SQS"/>
         <vm:outbound-endpoint path="receive"/>
     </flow>
+
+    <flow name="change-message-visibility" doc:name="change-message-visibility">
+        <sqs:change-message-visibility config-ref="SQS" receiptHandle="#[flowVars.receiptHandle]"
+                                       visibilityTimeout="#[flowVars.visibilityTimeout]"/>
+    </flow>
+
+    <flow name="change-message-visibility-batch" doc:name="change-message-visibility-batch">
+        <sqs:change-message-visibility-batch config-ref="SQS">
+            <sqs:receipt-handles ref="#[flowVars.receiptHandles]"/>
+        </sqs:change-message-visibility-batch>
+    </flow>
+
+    <!-- Flows for the meta data test cases -->
 
     <flow name="send-message-meta-data" doc:name="send-message-meta-data">
         <sqs:send-message config-ref="SQS" message="#[flowVars.message]" queueUrl="#[flowVars.queueUrl]"

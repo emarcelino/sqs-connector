@@ -7,6 +7,8 @@
 package org.mule.modules.sqs.connection.strategy;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.Protocol;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
@@ -21,13 +23,16 @@ import org.mule.api.annotations.components.ConnectionManagement;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.modules.sqs.RegionEndpoint;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @ReconnectOn(exceptions = {AmazonClientException.class})
-@ConnectionManagement(friendlyName = "Connection Management")
+@ConnectionManagement(friendlyName = "Configuration")
 public class SQSConnectionManagement {
 
     /**
@@ -52,6 +57,80 @@ public class SQSConnectionManagement {
     private RegionEndpoint region;
 
     /**
+     * The optional communication protocol to use when sending requests to AWS.
+     * Communication over HTTPS is the default
+     */
+    @Configurable
+    @Optional
+    private Protocol protocol;
+
+    /**
+     * The optional proxy port
+     */
+    @Configurable
+    @Optional
+    @Placement(group = "Proxy Settings")
+    private String proxyHost;
+
+    /**
+     * The optional proxy port
+     */
+    @Configurable
+    @Optional
+    @Placement(group = "Proxy Settings")
+    private Integer proxyPort;
+
+    /**
+     * The optional proxy username
+     */
+    @Configurable
+    @Optional
+    @Placement(group = "Proxy Settings")
+    private String proxyUsername;
+
+    /**
+     * The optional proxy password
+     */
+    @Configurable
+    @Optional
+    @Placement(group = "Proxy Settings")
+    private String proxyPassword;
+
+    /**
+     * The optional proxy domain
+     */
+    @Configurable
+    @Optional
+    @Placement(group = "Proxy Settings")
+    private String proxyDomain;
+
+    /**
+     * The optional proxy workstation
+     */
+    @Configurable
+    @Optional
+    @Placement(group = "Proxy Settings")
+    private String proxyWorkstation;
+
+    /**
+     * The amount of time to wait (in milliseconds) for data to be transferred
+     * over an established, open connection before the connection is timed out.
+     * A value of 0 means infinity, and is not recommended.
+     */
+    @Configurable
+    @Default("50000")
+    private Integer socketTimeout;
+
+    /**
+     * The amount of time to wait (in milliseconds) when initially establishing
+     * a connection before giving up and timing out. A value of 0 means
+     * infinity, and is not recommended.
+     */
+    @Configurable
+    @Default("50000")
+    private Integer connectionTimeout;
+
+    /**
      * Message Queue
      */
     private AmazonSQSClient msgQueue;
@@ -69,8 +148,8 @@ public class SQSConnectionManagement {
             throws ConnectionException {
         try {
             AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-            msgQueue = new AmazonSQSClient(credentials);
-            msgQueueAsync = new AmazonSQSAsyncClient(credentials);
+            msgQueue = new AmazonSQSClient(credentials, clientConfiguration());
+            msgQueueAsync = new AmazonSQSAsyncClient(credentials, clientConfiguration(), (ExecutorService) Executors.newFixedThreadPool(50));
 
             if (region != null) {
                 msgQueue.setEndpoint(region.value());
@@ -130,6 +209,40 @@ public class SQSConnectionManagement {
         }
     }
 
+    private ClientConfiguration clientConfiguration() {
+        ClientConfiguration clientConfig = new ClientConfiguration();
+
+        if (StringUtils.isNotBlank(getProxyUsername())) {
+            clientConfig.setProxyUsername(getProxyUsername());
+        }
+        if (getProxyPort() != null) {
+            clientConfig.setProxyPort(proxyPort);
+        }
+        if (StringUtils.isNotBlank(getProxyPassword())) {
+            clientConfig.setProxyPassword(getProxyPassword());
+        }
+        if (StringUtils.isNotBlank(getProxyHost())) {
+            clientConfig.setProxyHost(getProxyHost());
+        }
+        if (StringUtils.isNotBlank(getProxyDomain())) {
+            clientConfig.setProxyDomain(getProxyDomain());
+        }
+        if (StringUtils.isNotBlank(getProxyWorkstation())) {
+            clientConfig.setProxyWorkstation(getProxyWorkstation());
+        }
+        if (getProtocol() != null) {
+            clientConfig.setProtocol(getProtocol());
+        }
+        if (getConnectionTimeout() != null) {
+            clientConfig.setConnectionTimeout(getConnectionTimeout());
+        }
+        if (getSocketTimeout() != null) {
+            clientConfig.setSocketTimeout(getSocketTimeout());
+        }
+
+        return clientConfig;
+    }
+
     public RegionEndpoint getRegion() {
         return region;
     }
@@ -154,5 +267,75 @@ public class SQSConnectionManagement {
         this.msgQueueAsync = msgQueueAsync;
     }
 
+    public Protocol getProtocol() {
+        return protocol;
+    }
 
+    public void setProtocol(Protocol protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    public void setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
+    }
+
+    public Integer getProxyPort() {
+        return proxyPort;
+    }
+
+    public void setProxyPort(Integer proxyPort) {
+        this.proxyPort = proxyPort;
+    }
+
+    public String getProxyUsername() {
+        return proxyUsername;
+    }
+
+    public void setProxyUsername(String proxyUsername) {
+        this.proxyUsername = proxyUsername;
+    }
+
+    public String getProxyPassword() {
+        return proxyPassword;
+    }
+
+    public void setProxyPassword(String proxyPassword) {
+        this.proxyPassword = proxyPassword;
+    }
+
+    public String getProxyDomain() {
+        return proxyDomain;
+    }
+
+    public void setProxyDomain(String proxyDomain) {
+        this.proxyDomain = proxyDomain;
+    }
+
+    public String getProxyWorkstation() {
+        return proxyWorkstation;
+    }
+
+    public void setProxyWorkstation(String proxyWorkstation) {
+        this.proxyWorkstation = proxyWorkstation;
+    }
+
+    public Integer getSocketTimeout() {
+        return socketTimeout;
+    }
+
+    public void setSocketTimeout(Integer socketTimeout) {
+        this.socketTimeout = socketTimeout;
+    }
+
+    public Integer getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(Integer connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
 }

@@ -33,7 +33,7 @@ public class SendMessageCategory {
     }
 
     @MetaDataRetriever
-    public MetaData getMetaData(MetaDataKey key) throws Exception {
+    public MetaData getMetaData(MetaDataKey key) {
         MetaDataModel keyMetaDataModel = new DefaultSimpleMetaDataModel(DataType.STRING);
         MetaDataBuilder<?> valueMetaDataBuilder = new DefaultMetaDataBuilder().createPojo(MessageAttributeValue.class);
         return new DefaultMetaData(new DefaultParameterizedMapMetaDataModel(keyMetaDataModel, valueMetaDataBuilder.build()));

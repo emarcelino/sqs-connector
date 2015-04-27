@@ -19,6 +19,7 @@ import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -37,8 +38,10 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
         Map<String, String> attributes = ((GetQueueAttributesResult) runFlowAndGetPayload("get-queue-attributes")).getAttributes();
         String redrivePolicy = String.format("{\"maxReceiveCount\":\"%s\", \"deadLetterTargetArn\":\"%s\"}",
                 getTestRunMessageValue("maxReceiveCount").toString(), attributes.get("QueueArn"));
-        upsertOnTestRunMessage("attribute", "RedrivePolicy");
-        upsertOnTestRunMessage("value", redrivePolicy);
+
+        attributes = new HashMap<String, String>();
+        attributes.put("RedrivePolicy", redrivePolicy);
+        upsertOnTestRunMessage("attributes", attributes);
         runFlowAndGetPayload("set-queue-attribute");
     }
 

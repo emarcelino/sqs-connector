@@ -40,16 +40,16 @@
 <sqs:attribute-names ref="#[flowVars.attributeNames]"/>
 </sqs:get-queue-attributes>
 <!-- END_INCLUDE(sqs:get-queue-attributes) -->
-<!-- BEGIN_INCLUDE(sqs:set-queue-attribute) -->
+<!-- BEGIN_INCLUDE(sqs:set-queue-attributes) -->
 <sqs:set-queue-attributes config-ref="SQS">
 <sqs:attributes>
-<sqs:attribute key="MaximumMessageSize" value="2222" />
+<sqs:attribute key="MaximumMessageSize" value-ref="randomValueRef" />
 </sqs:attributes>
 </sqs:set-queue-attributes>
-<!-- END_INCLUDE(sqs:set-queue-attribute) -->
+<!-- END_INCLUDE(sqs:set-queue-attributes) -->
 <!-- BEGIN_INCLUDE(sqs:add-permission) -->
 <sqs:add-permission label="message" config-ref="SQS">
-<sqs:account-ids ref="accountIds">
+<sqs:account-ids ref="accountIds"/>
 <sqs:actions ref="actions"/>
 </sqs:add-permission>
 <!-- END_INCLUDE(sqs:add-permission) -->
@@ -59,6 +59,15 @@
 <!-- BEGIN_INCLUDE(sqs:get-approximate-number-of-messages) -->
 <sqs:get-approximate-number-of-messages config-ref="SQS"/>
 <!-- END_INCLUDE(sqs:get-approximate-number-of-messages) -->
+<!-- BEGIN_INCLUDE(sqs:change-message-visibility) -->
+<sqs:change-message-visibility config-ref="SQS" receiptHandle="xyz123abc" visibilityTimeout="60"/>
+<!-- END_INCLUDE(sqs:change-message-visibility) -->
+<!-- BEGIN_INCLUDE(sqs:change-message-visibility-batch) -->
+<sqs:change-message-visibility-batch config-ref="SQS">
+<sqs:receipt-handles ref="receipts"/>
+</sqs:change-message-visibility-batch>
+<!-- END_INCLUDE(sqs:change-message-visibility-batch) -->
+
 
 
 

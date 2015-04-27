@@ -4,7 +4,6 @@
  * has been included with this distribution in the LICENSE.md file.
  */
 
-
 package org.mule.modules.sqs.automation.testrunners;
 
 import org.junit.experimental.categories.Categories;
@@ -16,14 +15,23 @@ import org.mule.modules.sqs.automation.testcases.*;
 @Categories.IncludeCategory(RegressionTests.class)
 @org.junit.runners.Suite.SuiteClasses({
         AddPermissionTestCases.class,
-        SendMessageTestCases.class,
-        GetQueueUrlTestCases.class,
+        ChangeMessageVisibilityBatchTestCases.class,
+        ChangeMessageVisibilityTestCases.class,
+        CreateQueueTestCases.class,
         DeleteMessageTestCases.class,
+        DeleteMessageBatchTestCases.class,
         DeleteQueueTestCases.class,
+        GetApproximateNumberOfMessagesTestCases.class,
         GetQueueAttributesTestCases.class,
-        SetQueueAttributeTestCases.class,
+        GetQueueUrlTestCases.class,
+        ListDeadLetterSourceQueuesTestCases.class,
+        ListQueuesTestCases.class,
+        PurgeQueueTestCases.class,
+        RecieveMessagesTestCases.class,
         RemovePermissionTestCases.class,
-        GetApproximateNumberOfMessagesTestCases.class
+        SendMessageTestCases.class,
+        SendMessageBatchTestCases.class,
+        SetQueueAttributeTestCases.class
 })
 public class RegressionTestSuite {
 

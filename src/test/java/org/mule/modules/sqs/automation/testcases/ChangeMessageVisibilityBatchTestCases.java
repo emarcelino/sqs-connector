@@ -6,9 +6,9 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.services.sqs.model.DeleteMessageBatchRequestEntry;
-import com.amazonaws.services.sqs.model.DeleteMessageBatchResult;
-import com.amazonaws.services.sqs.model.DeleteMessageBatchResultEntry;
+import com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
+import com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchResult;
+import com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchResultEntry;
 import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 import org.junit.After;
 import org.junit.Before;
@@ -25,19 +25,19 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class DeleteMessageBatchTestCases extends SqsTestParent {
+public class ChangeMessageVisibilityBatchTestCases extends SqsTestParent {
 
     @Before
     public void setUp() throws Exception {
-        initializeTestRunMessage("deleteMessageBatchTestData");
+        initializeTestRunMessage("changeMessageVisibilityBatchTestData");
         runFlowAndGetPayload("send-message-batch");
     }
 
     @Category({RegressionTests.class})
     @Test
-    public void testDeleteMessageBatch() {
+    public void testChangeMessageVisibilityBatch() {
         try {
-            List<DeleteMessageBatchRequestEntry> receiptHandles = new ArrayList<DeleteMessageBatchRequestEntry>(0);
+            List<ChangeMessageVisibilityBatchRequestEntry> receiptHandles = new ArrayList<ChangeMessageVisibilityBatchRequestEntry>(0);
             List<SendMessageBatchRequestEntry> messages = getTestRunMessageValue("messages");
 
             assertEquals(messages.size(), (int) getApproximateNumberOfMessages());
@@ -46,13 +46,18 @@ public class DeleteMessageBatchTestCases extends SqsTestParent {
             flow.start();
             for (SendMessageBatchRequestEntry message : messages) {
                 Map payload = (Map) muleContext.getClient().request("vm://receive", 5000).getPayload();
-                receiptHandles.add(new DeleteMessageBatchRequestEntry((String) payload.get("messageId"), (String) payload.get("receiptHandle")));
+                ChangeMessageVisibilityBatchRequestEntry entry = new ChangeMessageVisibilityBatchRequestEntry((String)
+                        payload.get("messageId"), (String) payload.get("receiptHandle"));
+                entry.setVisibilityTimeout(Integer.parseInt((String) getTestRunMessageValue("visibilityTimeout")));
+                receiptHandles.add(entry);
             }
             flow.stop();
 
             upsertOnTestRunMessage("receiptHandles", receiptHandles);
-            DeleteMessageBatchResult result = runFlowAndGetPayload("delete-message-batch");
-            List<DeleteMessageBatchResultEntry> resultEntries = result.getSuccessful();
+            ChangeMessageVisibilityBatchResult result = runFlowAndGetPayload("change-message-visibility-batch");
+            assertTrue(result.getFailed().isEmpty());
+
+            List<ChangeMessageVisibilityBatchResultEntry> resultEntries = result.getSuccessful();
             assertTrue(!resultEntries.isEmpty());
 
             assertEquals(0, (int) getApproximateNumberOfMessages());

@@ -9,23 +9,223 @@
  */
 package org.mule.modules.sqs;
 
-import org.junit.Assert;
-import org.junit.Ignore;
+import com.amazonaws.services.sqs.AmazonSQSAsync;
+import com.amazonaws.services.sqs.AmazonSQSClient;
+import com.amazonaws.services.sqs.model.*;
+import org.junit.Before;
 import org.junit.Test;
-import org.mule.tck.junit4.FunctionalTestCase;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mule.modules.sqs.connection.strategy.SQSConnectionManagement;
+import org.mule.modules.tests.ConnectorTestUtils;
 
-public class SQSConnectorTest extends FunctionalTestCase {
+import java.util.*;
 
-    @Override
-    protected String getConfigFile() {
-        return "sqs.xml";
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+
+public class SQSConnectorTest {
+
+    private SQSConnector connector;
+
+    @Mock
+    private AmazonSQSClient msgQueue;
+
+    @Mock
+    private AmazonSQSAsync msgQueueAsync;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        this.connector = new SQSConnector();
+
+        SQSConnectionManagement connectionManagement = new SQSConnectionManagement();
+        connectionManagement.setMsgQueue(msgQueue);
+        connectionManagement.setMsgQueueAsync(msgQueueAsync);
+
+        this.connector.setConnection(connectionManagement);
     }
 
-    // TODO: Unit Test each Connector method.
-
-    @Ignore("Rewrite this test! It was trying to hit an actual Amazon instance.")
     @Test
-    public void testSendMessage() throws Exception {
-        Assert.assertTrue(true);
+    public void testAddPermission() {
+        try {
+            doNothing().when(msgQueue).addPermission(Mockito.mock(AddPermissionRequest.class));
+            connector.addPermission("foo", Arrays.asList("05678940987"), Arrays.asList("SendMessage"), null);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
     }
+
+    @Test
+    public void testChangeMessageVisibilityBatch() {
+        try {
+            ChangeMessageVisibilityBatchResult messageVisibilityBatchResult = Mockito.mock(ChangeMessageVisibilityBatchResult.class);
+            when(msgQueue.changeMessageVisibilityBatch(any(ChangeMessageVisibilityBatchRequest.class))).thenReturn(messageVisibilityBatchResult);
+            assertEquals(connector.changeMessageVisibilityBatch(Arrays.asList(new ChangeMessageVisibilityBatchRequestEntry("id", "handle")), "url"), messageVisibilityBatchResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testChangeMessageVisibility() {
+        try {
+            doNothing().when(msgQueue).changeMessageVisibility(any(ChangeMessageVisibilityRequest.class));
+            connector.changeMessageVisibility("receiptHandle", 60, "queueUrl");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testCreateQueue() {
+        try {
+            CreateQueueResult createQueueResult = Mockito.mock(CreateQueueResult.class);
+            when(msgQueue.createQueue(any(CreateQueueRequest.class))).thenReturn(createQueueResult);
+
+            Map<String, String> attributes = new HashMap<String, String>();
+            attributes.put("VisibilityTimeout", "50");
+
+            assertEquals(connector.createQueue("foo", RegionEndpoint.SAEAST1, attributes), createQueueResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testDeleteMessageBatch() {
+        try {
+            DeleteMessageBatchResult deleteMessageBatchResult = Mockito.mock(DeleteMessageBatchResult.class);
+            when(msgQueue.deleteMessageBatch(any(DeleteMessageBatchRequest.class))).thenReturn(deleteMessageBatchResult);
+            assertEquals(connector.deleteMessageBatch(Arrays.asList(new DeleteMessageBatchRequestEntry("id", "handle")), "url"), deleteMessageBatchResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+
+    @Test
+    public void testDeleteMessage() {
+        try {
+            doNothing().when(msgQueue).deleteMessage(any(DeleteMessageRequest.class));
+            connector.deleteMessage("http://sqs.us-east-1.amazonaws.com/", "handle");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testDeleteQueue() {
+        try {
+            doNothing().when(msgQueue).deleteQueue(Mockito.mock(DeleteQueueRequest.class));
+            connector.deleteQueue("http://sqs.us-east-1.amazonaws.com/");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testGetQueueAttributes() {
+        try {
+            GetQueueAttributesResult queueAttributesResult = Mockito.mock(GetQueueAttributesResult.class);
+            when(msgQueue.getQueueAttributes(any(GetQueueAttributesRequest.class))).thenReturn(queueAttributesResult);
+            assertEquals(connector.getQueueAttributes(Arrays.asList("VisibilityTimeout"), "http://sqs.us-east-1.amazonaws.com/"), queueAttributesResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+
+    @Test
+    public void testGetQueueUrl() {
+        try {
+            GetQueueUrlResult queueUrlResult = Mockito.mock(GetQueueUrlResult.class);
+            when(msgQueue.getQueueUrl(any(GetQueueUrlRequest.class))).thenReturn(queueUrlResult);
+            assertEquals(connector.getQueueUrl("testQueue", "accountId"), queueUrlResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testListDeadLetterSourceQueues() {
+        try {
+            ListDeadLetterSourceQueuesResult listDeadLetterSourceQueuesResult = Mockito.mock(ListDeadLetterSourceQueuesResult.class);
+            when(msgQueue.listDeadLetterSourceQueues(any(ListDeadLetterSourceQueuesRequest.class))).thenReturn(listDeadLetterSourceQueuesResult);
+            assertEquals(connector.listDeadLetterSourceQueues("queueUrl"), listDeadLetterSourceQueuesResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testListQueues() {
+        try {
+            ListQueuesResult listQueuesResult = Mockito.mock(ListQueuesResult.class);
+            when(msgQueue.listQueues(any(ListQueuesRequest.class))).thenReturn(listQueuesResult);
+            assertEquals(connector.listQueues("queuePrefix"), listQueuesResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testPurgeQueue() {
+        try {
+            doNothing().when(msgQueue).purgeQueue(any(PurgeQueueRequest.class));
+            connector.purgeQueue("queueUrl");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testRemovePermission() {
+        try {
+            doNothing().when(msgQueue).removePermission(any(RemovePermissionRequest.class));
+            connector.removePermission("label", "queueUrl");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testSendMessageBatch() {
+        try {
+            SendMessageBatchResult messageBatchResult = Mockito.mock(SendMessageBatchResult.class);
+            when(msgQueue.sendMessageBatch(anyString(), anyList())).thenReturn(messageBatchResult);
+            List<SendMessageBatchRequestEntry> messages = new ArrayList<SendMessageBatchRequestEntry>(0);
+            assertEquals(connector.sendMessageBatch(messages, "queueUrl"), messageBatchResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testSendMessage() {
+        try {
+            SendMessageResult sendMessageResult = Mockito.mock(SendMessageResult.class);
+            when(msgQueue.sendMessage(any(SendMessageRequest.class))).thenReturn(sendMessageResult);
+
+            assertEquals(connector.sendMessage("message", 0, new HashMap<String, Object>(0), "queueUrl"), sendMessageResult);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
+    @Test
+    public void testSetQueueAttribute() {
+        try {
+            doNothing().when(msgQueue).setQueueAttributes(any(SetQueueAttributesRequest.class));
+            connector.setQueueAttributes(new HashMap<String, String>(0), "queueUrl");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
 }
+

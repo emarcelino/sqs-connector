@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class GetApproximateNumberOfMessagesTestCases extends SqsTestParent {
     }
 
 
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({RegressionTests.class})
     @Test
     public void testGetApproximateNumberOfMessages() throws Exception {
         assertEquals(0, (int) getApproximateNumberOfMessages());

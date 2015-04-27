@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -32,7 +31,7 @@ public class CreateQueueTestCases extends SqsTestParent {
         initializeTestRunMessage("createQueueTestData");
     }
 
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({RegressionTests.class})
     @Test
     public void testCreateQueue() {
         try {

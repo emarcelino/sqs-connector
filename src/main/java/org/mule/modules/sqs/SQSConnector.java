@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,7 @@ import java.util.concurrent.Future;
 @Connector(name = "sqs", friendlyName = "Amazon SQS")
 public class SQSConnector {
 
-    private static Logger logger = LoggerFactory.getLogger(SQSConnector.class);
+    private static final Logger logger = LoggerFactory.getLogger(SQSConnector.class);
 
     @NotNull
     @ConnectionStrategy
@@ -73,6 +72,49 @@ public class SQSConnector {
     }
 
     /**
+     * Changes the visibility timeout of a specified message in a queue to a new value. The maximum allowed timeout
+     * value you can set the value to is 12 hours. This means you can't extend the timeout of a message in an existing
+     * queue to more than a total visibility timeout of 12 hours.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:change-message-visibility}
+     *
+     * @param receiptHandle     The receipt handle associated with the message whose visibility timeout should be changed.
+     * @param visibilityTimeout The new value (in seconds - from 0 to 43200 - maximum 12 hours) for the message's visibility timeout.
+     * @param queueUrl          The URL of the Amazon SQS queue to take action on.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public void changeMessageVisibility(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle, Integer visibilityTimeout, @Optional String queueUrl) throws AmazonServiceException {
+        msgQueue.changeMessageVisibility(new ChangeMessageVisibilityRequest(getConnection().getQueueUrl(queueUrl), receiptHandle, visibilityTimeout));
+    }
+
+    /**
+     * Changes the visibility timeout of multiple messages. This is a batch version of ChangeMessageVisibility.
+     * The result of the action on each message is reported individually in the response. You can send up to 10
+     * ChangeMessageVisibility requests with each ChangeMessageVisibilityBatch action.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:change-message-visibility-batch}
+     *
+     * @param receiptHandles A list of receipt handles of the messages for which the visibility timeout must be changed.
+     * @param queueUrl       The URL of the Amazon SQS queue to take action on.
+     * @return ChangeMessageVisibilityBatchResult list items.
+     * @throws AmazonClientException  If any internal errors are encountered inside the client while
+     *                                attempting to make the request or handle the response.  For example
+     *                                if a network connection is not available.
+     * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
+     *                                either a problem with the data in the request, or a server side issue.
+     */
+    @Processor
+    public ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
+                                                                           @Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
+    }
+
+    /**
      * Creates a new queue, or returns the URL of an existing one.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:create-queue}
@@ -97,9 +139,7 @@ public class SQSConnector {
         if (region != null) {
             msgQueue.setEndpoint(region.value());
         }
-        CreateQueueResult result = msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
-        connection.setQueueUrl(result.getQueueUrl());
-        return result;
+        return msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
     }
 
     /**
@@ -128,6 +168,7 @@ public class SQSConnector {
      *
      * @param receiptHandles A list of receipt handles for the messages to be deleted.
      * @param queueUrl       The URL of the queue to delete messages as a batch from.
+     * @return DeleteMessageBatchResult
      * @throws AmazonClientException  If any internal errors are encountered inside the client while
      *                                attempting to make the request or handle the response.  For example
      *                                if a network connection is not available.
@@ -135,9 +176,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void deleteMessageBatch(@Default("#[payload]") List<DeleteMessageBatchRequestEntry> receiptHandles,
-                                   @Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
+    public DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<DeleteMessageBatchRequestEntry> receiptHandles,
+                                                       @Optional String queueUrl) throws AmazonServiceException {
+        return msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
     }
 
     /**
@@ -183,7 +224,7 @@ public class SQSConnector {
      * {@sample.xml ../../../doc/mule-module-sqs.xml.sample sqs:get-queue-url}
      *
      * @param queueName              The name of the queue whose URL must be fetched.
-     * @param queueOwnerAWSAccountId The AWS account ID of the account that created the queue.
+     * @param queueOwnerAWSAccountId The AWS account ID of the owner that created the queue.
      * @return GetQueueUrlResult object containing the generated queue service url
      * @throws AmazonClientException  If any internal errors are encountered inside the client while
      *                                attempting to make the request or handle the response.  For example
@@ -294,9 +335,9 @@ public class SQSConnector {
             try {
                 List<Message> receivedMessages = futureMessages.get().getMessages();
                 for (Message m : receivedMessages) {
-                    try {
+                    try { //NOSONAR
                         callback.process(m.getBody(), createProperties(m));
-                    } catch (Exception e) {
+                    } catch (Exception e) { //NOSONAR
                         // If an exception is thrown here, we cannot communicate
                         // with the Mule flow, so there is nothing we can do to
                         // handle it.
@@ -359,7 +400,7 @@ public class SQSConnector {
                                          @Default("#[payload]") Map<String, Object> messageAttributes,
                                          @Optional String queueUrl) {
         Map<String, MessageAttributeValue> attributes = new HashMap<String, MessageAttributeValue>();
-        if (messageAttributes instanceof Map && !messageAttributes.isEmpty()) {
+        if (messageAttributes != null && !messageAttributes.isEmpty()) {
             for (Map.Entry<String, Object> entry : messageAttributes.entrySet()) {
                 attributes.put(entry.getKey(), (MessageAttributeValue) entry.getValue());
             }
@@ -439,12 +480,6 @@ public class SQSConnector {
         properties.put("sqs.message.id", msg.getMessageId());
         properties.put("sqs.message.receipt.handle", msg.getReceiptHandle());
         return properties;
-    }
-
-    private List<String> toList(String element) {
-        List<String> list = new ArrayList<String>();
-        list.add(element);
-        return list;
     }
 
     public SQSConnectionManagement getConnection() {

@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -29,7 +28,7 @@ public class GetQueueUrlTestCases extends SqsTestParent {
         queueName = getTestRunMessageValue("queueName");
     }
 
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({RegressionTests.class})
     @Test
     public void testGetUrl() {
         try {

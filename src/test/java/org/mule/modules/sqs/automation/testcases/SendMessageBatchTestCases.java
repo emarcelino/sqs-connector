@@ -6,39 +6,38 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
+import com.amazonaws.services.sqs.model.SendMessageBatchResult;
+import com.amazonaws.services.sqs.model.SendMessageBatchResultEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.construct.Flow;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import java.util.Map;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
-public class RecieveMessagesTestCases extends SqsTestParent {
+public class SendMessageBatchTestCases extends SqsTestParent {
 
     @Before
     public void setUp() throws Exception {
-        initializeTestRunMessage("receiveMessageTestData");
-        runFlowAndGetPayload("send-message");
+        initializeTestRunMessage("sendMessageBatchTestData");
     }
 
-
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({RegressionTests.class})
     @Test
-    public void testRecieveMessages() {
+    public void testSendMessageBatch() {
         try {
-            Flow flow = muleContext.getRegistry().get("receive-messages");
-            flow.start();
-            Map payload = (Map) muleContext.getClient().request("vm://receive", 5000).getPayload();
-            assertEquals(getTestRunMessageValue("message"), payload.get("messageBody"));
-            flow.stop();
+
+            SendMessageBatchResult result = runFlowAndGetPayload("send-message-batch");
+            List<SendMessageBatchResultEntry> successful = result.getSuccessful();
+            assertTrue(!successful.isEmpty());
+
+            assertEquals(((List) getTestRunMessageValue("messages")).size(), (int) getApproximateNumberOfMessages());
+
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
