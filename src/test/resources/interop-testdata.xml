@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<connector name="Amazon SQS">
+    <properties>
+        <connectivity-support>true</connectivity-support>
+        <OAuth-authentication>false</OAuth-authentication>
+        <metadata>dynamic</metadata>
+        <datasense-enabled>true</datasense-enabled>
+        <transformer>false</transformer>
+    </properties>
+    <global-config credentialsFile="">
+        <config name="config">
+            <attributes>
+                <attribute name="name" use="required" caption="Name" group="Basic Settings" type="name" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="queueUrl" use="optional" caption="Queue URL" group="Optional Parameters" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="region" use="optional" caption="Region Endpoint" group="Optional Parameters" type="enum" javaType="org.mule.modules.sqs.RegionEndpoint" category="General"></attribute>
+                <attribute name="protocol" use="optional" caption="Protocol" group="General" type="enum" javaType="com.amazonaws.Protocol" category="General"></attribute>
+                <attribute name="proxyHost" use="optional" caption="Proxy Host" group="Proxy Settings" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="proxyPort" use="optional" caption="Proxy Port" group="Proxy Settings" type="integer" javaType="java.lang.Integer" category="General"></attribute>
+                <attribute name="proxyUsername" use="optional" caption="Proxy Username" group="Proxy Settings" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="proxyPassword" use="optional" caption="Proxy Password" group="Proxy Settings" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="proxyDomain" use="optional" caption="Proxy Domain" group="Proxy Settings" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="proxyWorkstation" use="optional" caption="Proxy Workstation" group="Proxy Settings" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="socketTimeout" use="optional" caption="Socket Timeout" group="General" type="integer" javaType="java.lang.Integer" default="50000" category="General"></attribute>
+                <attribute name="connectionTimeout" use="optional" caption="Connection Timeout" group="General" type="integer" javaType="java.lang.Integer" default="50000" category="General"></attribute>
+                <attribute name="accessKey" use="required" caption="Access Key" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="secretKey" use="required" caption="Secret Key" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="queueName" use="optional" caption="Queue Name" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
+            </attributes>
+        </config>
+    </global-config>
+    <message-processors>
+        <processor name="addPermission" xmlName="add-permission" caption="Add permission">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="label" use="required" caption="Label" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="account-ids" use="required" caption="Account Ids" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General"></attribute>
+                <attribute name="actions" use="required" caption="Actions" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="changeMessageVisibility" xmlName="change-message-visibility" caption="Change message visibility">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="receiptHandle" use="optional" caption="Receipt Handle" group="General" type="string" javaType="java.lang.String" default="#[header:inbound:sqs.message.receipt.handle]" category="General"></attribute>
+                <attribute name="visibilityTimeout" use="required" caption="Visibility Timeout" group="General" type="integer" javaType="java.lang.Integer" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="changeMessageVisibilityBatch" xmlName="change-message-visibility-batch" caption="Change message visibility batch">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="createQueue" xmlName="create-queue" caption="Create queue">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="queueName" use="required" caption="Queue Name" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="attributes" use="optional" caption="Attributes" group="General" type="element-controller-map" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="deleteMessage" xmlName="delete-message" caption="Delete message">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="receiptHandle" use="optional" caption="Receipt Handle" group="General" type="string" javaType="java.lang.String" default="#[header:inbound:sqs.message.receipt.handle]" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="deleteMessageBatch" xmlName="delete-message-batch" caption="Delete message batch">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="deleteQueue" xmlName="delete-queue" caption="Delete queue">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="getQueueAttributes" xmlName="get-queue-attributes" caption="Get queue attributes">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="attribute-names" use="optional" caption="Attribute Names" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="getQueueUrl" xmlName="get-queue-url" caption="Get queue url">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="queueName" use="required" caption="Queue Name" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="queueOwnerAWSAccountId" use="optional" caption="Queue Owner A W S Account Id" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="listDeadLetterSourceQueues" xmlName="list-dead-letter-source-queues" caption="List dead letter source queues">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="listQueues" xmlName="list-queues" caption="List queues">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="queueNamePrefix" use="optional" caption="Queue Name Prefix" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="purgeQueue" xmlName="purge-queue" caption="Purge queue">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="removePermission" xmlName="remove-permission" caption="Remove permission">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="label" use="required" caption="Label" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="sendMessage" xmlName="send-message" caption="Send message">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="message" use="required" caption="Message" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="delaySeconds" use="optional" caption="Delay Seconds" group="General" type="integer" javaType="java.lang.Integer" category="General"></attribute>
+                <attribute name="message-attributes" use="optional" caption="Message Attributes" group="General" type="element-controller-map" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="sendMessageBatch" xmlName="send-message-batch" caption="Send message batch">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+        <processor name="setQueueAttributes" xmlName="set-queue-attributes" caption="Set queue attributes">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="attributes" use="optional" caption="Attributes" group="General" type="element-controller-map" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" category="General"></attribute>
+            </attributes>
+        </processor>
+        <processor name="getApproximateNumberOfMessages" xmlName="get-approximate-number-of-messages" caption="Get approximate number of messages">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
+    </message-processors>
+    <inbound-endpoints>
+        <endpoint name="receive-messages" xmlName="receive-messages" caption="Receive messages">
+            <attributes>
+                <attribute name="visibilityTimeout" use="optional" type="" javaType="" default="30" category="General"></attribute>
+                <attribute name="preserveMessages" use="optional" type="" javaType="" default="false" category="General"></attribute>
+                <attribute name="numberOfMessages" use="optional" type="" javaType="" default="1" category="General"></attribute>
+            </attributes>
+            <childElements/>
+        </endpoint>
+    </inbound-endpoints>
+</connector>
