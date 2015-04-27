@@ -135,7 +135,7 @@ public class SQSConnector {
      */
     @Processor
     public CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
-                                         @Optional Map<String, String> attributes) throws AmazonServiceException {
+                                         @Default("#[payload]") Map<String, String> attributes) throws AmazonServiceException {
         if (region != null) {
             msgQueue.setEndpoint(region.value());
         }
@@ -213,7 +213,7 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public GetQueueAttributesResult getQueueAttributes(@Optional List<String> attributeNames, @Optional String queueUrl) throws AmazonServiceException {
+    public GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) throws AmazonServiceException {
         return msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl))
                 .withAttributeNames(attributeNames));
     }
