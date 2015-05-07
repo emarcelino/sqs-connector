@@ -35,6 +35,8 @@ import java.util.concurrent.Executors;
 @ConnectionManagement(friendlyName = "Configuration")
 public class SQSConnectionManagement {
 
+    private String connectionId;
+
     /**
      * The queue URL to connect to. It takes priority over the queue name defined
      * in the connection parameters.
@@ -43,9 +45,7 @@ public class SQSConnectionManagement {
     @Configurable
     @Placement(group = "Optional Parameters")
     @FriendlyName("Queue URL")
-    private String queueUrl;
-
-    private String accessKey;
+    private String url;
 
     /**
      * Queue Region
@@ -137,14 +137,14 @@ public class SQSConnectionManagement {
     private AmazonSQSAsync msgQueueAsync;
 
     /**
-     * @param accessKey AWS access key
-     * @param secretKey AWS secret key
-     * @param queueName The name of the queue to connect to (optional)
+     * @param accessKey        AWS access key
+     * @param secretKey        AWS secret key
+     * @param defaultQueueName The name of the default queue to connect. (optional)
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
     @TestConnectivity
-    public void connect(@ConnectionKey String accessKey, String secretKey, @Optional String queueName)
+    public void connect(@ConnectionKey String accessKey, String secretKey, @Optional String defaultQueueName)
             throws ConnectionException {
         try {
             AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -155,28 +155,29 @@ public class SQSConnectionManagement {
                 msgQueue.setEndpoint(region.value());
                 msgQueueAsync.setEndpoint(region.value());
             }
-            if (queueName != null) {
-                CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
-                setQueueUrl(msgQueue.createQueue(createQueueRequest).getQueueUrl());
-            } else if (queueUrl != null) {
-                setQueueUrl(queueUrl);
-                msgQueue.getQueueAttributes(queueUrl, Arrays.asList("All"));
+            if (defaultQueueName != null) {
+                CreateQueueRequest createQueueRequest = new CreateQueueRequest(defaultQueueName);
+                setUrl(msgQueue.createQueue(createQueueRequest).getQueueUrl());
+            } else if (url != null) {
+                setUrl(url);
+                msgQueue.getQueueAttributes(url, Arrays.asList("All"));
             } else {
                 throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null, "A queue name or queue URL must be specified to make a connection.");
             }
         } catch (Exception e) {
             throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
         }
-        setAccessKey(accessKey);
+
+        setConnectionId(accessKey);
     }
 
     @ConnectionIdentifier
-    public String getAccessKey() {
-        return this.accessKey;
+    public String getConnectionId() {
+        return this.connectionId;
     }
 
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
+    public void setConnectionId(String accessKey) {
+        this.connectionId = accessKey;
     }
 
     @Disconnect
@@ -190,20 +191,16 @@ public class SQSConnectionManagement {
         return this.msgQueue != null || this.msgQueueAsync != null;
     }
 
-    public String getUrl() {
-        return this.queueUrl;
+    public void setUrl(String queueUrl) {
+        this.url = queueUrl;
     }
 
-    public void setQueueUrl(String queueUrl) {
-        this.queueUrl = queueUrl;
-    }
-
-    public String getQueueUrl(String queueUrl) {
-        if (StringUtils.isNotEmpty(queueUrl)) {
+    public String getUrl(String queueUrl) {
+        if (StringUtils.isNotBlank(queueUrl)) {
             return queueUrl;
         }
-        if (StringUtils.isNotEmpty(this.queueUrl)) {
-            return this.queueUrl;
+        if (StringUtils.isNotBlank(this.url)) {
+            return this.url;
         } else {
             return null;
         }
@@ -216,7 +213,7 @@ public class SQSConnectionManagement {
             clientConfig.setProxyUsername(getProxyUsername());
         }
         if (getProxyPort() != null) {
-            clientConfig.setProxyPort(proxyPort);
+            clientConfig.setProxyPort(getProxyPort());
         }
         if (StringUtils.isNotBlank(getProxyPassword())) {
             clientConfig.setProxyPassword(getProxyPassword());

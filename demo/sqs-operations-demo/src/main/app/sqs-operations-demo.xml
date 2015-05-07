@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 	<http:listener-config name="HTTP_Listener_Configuration"
 		host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration" />
 	<sqs:config name="Amazon_SQS_Connection_Management"
-		accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" queueName="${sqs.queueName}"
+		accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" defaultQueueName="${sqs.queueName}"
 		region="${sqs.region}" doc:name="Amazon SQS: Connection Management" />
 	<flow name="sqs-add-permission-operation-demo-flow">
 		<http:listener config-ref="HTTP_Listener_Configuration"

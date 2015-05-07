@@ -7,46 +7,62 @@
 package org.mule.modules.sqs.automation.testcases;
 
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
+import com.amazonaws.services.sqs.model.CreateQueueResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.api.MessagingException;
+import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
+import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
 import org.mule.modules.sqs.automation.SmokeTests;
-import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class RemovePermissionTestCases extends SqsTestParent {
+public class RemovePermissionTestCases extends SQSFunctionalTestParent {
+
+    String queueUrl;
 
     @Before
     public void setup() throws Exception {
-        initializeTestRunMessage("removePermissionTestData");
-        upsertOnTestRunMessage("queueUrl", ((GetQueueUrlResult) runFlowAndGetPayload("get-queue-url")).getQueueUrl());
-        runFlowAndGetPayload("add-permission");
+        CreateQueueResult createQueueResult = getConnector().createQueue(TEST_QUEUE_NAME, RegionEndpoint.USEAST1, null);
+        queueUrl = createQueueResult.getQueueUrl();
+        List<String> accountIds = Arrays.asList("055970264539");
+        List<String> actions = Arrays.asList("SendMessage", "ReceiveMessage", "DeleteMessage");
+        try {
+            getConnector().addPermission("fooPermission", accountIds, actions, queueUrl);
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
     }
 
     @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testRemovePermission() {
         try {
-            runFlowAndGetPayload("remove-permission");
+            getConnector().removePermission("fooPermission", queueUrl);
             Thread.sleep(5000);
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
         // Retry to remove the above permission throws exception.
         try {
-            runFlowAndGetPayload("remove-permission");
+            getConnector().removePermission("fooPermission", queueUrl);
         } catch (Exception e) {
-            if (e.getCause() instanceof AmazonServiceException) {
-                AmazonServiceException serviceException = (AmazonServiceException) e.getCause();
-                assertEquals("InvalidParameterValue", serviceException.getErrorCode());
-                assertEquals(String.format("Value %s for parameter Label is invalid. Reason: can't find label on existing policy.",
-                        getTestRunMessageValue("label")), serviceException.getErrorMessage());
+            if (e.getCause() instanceof MessagingException) {
+                MessagingException me = (MessagingException) e.getCause();
+                if (me.getCause() instanceof AmazonServiceException) {
+                    AmazonServiceException serviceException = (AmazonServiceException) me.getCause();
+                    assertEquals("InvalidParameterValue", serviceException.getErrorCode());
+                    assertEquals(String.format("Value %s for parameter Label is invalid. Reason: can't find label on existing policy.",
+                            "fooPermission"), serviceException.getErrorMessage());
+                }
             } else {
                 fail(ConnectorTestUtils.getStackTrace(e));
             }
@@ -55,6 +71,6 @@ public class RemovePermissionTestCases extends SqsTestParent {
 
     @After
     public void tearDown() throws Exception {
-        deleteQueue();
+        getConnector().deleteQueue(queueUrl);
     }
 }

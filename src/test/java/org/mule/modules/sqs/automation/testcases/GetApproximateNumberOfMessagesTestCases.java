@@ -4,44 +4,55 @@
  * has been included with this distribution in the LICENSE.md file.
  */
 
-
 package org.mule.modules.sqs.automation.testcases;
 
+import com.amazonaws.services.sqs.model.CreateQueueResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
+import org.mule.modules.tests.ConnectorTestUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-public class GetApproximateNumberOfMessagesTestCases extends SqsTestParent {
+public class GetApproximateNumberOfMessagesTestCases extends SQSFunctionalTestParent {
+
+    private final List<String> messages = Arrays.asList("Amazon SQS Test Message 1",
+            "Amazon SQS Test Message 2", "Amazon SQS Test Message 3");
+
+    private String queueUrl;
 
     @Before
-    public void setup() {
-        initializeTestRunMessage("getApproximateNumberOfMessagesTestData");
+    public void setUp() throws Exception {
+        CreateQueueResult createQueueResult = getConnector().createQueue(TEST_QUEUE_NAME, RegionEndpoint.USEAST1, null);
+        queueUrl = createQueueResult.getQueueUrl();
     }
-
 
     @Category({RegressionTests.class})
     @Test
-    public void testGetApproximateNumberOfMessages() throws Exception {
-        assertEquals(0, (int) getApproximateNumberOfMessages());
+    public void testGetApproximateNumberOfMessages() {
+        try {
+            assertEquals(0, getConnector().getApproximateNumberOfMessages(queueUrl));
 
-        for (String message : (List<String>) getTestRunMessageValue("messages")) {
-            sendMessage(message);
+            for (String message : messages) {
+                getConnector().sendMessage(message, 0, null, queueUrl);
+                Thread.sleep(5000);
+            }
+            assertEquals(messages.size(), getConnector().getApproximateNumberOfMessages(queueUrl));
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
         }
-
-        assertEquals(4, (int) getApproximateNumberOfMessages());
     }
 
     @After
     public void tearDown() throws Exception {
-        deleteQueue();
+        getConnector().deleteQueue(queueUrl);
     }
-
-
 }

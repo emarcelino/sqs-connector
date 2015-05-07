@@ -9,49 +9,47 @@ package org.mule.modules.sqs.automation.testcases;
 import com.amazonaws.services.sqs.model.CreateQueueResult;
 import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
 import com.amazonaws.services.sqs.model.GetQueueUrlResult;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class CreateQueueTestCases extends SqsTestParent {
+public class CreateQueueTestCases extends SQSFunctionalTestParent {
 
-    String queueUrl = null;
-
-    @Before
-    public void setUp() throws Exception {
-        initializeTestRunMessage("createQueueTestData");
-    }
+    String testQueueUrl = null;
+    final String testQueue = "testConnectorQueue";
 
     @Category({RegressionTests.class})
     @Test
     public void testCreateQueue() {
         try {
+            Map<String, String> queueAttributes = new HashMap<String, String>();
+            queueAttributes.put("VisibilityTimeout", "50");
+            queueAttributes.put("DelaySeconds", "100");
+            queueAttributes.put("MessageRetentionPeriod", "120");
 
-            CreateQueueResult createQueueResult = runFlowAndGetPayload("create-queue");
-            queueUrl = createQueueResult.getQueueUrl();
-            assertNotNull(queueUrl);
 
-            GetQueueUrlResult getQueueUrlResult = runFlowAndGetPayload("get-queue-url");
-            assertEquals(queueUrl, getQueueUrlResult.getQueueUrl());
+            CreateQueueResult createQueueResult = getConnector().createQueue(testQueue, RegionEndpoint.USWEST1, queueAttributes);
+            testQueueUrl = createQueueResult.getQueueUrl();
 
-            Map<String, String> expectedAttributes = getTestRunMessageValue("attributes");
-            upsertOnTestRunMessage("attributeNames", new ArrayList<String>(expectedAttributes.keySet()));
-            upsertOnTestRunMessage("queueUrl", queueUrl);
+            GetQueueUrlResult getQueueUrlResult = getConnector().getQueueUrl(testQueue, null);
+            assertEquals(testQueueUrl, getQueueUrlResult.getQueueUrl());
 
-            GetQueueAttributesResult getQueueAttributesResult = runFlowAndGetPayload("get-queue-attributes");
+            GetQueueAttributesResult getQueueAttributesResult = getConnector().getQueueAttributes(new ArrayList<String>(queueAttributes.keySet()), testQueueUrl);
             Map<String, String> actualAttributes = getQueueAttributesResult.getAttributes();
-            assertEquals(expectedAttributes.get("VisibilityTimeout"), actualAttributes.get("VisibilityTimeout"));
-            assertEquals(expectedAttributes.get("DelaySeconds"), actualAttributes.get("DelaySeconds"));
-            assertEquals(expectedAttributes.get("MessageRetentionPeriod"), actualAttributes.get("MessageRetentionPeriod"));
+            assertEquals(queueAttributes.get("VisibilityTimeout"), actualAttributes.get("VisibilityTimeout"));
+            assertEquals(queueAttributes.get("DelaySeconds"), actualAttributes.get("DelaySeconds"));
+            assertEquals(queueAttributes.get("MessageRetentionPeriod"), actualAttributes.get("MessageRetentionPeriod"));
 
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -60,8 +58,8 @@ public class CreateQueueTestCases extends SqsTestParent {
 
     @After
     public void tearDown() throws Exception {
-        if (queueUrl != null) {
-            deleteQueue();
+        if (StringUtils.isNotBlank(testQueueUrl)) {
+            getConnector().deleteQueue(testQueueUrl);
         }
     }
 }

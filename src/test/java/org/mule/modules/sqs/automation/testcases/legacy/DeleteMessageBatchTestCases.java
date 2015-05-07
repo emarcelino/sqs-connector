@@ -4,7 +4,7 @@
  * has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.modules.sqs.automation.testcases;
+package org.mule.modules.sqs.automation.testcases.legacy;
 
 import com.amazonaws.services.sqs.model.DeleteMessageBatchRequestEntry;
 import com.amazonaws.services.sqs.model.DeleteMessageBatchResult;
@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.construct.Flow;
-import org.mule.modules.sqs.automation.RegressionTests;
+import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -33,7 +33,7 @@ public class DeleteMessageBatchTestCases extends SqsTestParent {
         runFlowAndGetPayload("send-message-batch");
     }
 
-    @Category({RegressionTests.class})
+    @Category({LegacyRegressionTests.class})
     @Test
     public void testDeleteMessageBatch() {
         try {

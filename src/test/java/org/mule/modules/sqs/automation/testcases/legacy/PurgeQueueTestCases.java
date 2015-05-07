@@ -4,7 +4,7 @@
  * has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.modules.sqs.automation.testcases;
+package org.mule.modules.sqs.automation.testcases.legacy;
 
 import com.amazonaws.services.sqs.model.CreateQueueResult;
 import com.amazonaws.services.sqs.model.SendMessageResult;
@@ -12,9 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.sqs.RegionEndpoint;
-import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
+import org.mule.modules.sqs.automation.LegacyRegressionTests;
+import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.UUID;
@@ -22,28 +21,30 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class PurgeQueueTestCases extends SQSFunctionalTestParent {
+public class PurgeQueueTestCases extends SqsTestParent {
 
     String queueUrl;
 
     @Before
     public void setUp() throws Exception {
-        CreateQueueResult createQueueResult = getConnector().createQueue(TEST_QUEUE_NAME, RegionEndpoint.USEAST1, null);
+        initializeTestRunMessage("purgeQueueTestData");
+        CreateQueueResult createQueueResult = runFlowAndGetPayload("create-queue");
         queueUrl = createQueueResult.getQueueUrl();
+        upsertOnTestRunMessage("queueUrl", queueUrl);
         for (int i = 0; i < 5; i++) {
             String message = UUID.randomUUID().toString();
-            SendMessageResult result = getConnector().sendMessage(message, 0, null, queueUrl);
+            SendMessageResult result = sendMessage(message);
         }
-        assertEquals(5, getConnector().getApproximateNumberOfMessages(queueUrl));
+        assertEquals(5, (int) getApproximateNumberOfMessages());
 
     }
 
-    @Category({RegressionTests.class})
+    @Category({LegacyRegressionTests.class})
     @Test
     public void testPurgeQueue() {
         try {
-            getConnector().purgeQueue(queueUrl);
-            assertEquals(0, getConnector().getApproximateNumberOfMessages(queueUrl));
+            runFlowAndGetPayload("purge-queue");
+            assertEquals(0, (int) getApproximateNumberOfMessages());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -51,6 +52,6 @@ public class PurgeQueueTestCases extends SQSFunctionalTestParent {
 
     @After
     public void tearDown() throws Exception {
-        getConnector().deleteQueue(queueUrl);
+        deleteQueue();
     }
 }

@@ -5,19 +5,17 @@
  */
 
 
-package org.mule.modules.sqs.automation.testcases;
+package org.mule.modules.sqs.automation.testcases.legacy;
 
-import com.amazonaws.services.sqs.model.CreateQueueResult;
 import com.amazonaws.services.sqs.model.MessageAttributeValue;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.sqs.RegionEndpoint;
-import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
-import org.mule.modules.sqs.automation.SmokeTests;
+import org.mule.modules.sqs.automation.LegacyRegressionTests;
+import org.mule.modules.sqs.automation.LegacySmokeTests;
+import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.HashMap;
@@ -26,45 +24,42 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class SendMessageTestCases extends SQSFunctionalTestParent {
-
-    String queueUrl;
-    String message = ConnectorTestUtils.generateRandomShortString();
+public class SendMessageTestCases extends SqsTestParent {
 
     @Before
     public void setUp() throws Exception {
-        CreateQueueResult createQueueResult = getConnector().createQueue(TEST_QUEUE_NAME, RegionEndpoint.USEAST1, null);
-        queueUrl = createQueueResult.getQueueUrl();
+        initializeTestRunMessage("sendMessageTestData");
     }
 
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({LegacyRegressionTests.class, LegacySmokeTests.class})
     @Test
     public void testSendMessage() {
         try {
-            assertEquals(0, getConnector().getApproximateNumberOfMessages(queueUrl));
-            SendMessageResult result = getConnector().sendMessage(message, 0, null, queueUrl);
-            assertEquals(md5(message), result.getMD5OfMessageBody());
+            assertEquals(0, (int) getApproximateNumberOfMessages());
+            SendMessageResult result = runFlowAndGetPayload("send-message");
+            assertEquals(md5((String) getTestRunMessageValue("message")), result.getMD5OfMessageBody());
 
-            Thread.sleep(10000);
+            Thread.sleep(5000);
 
-            assertEquals(1, getConnector().getApproximateNumberOfMessages(queueUrl));
+            assertEquals(1, (int) getApproximateNumberOfMessages());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
 
     }
 
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({LegacyRegressionTests.class, LegacySmokeTests.class})
     @Test
     public void testSendMessageWithAttributes() {
         try {
-            Map<String, Object> messageAttributes = new HashMap<String, Object>();
+            Map<String, MessageAttributeValue> messageAttributes = new HashMap<String, MessageAttributeValue>();
             messageAttributes.put("AccountId", new MessageAttributeValue().withDataType("String.AccountId").withStringValue("000123456"));
             messageAttributes.put("NumberId", new MessageAttributeValue().withDataType("Number").withStringValue("230.000000000000000001"));
 
-            SendMessageResult result = getConnector().sendMessage(message, 0, messageAttributes, queueUrl);
+            upsertOnTestRunMessage("messageAttributes", messageAttributes);
 
-            assertEquals(md5(message), result.getMD5OfMessageBody());
+            SendMessageResult result = runFlowAndGetPayload("send-message");
+
             assertEquals(32, result.getMD5OfMessageAttributes().length());
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -73,6 +68,6 @@ public class SendMessageTestCases extends SQSFunctionalTestParent {
 
     @After
     public void tearDown() throws Exception {
-        getConnector().deleteQueue(queueUrl);
+        deleteQueue();
     }
 }

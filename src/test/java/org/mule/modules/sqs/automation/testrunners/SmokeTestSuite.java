@@ -7,27 +7,40 @@
 
 package org.mule.modules.sqs.automation.testrunners;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
+import org.mule.modules.sqs.SQSConnector;
 import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.testcases.*;
+import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
+import org.mule.tools.devkit.ctf.platform.PlatformManager;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(SmokeTests.class)
 @org.junit.runners.Suite.SuiteClasses({
         SendMessageTestCases.class,
         GetQueueUrlTestCases.class,
-        DeleteMessageTestCases.class,
         DeleteQueueTestCases.class,
         GetQueueAttributesTestCases.class,
-        SetQueueAttributeTestCases.class,
+        SetQueueAttributesTestCases.class,
         AddPermissionTestCases.class,
         RemovePermissionTestCases.class,
-        RecieveMessagesTestCases.class,
         ListDeadLetterSourceQueuesTestCases.class,
         SQSConnectorMetaDataTestCases.class
 })
 public class SmokeTestSuite {
 
+    @BeforeClass
+    public static void initialiseSuite() throws Exception {
+        ConnectorTestContext.initialize(SQSConnector.class);
+    }
 
+    @AfterClass
+    public static void shutdownSuite() throws Exception {
+        ConnectorTestContext<SQSConnector> context = ConnectorTestContext.getInstance(SQSConnector.class);
+        PlatformManager platformManager = context.getPlatformManager();
+        platformManager.shutdown();
+    }
 }
