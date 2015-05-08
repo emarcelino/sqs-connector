@@ -11,7 +11,7 @@
         <config name="config">
             <attributes>
                 <attribute name="name" use="required" caption="Name" group="Basic Settings" type="name" javaType="java.lang.String" category="General"></attribute>
-                <attribute name="queueUrl" use="optional" caption="Queue URL" group="Optional Parameters" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="url" use="optional" caption="Queue URL" group="Optional Parameters" type="string" javaType="java.lang.String" category="General"></attribute>
                 <attribute name="region" use="optional" caption="Region Endpoint" group="Optional Parameters" type="enum" javaType="org.mule.modules.sqs.RegionEndpoint" category="General"></attribute>
                 <attribute name="protocol" use="optional" caption="Protocol" group="General" type="enum" javaType="com.amazonaws.Protocol" category="General"></attribute>
                 <attribute name="proxyHost" use="optional" caption="Proxy Host" group="Proxy Settings" type="string" javaType="java.lang.String" category="General"></attribute>
@@ -24,7 +24,7 @@
                 <attribute name="connectionTimeout" use="optional" caption="Connection Timeout" group="General" type="integer" javaType="java.lang.Integer" default="50000" category="General"></attribute>
                 <attribute name="accessKey" use="required" caption="Access Key" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
                 <attribute name="secretKey" use="required" caption="Secret Key" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
-                <attribute name="queueName" use="optional" caption="Queue Name" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
+                <attribute name="defaultQueueName" use="optional" caption="Default Queue Name" group="Connection" type="string" javaType="java.lang.String" category="General"></attribute>
             </attributes>
         </config>
     </global-config>
@@ -40,6 +40,7 @@
                 <attribute name="account-ids" use="required" caption="Account Ids" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General"></attribute>
                 <attribute name="actions" use="required" caption="Actions" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="changeMessageVisibility" xmlName="change-message-visibility" caption="Change message visibility">
             <properties>
@@ -51,6 +52,7 @@
                 <attribute name="receiptHandle" use="optional" caption="Receipt Handle" group="General" type="string" javaType="java.lang.String" default="#[header:inbound:sqs.message.receipt.handle]" category="General"></attribute>
                 <attribute name="visibilityTimeout" use="required" caption="Visibility Timeout" group="General" type="integer" javaType="java.lang.Integer" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="changeMessageVisibilityBatch" xmlName="change-message-visibility-batch" caption="Change message visibility batch">
             <properties>
@@ -58,6 +60,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
         <processor name="createQueue" xmlName="create-queue" caption="Create queue">
             <properties>
@@ -69,6 +73,7 @@
                 <attribute name="queueName" use="required" caption="Queue Name" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
                 <attribute name="attributes" use="optional" caption="Attributes" group="General" type="element-controller-map" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="deleteMessage" xmlName="delete-message" caption="Delete message">
             <properties>
@@ -79,6 +84,7 @@
             <attributes>
                 <attribute name="receiptHandle" use="optional" caption="Receipt Handle" group="General" type="string" javaType="java.lang.String" default="#[header:inbound:sqs.message.receipt.handle]" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="deleteMessageBatch" xmlName="delete-message-batch" caption="Delete message batch">
             <properties>
@@ -86,6 +92,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
         <processor name="deleteQueue" xmlName="delete-queue" caption="Delete queue">
             <properties>
@@ -93,6 +101,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
         <processor name="getQueueAttributes" xmlName="get-queue-attributes" caption="Get queue attributes">
             <properties>
@@ -103,6 +113,7 @@
             <attributes>
                 <attribute name="attribute-names" use="optional" caption="Attribute Names" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="getQueueUrl" xmlName="get-queue-url" caption="Get queue url">
             <properties>
@@ -114,6 +125,7 @@
                 <attribute name="queueName" use="required" caption="Queue Name" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
                 <attribute name="queueOwnerAWSAccountId" use="optional" caption="Queue Owner A W S Account Id" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="listDeadLetterSourceQueues" xmlName="list-dead-letter-source-queues" caption="List dead letter source queues">
             <properties>
@@ -121,6 +133,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
         <processor name="listQueues" xmlName="list-queues" caption="List queues">
             <properties>
@@ -131,6 +145,7 @@
             <attributes>
                 <attribute name="queueNamePrefix" use="optional" caption="Queue Name Prefix" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="purgeQueue" xmlName="purge-queue" caption="Purge queue">
             <properties>
@@ -138,6 +153,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
         <processor name="removePermission" xmlName="remove-permission" caption="Remove permission">
             <properties>
@@ -148,6 +165,7 @@
             <attributes>
                 <attribute name="label" use="required" caption="Label" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="sendMessage" xmlName="send-message" caption="Send message">
             <properties>
@@ -160,6 +178,7 @@
                 <attribute name="delaySeconds" use="optional" caption="Delay Seconds" group="General" type="integer" javaType="java.lang.Integer" category="General"></attribute>
                 <attribute name="message-attributes" use="optional" caption="Message Attributes" group="General" type="element-controller-map" javaType="java.util.Map&lt;java.lang.String,java.lang.Object&gt;" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="sendMessageBatch" xmlName="send-message-batch" caption="Send message batch">
             <properties>
@@ -167,6 +186,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
         <processor name="setQueueAttributes" xmlName="set-queue-attributes" caption="Set queue attributes">
             <properties>
@@ -177,6 +198,7 @@
             <attributes>
                 <attribute name="attributes" use="optional" caption="Attributes" group="General" type="element-controller-map" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;" category="General"></attribute>
             </attributes>
+            <childElements/>
         </processor>
         <processor name="getApproximateNumberOfMessages" xmlName="get-approximate-number-of-messages" caption="Get approximate number of messages">
             <properties>
@@ -184,6 +206,8 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
+            <attributes/>
+            <childElements/>
         </processor>
     </message-processors>
     <inbound-endpoints>
@@ -192,6 +216,15 @@
                 <attribute name="visibilityTimeout" use="optional" type="" javaType="" default="30" category="General"></attribute>
                 <attribute name="preserveMessages" use="optional" type="" javaType="" default="false" category="General"></attribute>
                 <attribute name="numberOfMessages" use="optional" type="" javaType="" default="1" category="General"></attribute>
+            </attributes>
+            <childElements/>
+        </endpoint>
+        <endpoint name="receive-messages" xmlName="receive-messages" caption="Receive messages">
+            <attributes>
+                <attribute name="visibilityTimeout" use="optional" type="" javaType="" default="30" category="General"></attribute>
+                <attribute name="preserveMessages" use="optional" type="" javaType="" default="false" category="General"></attribute>
+                <attribute name="numberOfMessages" use="optional" type="" javaType="" default="1" category="General"></attribute>
+                <attribute name="queueUrl" use="optional" type="" javaType="" category="General"></attribute>
             </attributes>
             <childElements/>
         </endpoint>
