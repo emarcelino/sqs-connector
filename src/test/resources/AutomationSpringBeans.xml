@@ -229,4 +229,18 @@
               value-type="java.lang.Object">
         <entry key="queueName" value="${sqs.queueName}"/>
     </util:map>
+
+    <util:map id="getMetaDataKeysTestData" map-class="java.util.HashMap" key-type="java.lang.String"
+              value-type="java.lang.Object" scope="prototype">
+        <entry key="expectedMetaDataKeysCount" value="1"/>
+        <entry key="expectedMetaDataKeys">
+            <list value-type="java.util.HashMap">
+                <map key-type="java.lang.String" value-type="java.lang.Object">
+                    <entry key="displayName" value="Send Message"/>
+                    <entry key="id" value="sendMessage"/>
+                    <entry key="category" value="SendMessageCategory"/>
+                </map>
+            </list>
+        </entry>
+    </util:map>
 </beans>

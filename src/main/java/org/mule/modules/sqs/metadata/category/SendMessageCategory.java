@@ -29,7 +29,9 @@ public class SendMessageCategory {
 
     @MetaDataKeyRetriever
     public List<MetaDataKey> metaDataKeys() {
-        return new ArrayList<MetaDataKey>(0);
+        List<MetaDataKey> metaDataKeys = new ArrayList<MetaDataKey>(0);
+        metaDataKeys.add(new DefaultMetaDataKey("sendMessage", "Send Message"));
+        return metaDataKeys;
     }
 
     @MetaDataRetriever

@@ -19,32 +19,40 @@ import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
 import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GetQueueUrlTestCases extends SQSFunctionalTestParent {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-    private String queueUrl;
+public class SetQueueAttributesTestCases extends SQSFunctionalTestParent {
+
+    String queueUrl;
 
     @Before
-    public void setup() throws Exception {
+    public void setUp() throws Exception {
         CreateQueueResult createQueueResult = getConnector().createQueue(TEST_QUEUE_NAME, RegionEndpoint.USEAST1, null);
         queueUrl = createQueueResult.getQueueUrl();
     }
 
-
     @Category({RegressionTests.class, SmokeTests.class})
     @Test
-    public void testGetQueueUrl() {
+    public void testSetQueueAttributes() {
         try {
+            Map<String, String> attributes = new HashMap<String, String>();
+            attributes.put("MaximumMessageSize", "1111");
+            attributes.put("DelaySeconds", "10");
+            getConnector().setQueueAttributes(attributes, queueUrl);
+
             GetQueueUrlResult result = getConnector().getQueueUrl(TEST_QUEUE_NAME, null);
 
-            assertNotNull(result);
-            String region = RegionEndpoint.valueOf(TEST_QUEUE_REGION).value();
+            Map<String, String> expectedAttributes = getConnector().getQueueAttributes(new ArrayList<String>(attributes.keySet()), queueUrl).getAttributes();
+            assertEquals(expectedAttributes.keySet(), attributes.keySet());
 
-            String urlFormat = "http[s]?://" + region + "/.*/" + TEST_QUEUE_NAME;
-            assertTrue(result.getQueueUrl().matches(urlFormat));
-
-            queueUrl = result.getQueueUrl();
+            for (Map.Entry<String, String> entry : expectedAttributes.entrySet()) {
+                assertEquals(attributes.get(entry.getKey()), entry.getValue());
+            }
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -54,5 +62,4 @@ public class GetQueueUrlTestCases extends SQSFunctionalTestParent {
     public void tearDown() throws Exception {
         getConnector().deleteQueue(queueUrl);
     }
-
 }

@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 
     <context:property-placeholder location="${AUTOMATION_CREDENTIALS}"/>
 
-    <sqs:config name="SQS" accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" queueName="${sqs.queueName}"
+    <sqs:config name="SQS" accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" defaultQueueName="${sqs.queueName}"
                 region="${sqs.region}" doc:name="Amazon SQS"></sqs:config>
 
 

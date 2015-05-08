@@ -66,8 +66,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void addPermission(String label, List<String> accountIds, List<String> actions, @Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.addPermission(new AddPermissionRequest(getConnection().getQueueUrl(queueUrl), label,
+    public void addPermission(String label, List<String> accountIds, List<String> actions, @Optional String queueUrl) {
+        msgQueue.addPermission(new AddPermissionRequest(getConnection().getUrl(queueUrl), label,
                 accountIds, actions));
     }
 
@@ -88,8 +88,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void changeMessageVisibility(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle, Integer visibilityTimeout, @Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.changeMessageVisibility(new ChangeMessageVisibilityRequest(getConnection().getQueueUrl(queueUrl), receiptHandle, visibilityTimeout));
+    public void changeMessageVisibility(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle, Integer visibilityTimeout, @Optional String queueUrl) {
+        msgQueue.changeMessageVisibility(new ChangeMessageVisibilityRequest(getConnection().getUrl(queueUrl), receiptHandle, visibilityTimeout));
     }
 
     /**
@@ -110,8 +110,8 @@ public class SQSConnector {
      */
     @Processor
     public ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
-                                                                           @Optional String queueUrl) throws AmazonServiceException {
-        return msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
+                                                                           @Optional String queueUrl) {
+        return msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getUrl(queueUrl), receiptHandles));
     }
 
     /**
@@ -135,7 +135,7 @@ public class SQSConnector {
      */
     @Processor
     public CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
-                                         @Default("#[payload]") Map<String, String> attributes) throws AmazonServiceException {
+                                         @Default("#[payload]") Map<String, String> attributes) {
         if (region != null) {
             msgQueue.setEndpoint(region.value());
         }
@@ -157,8 +157,8 @@ public class SQSConnector {
      */
     @Processor
     public void deleteMessage(@Default("#[header:inbound:sqs.message.receipt.handle]") String receiptHandle,
-                              @Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.deleteMessage(new DeleteMessageRequest(getConnection().getQueueUrl(queueUrl), receiptHandle));
+                              @Optional String queueUrl) {
+        msgQueue.deleteMessage(new DeleteMessageRequest(getConnection().getUrl(queueUrl), receiptHandle));
     }
 
     /**
@@ -177,8 +177,8 @@ public class SQSConnector {
      */
     @Processor
     public DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<DeleteMessageBatchRequestEntry> receiptHandles,
-                                                       @Optional String queueUrl) throws AmazonServiceException {
-        return msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getQueueUrl(queueUrl), receiptHandles));
+                                                       @Optional String queueUrl) {
+        return msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getUrl(queueUrl), receiptHandles));
     }
 
     /**
@@ -194,8 +194,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void deleteQueue(@Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.deleteQueue(new DeleteQueueRequest(getConnection().getQueueUrl(queueUrl)));
+    public void deleteQueue(@Optional String queueUrl) {
+        msgQueue.deleteQueue(new DeleteQueueRequest(getConnection().getUrl(queueUrl)));
     }
 
     /**
@@ -213,8 +213,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) throws AmazonServiceException {
-        return msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl))
+    public GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) {
+        return msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getUrl(queueUrl))
                 .withAttributeNames(attributeNames));
     }
 
@@ -233,7 +233,7 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) throws AmazonServiceException {
+    public GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) {
         return msgQueue.getQueueUrl(new GetQueueUrlRequest(queueName).withQueueOwnerAWSAccountId(queueOwnerAWSAccountId));
     }
 
@@ -251,8 +251,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) throws AmazonServiceException {
-        return msgQueue.listDeadLetterSourceQueues(new ListDeadLetterSourceQueuesRequest(getConnection().getQueueUrl(queueUrl)));
+    public ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) {
+        return msgQueue.listDeadLetterSourceQueues(new ListDeadLetterSourceQueuesRequest(getConnection().getUrl(queueUrl)));
     }
 
     /**
@@ -270,7 +270,7 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public ListQueuesResult listQueues(@Optional String queueNamePrefix) throws AmazonServiceException {
+    public ListQueuesResult listQueues(@Optional String queueNamePrefix) {
         return msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
     }
 
@@ -287,8 +287,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void purgeQueue(@Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.purgeQueue(new PurgeQueueRequest(getConnection().getQueueUrl(queueUrl)));
+    public void purgeQueue(@Optional String queueUrl) {
+        msgQueue.purgeQueue(new PurgeQueueRequest(getConnection().getUrl(queueUrl)));
     }
 
     /**
@@ -321,9 +321,9 @@ public class SQSConnector {
                                 @Default("30") Integer visibilityTimeout,
                                 @Default("false") Boolean preserveMessages,
                                 @Default("1") Integer numberOfMessages,
-                                @Optional String queueUrl) throws AmazonServiceException {
+                                @Optional String queueUrl) {
         ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest().withAttributeNames("All").withMessageAttributeNames("All");
-        receiveMessageRequest.setQueueUrl(getConnection().getQueueUrl(queueUrl));
+        receiveMessageRequest.setQueueUrl(getConnection().getUrl(queueUrl));
 
         if (visibilityTimeout != null) {
             receiveMessageRequest.setVisibilityTimeout(visibilityTimeout);
@@ -345,7 +345,7 @@ public class SQSConnector {
                         return;
                     }
                     if (!preserveMessages) {
-                        msgQueueAsync.deleteMessageAsync(new DeleteMessageRequest(getConnection().getQueueUrl(queueUrl), m.getReceiptHandle()));
+                        msgQueueAsync.deleteMessageAsync(new DeleteMessageRequest(getConnection().getUrl(queueUrl), m.getReceiptHandle()));
                     }
                 }
             } catch (InterruptedException e) {
@@ -371,8 +371,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void removePermission(String label, @Optional String queueUrl) throws AmazonServiceException {
-        msgQueue.removePermission(new RemovePermissionRequest(getConnection().getQueueUrl(queueUrl), label));
+    public void removePermission(String label, @Optional String queueUrl) {
+        msgQueue.removePermission(new RemovePermissionRequest(getConnection().getUrl(queueUrl), label));
     }
 
     /**
@@ -405,7 +405,7 @@ public class SQSConnector {
                 attributes.put(entry.getKey(), (MessageAttributeValue) entry.getValue());
             }
         }
-        return msgQueue.sendMessage(new SendMessageRequest(getConnection().getQueueUrl(queueUrl), message)
+        return msgQueue.sendMessage(new SendMessageRequest(getConnection().getUrl(queueUrl), message)
                 .withDelaySeconds(delaySeconds).withMessageAttributes(attributes));
     }
 
@@ -424,8 +424,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<SendMessageBatchRequestEntry> messages, @Optional String queueUrl) throws AmazonServiceException {
-        return msgQueue.sendMessageBatch(getConnection().getQueueUrl(queueUrl), messages);
+    public SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<SendMessageBatchRequestEntry> messages, @Optional String queueUrl) {
+        return msgQueue.sendMessageBatch(getConnection().getUrl(queueUrl), messages);
     }
 
     /**
@@ -444,9 +444,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public void setQueueAttributes(@Default("#[payload]") Map<String, String> attributes, @Optional String queueUrl)
-            throws AmazonServiceException {
-        msgQueue.setQueueAttributes(new SetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl), attributes));
+    public void setQueueAttributes(@Default("#[payload]") Map<String, String> attributes, @Optional String queueUrl) {
+        msgQueue.setQueueAttributes(new SetQueueAttributesRequest(getConnection().getUrl(queueUrl), attributes));
     }
 
     /**
@@ -463,9 +462,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public int getApproximateNumberOfMessages(@Optional String queueUrl) throws AmazonServiceException {
+    public int getApproximateNumberOfMessages(@Optional String queueUrl) {
         return Integer.parseInt(msgQueue.getQueueAttributes(
-                new GetQueueAttributesRequest(getConnection().getQueueUrl(queueUrl)).withAttributeNames(
+                new GetQueueAttributesRequest(getConnection().getUrl(queueUrl)).withAttributeNames(
                         "ApproximateNumberOfMessages")).getAttributes().get("ApproximateNumberOfMessages"));
     }
 

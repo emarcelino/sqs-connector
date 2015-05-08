@@ -4,15 +4,14 @@
  * has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.modules.sqs.automation.testcases;
+package org.mule.modules.sqs.automation.testcases.legacy;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.construct.Flow;
-import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.SmokeTests;
+import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -21,21 +20,18 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class DeleteMessageTestCases extends SqsTestParent {
+public class ChangeMessageVisibilityTestCases extends SqsTestParent {
 
     @Before
     public void setUp() throws Exception {
-        initializeTestRunMessage("deleteMessageTestData");
+        initializeTestRunMessage("changeMessageVisibilityTestData");
         runFlowAndGetPayload("send-message");
     }
 
-
-    @Category({RegressionTests.class, SmokeTests.class})
+    @Category({LegacyRegressionTests.class})
     @Test
-    public void testDeleteMessage() {
+    public void testChangeMessageVisibility() {
         try {
-            assertEquals(1, (int) getApproximateNumberOfMessages());
-
             Flow flow = muleContext.getRegistry().get("receive-messages");
             flow.start();
             Map payload = (Map) muleContext.getClient().request("vm://receive", 5000).getPayload();
@@ -43,14 +39,12 @@ public class DeleteMessageTestCases extends SqsTestParent {
             upsertOnTestRunMessage("receiptHandle", payload.get("receiptHandle"));
             flow.stop();
 
-            runFlowAndGetPayload("delete-message");
+            runFlowAndGetPayload("change-message-visibility");
 
             assertEquals(0, (int) getApproximateNumberOfMessages());
-
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
-
     }
 
     @After

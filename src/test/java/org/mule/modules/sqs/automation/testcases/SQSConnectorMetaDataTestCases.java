@@ -6,35 +6,44 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.common.Result;
 import org.mule.common.metadata.MetaData;
-import org.mule.common.metadata.OperationMetaDataEnabled;
-import org.mule.common.metadata.datatype.DataType;
-import org.mule.construct.Flow;
+import org.mule.common.metadata.MetaDataKey;
 import org.mule.modules.sqs.automation.RegressionTests;
+import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
 import org.mule.modules.sqs.automation.SmokeTests;
-import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class SQSConnectorMetaDataTestCases extends SqsTestParent {
+public class SQSConnectorMetaDataTestCases extends SQSFunctionalTestParent {
 
     @Test
     @Category({RegressionTests.class, SmokeTests.class})
     public void testSendMessageMetaData() {
+        MetaDataKey sendMessageKey = null;
         try {
-            Flow flow = (Flow) muleContext.getRegistry().lookupFlowConstruct("send-message-meta-data");
-            assertFalse(flow.getMessageProcessors().isEmpty());
-            MessageProcessor messageProcessor = flow.getMessageProcessors().get(0);
-            assertThat(messageProcessor, CoreMatchers.instanceOf(OperationMetaDataEnabled.class));
-            Result<MetaData> inputMetaData = ((OperationMetaDataEnabled) messageProcessor).getInputMetaData();
-            assertEquals(Result.Status.SUCCESS, inputMetaData.getStatus());
-            assertEquals(DataType.MAP, inputMetaData.get().getPayload().getDataType());
+
+            Result<List<MetaDataKey>> metaDataKeysResult = getDispatcher().fetchMetaDataKeys();
+
+            assertTrue(Result.Status.SUCCESS.equals(metaDataKeysResult.getStatus()));
+            List<MetaDataKey> metaDataKeys = metaDataKeysResult.get();
+
+            for (MetaDataKey key : metaDataKeys) {
+                if (sendMessageKey == null && key.getId().equals("sendMessage")) {
+                    sendMessageKey = key;
+                }
+            }
+
+            assertNotNull(sendMessageKey);
+
+            Result<MetaData> sendMessageKeyResult = getDispatcher().fetchMetaData(sendMessageKey);
+            assertTrue(Result.Status.SUCCESS.equals(sendMessageKeyResult.getStatus()));
+
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }

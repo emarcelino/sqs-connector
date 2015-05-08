@@ -7,52 +7,49 @@
 package org.mule.modules.sqs.automation.testcases;
 
 import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.amazonaws.services.sqs.model.ListDeadLetterSourceQueuesResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
+import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
 import org.mule.modules.sqs.automation.SmokeTests;
-import org.mule.modules.sqs.automation.SqsTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
+public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent {
 
     String queueUrl;
+    final String queueName = "SQSConnectorDeadLetterQueue";
+    Map<String, String> attributes;
 
     @Before
     public void setUp() throws Exception {
-        initializeTestRunMessage("listDeadLetterSourceQueuesTestData");
-
-        CreateQueueResult createQueueResult = runFlowAndGetPayload("create-queue");
+        CreateQueueResult createQueueResult = getConnector().createQueue(queueName, RegionEndpoint.USEAST1, null);
         queueUrl = createQueueResult.getQueueUrl();
-        upsertOnTestRunMessage("queueUrl", queueUrl);
-        Map<String, String> attributes = ((GetQueueAttributesResult) runFlowAndGetPayload("get-queue-attributes")).getAttributes();
+        attributes = getConnector().getQueueAttributes(Arrays.asList("QueueArn"), queueUrl).getAttributes();
         String redrivePolicy = String.format("{\"maxReceiveCount\":\"%s\", \"deadLetterTargetArn\":\"%s\"}",
-                getTestRunMessageValue("maxReceiveCount").toString(), attributes.get("QueueArn"));
+                5, attributes.get("QueueArn"));
 
         attributes = new HashMap<String, String>();
         attributes.put("RedrivePolicy", redrivePolicy);
-        upsertOnTestRunMessage("attributes", attributes);
-        runFlowAndGetPayload("set-queue-attribute");
+        getConnector().setQueueAttributes(attributes, queueUrl);
     }
 
     @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testListDeadLetterSourceQueues() {
         try {
-            ListDeadLetterSourceQueuesResult result = runFlowAndGetPayload("list-dead-letter-source-queues");
+            ListDeadLetterSourceQueuesResult result = getConnector().listDeadLetterSourceQueues(queueUrl);
             assertTrue(result.getQueueUrls() != null);
-            upsertOnTestRunMessage("queueName", getTestRunMessageValue("expectedQueueName").toString());
-            String expectedQueueUrl = ((GetQueueUrlResult) runFlowAndGetPayload("get-queue-url")).getQueueUrl();
+            String expectedQueueUrl = getConnector().getQueueUrl(queueName, null).getQueueUrl();
             assertEquals(expectedQueueUrl, result.getQueueUrls().get(0));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -62,9 +59,6 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
     @After
     public void tearDown() throws Exception {
         // Delete the DeadLetterQueue
-        deleteQueue();
-        // Delete the Connection Queue
-        removeFromTestRunMessage("queueUrl");
-        deleteQueue();
+        getConnector().deleteQueue(queueUrl);
     }
 }

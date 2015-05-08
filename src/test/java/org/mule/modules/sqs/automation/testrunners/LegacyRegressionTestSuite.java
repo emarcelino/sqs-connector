@@ -6,23 +6,24 @@
 
 package org.mule.modules.sqs.automation.testrunners;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.experimental.categories.Categories;
 import org.junit.experimental.categories.Categories.IncludeCategory;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
-import org.mule.modules.sqs.SQSConnector;
+import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.RegressionTests;
-import org.mule.modules.sqs.automation.testcases.*;
-import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
-import org.mule.tools.devkit.ctf.platform.PlatformManager;
+import org.mule.modules.sqs.automation.testcases.legacy.*;
 
 @RunWith(Categories.class)
-@IncludeCategory(RegressionTests.class)
+@IncludeCategory(LegacyRegressionTests.class)
 @SuiteClasses({
+        SQSConnectorMetaDataTestCases.class,
         AddPermissionTestCases.class,
+        ChangeMessageVisibilityBatchTestCases.class,
+        ChangeMessageVisibilityTestCases.class,
         CreateQueueTestCases.class,
+        DeleteMessageTestCases.class,
+        DeleteMessageBatchTestCases.class,
         DeleteQueueTestCases.class,
         GetApproximateNumberOfMessagesTestCases.class,
         GetQueueAttributesTestCases.class,
@@ -30,23 +31,11 @@ import org.mule.tools.devkit.ctf.platform.PlatformManager;
         ListDeadLetterSourceQueuesTestCases.class,
         ListQueuesTestCases.class,
         PurgeQueueTestCases.class,
+        RecieveMessagesTestCases.class,
         RemovePermissionTestCases.class,
         SendMessageTestCases.class,
         SendMessageBatchTestCases.class,
-        SetQueueAttributesTestCases.class,
-        SQSConnectorMetaDataTestCases.class
+        SetQueueAttributeTestCases.class
 })
-public class RegressionTestSuite {
-
-    @BeforeClass
-    public static void initialiseSuite() throws Exception {
-        ConnectorTestContext.initialize(SQSConnector.class);
-    }
-
-    @AfterClass
-    public static void shutdownSuite() throws Exception {
-        ConnectorTestContext<SQSConnector> context = ConnectorTestContext.getInstance(SQSConnector.class);
-        PlatformManager platformManager = context.getPlatformManager();
-        platformManager.shutdown();
-    }
+public class LegacyRegressionTestSuite {
 }
