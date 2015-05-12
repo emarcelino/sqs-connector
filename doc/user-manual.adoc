@@ -1,7 +1,7 @@
 = Amazon SQS Anypoint Connector
 
 :toc: macro
-:toc-title: Contents
+:toc-title: Contents:
 
 :imagesdir: .\images
 
@@ -99,13 +99,15 @@ image::GlobalType.jpg[Connector Configuration, 500]
 4.  Click *OK*.
 5.  Enter the global element properties:
 +
+image::sqsConfigPic.png[Global Configuration, 500]
++
 [width="100%", options="header"]
 |=======
 |Parameter |Description |Example
-|Access Key |Alphanumeric text string that uniquely identifies the user who owns the account |AKIAIA6DBXAES37G62OA
-|Secret Key |Key that plays the role of a password |MMXcMDzAZ8MxY1zdogcwuXvWy0+cYuetl-4wAKFJB
+|Access Key |Alphanumeric text string that uniquely identifies the user who owns the account |AKIAIA6DCDAES37G62OA
+|Secret Key |Key that plays the role of a password |MMXcMDzAZ8M2234dogcwuXvWy0+cYuetl-4wAKFJB
 |Queue Name |Default queue name; If it doesn't exist, Mule automatically creates it|testQueue
-|Queue URL |The URL of the Amazon SQS queue to act upon.|https://sqs.us-east-1.amazonaws.com/0955505019O07/testQueue
+|Queue URL |The URL of the Amazon SQS queue to act upon.|https://sqs.us-east-1.amazonaws.com/0955506219O07/testQueue
 |Region Endpoint |The regional endpoint to make your requests |USWEST2
 |=======
 +
@@ -147,7 +149,7 @@ The Amazon SQS connector is an operation-based connector, which means that when 
 * Send message
 
 === Use Cases
-. Send a message along with meta data and receive it from the queue.
+. Send a message along with meta data to an Amazon SQS queue and then receive it from the queue.
 
 === Adding the Amazon SQS Connector to a Flow
 . Create a new Mule project in Anypoint Studio.
@@ -161,7 +163,7 @@ image::demo_receivemessages.jpg[Connector Parameters, 500]
 |Field |Description |Example
 |Display Name |Enter a unique label for the connector in your application |Add queue permissions
 |Connector Configuration |Select a global Amazon SQS connector element from the drop-drown. |Amazon_SQS_Configuration
-|Operation |Select an operation for the connector perform. |Delete queue
+|Operation |Select an operation for the connector perform. |Receive Messages
 |Queue URL |Select a parameter for the operation. |#[payload]
 |=======
 +
@@ -178,11 +180,11 @@ image::demoflows.jpg[Demo Flow, 500]
 . Add a new HTTP Listener Configuration global element:
 .. In General Settings, click the *+* button:
 +
-image::HTTPConfig[HTTP Listener, 500]
+image::HTTPConfig.png[HTTP Listener, 500]
 +
 .. Configure the following HTTP parameters, while retaining the default values for the other fileds:
 +
-image::HTTPParams[HTTP Parameters, 500]
+image::HTTPParams.png[HTTP Parameters, 500]
 +
 [width="100%", options="header"]
 |=======
