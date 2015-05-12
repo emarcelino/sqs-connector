@@ -7,6 +7,7 @@
 package org.mule.modules.sqs.automation.testcases;
 
 import com.amazonaws.services.sqs.model.CreateQueueResult;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,7 @@ public class GetApproximateNumberOfMessagesTestCases extends SQSFunctionalTestPa
             "Amazon SQS Test Message 2", "Amazon SQS Test Message 3");
 
     private String queueUrl;
+    final String TEST_QUEUE_NAME = ConnectorTestUtils.generateRandomShortString();
 
     @Before
     public void setUp() throws Exception {
@@ -53,6 +55,8 @@ public class GetApproximateNumberOfMessagesTestCases extends SQSFunctionalTestPa
 
     @After
     public void tearDown() throws Exception {
-        getConnector().deleteQueue(queueUrl);
+        if (StringUtils.isNotBlank(queueUrl)) {
+            getConnector().deleteQueue(queueUrl);
+        }
     }
 }

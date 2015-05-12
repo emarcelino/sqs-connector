@@ -27,7 +27,6 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.modules.sqs.RegionEndpoint;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,6 +35,15 @@ import java.util.concurrent.Executors;
 public class SQSConnectionManagement {
 
     private String connectionId;
+
+    /**
+     * The name of the default queue to connect. If does not exist the connector will automatically create one.
+     */
+    @Optional
+    @Configurable
+    @Placement(group = "Optional Parameters")
+    @FriendlyName("Queue Name")
+    private String defaultQueueName;
 
     /**
      * The queue URL to connect to. It takes priority over the queue name defined
@@ -137,14 +145,13 @@ public class SQSConnectionManagement {
     private AmazonSQSAsync msgQueueAsync;
 
     /**
-     * @param accessKey        AWS access key
-     * @param secretKey        AWS secret key
-     * @param defaultQueueName The name of the default queue to connect. (optional)
+     * @param accessKey AWS access key
+     * @param secretKey AWS secret key
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
     @TestConnectivity
-    public void connect(@ConnectionKey String accessKey, String secretKey, @Optional String defaultQueueName)
+    public void connect(@ConnectionKey String accessKey, String secretKey)
             throws ConnectionException {
         try {
             AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -155,15 +162,16 @@ public class SQSConnectionManagement {
                 msgQueue.setEndpoint(region.value());
                 msgQueueAsync.setEndpoint(region.value());
             }
-            if (defaultQueueName != null) {
+
+            if (StringUtils.isNotBlank(url)) {
+                setUrl(url);
+            } else if (StringUtils.isNotBlank(defaultQueueName)) {
                 CreateQueueRequest createQueueRequest = new CreateQueueRequest(defaultQueueName);
                 setUrl(msgQueue.createQueue(createQueueRequest).getQueueUrl());
-            } else if (url != null) {
-                setUrl(url);
-                msgQueue.getQueueAttributes(url, Arrays.asList("All"));
-            } else {
-                throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, null, "A queue name or queue URL must be specified to make a connection.");
             }
+
+            msgQueue.listQueues();
+
         } catch (Exception e) {
             throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
         }
@@ -195,14 +203,17 @@ public class SQSConnectionManagement {
         this.url = queueUrl;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public String getUrl(String queueUrl) {
         if (StringUtils.isNotBlank(queueUrl)) {
             return queueUrl;
-        }
-        if (StringUtils.isNotBlank(this.url)) {
+        } else if (StringUtils.isNotBlank(this.url)) {
             return this.url;
         } else {
-            return null;
+            throw new AmazonClientException("Neither of Global Configuration Queue URL or Message Processor's Queue URL attribute has been defined.");
         }
     }
 
@@ -335,4 +346,14 @@ public class SQSConnectionManagement {
     public void setConnectionTimeout(Integer connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
     }
+
+    public String getDefaultQueueName() {
+        return defaultQueueName;
+    }
+
+    public void setDefaultQueueName(String defaultQueueName) {
+        this.defaultQueueName = defaultQueueName;
+    }
+
+
 }

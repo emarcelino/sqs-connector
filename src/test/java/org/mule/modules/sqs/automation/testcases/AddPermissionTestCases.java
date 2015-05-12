@@ -29,6 +29,7 @@ import static org.junit.Assert.fail;
 public class AddPermissionTestCases extends SQSFunctionalTestParent {
 
     String queueUrl = null;
+    final String TEST_QUEUE_NAME = ConnectorTestUtils.generateRandomShortString();
 
     @Before
     public void setUp() throws Exception {

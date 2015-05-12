@@ -8,6 +8,7 @@ package org.mule.modules.sqs.automation.testcases;
 
 import com.amazonaws.services.sqs.model.CreateQueueResult;
 import com.amazonaws.services.sqs.model.ListDeadLetterSourceQueuesResult;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +60,8 @@ public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent
     @After
     public void tearDown() throws Exception {
         // Delete the DeadLetterQueue
-        getConnector().deleteQueue(queueUrl);
+        if (StringUtils.isNotBlank(queueUrl)) {
+            getConnector().deleteQueue(queueUrl);
+        }
     }
 }

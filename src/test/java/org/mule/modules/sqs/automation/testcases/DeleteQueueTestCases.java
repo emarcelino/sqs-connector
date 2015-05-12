@@ -26,6 +26,7 @@ public class DeleteQueueTestCases extends SQSFunctionalTestParent {
 
     private boolean queueDeleted = false;
     private String queueUrl;
+    final String TEST_QUEUE_NAME = ConnectorTestUtils.generateRandomShortString();
 
     @Before
     public void setup() throws Exception {
