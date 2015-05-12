@@ -1,8 +1,9 @@
 = Amazon SQS Anypoint Connector
 
 :toc: macro
+:toc-title: Contents
 
-:imagesdir: \images
+:imagesdir: .\images
 
 :source-highlighter: prettify
 
@@ -13,24 +14,7 @@
 The Anypoint(TM) Connector for Amazon SQS provides an easy way to interface with the Amazon SQS API,
 allowing users to manage SQS queueing services without having to deal with the API directly.
 
-== Contents:
-
 toc::[]
-
-. <<Introduction>>
-.. <<Prerequisites>>
-.. <<Dependencies>>
-.. <<Compatibility Matrix>>
-. <<Installing and Configuring>>
-.. <<Installing>>
-.. <<Creating a New Project>>
-. <<Configuring the Amazon SQS Connector Global Element>>
-.. <<Updating From an Older Version>>
-. <<Using the Connector>>
-.. <<Use Cases>>
-.. <<Adding the Amazon SQS Connector to a Flow>>
-. <<Example Use Case>>
-. <<Example Code>>
 
 == Introduction
 
