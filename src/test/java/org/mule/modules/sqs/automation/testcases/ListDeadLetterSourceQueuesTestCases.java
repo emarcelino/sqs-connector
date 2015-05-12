@@ -27,31 +27,33 @@ import static org.junit.Assert.*;
 
 public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent {
 
-    String queueUrl;
-    final String queueName = "SQSConnectorDeadLetterQueue";
+    String deadLetterQueueUrl;
+    String sourceQueueUrl;
     Map<String, String> attributes;
 
     @Before
     public void setUp() throws Exception {
-        CreateQueueResult createQueueResult = getConnector().createQueue(queueName, RegionEndpoint.USEAST1, null);
-        queueUrl = createQueueResult.getQueueUrl();
-        attributes = getConnector().getQueueAttributes(Arrays.asList("QueueArn"), queueUrl).getAttributes();
+        CreateQueueResult deadLetterQueue = getConnector().createQueue("SQSConnectorDeadLetterQueue", RegionEndpoint.USEAST1, null);
+        deadLetterQueueUrl = deadLetterQueue.getQueueUrl();
+
+        CreateQueueResult mySourceQueue = getConnector().createQueue("mySourceQueue", RegionEndpoint.USEAST1, null);
+        sourceQueueUrl = mySourceQueue.getQueueUrl();
+        attributes = getConnector().getQueueAttributes(Arrays.asList("QueueArn"), deadLetterQueueUrl).getAttributes();
         String redrivePolicy = String.format("{\"maxReceiveCount\":\"%s\", \"deadLetterTargetArn\":\"%s\"}",
                 5, attributes.get("QueueArn"));
 
         attributes = new HashMap<String, String>();
         attributes.put("RedrivePolicy", redrivePolicy);
-        getConnector().setQueueAttributes(attributes, queueUrl);
+        getConnector().setQueueAttributes(attributes, sourceQueueUrl);
     }
 
     @Category({RegressionTests.class, SmokeTests.class})
     @Test
     public void testListDeadLetterSourceQueues() {
         try {
-            ListDeadLetterSourceQueuesResult result = getConnector().listDeadLetterSourceQueues(queueUrl);
+            ListDeadLetterSourceQueuesResult result = getConnector().listDeadLetterSourceQueues(deadLetterQueueUrl);
             assertTrue(result.getQueueUrls() != null);
-            String expectedQueueUrl = getConnector().getQueueUrl(queueName, null).getQueueUrl();
-            assertEquals(expectedQueueUrl, result.getQueueUrls().get(0));
+            assertEquals(sourceQueueUrl, result.getQueueUrls().get(0));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -60,8 +62,11 @@ public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent
     @After
     public void tearDown() throws Exception {
         // Delete the DeadLetterQueue
-        if (StringUtils.isNotBlank(queueUrl)) {
-            getConnector().deleteQueue(queueUrl);
+        if (StringUtils.isNotBlank(deadLetterQueueUrl)) {
+            getConnector().deleteQueue(deadLetterQueueUrl);
+        }
+        if (StringUtils.isNotBlank(sourceQueueUrl)) {
+            getConnector().deleteQueue(sourceQueueUrl);
         }
     }
 }
