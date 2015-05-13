@@ -8,6 +8,7 @@ package org.mule.modules.sqs.automation.testcases;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.sqs.model.CreateQueueResult;
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,7 @@ import static org.junit.Assert.fail;
 public class RemovePermissionTestCases extends SQSFunctionalTestParent {
 
     String queueUrl;
+    final String TEST_QUEUE_NAME = ConnectorTestUtils.generateRandomShortString();
 
     @Before
     public void setup() throws Exception {
@@ -71,6 +73,8 @@ public class RemovePermissionTestCases extends SQSFunctionalTestParent {
 
     @After
     public void tearDown() throws Exception {
-        getConnector().deleteQueue(queueUrl);
+        if (StringUtils.isNotBlank(queueUrl)) {
+            getConnector().deleteQueue(queueUrl);
+        }
     }
 }

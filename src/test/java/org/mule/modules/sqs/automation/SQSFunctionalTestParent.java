@@ -12,6 +12,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mule.modules.sqs.SQSConnector;
+import org.mule.modules.tests.ConnectorTestUtils;
 import org.mule.tools.devkit.ctf.mockup.ConnectorDispatcher;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 import org.mule.tools.devkit.ctf.platform.PlatformManager;
@@ -25,7 +26,6 @@ public class SQSFunctionalTestParent {
 
     private static final Logger logger = LoggerFactory.getLogger(SQSFunctionalTestParent.class);
 
-    public static final String TEST_QUEUE_NAME = "SqsTestQueueAUTOMATION";
     public static final String TEST_QUEUE_REGION = "USEAST1";
 
     private SQSConnector connector;
@@ -36,13 +36,6 @@ public class SQSFunctionalTestParent {
         ConnectorTestContext<SQSConnector> context = ConnectorTestContext.getInstance(SQSConnector.class);
         dispatcher = context.getConnectorDispatcher();
         connector = dispatcher.createMockup();
-    }
-
-    @After
-    public void destroy() throws Exception {
-        logger.info("Waiting 60 seconds before trying to create/delete the queue with same name.");
-        logger.info("################################################################################\n");
-        Thread.sleep(62000);
     }
 
     protected SQSConnector getConnector() {

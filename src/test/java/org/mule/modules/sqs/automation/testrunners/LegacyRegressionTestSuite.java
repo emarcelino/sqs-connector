@@ -11,7 +11,6 @@ import org.junit.experimental.categories.Categories.IncludeCategory;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 import org.mule.modules.sqs.automation.LegacyRegressionTests;
-import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.testcases.legacy.*;
 
 @RunWith(Categories.class)

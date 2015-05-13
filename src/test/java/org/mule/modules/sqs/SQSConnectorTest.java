@@ -46,6 +46,7 @@ public class SQSConnectorTest {
         SQSConnectionManagement connectionManagement = new SQSConnectionManagement();
         connectionManagement.setMsgQueue(msgQueue);
         connectionManagement.setMsgQueueAsync(msgQueueAsync);
+        connectionManagement.setUrl(ConnectorTestUtils.generateRandomShortString());
 
         this.connector.setConnection(connectionManagement);
     }
