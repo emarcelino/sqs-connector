@@ -42,6 +42,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
         attributes = new HashMap<String, String>();
         attributes.put("RedrivePolicy", redrivePolicy);
         upsertOnTestRunMessage("attributes", attributes);
+        removeFromTestRunMessage("queueUrl");
         runFlowAndGetPayload("set-queue-attribute");
     }
 
@@ -49,6 +50,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SqsTestParent {
     @Test
     public void testListDeadLetterSourceQueues() {
         try {
+            upsertOnTestRunMessage("queueUrl", queueUrl);
             ListDeadLetterSourceQueuesResult result = runFlowAndGetPayload("list-dead-letter-source-queues");
             assertTrue(result.getQueueUrls() != null);
             upsertOnTestRunMessage("queueName", getTestRunMessageValue("expectedQueueName").toString());

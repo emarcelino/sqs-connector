@@ -37,7 +37,8 @@ public class SQSConnectionManagement {
     private String connectionId;
 
     /**
-     * The name of the default queue to connect. If does not exist the connector will automatically create one.
+     * Name of the queue to connect, if one does not exist the connector will automatically create one.
+     * Required if Queue URL has not been defined.
      */
     @Optional
     @Configurable
@@ -46,8 +47,7 @@ public class SQSConnectionManagement {
     private String defaultQueueName;
 
     /**
-     * The queue URL to connect to. It takes priority over the queue name defined
-     * in the connection parameters.
+     * Queue URL takes priority over the Queue Name and is required if Queue Name has not been defined.
      */
     @Optional
     @Configurable
