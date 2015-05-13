@@ -10,7 +10,7 @@ to be always available.
 MuleSoft Inc.
 
 == Supported Mule runtime versions
-Mule runtime 3.5.x and above
+Mule runtime 3.5.x or later.
 
 == AWS SQS supported versions
 AWS SDK for JAVA v1.9.30.

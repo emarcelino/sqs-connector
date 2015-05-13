@@ -11,7 +11,7 @@
 
 [green]#Community#
 
-The Amazon SQS Anypoint(TM) Connector provides an easy way to interface with the Amazon Simple Queue Service API,
+The Anypoint(TM) Connector for Amazon SQS provides an easy way to interface with the Amazon Simple Queue Service API,
 allowing Mule ESB users to manage SQS queueing services without having to deal with the API directly.
 
 toc::[]
@@ -27,7 +27,7 @@ The AWS SDK for Java provides a Java API for AWS infrastructure services. The Am
 operations supported by the connector, see http://mulesoft.github.io/sqs-connector/[Apidocs and Samples].
 
 Although it is called a queue, Amazon SQS does not guarantee FIFO access to messages in Amazon SQS queues, mainly because of its distributed nature.
-If you require specific message ordering, you should design your application to handle it.
+If you require specific message ordering, you need to design your application to handle it.
 
 === Prerequisites
 
@@ -58,17 +58,8 @@ As the connector comes pre-bundled with Anypoint Studio, you must:
 
 == Installing and Configuring
 
-You can “test drive” the Amazon SQS Connector once you have downloaded the latest Anypoint Studio,
- follow the steps below to install and configure Amazon SQS Connector.
-
 === Installing
-
-If you haven't installed Anypoint Studio on your computer yet, it's time to download https://www.mulesoft.com/studio[Anypoint Studio].
-You also have the option of downloading a 30 day trial of http://www.mulesoft.com/mule-esb-enterprise[Mule Enterprise Edition].
-There is no specific installation that you need to run. Once you unzip the file to your desired location, you are ready to go.
-
-To install the Amazon SQS connector in Anypoint Studio follow the instructions described in
-http://www.mulesoft.org/documentation/display/current/Anypoint+Exchange#AnypointExchange-InstallingaConnectorfromAnypointExchange[Installing a Connector from Anypoint Exchange].
+You can install a connector in Anypoint Studio using the instructions in http://www.mulesoft.org/documentation/display/current/Anypoint+Exchange[Installing a Connector from Anypoint Exchange].
 
 === Updating From an Older Version
 
@@ -76,7 +67,7 @@ Everytime an updated version of a connector is released, Anypoint studio display
 To upgrade to the newer version of the Amazon SQS connector:
 
 1. Click the popup and check for the available updates.
-2. Click the *Amazon SQS connector version 3.0* check-box and click *Next*.
+2. Select the *Amazon SQS connector version 3.0* check-box and click *Next*.
 3. Follow the instructions provided by the user interface.
 4. Restart Studio when prompted.
 After restarting, if you have several versions of the connector installed, Mule asks you for the version of the connector you like to use.
@@ -117,27 +108,24 @@ image::sqsConfigPic.jpg[Global Configuration, 500]
 |Key Parameters |Description |Example
 |Access Key |Alphanumeric text string that uniquely identifies the user who owns the account |AKIAIA6DCDAES37G62OA
 |Secret Key |Key that plays the role of a password |MMXcMDzAZ8M2234dogcwuXvWy0+cYuetl-4wAKFJB
-|Queue Name |Default queue name; If it doesn't exist, Mule automatically creates it|testQueue
-|Queue URL |The URL of the Amazon SQS queue to act upon.|https://sqs.us-east-1.amazonaws.com/0955506219O07/testQueue
-|Region Endpoint |The regional endpoint to make your requests |USWEST2
+|Queue Name |The default queue name; if it doesn't exist, Mule automatically creates it|testQueue
+|Queue URL |The URL of the Amazon SQS queue to act upon |https://sqs.us-east-1.amazonaws.com/0955506219O07/testQueue
+|Region Endpoint |The regional endpoint to process your requests |USWEST2
 |=======
 +
 [NOTE]
 ====
-When a *Queue Name* is provided in the Global Element Properties, the connector automatically create the queue if it does not exist and the url of this queue is set as *Queue URL*
-by the connector. All the Amazon SQS Message processor's that reference this Global Configuration will perform operations using this *Queue URL*.
+When a *Queue Name* is provided in the global element, the connector automatically creates the queue and sets the url of this queue as *Queue URL*. All the Amazon SQS Message processors that reference the global element perform operations using this *Queue URL*.
 
-If you have to reference a different *Queue URL* for a particular Message Processor in the flow, you can perform the operation using the *Queue URL* attribute provided by the Message Processor.
+If you have to reference a different *Queue URL* for a particular message processor in the flow, you can perform the operation using the *Queue URL* attribute provided by the Message Processor.
 ====
 +
 6.  Keep the *Pooling Profile* and the *Reconnection  tabs* with their default entries.
 7. Click *Test Connection* to confirm that the parameters of your global configuration are accurate, and that Mule is able to successfully connect to your instance of Amazon SQS. Read more about http://www.mulesoft.org/documentation/display/current/Testing+Connections[Testing Connections].
 8. Click *OK* to save the global connector configurations.
 
-
-
 == Using the Connector
-The Amazon SQS connector is an operation-based connector, which means that when you add the connector to your flow, you need to configure a specific operation the connector is intended to perform. Following are the operations supported by the connector:
+The Amazon SQS connector is an operation-based connector, which means that when you add the connector to your flow, you need to configure a specific operation the connector is intended to perform. The Amazon SQS connector supports the following operations:
 
 * Add Permission
 * Change message visibility
@@ -178,16 +166,16 @@ image::demo_receivemessages.jpg[Connector Parameters, 500]
 
 == Example Use Case
 
-Send a message along with meta data to an Amazon SQS queue and then receive it from the queue. Lets
-split the use case into two flows.
+Send a message along with meta data to an Amazon SQS queue and then receive it from the queue. This can be
+split into the following two flows.
 
-1. To send message along with meta data and get the count of the messages in queue to validate the message has
+1. Send message along with meta data, and then get the count of the messages in the queue to validate that the message has
 been sent.
-2. Receive the message and log the message body. Finally delete message from queue.
+2. Receive the message, log the message body, and delete the message from the queue.
 
 image::demoflows.jpg[Demo Flow, 500]
 
-Lets start with sending the message to queue.
+Begin the flow by sending a message to queue.
 
 . Create a new Mule project in Anypoint Studio.
 . Drag an HTTP connector into the canvas, then select it to open the properties editor console.
@@ -207,7 +195,7 @@ image::HTTPParams.png[HTTP Parameters, 500]
 |Port|8081
 |=======
 +
-.. Reference the HTTP Listener Configuration global element and set the path '/sendmessage':
+.. Reference the HTTP Listener Configuration global element and set the path to '/sendmessage':
 +
 image::HTTPReference.jpg[HTTP Connector, 500]
 +
@@ -269,16 +257,15 @@ image::demo_getmessagecount.jpg[Get Message Count, 500]
 |Field | Value
 |Display Name	| Enter a name for the connector instance.
 |Connector Configuration |Select the global configuration you create.
-|Operation |Get approximate number of messages
+|Operation |Get approximate number of messages.
 |===
 +
 . Add a *Logger* to print the number in the Mule Console.
 +
 image::demo_logger2.jpg[Logger, 500]
 
-This completes the first part of the use case. Lets now proceed to the next flow.
+This completes the first part of the use case. Now proceed to the next flow.
 
-. Drag a flow component on to the canvas to define the process of receiving the messages and delete them from the queue.
 . Drag an Amazon SQS connector and configure it as an inbound endpoint:
 +
 image::demo_receivemessages.jpg[Receive Messages, 500]
@@ -297,8 +284,8 @@ image::demo_receivemessages.jpg[Receive Messages, 500]
 ====
 The Message processor's *Queue Url* attribute takes precedence over the Global Element Properties *Queue URL*.
 
-If neither of the attributes belonging to Global Element Properties *Queue Name*, *Queue URL* and Message Processor's *Queue Url* are provided,
-then the connector will throw an exception.
+If none of the attributes belonging to Global Element Properties, including *Queue Name*, *Queue URL*, and the Message Processor's *Queue Url* is provided,
+the connector throws an exception.
 ====
 +
 . Add a *Logger* to print the message in the Mule Console:
@@ -311,7 +298,7 @@ then the connector will throw an exception.
 |Level |INFO (Default)
 |===
 +
-. Add another *Logger* to print the message handle in the console, delete message processor requires the message handle to delete the message from queue:
+. Add another *Logger* to print the message handle in the console. Delete message processor requires the message handle to delete the message from the queue:
 +
 image::demo_displaymessagehandle.jpg[Display Message Handle, 500]
 +
@@ -323,7 +310,7 @@ image::demo_displaymessagehandle.jpg[Display Message Handle, 500]
 |Level |INFO (Default)
 |===
 +
-. Now configure a Amazon SQS connector to delete the message from the queue.
+. Now configure an Amazon SQS connector to delete the message from the queue.
 +
 image::demo_deletemessage.jpg[Delete Message, 500]
 +
@@ -340,7 +327,7 @@ image::demo_deletemessage.jpg[Delete Message, 500]
 == Example Code
 NOTE: For this code to work in Anypoint Studio, you must provide Amazon Web Services credentials.
 You can either replace the variables with their values in the code, or you can provide the values
-for each variable in src/main/app/mule-app.properties file.
+for each variable in the src/main/app/mule-app.properties file.
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -403,9 +390,9 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 </mule>
 ----
 === Test the flows
-Once the flow are ready and the mule app is up, visit http://localhost:8081/sendmessage?msg=<message-body>
+Aft-er the flows are ready and the Mule app is up, visit http://localhost:8081/sendmessage?msg=<message-body> to test the flow.
 
-While the mule console logs the output, you can notice that the inbound message processor *Receive Messages* retrieves the message sent.
+While the mule console logs the output, you can notice that the inbound message processor, Receive Messages, retrieves the message sent.
 
 == See Also
 

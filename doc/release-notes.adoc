@@ -32,7 +32,7 @@ AWS SDK for Java| v1.9.30 |
 === Features and Functionality
 
 * Upgraded AWS SDK for Java to 1.9.30.
-* Upgraded Anypoint Connector Devkit to 3.6.1
+* Upgraded Anypoint Connector Devkit to 3.6.1.
 * Added the following new operations:
 ** ChangeMessageVisibility
 ** ChangeMessageVisibilityBatch
