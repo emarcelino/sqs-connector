@@ -40,7 +40,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent
 
         attributes = new HashMap<String, String>();
         attributes.put("RedrivePolicy", redrivePolicy);
-        getConnector().setQueueAttributes(attributes, queueUrl);
+        getConnector().setQueueAttributes(attributes, null);
     }
 
     @Category({RegressionTests.class, SmokeTests.class})
@@ -60,5 +60,7 @@ public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent
     public void tearDown() throws Exception {
         // Delete the DeadLetterQueue
         getConnector().deleteQueue(queueUrl);
+        // Delete the source queue
+        getConnector().deleteQueue(null);
     }
 }

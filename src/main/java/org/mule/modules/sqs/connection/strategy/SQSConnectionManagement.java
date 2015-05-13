@@ -38,8 +38,7 @@ public class SQSConnectionManagement {
     private String connectionId;
 
     /**
-     * The queue URL to connect to. It takes priority over the queue name defined
-     * in the connection parameters.
+     * Queue URL takes priority over the Default Queue Name and is required if Default Queue Name has not been defined.
      */
     @Optional
     @Configurable
@@ -139,7 +138,7 @@ public class SQSConnectionManagement {
     /**
      * @param accessKey        AWS access key
      * @param secretKey        AWS secret key
-     * @param defaultQueueName The name of the default queue to connect. (optional)
+     * @param defaultQueueName Name of the queue to connect. Required if Queue URL has not been defined.
      * @throws ConnectionException If a connection cannot be made
      */
     @Connect
