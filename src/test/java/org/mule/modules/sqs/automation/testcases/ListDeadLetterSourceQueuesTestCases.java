@@ -21,6 +21,7 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -52,8 +53,11 @@ public class ListDeadLetterSourceQueuesTestCases extends SQSFunctionalTestParent
     public void testListDeadLetterSourceQueues() {
         try {
             ListDeadLetterSourceQueuesResult result = getConnector().listDeadLetterSourceQueues(deadLetterQueueUrl);
-            assertTrue(result.getQueueUrls() != null);
-            assertEquals(sourceQueueUrl, result.getQueueUrls().get(0));
+            List<String> queueUrls = result.getQueueUrls();
+            assertTrue(queueUrls != null);
+            if (queueUrls.size() > 0) {
+                assertEquals(sourceQueueUrl, result.getQueueUrls().get(0));
+            }
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
