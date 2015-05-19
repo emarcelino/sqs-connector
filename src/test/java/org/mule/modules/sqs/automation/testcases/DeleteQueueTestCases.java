@@ -12,7 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MessagingException;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
@@ -49,12 +48,8 @@ public class DeleteQueueTestCases extends SQSFunctionalTestParent {
         try {
             getConnector().getApproximateNumberOfMessages(queueUrl);
         } catch (Exception e) {
-            if (e.getCause() instanceof MessagingException) {
-                MessagingException me = (MessagingException) e.getCause();
-                if (me.getCause() instanceof AmazonServiceException) {
-                    AmazonServiceException serviceException = (AmazonServiceException) me.getCause();
-                    assertEquals("AWS.SimpleQueueService.NonExistentQueue", serviceException.getErrorCode());
-                }
+            if (e instanceof AmazonServiceException) {
+                assertEquals("AWS.SimpleQueueService.NonExistentQueue", ((AmazonServiceException) e).getErrorCode());
             } else {
                 fail(ConnectorTestUtils.getStackTrace(e));
             }

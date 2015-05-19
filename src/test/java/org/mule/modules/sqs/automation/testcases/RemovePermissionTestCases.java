@@ -13,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MessagingException;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
@@ -57,14 +56,11 @@ public class RemovePermissionTestCases extends SQSFunctionalTestParent {
         try {
             getConnector().removePermission("fooPermission", queueUrl);
         } catch (Exception e) {
-            if (e.getCause() instanceof MessagingException) {
-                MessagingException me = (MessagingException) e.getCause();
-                if (me.getCause() instanceof AmazonServiceException) {
-                    AmazonServiceException serviceException = (AmazonServiceException) me.getCause();
-                    assertEquals("InvalidParameterValue", serviceException.getErrorCode());
-                    assertEquals(String.format("Value %s for parameter Label is invalid. Reason: can't find label on existing policy.",
-                            "fooPermission"), serviceException.getErrorMessage());
-                }
+            if (e instanceof AmazonServiceException) {
+                AmazonServiceException serviceException = (AmazonServiceException) e;
+                assertEquals("InvalidParameterValue", serviceException.getErrorCode());
+                assertEquals(String.format("Value %s for parameter Label is invalid. Reason: can't find label on existing policy.",
+                        "fooPermission"), serviceException.getErrorMessage());
             } else {
                 fail(ConnectorTestUtils.getStackTrace(e));
             }
