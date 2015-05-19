@@ -19,9 +19,7 @@
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
-        <amazon.sdk.version>1.9.30</amazon.sdk.version>
-        <apache.http.version>4.4.1</apache.http.version>
-        <joda.time.version>2.7</joda.time.version>
+        <amazon.sdk.version>1.9.0</amazon.sdk.version>
         <connector.testing.framework.version>0.9.1-SNAPSHOT</connector.testing.framework.version>
         <jdk.version>1.6</jdk.version>
     </properties>
@@ -31,21 +29,20 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-sqs</artifactId>
             <version>${amazon.sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>${joda.time.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${apache.http.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>${apache.http.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-core</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jackson-annotations</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mule.tools.devkit</groupId>
@@ -53,7 +50,6 @@
             <version>${connector.testing.framework.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

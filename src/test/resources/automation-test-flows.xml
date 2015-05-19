@@ -89,7 +89,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     </flow>
 
     <flow name="purge-queue" doc:name="purge-queue">
-        <sqs:purge-queue queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
+        <!--sqs:purge-queue queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/-->
     </flow>
 
     <flow name="receive-messages" doc:name="receive-messages" initialState="stopped">

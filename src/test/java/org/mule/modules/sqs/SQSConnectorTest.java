@@ -174,7 +174,7 @@ public class SQSConnectorTest {
         }
     }
 
-    @Test
+    /*@Test
     public void testPurgeQueue() {
         try {
             doNothing().when(msgQueue).purgeQueue(any(PurgeQueueRequest.class));
@@ -182,7 +182,7 @@ public class SQSConnectorTest {
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
-    }
+    }*/
 
     @Test
     public void testRemovePermission() {

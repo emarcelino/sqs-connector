@@ -13,7 +13,6 @@
                 <attribute name="region" use="required" caption="Region Endpoint" group="Optional Parameters" type="enum" javaType="org.mule.modules.sqs.RegionEndpoint" prefix="sqs" category="General">${sqs.region}</attribute>
                 <attribute name="accessKey" use="required" caption="Access Key" group="Connection" type="string" javaType="java.lang.String" prefix="sqs" category="General">${sqs.accessKey}</attribute>
                 <attribute name="secretKey" use="required" caption="Secret Key" group="Connection" type="string" javaType="java.lang.String" prefix="sqs" category="General">${sqs.secretKey}</attribute>
-                <attribute name="defaultQueueName" use="required" caption="Default Queue Name" group="Connection" type="string" javaType="java.lang.String" prefix="config" category="General">${config.defaultQueueName}</attribute>
             </attributes>
         </config>
     </global-config>
@@ -29,7 +28,6 @@
                 <attribute name="account-ids" use="required" caption="Account Ids" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General">[sampleFieldsList]</attribute>
                 <attribute name="actions" use="required" caption="Actions" group="General" type="element-controller-list" javaType="java.util.List&lt;java.lang.String&gt;" category="General">[sampleFieldsList]</attribute>
             </attributes>
-            <childElements/>
         </processor>
         <processor name="changeMessageVisibility" xmlName="change-message-visibility" caption="Change message visibility">
             <properties>
@@ -40,7 +38,6 @@
             <attributes>
                 <attribute name="visibilityTimeout" use="required" caption="Visibility Timeout" group="General" type="integer" javaType="java.lang.Integer" category="General">60</attribute>
             </attributes>
-            <childElements/>
         </processor>
         <processor name="changeMessageVisibilityBatch" xmlName="change-message-visibility-batch" caption="Change message visibility batch">
             <properties>
@@ -48,19 +45,16 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="createQueue" xmlName="create-queue" caption="Create queue">
             <properties>
-                <datamapper input="CreateQueueResult" output=""/>
+                <datamapper input="CreateQueueResult" output="Map"/>
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
             <attributes>
                 <attribute name="queueName" use="required" caption="Queue Name" group="General" type="string" javaType="java.lang.String" category="General">randomQueueName</attribute>
             </attributes>
-            <childElements/>
         </processor>
         <processor name="deleteMessage" xmlName="delete-message" caption="Delete message">
             <properties>
@@ -68,8 +62,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="deleteMessageBatch" xmlName="delete-message-batch" caption="Delete message batch">
             <properties>
@@ -77,8 +69,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="deleteQueue" xmlName="delete-queue" caption="Delete queue">
             <properties>
@@ -86,8 +76,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="getQueueAttributes" xmlName="get-queue-attributes" caption="Get queue attributes">
             <properties>
@@ -95,8 +83,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="getQueueUrl" xmlName="get-queue-url" caption="Get queue url">
             <properties>
@@ -107,7 +93,6 @@
             <attributes>
                 <attribute name="queueName" use="required" caption="Queue Name" group="General" type="string" javaType="java.lang.String" category="General">randomQueueName</attribute>
             </attributes>
-            <childElements/>
         </processor>
         <processor name="listDeadLetterSourceQueues" xmlName="list-dead-letter-source-queues" caption="List dead letter source queues">
             <properties>
@@ -115,8 +100,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="listQueues" xmlName="list-queues" caption="List queues">
             <properties>
@@ -124,17 +107,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
-        </processor>
-        <processor name="purgeQueue" xmlName="purge-queue" caption="Purge queue">
-            <properties>
-                <datamapper input="" output=""/>
-                <auto-paging>false</auto-paging>
-                <query-support>false</query-support>
-            </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="removePermission" xmlName="remove-permission" caption="Remove permission">
             <properties>
@@ -145,7 +117,6 @@
             <attributes>
                 <attribute name="label" use="required" caption="Label" group="General" type="string" javaType="java.lang.String" category="General">randomLabel</attribute>
             </attributes>
-            <childElements/>
         </processor>
         <processor name="sendMessage" xmlName="send-message" caption="Send message">
             <properties>
@@ -156,7 +127,6 @@
             <attributes>
                 <attribute name="message" use="required" caption="Message" group="General" type="string" javaType="java.lang.String" category="General">Hello MuleSoft</attribute>
             </attributes>
-            <childElements/>
         </processor>
         <processor name="sendMessageBatch" xmlName="send-message-batch" caption="Send message batch">
             <properties>
@@ -164,8 +134,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="setQueueAttributes" xmlName="set-queue-attributes" caption="Set queue attributes">
             <properties>
@@ -173,8 +141,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
         <processor name="getApproximateNumberOfMessages" xmlName="get-approximate-number-of-messages" caption="Get approximate number of messages">
             <properties>
@@ -182,8 +148,6 @@
                 <auto-paging>false</auto-paging>
                 <query-support>false</query-support>
             </properties>
-            <attributes/>
-            <childElements/>
         </processor>
     </message-processors>
 </connector>
