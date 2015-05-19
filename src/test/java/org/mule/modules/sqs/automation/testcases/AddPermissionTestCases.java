@@ -13,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MessagingException;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
@@ -54,13 +53,9 @@ public class AddPermissionTestCases extends SQSFunctionalTestParent {
         try {
             getConnector().addPermission("fooPermission", accountIds, actions, queueUrl);
         } catch (Exception e) {
-            if (e.getCause() instanceof MessagingException) {
-                MessagingException me = (MessagingException) e.getCause();
-                if (me.getCause() instanceof AmazonServiceException) {
-                    AmazonServiceException serviceException = (AmazonServiceException) me.getCause();
-                    assertEquals("InvalidParameterValue", serviceException.getErrorCode());
-                    assertEquals(String.format("Value %s for parameter PrincipalId is invalid. Reason: Unable to verify.", accountIds), serviceException.getErrorMessage());
-                }
+            if (e instanceof AmazonServiceException) {
+                assertEquals("InvalidParameterValue", ((AmazonServiceException) e).getErrorCode());
+                assertEquals(String.format("Value %s for parameter PrincipalId is invalid. Reason: Unable to verify.", accountIds), ((AmazonServiceException) e).getErrorMessage());
             } else {
                 fail(ConnectorTestUtils.getStackTrace(e));
             }

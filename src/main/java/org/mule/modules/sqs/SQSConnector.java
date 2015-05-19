@@ -252,7 +252,9 @@ public class SQSConnector {
      */
     @Processor
     public ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) {
-        return msgQueue.listDeadLetterSourceQueues(new ListDeadLetterSourceQueuesRequest(getConnection().getUrl(queueUrl)));
+        ListDeadLetterSourceQueuesRequest listDeadLetterSourceQueuesRequest = new ListDeadLetterSourceQueuesRequest();
+        listDeadLetterSourceQueuesRequest.setQueueUrl(getConnection().getUrl(queueUrl));
+        return msgQueue.listDeadLetterSourceQueues(listDeadLetterSourceQueuesRequest);
     }
 
     /**
@@ -274,6 +276,7 @@ public class SQSConnector {
         return msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
     }
 
+
     /**
      * Deletes the messages in a queue specified by the queue URL.
      * <p/>
@@ -286,10 +289,10 @@ public class SQSConnector {
      * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
      *                                either a problem with the data in the request, or a server side issue.
      */
-    @Processor
+    /*@Processor
     public void purgeQueue(@Optional String queueUrl) {
         msgQueue.purgeQueue(new PurgeQueueRequest(getConnection().getUrl(queueUrl)));
-    }
+    }*/
 
     /**
      * Attempts to receive messages from a queue. Every attribute of the incoming

@@ -88,9 +88,9 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
         <sqs:list-dead-letter-source-queues queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
     </flow>
 
-    <flow name="purge-queue" doc:name="purge-queue">
+    <!--flow name="purge-queue" doc:name="purge-queue">
         <sqs:purge-queue queueUrl="#[flowVars.queueUrl]" config-ref="SQS" doc:name="Amazon SQS"/>
-    </flow>
+    </flow-->
 
     <flow name="receive-messages" doc:name="receive-messages" initialState="stopped">
         <sqs:receive-messages config-ref="SQS" preserveMessages="true" doc:name="Amazon SQS"/>
