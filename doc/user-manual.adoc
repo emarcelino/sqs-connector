@@ -204,14 +204,13 @@ image::Groovy.jpg[Groovy Transformer, 500]
 +
 [width="100%", options="header"]
 |=======
-|Field |Value |Description
-|Name |Groovy |
-|Script Text|import com.amazonaws.shade.services.sqs.model.MessageAttributeValue;
+|Field |Value
+|Name |Groovy
+|Script Text|import com.amazonaws.services.sqs.model.MessageAttributeValue;
 			Map<String, MessageAttributeValue> messageAttributes = new HashMap<String, MessageAttributeValue>();
             messageAttributes.put("AccountId", new MessageAttributeValue().withDataType("String.AccountId").withStringValue("000123456"));
             messageAttributes.put("NumberId", new MessageAttributeValue().withDataType("Number").withStringValue("230.000000000000000001"));
-			return messageAttributes; |Note:  The amazon sdk has been shaded to avoid dependency conflicts, Hence
-			we have to import the MessageAttribute class belonging to the shaded package.
+			return messageAttributes;
 |=======
 +
 . Drag an Amazon SQS connector into the flow, and double-click the connector to open its Properties Editor.
@@ -357,7 +356,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 		<scripting:transformer doc:name="Groovy" encoding="ISO-8859-2">
 			<scripting:script engine="Groovy">
 			<![CDATA[
-			import com.amazonaws.shade.services.sqs.model.MessageAttributeValue;
+			import com.amazonaws.services.sqs.model.MessageAttributeValue;
 			Map<String, MessageAttributeValue> messageAttributes = new HashMap<String, MessageAttributeValue>();
             messageAttributes.put("AccountId", new MessageAttributeValue().withDataType("String.AccountId").withStringValue("000123456"));
             messageAttributes.put("NumberId", new MessageAttributeValue().withDataType("Number").withStringValue("230.000000000000000001"));
