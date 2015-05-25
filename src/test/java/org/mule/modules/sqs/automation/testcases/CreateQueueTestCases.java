@@ -6,9 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Test;
@@ -16,13 +13,17 @@ import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
+import org.mule.modules.sqs.model.CreateQueueResult;
+import org.mule.modules.sqs.model.GetQueueAttributesResult;
+import org.mule.modules.sqs.model.GetQueueUrlResult;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class CreateQueueTestCases extends SQSFunctionalTestParent {
 

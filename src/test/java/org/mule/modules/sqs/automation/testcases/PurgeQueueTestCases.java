@@ -6,8 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -17,6 +15,8 @@ import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
+import org.mule.modules.sqs.model.CreateQueueResult;
+import org.mule.modules.sqs.model.SendMessageResult;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.UUID;
@@ -46,7 +46,7 @@ public class PurgeQueueTestCases extends SQSFunctionalTestParent {
     @Test
     public void testPurgeQueue() {
         try {
-           // getConnector().purgeQueue(queueUrl);
+            // getConnector().purgeQueue(queueUrl);
             assertEquals(0, getConnector().getApproximateNumberOfMessages(queueUrl));
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));

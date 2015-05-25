@@ -20,6 +20,8 @@
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
         <amazon.sdk.version>1.9.0</amazon.sdk.version>
+        <apache.http.version>4.2</apache.http.version>
+        <joda.time.version>2.5</joda.time.version>
         <connector.testing.framework.version>0.9.1-SNAPSHOT</connector.testing.framework.version>
         <jdk.version>1.6</jdk.version>
     </properties>
@@ -45,12 +47,75 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.time.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${apache.http.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${apache.http.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.mule.tools.devkit</groupId>
             <artifactId>connector-testing-framework</artifactId>
             <version>${connector.testing.framework.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <!-- Amazon SDK & Apache HTTP shade base configuration -->
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <minimizeJar>true</minimizeJar>
+                    <artifactSet>
+                        <includes combine.children="append">
+                            <include>com.amazonaws:*</include>
+                            <include>org.apache.httpcomponents:*</include>
+                            <include>joda-time:*</include>
+                        </includes>
+                    </artifactSet>
+                    <relocations combine.children="append">
+                        <relocation>
+                            <pattern>org.apache.http</pattern>
+                            <shadedPattern>org.apache.http.shade</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.amazonaws</pattern>
+                            <shadedPattern>com.amazonaws.shade</shadedPattern>
+                            <excludes combine.children="append">
+                                <exclude>com.amazonaws.services.sqs.model.holders.*</exclude>
+                                <exclude>com.amazonaws.services.sqs.model.transformers.*</exclude>
+                            </excludes>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.joda.time</pattern>
+                            <shadedPattern>org.joda.time.shade</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <transformers>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                            <resources>
+                                <resource>request.handlers</resource>
+                            </resources>
+                        </transformer>
+                    </transformers>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <repository>

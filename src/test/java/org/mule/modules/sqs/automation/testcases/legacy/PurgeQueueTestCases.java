@@ -6,8 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases.legacy;
 
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -15,6 +13,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.model.CreateQueueResult;
+import org.mule.modules.sqs.model.SendMessageResult;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.UUID;

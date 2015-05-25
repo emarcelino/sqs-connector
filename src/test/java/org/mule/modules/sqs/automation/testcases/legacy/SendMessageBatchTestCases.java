@@ -6,14 +6,14 @@
 
 package org.mule.modules.sqs.automation.testcases.legacy;
 
-import com.amazonaws.services.sqs.model.SendMessageBatchResult;
-import com.amazonaws.services.sqs.model.SendMessageBatchResultEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.model.SendMessageBatchResult;
+import org.mule.modules.sqs.model.SendMessageBatchResultEntry;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.List;
