@@ -6,7 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.AmazonServiceException;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +21,6 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class AddPermissionTestCases extends SQSFunctionalTestParent {
@@ -46,19 +44,6 @@ public class AddPermissionTestCases extends SQSFunctionalTestParent {
             getConnector().addPermission("fooPermission", accountIds, actions, queueUrl);
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
-        }
-
-        // Using invalid principal id to add permissions.
-        accountIds = Arrays.asList(ConnectorTestUtils.generateRandomShortString());
-        try {
-            getConnector().addPermission("fooPermission", accountIds, actions, queueUrl);
-        } catch (Exception e) {
-            if (e instanceof AmazonServiceException) {
-                assertEquals("InvalidParameterValue", ((AmazonServiceException) e).getErrorCode());
-                assertEquals(String.format("Value %s for parameter PrincipalId is invalid. Reason: Unable to verify.", accountIds), ((AmazonServiceException) e).getErrorMessage());
-            } else {
-                fail(ConnectorTestUtils.getStackTrace(e));
-            }
         }
     }
 

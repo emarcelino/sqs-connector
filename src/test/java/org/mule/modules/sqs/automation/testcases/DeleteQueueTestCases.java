@@ -6,7 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.AmazonServiceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,16 +42,6 @@ public class DeleteQueueTestCases extends SQSFunctionalTestParent {
             queueDeleted = true;
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
-        }
-
-        try {
-            getConnector().getApproximateNumberOfMessages(queueUrl);
-        } catch (Exception e) {
-            if (e instanceof AmazonServiceException) {
-                assertEquals("AWS.SimpleQueueService.NonExistentQueue", ((AmazonServiceException) e).getErrorCode());
-            } else {
-                fail(ConnectorTestUtils.getStackTrace(e));
-            }
         }
     }
 

@@ -27,11 +27,11 @@
               map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
         <entry key="messages">
             <list>
-                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                <bean class="org.mule.modules.sqs.model.SendMessageBatchRequestEntry">
                     <constructor-arg index="0" value="id-1"/>
                     <constructor-arg index="1" ref="randomString"/>
                 </bean>
-                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                <bean class="org.mule.modules.sqs.model.SendMessageBatchRequestEntry">
                     <constructor-arg index="0" value="id-2"/>
                     <constructor-arg index="1" ref="randomString"/>
                 </bean>
@@ -64,11 +64,11 @@
               map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
         <entry key="messages">
             <list>
-                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                <bean class="org.mule.modules.sqs.model.SendMessageBatchRequestEntry">
                     <constructor-arg index="0" value="id-1"/>
                     <constructor-arg index="1" ref="randomString"/>
                 </bean>
-                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                <bean class="org.mule.modules.sqs.model.SendMessageBatchRequestEntry">
                     <constructor-arg index="0" value="id-2"/>
                     <constructor-arg index="1" ref="randomString"/>
                 </bean>
@@ -94,11 +94,11 @@
               map-class="java.util.HashMap" scope="prototype" value-type="java.lang.Object">
         <entry key="messages">
             <list>
-                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                <bean class="org.mule.modules.sqs.model.SendMessageBatchRequestEntry">
                     <constructor-arg index="0" value="id-1"/>
                     <constructor-arg index="1" ref="randomString"/>
                 </bean>
-                <bean class="com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry">
+                <bean class="org.mule.modules.sqs.model.SendMessageBatchRequestEntry">
                     <constructor-arg index="0" value="id-2"/>
                     <constructor-arg index="1" ref="randomString"/>
                 </bean>

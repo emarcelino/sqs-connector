@@ -6,7 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.AmazonServiceException;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +21,6 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class RemovePermissionTestCases extends SQSFunctionalTestParent {
@@ -51,19 +49,6 @@ public class RemovePermissionTestCases extends SQSFunctionalTestParent {
             Thread.sleep(5000);
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
-        }
-        // Retry to remove the above permission throws exception.
-        try {
-            getConnector().removePermission("fooPermission", queueUrl);
-        } catch (Exception e) {
-            if (e instanceof AmazonServiceException) {
-                AmazonServiceException serviceException = (AmazonServiceException) e;
-                assertEquals("InvalidParameterValue", serviceException.getErrorCode());
-                assertEquals(String.format("Value %s for parameter Label is invalid. Reason: can't find label on existing policy.",
-                        "fooPermission"), serviceException.getErrorMessage());
-            } else {
-                fail(ConnectorTestUtils.getStackTrace(e));
-            }
         }
     }
 
