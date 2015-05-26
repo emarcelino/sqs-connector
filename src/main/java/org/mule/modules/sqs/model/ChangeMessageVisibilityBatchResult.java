@@ -22,12 +22,12 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     /**
      * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
      */
-    private List<ChangeMessageVisibilityBatchResultEntry> successful;
+    private List<ChangeMessageVisibilityBatchResultEntry> successful = null;
 
     /**
      * A list of <a>BatchResultErrorEntry</a> items.
      */
-    private List<BatchResultErrorEntry> failed;
+    private List<BatchResultErrorEntry> failed = null;
 
     /**
      * A list of <a>ChangeMessageVisibilityBatchResultEntry</a> items.
@@ -66,8 +66,6 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
      * together.
      */
     public ChangeMessageVisibilityBatchResult withSuccessful(ChangeMessageVisibilityBatchResultEntry... successful) {
-        if (getSuccessful() == null)
-            setSuccessful(new java.util.ArrayList<ChangeMessageVisibilityBatchResultEntry>(successful.length));
         for (ChangeMessageVisibilityBatchResultEntry value : successful) {
             getSuccessful().add(value);
         }
@@ -132,7 +130,6 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
      * together.
      */
     public ChangeMessageVisibilityBatchResult withFailed(BatchResultErrorEntry... failed) {
-        if (getFailed() == null) setFailed(new java.util.ArrayList<BatchResultErrorEntry>(failed.length));
         for (BatchResultErrorEntry value : failed) {
             getFailed().add(value);
         }
@@ -178,29 +175,22 @@ public class ChangeMessageVisibilityBatchResult implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int hashCode = 1;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        hashCode = prime * hashCode + ((getSuccessful() == null) ? 0 : getSuccessful().hashCode());
-        hashCode = prime * hashCode + ((getFailed() == null) ? 0 : getFailed().hashCode());
-        return hashCode;
+        ChangeMessageVisibilityBatchResult that = (ChangeMessageVisibilityBatchResult) o;
+
+        if (!getSuccessful().equals(that.getSuccessful())) return false;
+        return getFailed().equals(that.getFailed());
+
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-
-        if (obj instanceof ChangeMessageVisibilityBatchResult == false) return false;
-        ChangeMessageVisibilityBatchResult other = (ChangeMessageVisibilityBatchResult) obj;
-
-        if (other.getSuccessful() == null ^ this.getSuccessful() == null) return false;
-        if (other.getSuccessful() != null && other.getSuccessful().equals(this.getSuccessful()) == false) return false;
-        if (other.getFailed() == null ^ this.getFailed() == null) return false;
-        if (other.getFailed() != null && other.getFailed().equals(this.getFailed()) == false) return false;
-        return true;
+    public int hashCode() {
+        int result = getSuccessful().hashCode();
+        result = 31 * result + getFailed().hashCode();
+        return result;
     }
-
 }
     

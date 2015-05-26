@@ -66,8 +66,6 @@ public class DeleteMessageBatchResult implements Serializable {
      * together.
      */
     public DeleteMessageBatchResult withSuccessful(DeleteMessageBatchResultEntry... successful) {
-        if (getSuccessful() == null)
-            setSuccessful(new java.util.ArrayList<DeleteMessageBatchResultEntry>(successful.length));
         for (DeleteMessageBatchResultEntry value : successful) {
             getSuccessful().add(value);
         }
@@ -132,8 +130,6 @@ public class DeleteMessageBatchResult implements Serializable {
      * together.
      */
     public DeleteMessageBatchResult withFailed(BatchResultErrorEntry... failed) {
-        if (getFailed() == null)
-            setFailed(new java.util.ArrayList<BatchResultErrorEntry>(failed.length));
         for (BatchResultErrorEntry value : failed) {
             getFailed().add(value);
         }
@@ -179,29 +175,22 @@ public class DeleteMessageBatchResult implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int hashCode = 1;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        hashCode = prime * hashCode + ((getSuccessful() == null) ? 0 : getSuccessful().hashCode());
-        hashCode = prime * hashCode + ((getFailed() == null) ? 0 : getFailed().hashCode());
-        return hashCode;
+        DeleteMessageBatchResult that = (DeleteMessageBatchResult) o;
+
+        if (!getSuccessful().equals(that.getSuccessful())) return false;
+        return getFailed().equals(that.getFailed());
+
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-
-        if (obj instanceof DeleteMessageBatchResult == false) return false;
-        DeleteMessageBatchResult other = (DeleteMessageBatchResult) obj;
-
-        if (other.getSuccessful() == null ^ this.getSuccessful() == null) return false;
-        if (other.getSuccessful() != null && other.getSuccessful().equals(this.getSuccessful()) == false) return false;
-        if (other.getFailed() == null ^ this.getFailed() == null) return false;
-        if (other.getFailed() != null && other.getFailed().equals(this.getFailed()) == false) return false;
-        return true;
+    public int hashCode() {
+        int result = getSuccessful().hashCode();
+        result = 31 * result + getFailed().hashCode();
+        return result;
     }
-
 }
     

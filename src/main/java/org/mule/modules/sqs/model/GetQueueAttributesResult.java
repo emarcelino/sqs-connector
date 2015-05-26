@@ -105,26 +105,19 @@ public class GetQueueAttributesResult implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int hashCode = 1;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode());
-        return hashCode;
+        GetQueueAttributesResult that = (GetQueueAttributesResult) o;
+
+        return getAttributes().equals(that.getAttributes());
+
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-
-        if (obj instanceof GetQueueAttributesResult == false) return false;
-        GetQueueAttributesResult other = (GetQueueAttributesResult) obj;
-
-        if (other.getAttributes() == null ^ this.getAttributes() == null) return false;
-        if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false) return false;
-        return true;
+    public int hashCode() {
+        return getAttributes().hashCode();
     }
-
 }
     

@@ -31,16 +31,17 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
      * Default constructor for a new ChangeMessageVisibilityBatchRequestEntry object.  Callers should use the
      * setter or fluent setter (with...) methods to initialize this object after creating it.
      */
-    public ChangeMessageVisibilityBatchRequestEntry() {}
-    
+    public ChangeMessageVisibilityBatchRequestEntry() {
+    }
+
     /**
      * Constructs a new ChangeMessageVisibilityBatchRequestEntry object.
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
-     * 
-     * @param id An identifier for this particular receipt handle. This is
-     * used to communicate the result. Note that the <code>Id</code>s of a
-     * batch request need to be unique within the request.
+     *
+     * @param id            An identifier for this particular receipt handle. This is
+     *                      used to communicate the result. Note that the <code>Id</code>s of a
+     *                      batch request need to be unique within the request.
      * @param receiptHandle A receipt handle.
      */
     public ChangeMessageVisibilityBatchRequestEntry(String id, String receiptHandle) {
@@ -54,39 +55,38 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
      * request need to be unique within the request.
      *
      * @return An identifier for this particular receipt handle. This is used to
-     *         communicate the result. Note that the <code>Id</code>s of a batch
-     *         request need to be unique within the request.
+     * communicate the result. Note that the <code>Id</code>s of a batch
+     * request need to be unique within the request.
      */
     public String getId() {
         return id;
     }
-    
+
     /**
      * An identifier for this particular receipt handle. This is used to
      * communicate the result. Note that the <code>Id</code>s of a batch
      * request need to be unique within the request.
      *
      * @param id An identifier for this particular receipt handle. This is used to
-     *         communicate the result. Note that the <code>Id</code>s of a batch
-     *         request need to be unique within the request.
+     *           communicate the result. Note that the <code>Id</code>s of a batch
+     *           request need to be unique within the request.
      */
     public void setId(String id) {
         this.id = id;
     }
-    
+
     /**
      * An identifier for this particular receipt handle. This is used to
      * communicate the result. Note that the <code>Id</code>s of a batch
      * request need to be unique within the request.
-     * <p>
+     * <p/>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param id An identifier for this particular receipt handle. This is used to
-     *         communicate the result. Note that the <code>Id</code>s of a batch
-     *         request need to be unique within the request.
-     *
+     *           communicate the result. Note that the <code>Id</code>s of a batch
+     *           request need to be unique within the request.
      * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * together.
      */
     public ChangeMessageVisibilityBatchRequestEntry withId(String id) {
         this.id = id;
@@ -101,7 +101,7 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
     public String getReceiptHandle() {
         return receiptHandle;
     }
-    
+
     /**
      * A receipt handle.
      *
@@ -110,16 +110,15 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
     public void setReceiptHandle(String receiptHandle) {
         this.receiptHandle = receiptHandle;
     }
-    
+
     /**
      * A receipt handle.
-     * <p>
+     * <p/>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param receiptHandle A receipt handle.
-     *
      * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * together.
      */
     public ChangeMessageVisibilityBatchRequestEntry withReceiptHandle(String receiptHandle) {
         this.receiptHandle = receiptHandle;
@@ -134,7 +133,7 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
     public Integer getVisibilityTimeout() {
         return visibilityTimeout;
     }
-    
+
     /**
      * The new value (in seconds) for the message's visibility timeout.
      *
@@ -143,16 +142,15 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
     public void setVisibilityTimeout(Integer visibilityTimeout) {
         this.visibilityTimeout = visibilityTimeout;
     }
-    
+
     /**
      * The new value (in seconds) for the message's visibility timeout.
-     * <p>
+     * <p/>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param visibilityTimeout The new value (in seconds) for the message's visibility timeout.
-     *
      * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * together.
      */
     public ChangeMessageVisibilityBatchRequestEntry withVisibilityTimeout(Integer visibilityTimeout) {
         this.visibilityTimeout = visibilityTimeout;
@@ -164,7 +162,6 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
      * debugging.
      *
      * @return A string representation of this object.
-     *
      * @see Object#toString()
      */
     @Override
@@ -173,38 +170,40 @@ public class ChangeMessageVisibilityBatchRequestEntry implements Serializable {
         sb.append("{");
         if (getId() != null) sb.append("Id: " + getId() + ",");
         if (getReceiptHandle() != null) sb.append("ReceiptHandle: " + getReceiptHandle() + ",");
-        if (getVisibilityTimeout() != null) sb.append("VisibilityTimeout: " + getVisibilityTimeout() );
+        if (getVisibilityTimeout() != null) sb.append("VisibilityTimeout: " + getVisibilityTimeout());
         sb.append("}");
         return sb.toString();
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int hashCode = 1;
-        
-        hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode()); 
-        hashCode = prime * hashCode + ((getReceiptHandle() == null) ? 0 : getReceiptHandle().hashCode()); 
-        hashCode = prime * hashCode + ((getVisibilityTimeout() == null) ? 0 : getVisibilityTimeout().hashCode()); 
+
+        hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
+        hashCode = prime * hashCode + ((getReceiptHandle() == null) ? 0 : getReceiptHandle().hashCode());
+        hashCode = prime * hashCode + ((getVisibilityTimeout() == null) ? 0 : getVisibilityTimeout().hashCode());
         return hashCode;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
 
         if (obj instanceof ChangeMessageVisibilityBatchRequestEntry == false) return false;
-        ChangeMessageVisibilityBatchRequestEntry other = (ChangeMessageVisibilityBatchRequestEntry)obj;
-        
+        ChangeMessageVisibilityBatchRequestEntry other = (ChangeMessageVisibilityBatchRequestEntry) obj;
+
         if (other.getId() == null ^ this.getId() == null) return false;
-        if (other.getId() != null && other.getId().equals(this.getId()) == false) return false; 
+        if (other.getId() != null && other.getId().equals(this.getId()) == false) return false;
         if (other.getReceiptHandle() == null ^ this.getReceiptHandle() == null) return false;
-        if (other.getReceiptHandle() != null && other.getReceiptHandle().equals(this.getReceiptHandle()) == false) return false; 
+        if (other.getReceiptHandle() != null && other.getReceiptHandle().equals(this.getReceiptHandle()) == false)
+            return false;
         if (other.getVisibilityTimeout() == null ^ this.getVisibilityTimeout() == null) return false;
-        if (other.getVisibilityTimeout() != null && other.getVisibilityTimeout().equals(this.getVisibilityTimeout()) == false) return false; 
+        if (other.getVisibilityTimeout() != null && other.getVisibilityTimeout().equals(this.getVisibilityTimeout()) == false)
+            return false;
         return true;
     }
-    
+
 }
     

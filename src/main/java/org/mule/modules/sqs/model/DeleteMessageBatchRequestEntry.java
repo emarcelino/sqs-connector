@@ -136,8 +136,10 @@ public class DeleteMessageBatchRequestEntry implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getId() != null) sb.append("Id: " + getId() + ",");
-        if (getReceiptHandle() != null) sb.append("ReceiptHandle: " + getReceiptHandle());
+        if (getId() != null)
+            sb.append("Id: " + getId() + ",");
+        if (getReceiptHandle() != null)
+            sb.append("ReceiptHandle: " + getReceiptHandle());
         sb.append("}");
         return sb.toString();
     }

@@ -26,34 +26,33 @@ public class ChangeMessageVisibilityBatchResultEntry implements Serializable {
      * successfully.
      *
      * @return Represents a message whose visibility timeout has been changed
-     *         successfully.
+     * successfully.
      */
     public String getId() {
         return id;
     }
-    
+
     /**
      * Represents a message whose visibility timeout has been changed
      * successfully.
      *
      * @param id Represents a message whose visibility timeout has been changed
-     *         successfully.
+     *           successfully.
      */
     public void setId(String id) {
         this.id = id;
     }
-    
+
     /**
      * Represents a message whose visibility timeout has been changed
      * successfully.
-     * <p>
+     * <p/>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param id Represents a message whose visibility timeout has been changed
-     *         successfully.
-     *
+     *           successfully.
      * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * together.
      */
     public ChangeMessageVisibilityBatchResultEntry withId(String id) {
         this.id = id;
@@ -65,39 +64,38 @@ public class ChangeMessageVisibilityBatchResultEntry implements Serializable {
      * debugging.
      *
      * @return A string representation of this object.
-     *
      * @see Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getId() != null) sb.append("Id: " + getId() );
+        if (getId() != null) sb.append("Id: " + getId());
         sb.append("}");
         return sb.toString();
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int hashCode = 1;
-        
-        hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode()); 
+
+        hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         return hashCode;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
 
         if (obj instanceof ChangeMessageVisibilityBatchResultEntry == false) return false;
-        ChangeMessageVisibilityBatchResultEntry other = (ChangeMessageVisibilityBatchResultEntry)obj;
-        
+        ChangeMessageVisibilityBatchResultEntry other = (ChangeMessageVisibilityBatchResultEntry) obj;
+
         if (other.getId() == null ^ this.getId() == null) return false;
-        if (other.getId() != null && other.getId().equals(this.getId()) == false) return false; 
+        if (other.getId() != null && other.getId().equals(this.getId()) == false) return false;
         return true;
     }
-    
+
 }
     

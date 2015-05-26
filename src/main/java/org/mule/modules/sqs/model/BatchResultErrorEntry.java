@@ -79,15 +79,6 @@ public class BatchResultErrorEntry implements Serializable {
 
     /**
      * Whether the error happened due to the sender's fault.
-     *
-     * @param senderFault Whether the error happened due to the sender's fault.
-     */
-    public void setSenderFault(Boolean senderFault) {
-        this.senderFault = senderFault;
-    }
-
-    /**
-     * Whether the error happened due to the sender's fault.
      * <p/>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -107,6 +98,15 @@ public class BatchResultErrorEntry implements Serializable {
      */
     public Boolean getSenderFault() {
         return senderFault;
+    }
+
+    /**
+     * Whether the error happened due to the sender's fault.
+     *
+     * @param senderFault Whether the error happened due to the sender's fault.
+     */
+    public void setSenderFault(Boolean senderFault) {
+        this.senderFault = senderFault;
     }
 
     /**
@@ -184,10 +184,14 @@ public class BatchResultErrorEntry implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getId() != null) sb.append("Id: " + getId() + ",");
-        if (isSenderFault() != null) sb.append("SenderFault: " + isSenderFault() + ",");
-        if (getCode() != null) sb.append("Code: " + getCode() + ",");
-        if (getMessage() != null) sb.append("Message: " + getMessage());
+        if (getId() != null)
+            sb.append("Id: " + getId() + ",");
+        if (isSenderFault() != null)
+            sb.append("SenderFault: " + isSenderFault() + ",");
+        if (getCode() != null)
+            sb.append("Code: " + getCode() + ",");
+        if (getMessage() != null)
+            sb.append("Message: " + getMessage());
         sb.append("}");
         return sb.toString();
     }
@@ -206,20 +210,31 @@ public class BatchResultErrorEntry implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
 
-        if (obj instanceof BatchResultErrorEntry == false) return false;
+        if (obj instanceof BatchResultErrorEntry == false)
+            return false;
         BatchResultErrorEntry other = (BatchResultErrorEntry) obj;
 
-        if (other.getId() == null ^ this.getId() == null) return false;
-        if (other.getId() != null && other.getId().equals(this.getId()) == false) return false;
-        if (other.isSenderFault() == null ^ this.isSenderFault() == null) return false;
-        if (other.isSenderFault() != null && other.isSenderFault().equals(this.isSenderFault()) == false) return false;
-        if (other.getCode() == null ^ this.getCode() == null) return false;
-        if (other.getCode() != null && other.getCode().equals(this.getCode()) == false) return false;
-        if (other.getMessage() == null ^ this.getMessage() == null) return false;
-        if (other.getMessage() != null && other.getMessage().equals(this.getMessage()) == false) return false;
+        if (other.getId() == null ^ this.getId() == null)
+            return false;
+        if (other.getId() != null && other.getId().equals(this.getId()) == false)
+            return false;
+        if (other.isSenderFault() == null ^ this.isSenderFault() == null)
+            return false;
+        if (other.isSenderFault() != null && other.isSenderFault().equals(this.isSenderFault()) == false)
+            return false;
+        if (other.getCode() == null ^ this.getCode() == null)
+            return false;
+        if (other.getCode() != null && other.getCode().equals(this.getCode()) == false)
+            return false;
+        if (other.getMessage() == null ^ this.getMessage() == null)
+            return false;
+        if (other.getMessage() != null && other.getMessage().equals(this.getMessage()) == false)
+            return false;
         return true;
     }
 

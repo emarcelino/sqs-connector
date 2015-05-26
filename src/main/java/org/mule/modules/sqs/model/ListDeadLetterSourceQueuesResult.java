@@ -67,7 +67,6 @@ public class ListDeadLetterSourceQueuesResult implements Serializable {
      * together.
      */
     public ListDeadLetterSourceQueuesResult withQueueUrls(String... queueUrls) {
-        if (getQueueUrls() == null) setQueueUrls(new ArrayList<String>(queueUrls.length));
         for (String value : queueUrls) {
             getQueueUrls().add(value);
         }
@@ -114,26 +113,19 @@ public class ListDeadLetterSourceQueuesResult implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int hashCode = 1;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        hashCode = prime * hashCode + ((getQueueUrls() == null) ? 0 : getQueueUrls().hashCode());
-        return hashCode;
+        ListDeadLetterSourceQueuesResult that = (ListDeadLetterSourceQueuesResult) o;
+
+        return getQueueUrls().equals(that.getQueueUrls());
+
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-
-        if (obj instanceof ListDeadLetterSourceQueuesResult == false) return false;
-        ListDeadLetterSourceQueuesResult other = (ListDeadLetterSourceQueuesResult) obj;
-
-        if (other.getQueueUrls() == null ^ this.getQueueUrls() == null) return false;
-        if (other.getQueueUrls() != null && other.getQueueUrls().equals(this.getQueueUrls()) == false) return false;
-        return true;
+    public int hashCode() {
+        return getQueueUrls().hashCode();
     }
-
 }
     

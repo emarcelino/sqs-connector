@@ -16,6 +16,9 @@ import java.util.*;
 
 public class SQSModelFactory {
 
+    private SQSModelFactory() {
+    }
+
     public static ChangeMessageVisibilityBatchResult getChangeMessageVisibilityBatchResult(List<ChangeMessageVisibilityBatchResultEntry> successful, List<BatchResultErrorEntry> failed) {
         ChangeMessageVisibilityBatchResult batchResult = new ChangeMessageVisibilityBatchResult();
         if (successful != null && !successful.isEmpty()) {
@@ -120,10 +123,8 @@ public class SQSModelFactory {
                 org.mule.modules.sqs.model.MessageAttributeValue attributeValue = (org.mule.modules.sqs.model.MessageAttributeValue) entry.getValue();
 
                 MessageAttributeValue value = new MessageAttributeValue();
-                value.setBinaryListValues(attributeValue.getBinaryListValues());
                 value.setBinaryValue(attributeValue.getBinaryValue());
                 value.setDataType(attributeValue.getDataType());
-                value.setStringListValues(attributeValue.getStringListValues());
                 value.setStringValue(attributeValue.getStringValue());
 
                 attributes.put(entry.getKey(), value);
@@ -139,10 +140,8 @@ public class SQSModelFactory {
                 org.mule.modules.sqs.model.MessageAttributeValue attributeValue = entry.getValue();
 
                 MessageAttributeValue value = new MessageAttributeValue();
-                value.setBinaryListValues(attributeValue.getBinaryListValues());
                 value.setBinaryValue(attributeValue.getBinaryValue());
                 value.setDataType(attributeValue.getDataType());
-                value.setStringListValues(attributeValue.getStringListValues());
                 value.setStringValue(attributeValue.getStringValue());
 
                 attributes.put(entry.getKey(), value);
