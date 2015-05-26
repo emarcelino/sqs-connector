@@ -18,6 +18,7 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.SourceCallback;
 import org.mule.modules.sqs.connection.strategy.SQSConnectionManagement;
 import org.mule.modules.sqs.metadata.category.SendMessageCategory;
+import org.mule.modules.sqs.util.SQSModelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,9 +110,12 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
-                                                                           @Optional String queueUrl) {
-        return msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getUrl(queueUrl), receiptHandles));
+    public org.mule.modules.sqs.model.ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<org.mule.modules.sqs.model.ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
+                                                                                                      @Optional String queueUrl) {
+        ChangeMessageVisibilityBatchResult batchResult = msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getUrl(queueUrl),
+                SQSModelFactory.getChangeMessageVisibilityBatchRequestEntries(receiptHandles)));
+
+        return SQSModelFactory.getChangeMessageVisibilityBatchResult(batchResult.getSuccessful(), batchResult.getFailed());
     }
 
     /**
@@ -134,12 +138,13 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
-                                         @Default("#[payload]") Map<String, String> attributes) {
+    public org.mule.modules.sqs.model.CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
+                                                                    @Default("#[payload]") Map<String, String> attributes) {
         if (region != null) {
             msgQueue.setEndpoint(region.value());
         }
-        return msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
+        CreateQueueResult queueResult = msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
+        return new org.mule.modules.sqs.model.CreateQueueResult().withQueueUrl(queueResult.getQueueUrl());
     }
 
     /**
@@ -176,9 +181,11 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<DeleteMessageBatchRequestEntry> receiptHandles,
-                                                       @Optional String queueUrl) {
-        return msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getUrl(queueUrl), receiptHandles));
+    public org.mule.modules.sqs.model.DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<org.mule.modules.sqs.model.DeleteMessageBatchRequestEntry> receiptHandles,
+                                                                                  @Optional String queueUrl) {
+        DeleteMessageBatchResult batchResult = msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getUrl(queueUrl),
+                SQSModelFactory.getDeleteMessageBatchRequestEntries(receiptHandles)));
+        return SQSModelFactory.getDeleteMessageBatchResult(batchResult.getSuccessful(), batchResult.getFailed());
     }
 
     /**
@@ -213,9 +220,10 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) {
-        return msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getUrl(queueUrl))
+    public org.mule.modules.sqs.model.GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) {
+        GetQueueAttributesResult attributesResult = msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getUrl(queueUrl))
                 .withAttributeNames(attributeNames));
+        return new org.mule.modules.sqs.model.GetQueueAttributesResult().withAttributes(attributesResult.getAttributes());
     }
 
     /**
@@ -233,8 +241,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) {
-        return msgQueue.getQueueUrl(new GetQueueUrlRequest(queueName).withQueueOwnerAWSAccountId(queueOwnerAWSAccountId));
+    public org.mule.modules.sqs.model.GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) {
+        GetQueueUrlResult urlResult = msgQueue.getQueueUrl(new GetQueueUrlRequest(queueName).withQueueOwnerAWSAccountId(queueOwnerAWSAccountId));
+        return new org.mule.modules.sqs.model.GetQueueUrlResult().withQueueUrl(urlResult.getQueueUrl());
     }
 
     /**
@@ -251,10 +260,12 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) {
+    public org.mule.modules.sqs.model.ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) {
         ListDeadLetterSourceQueuesRequest listDeadLetterSourceQueuesRequest = new ListDeadLetterSourceQueuesRequest();
         listDeadLetterSourceQueuesRequest.setQueueUrl(getConnection().getUrl(queueUrl));
-        return msgQueue.listDeadLetterSourceQueues(listDeadLetterSourceQueuesRequest);
+        ListDeadLetterSourceQueuesResult queuesResult = msgQueue.listDeadLetterSourceQueues(listDeadLetterSourceQueuesRequest);
+
+        return new org.mule.modules.sqs.model.ListDeadLetterSourceQueuesResult().withQueueUrls(queuesResult.getQueueUrls());
     }
 
     /**
@@ -272,8 +283,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public ListQueuesResult listQueues(@Optional String queueNamePrefix) {
-        return msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
+    public org.mule.modules.sqs.model.ListQueuesResult listQueues(@Optional String queueNamePrefix) {
+        ListQueuesResult result = msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
+        return new org.mule.modules.sqs.model.ListQueuesResult().withQueueUrls(result.getQueueUrls());
     }
 
 
@@ -397,19 +409,14 @@ public class SQSConnector {
      */
     @Processor
     @MetaDataScope(SendMessageCategory.class)
-    public SendMessageResult sendMessage(String message,
-                                         @Optional Integer delaySeconds,
-                                         @MetaDataStaticKey(type = "SendMessage")
-                                         @Default("#[payload]") Map<String, Object> messageAttributes,
-                                         @Optional String queueUrl) {
-        Map<String, MessageAttributeValue> attributes = new HashMap<String, MessageAttributeValue>();
-        if (messageAttributes != null && !messageAttributes.isEmpty()) {
-            for (Map.Entry<String, Object> entry : messageAttributes.entrySet()) {
-                attributes.put(entry.getKey(), (MessageAttributeValue) entry.getValue());
-            }
-        }
-        return msgQueue.sendMessage(new SendMessageRequest(getConnection().getUrl(queueUrl), message)
-                .withDelaySeconds(delaySeconds).withMessageAttributes(attributes));
+    public org.mule.modules.sqs.model.SendMessageResult sendMessage(String message,
+                                                                    @Optional Integer delaySeconds,
+                                                                    @MetaDataStaticKey(type = "SendMessage")
+                                                                    @Default("#[payload]") Map<String, Object> messageAttributes,
+                                                                    @Optional String queueUrl) {
+        SendMessageResult result = msgQueue.sendMessage(new SendMessageRequest(getConnection().getUrl(queueUrl), message)
+                .withDelaySeconds(delaySeconds).withMessageAttributes(SQSModelFactory.getMessageAttributes(messageAttributes)));
+        return SQSModelFactory.getSendMessageResult(result.getMessageId(), result.getMD5OfMessageBody(), result.getMD5OfMessageAttributes());
     }
 
     /**
@@ -427,8 +434,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<SendMessageBatchRequestEntry> messages, @Optional String queueUrl) {
-        return msgQueue.sendMessageBatch(getConnection().getUrl(queueUrl), messages);
+    public org.mule.modules.sqs.model.SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<org.mule.modules.sqs.model.SendMessageBatchRequestEntry> messages, @Optional String queueUrl) {
+        SendMessageBatchResult batchResult = msgQueue.sendMessageBatch(getConnection().getUrl(queueUrl), SQSModelFactory.getSendMessageBatchRequestEntries(messages));
+        return SQSModelFactory.getSendMessageBatchResult(batchResult.getSuccessful(), batchResult.getFailed());
     }
 
     /**

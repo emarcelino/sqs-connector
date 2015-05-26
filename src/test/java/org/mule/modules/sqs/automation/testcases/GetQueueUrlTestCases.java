@@ -7,8 +7,6 @@
 package org.mule.modules.sqs.automation.testcases;
 
 
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +16,8 @@ import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
 import org.mule.modules.sqs.automation.SmokeTests;
+import org.mule.modules.sqs.model.CreateQueueResult;
+import org.mule.modules.sqs.model.GetQueueUrlResult;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import static org.junit.Assert.*;

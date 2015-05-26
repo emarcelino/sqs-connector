@@ -6,10 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases;
 
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
-import com.amazonaws.services.sqs.model.SendMessageBatchResult;
-import com.amazonaws.services.sqs.model.SendMessageBatchResultEntry;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +14,10 @@ import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.RegionEndpoint;
 import org.mule.modules.sqs.automation.RegressionTests;
 import org.mule.modules.sqs.automation.SQSFunctionalTestParent;
+import org.mule.modules.sqs.model.CreateQueueResult;
+import org.mule.modules.sqs.model.SendMessageBatchRequestEntry;
+import org.mule.modules.sqs.model.SendMessageBatchResult;
+import org.mule.modules.sqs.model.SendMessageBatchResultEntry;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.ArrayList;

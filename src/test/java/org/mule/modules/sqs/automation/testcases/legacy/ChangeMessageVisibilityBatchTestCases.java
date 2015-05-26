@@ -6,10 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases.legacy;
 
-import com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
-import com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchResult;
-import com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchResultEntry;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +13,10 @@ import org.junit.experimental.categories.Category;
 import org.mule.construct.Flow;
 import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
+import org.mule.modules.sqs.model.ChangeMessageVisibilityBatchResult;
+import org.mule.modules.sqs.model.ChangeMessageVisibilityBatchResultEntry;
+import org.mule.modules.sqs.model.SendMessageBatchRequestEntry;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.ArrayList;

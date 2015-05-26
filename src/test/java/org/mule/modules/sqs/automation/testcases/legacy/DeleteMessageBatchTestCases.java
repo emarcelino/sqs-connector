@@ -6,10 +6,6 @@
 
 package org.mule.modules.sqs.automation.testcases.legacy;
 
-import com.amazonaws.services.sqs.model.DeleteMessageBatchRequestEntry;
-import com.amazonaws.services.sqs.model.DeleteMessageBatchResult;
-import com.amazonaws.services.sqs.model.DeleteMessageBatchResultEntry;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +13,10 @@ import org.junit.experimental.categories.Category;
 import org.mule.construct.Flow;
 import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.model.DeleteMessageBatchRequestEntry;
+import org.mule.modules.sqs.model.DeleteMessageBatchResult;
+import org.mule.modules.sqs.model.DeleteMessageBatchResultEntry;
+import org.mule.modules.sqs.model.SendMessageBatchRequestEntry;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.ArrayList;

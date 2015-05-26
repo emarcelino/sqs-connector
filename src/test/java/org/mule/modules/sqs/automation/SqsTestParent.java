@@ -7,13 +7,13 @@
 package org.mule.modules.sqs.automation;
 
 import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
-import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.MessagingException;
+import org.mule.modules.sqs.model.SendMessageResult;
 import org.mule.modules.tests.ConnectorTestCase;
 
 import java.security.MessageDigest;

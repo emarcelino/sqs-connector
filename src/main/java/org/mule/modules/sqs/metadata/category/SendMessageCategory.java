@@ -6,7 +6,6 @@
 
 package org.mule.modules.sqs.metadata.category;
 
-import com.amazonaws.services.sqs.model.MessageAttributeValue;
 import org.mule.api.annotations.MetaDataKeyRetriever;
 import org.mule.api.annotations.MetaDataRetriever;
 import org.mule.api.annotations.components.MetaDataCategory;
@@ -15,6 +14,7 @@ import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
 import org.mule.common.metadata.builder.MetaDataBuilder;
 import org.mule.common.metadata.datatype.DataType;
 import org.mule.modules.sqs.SQSConnector;
+import org.mule.modules.sqs.model.MessageAttributeValue;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

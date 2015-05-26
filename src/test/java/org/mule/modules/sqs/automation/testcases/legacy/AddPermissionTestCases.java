@@ -7,7 +7,6 @@
 package org.mule.modules.sqs.automation.testcases.legacy;
 
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +14,7 @@ import org.junit.experimental.categories.Category;
 import org.mule.modules.sqs.automation.LegacyRegressionTests;
 import org.mule.modules.sqs.automation.LegacySmokeTests;
 import org.mule.modules.sqs.automation.SqsTestParent;
+import org.mule.modules.sqs.model.GetQueueUrlResult;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.Arrays;
