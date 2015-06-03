@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- JQuery will be required for this demo -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+
+	<!-- Import Twitter bootstrap libs + css -->
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.js"></script>
+</head>
+<body>
+	<!-- Keep this simple ... define CSS for this simple webpage in the same file -->
+	<style>
+		body {
+			padding-top: 40px;
+			padding-bottom: 40px;
+			background-color: #eee;
+		}
+		.demo-form {
+			max-width: 500px;
+			padding: 15px;
+			margin: 0 auto;
+		}
+		.demo-form .demo-heading,
+		.demo-form .checkbox {
+			margin-bottom: 10px;
+		}
+		.demo-form .checkbox {
+			font-weight: normal;
+		}
+		.demo-form .form-control {
+			position: relative;
+			height: auto;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 10px;
+			font-size: 16px;
+		}
+		.demo-form .form-control:focus {
+			z-index: 2;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready( function() {
+
+			var operationOne 	= $('#operationOne');
+			var operationTwo 	= $('#operationTwo');
+			var operationThree 	= $('#operationThree');
+
+			var operationOneForm 	= $('#operationOneForm');
+			var operationTwoForm 	= $('#operationTwoForm');
+			var operationThreeForm 	= $('#operationThreeForm');
+
+			operationOneForm.submit(function() {
+              $.ajax({
+                type: 'GET',							  // Submit an HTTP POST request
+                url: '/addpermission', // The URL where your endpoint is listening
+                data: operationOneForm.serialize(),			  // Serialized form URL-encoded input
+                success: function(data) {				  // Success function called if request succeeds
+                  alert("Operation Response : " + data);
+                },
+                error: function(request, status, error){  // Error function is executed if an exception occurs in the flow
+              	  alert(request.responseText);			  // Alert the user of any errors
+              	}
+              });
+
+              return false;								  // Let jQuery handle the form submission
+            });
+
+			operationTwoForm.submit(function() {
+				$.ajax({
+					type: 'GET',
+					url: '/createdeletequeue',
+					data: operationTwoForm.serialize(),
+					success: function(data) {
+						alert("Operation Response : " + data);
+					},
+					error: function(request, status, error){
+	            		alert(request.responseText);
+	            	}
+				});
+
+				return false;
+			});
+
+			operationThreeForm.submit(function() {
+				$.ajax({
+					type: 'GET',
+					url: '/sendmessage',
+					data: operationThreeForm.serialize(),
+					success: function(data) {
+						alert("Operation Response : " + data);
+					},
+					error: function(request, status, error){
+	            		alert(request.responseText);
+	            	}
+				});
+
+				return false;
+			});
+		});
+	</script>
+	<div class="container">
+		<div class="panel-group" id="accordion">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title demo-heading">
+						<a data-toggle="collapse" data-parent="#accordion" href="#operationOne">Add Permission</a>
+					</h2>
+				</div>
+				<div id="operationOne" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<form id="operationOneForm" class="demo-form" role="form" >
+							<label>Label</label>
+							<input type="text" name="label" value="AliceSendMessage" required class="form-control" ><br>
+							<label>Account Id</label>
+							<input type="text" name="accountId" required class="form-control" ><br>
+							<label>Action</label>
+							<input type="text" name="action" value="SendMessage" required class="form-control" ><br>
+							<input class="btn btn-lg btn-primary btn-block" type="submit" value="Add Permission"><br>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title demo-heading">
+						<a data-toggle="collapse" data-parent="#accordion" href="#operationTwo">Create &amp; Delete Queue</a>
+					</h2>
+				</div>
+				<div id="operationTwo" class="panel-collapse collapse">
+					<div class="panel-body">
+						<form id="operationTwoForm" class="demo-form" role="form">
+							<label>Queue Name</label>
+							<input type="text" name="name" value="SampleTestQueue" required class="form-control"><br>
+							<label>Attribute Key</label>
+							<input type="text" name="attributeKey" value="VisibilityTimeout" required class="form-control"><br>
+							<label>Attribute Value</label>
+							<input type="text" name="attributeValue" value="40" required class="form-control"><br>
+							<input class="btn btn-lg btn-primary btn-block" type="submit" value="Create &amp; Delete Queue"><br>
+						</form>
+					</div>
+				</div>
+			</div>
+
+ 			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title demo-heading">
+						<a data-toggle="collapse" data-parent="#accordion" href="#operationThree">Send Message</a>
+					</h2>
+				</div>
+				<div id="operationThree" class="panel-collapse collapse">
+					<div class="panel-body">
+						<form id="operationThreeForm" class="demo-form" role="form" >
+							<label>Message</label>
+							<input type="text" name="msg" placeholder="Message to send" required class="form-control"><br>
+							<input class="btn btn-lg btn-primary btn-block" type="submit" value="Send Message"><br>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
