@@ -203,6 +203,16 @@
                 <attribute name="queueUrl" use="optional" caption="Queue Url" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
             </attributes>
         </processor>
+        <processor name="purgeQueue" xmlName="purge-queue" caption="Purge queue">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+            <attributes>
+                <attribute name="queueUrl" use="optional" caption="Queue Url" group="General" type="string" javaType="java.lang.String" category="General"></attribute>
+            </attributes>
+        </processor>
     </message-processors>
     <inbound-endpoints>
         <endpoint name="receive-messages" xmlName="receive-messages" caption="Receive messages">

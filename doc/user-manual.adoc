@@ -53,7 +53,7 @@ As the connector comes pre-bundled with Anypoint Studio, you must:
 |=======
 |Application/Service |Version
 |Mule Runtime |3.5.0 and above
-|AWS SDK for Java |1.9.0
+|AWS SDK for Java |1.9.39
 |=======
 
 == Installing and Configuring
@@ -139,6 +139,7 @@ The Amazon SQS connector is an operation-based connector, which means that when 
 * Get queue url
 * List dead letter source queues
 * List queues
+* Purge queue
 * Receive Messages
 * Remove permission
 * Send message batch
@@ -200,13 +201,13 @@ image::HTTPReference.jpg[HTTP Connector, 500]
 +
 . Add a Groovy component to attach the metadata and configure it as follows:
 +
-image::Groovy.jpg[Groovy Transformer, 500]
+image::Groovy.png[Groovy Transformer, 500]
 +
 [width="100%", options="header"]
 |=======
 |Field |Value
 |Name |Groovy
-|Script Text|import com.amazonaws.services.sqs.model.MessageAttributeValue;
+|Script Text|import org.mule.modules.sqs.model.MessageAttributeValue;
 			Map<String, MessageAttributeValue> messageAttributes = new HashMap<String, MessageAttributeValue>();
             messageAttributes.put("AccountId", new MessageAttributeValue().withDataType("String.AccountId").withStringValue("000123456"));
             messageAttributes.put("NumberId", new MessageAttributeValue().withDataType("Number").withStringValue("230.000000000000000001"));
