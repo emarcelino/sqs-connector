@@ -149,5 +149,12 @@
                 <query-support>false</query-support>
             </properties>
         </processor>
+        <processor name="purgeQueue" xmlName="purge-queue" caption="Purge queue">
+            <properties>
+                <datamapper input="" output=""/>
+                <auto-paging>false</auto-paging>
+                <query-support>false</query-support>
+            </properties>
+        </processor>
     </message-processors>
 </connector>

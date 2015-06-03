@@ -18,6 +18,18 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.SourceCallback;
 import org.mule.modules.sqs.connection.strategy.SQSConnectionManagement;
 import org.mule.modules.sqs.metadata.category.SendMessageCategory;
+import org.mule.modules.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
+import org.mule.modules.sqs.model.ChangeMessageVisibilityBatchResult;
+import org.mule.modules.sqs.model.CreateQueueResult;
+import org.mule.modules.sqs.model.DeleteMessageBatchRequestEntry;
+import org.mule.modules.sqs.model.DeleteMessageBatchResult;
+import org.mule.modules.sqs.model.GetQueueAttributesResult;
+import org.mule.modules.sqs.model.GetQueueUrlResult;
+import org.mule.modules.sqs.model.ListDeadLetterSourceQueuesResult;
+import org.mule.modules.sqs.model.ListQueuesResult;
+import org.mule.modules.sqs.model.SendMessageBatchRequestEntry;
+import org.mule.modules.sqs.model.SendMessageBatchResult;
+import org.mule.modules.sqs.model.SendMessageResult;
 import org.mule.modules.sqs.util.SQSModelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +46,6 @@ import java.util.concurrent.Future;
  * over the internet. The intent of SQS is to provide a highly scalable hosted message queue that resolves issues
  * arising from the common producer-consumer problem or connectivity between producer and consumer.
  * <p/>
- * This connector does not provide a method for creating a queue. The reason being that it will automatically
- * create it when its needed instead of having to manually specify so.
  *
  * @author MuleSoft, Inc.
  */
@@ -110,9 +120,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<org.mule.modules.sqs.model.ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
-                                                                                                      @Optional String queueUrl) {
-        ChangeMessageVisibilityBatchResult batchResult = msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getUrl(queueUrl),
+    public ChangeMessageVisibilityBatchResult changeMessageVisibilityBatch(@Default("#[payload]") List<ChangeMessageVisibilityBatchRequestEntry> receiptHandles,
+                                                                           @Optional String queueUrl) {
+        com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchResult batchResult = msgQueue.changeMessageVisibilityBatch(new ChangeMessageVisibilityBatchRequest(getConnection().getUrl(queueUrl),
                 SQSModelFactory.getChangeMessageVisibilityBatchRequestEntries(receiptHandles)));
 
         return SQSModelFactory.getChangeMessageVisibilityBatchResult(batchResult.getSuccessful(), batchResult.getFailed());
@@ -138,13 +148,13 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
-                                                                    @Default("#[payload]") Map<String, String> attributes) {
+    public CreateQueueResult createQueue(String queueName, @Optional RegionEndpoint region,
+                                         @Default("#[payload]") Map<String, String> attributes) {
         if (region != null) {
             msgQueue.setEndpoint(region.value());
         }
-        CreateQueueResult queueResult = msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
-        return new org.mule.modules.sqs.model.CreateQueueResult().withQueueUrl(queueResult.getQueueUrl());
+        com.amazonaws.services.sqs.model.CreateQueueResult queueResult = msgQueue.createQueue(new CreateQueueRequest(queueName).withAttributes(attributes));
+        return new CreateQueueResult().withQueueUrl(queueResult.getQueueUrl());
     }
 
     /**
@@ -181,9 +191,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<org.mule.modules.sqs.model.DeleteMessageBatchRequestEntry> receiptHandles,
-                                                                                  @Optional String queueUrl) {
-        DeleteMessageBatchResult batchResult = msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getUrl(queueUrl),
+    public DeleteMessageBatchResult deleteMessageBatch(@Default("#[payload]") List<DeleteMessageBatchRequestEntry> receiptHandles,
+                                                       @Optional String queueUrl) {
+        com.amazonaws.services.sqs.model.DeleteMessageBatchResult batchResult = msgQueue.deleteMessageBatch(new DeleteMessageBatchRequest(getConnection().getUrl(queueUrl),
                 SQSModelFactory.getDeleteMessageBatchRequestEntries(receiptHandles)));
         return SQSModelFactory.getDeleteMessageBatchResult(batchResult.getSuccessful(), batchResult.getFailed());
     }
@@ -220,10 +230,10 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) {
-        GetQueueAttributesResult attributesResult = msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getUrl(queueUrl))
+    public GetQueueAttributesResult getQueueAttributes(@Default("#[payload]") List<String> attributeNames, @Optional String queueUrl) {
+        com.amazonaws.services.sqs.model.GetQueueAttributesResult attributesResult = msgQueue.getQueueAttributes(new GetQueueAttributesRequest(getConnection().getUrl(queueUrl))
                 .withAttributeNames(attributeNames));
-        return new org.mule.modules.sqs.model.GetQueueAttributesResult().withAttributes(attributesResult.getAttributes());
+        return new GetQueueAttributesResult().withAttributes(attributesResult.getAttributes());
     }
 
     /**
@@ -241,9 +251,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) {
-        GetQueueUrlResult urlResult = msgQueue.getQueueUrl(new GetQueueUrlRequest(queueName).withQueueOwnerAWSAccountId(queueOwnerAWSAccountId));
-        return new org.mule.modules.sqs.model.GetQueueUrlResult().withQueueUrl(urlResult.getQueueUrl());
+    public GetQueueUrlResult getQueueUrl(String queueName, @Optional String queueOwnerAWSAccountId) {
+        com.amazonaws.services.sqs.model.GetQueueUrlResult urlResult = msgQueue.getQueueUrl(new GetQueueUrlRequest(queueName).withQueueOwnerAWSAccountId(queueOwnerAWSAccountId));
+        return new GetQueueUrlResult().withQueueUrl(urlResult.getQueueUrl());
     }
 
     /**
@@ -260,12 +270,12 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) {
-        ListDeadLetterSourceQueuesRequest listDeadLetterSourceQueuesRequest = new ListDeadLetterSourceQueuesRequest();
-        listDeadLetterSourceQueuesRequest.setQueueUrl(getConnection().getUrl(queueUrl));
-        ListDeadLetterSourceQueuesResult queuesResult = msgQueue.listDeadLetterSourceQueues(listDeadLetterSourceQueuesRequest);
+    public ListDeadLetterSourceQueuesResult listDeadLetterSourceQueues(@Optional String queueUrl) {
+        ListDeadLetterSourceQueuesRequest request = new ListDeadLetterSourceQueuesRequest();
+        request.setQueueUrl(getConnection().getUrl(queueUrl));
+        com.amazonaws.services.sqs.model.ListDeadLetterSourceQueuesResult queuesResult = msgQueue.listDeadLetterSourceQueues(request);
 
-        return new org.mule.modules.sqs.model.ListDeadLetterSourceQueuesResult().withQueueUrls(queuesResult.getQueueUrls());
+        return new ListDeadLetterSourceQueuesResult().withQueueUrls(queuesResult.getQueueUrls());
     }
 
     /**
@@ -283,9 +293,9 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.ListQueuesResult listQueues(@Optional String queueNamePrefix) {
-        ListQueuesResult result = msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
-        return new org.mule.modules.sqs.model.ListQueuesResult().withQueueUrls(result.getQueueUrls());
+    public ListQueuesResult listQueues(@Optional String queueNamePrefix) {
+        com.amazonaws.services.sqs.model.ListQueuesResult result = msgQueue.listQueues(new ListQueuesRequest(queueNamePrefix));
+        return new ListQueuesResult().withQueueUrls(result.getQueueUrls());
     }
 
 
@@ -301,10 +311,10 @@ public class SQSConnector {
      * @throws AmazonServiceException If an error response is returned by AmazonSQS indicating
      *                                either a problem with the data in the request, or a server side issue.
      */
-    /*@Processor
+    @Processor
     public void purgeQueue(@Optional String queueUrl) {
         msgQueue.purgeQueue(new PurgeQueueRequest(getConnection().getUrl(queueUrl)));
-    }*/
+    }
 
     /**
      * Attempts to receive messages from a queue. Every attribute of the incoming
@@ -409,12 +419,12 @@ public class SQSConnector {
      */
     @Processor
     @MetaDataScope(SendMessageCategory.class)
-    public org.mule.modules.sqs.model.SendMessageResult sendMessage(String message,
-                                                                    @Optional Integer delaySeconds,
-                                                                    @MetaDataStaticKey(type = "SendMessage")
-                                                                    @Default("#[payload]") Map<String, Object> messageAttributes,
-                                                                    @Optional String queueUrl) {
-        SendMessageResult result = msgQueue.sendMessage(new SendMessageRequest(getConnection().getUrl(queueUrl), message)
+    public SendMessageResult sendMessage(String message,
+                                         @Optional Integer delaySeconds,
+                                         @MetaDataStaticKey(type = "SendMessage")
+                                         @Default("#[payload]") Map<String, Object> messageAttributes,
+                                         @Optional String queueUrl) {
+        com.amazonaws.services.sqs.model.SendMessageResult result = msgQueue.sendMessage(new SendMessageRequest(getConnection().getUrl(queueUrl), message)
                 .withDelaySeconds(delaySeconds).withMessageAttributes(SQSModelFactory.getMessageAttributes(messageAttributes)));
         return SQSModelFactory.getSendMessageResult(result.getMessageId(), result.getMD5OfMessageBody(), result.getMD5OfMessageAttributes());
     }
@@ -434,8 +444,8 @@ public class SQSConnector {
      *                                either a problem with the data in the request, or a server side issue.
      */
     @Processor
-    public org.mule.modules.sqs.model.SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<org.mule.modules.sqs.model.SendMessageBatchRequestEntry> messages, @Optional String queueUrl) {
-        SendMessageBatchResult batchResult = msgQueue.sendMessageBatch(getConnection().getUrl(queueUrl), SQSModelFactory.getSendMessageBatchRequestEntries(messages));
+    public SendMessageBatchResult sendMessageBatch(@Default("#[payload]") List<SendMessageBatchRequestEntry> messages, @Optional String queueUrl) {
+        com.amazonaws.services.sqs.model.SendMessageBatchResult batchResult = msgQueue.sendMessageBatch(getConnection().getUrl(queueUrl), SQSModelFactory.getSendMessageBatchRequestEntries(messages));
         return SQSModelFactory.getSendMessageBatchResult(batchResult.getSuccessful(), batchResult.getFailed());
     }
 

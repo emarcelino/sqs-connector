@@ -22,8 +22,7 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -66,8 +65,9 @@ public class SQSConnectorTest {
         try {
             ChangeMessageVisibilityBatchResult messageVisibilityBatchResult = Mockito.mock(ChangeMessageVisibilityBatchResult.class);
             when(msgQueue.changeMessageVisibilityBatch(any(ChangeMessageVisibilityBatchRequest.class))).thenReturn(messageVisibilityBatchResult);
-            assertEquals(connector.changeMessageVisibilityBatch(Arrays.asList(new ChangeMessageVisibilityBatchRequestEntry("id", "handle")), "url"),
-                    SQSModelFactory.getChangeMessageVisibilityBatchResult(messageVisibilityBatchResult.getSuccessful(), messageVisibilityBatchResult.getFailed()));
+            org.mule.modules.sqs.model.ChangeMessageVisibilityBatchResult operationResult = connector.changeMessageVisibilityBatch(Arrays.asList(new ChangeMessageVisibilityBatchRequestEntry("id", "handle")), "url");
+            assertEquals(operationResult, SQSModelFactory.getChangeMessageVisibilityBatchResult(messageVisibilityBatchResult.getSuccessful(), messageVisibilityBatchResult.getFailed()));
+            assertTrue(operationResult.getFailed() != null);
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
@@ -181,7 +181,7 @@ public class SQSConnectorTest {
         }
     }
 
-    /*@Test
+    @Test
     public void testPurgeQueue() {
         try {
             doNothing().when(msgQueue).purgeQueue(any(PurgeQueueRequest.class));
@@ -189,7 +189,7 @@ public class SQSConnectorTest {
         } catch (Exception e) {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
-    }*/
+    }
 
     @Test
     public void testRemovePermission() {

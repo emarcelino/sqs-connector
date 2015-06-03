@@ -13,7 +13,7 @@ allowing users to manage SQS queueing services without having to deal with the A
 
 toc::[]
 
-== Version 3.0 - May 25, 2015
+== Version 3.0 - June 5, 2015
 
 === Compatibility
 
@@ -25,13 +25,13 @@ The Amazon SQS connector 3.0 is compatible with:
 | Application/Service | Version |
 
 Mule Runtime	| 3.5.0 or higher |
-AWS SDK for Java| v1.9.0 |
+AWS SDK for Java| v1.9.39 |
 
 |===
 
 === Features and Functionality
 
-* Upgraded AWS SDK for Java to 1.9.0.
+* Upgraded AWS SDK for Java to 1.9.39.
 * Upgraded Anypoint Connector Devkit to 3.6.1.
 * Added the following new operations:
 ** ChangeMessageVisibility
@@ -40,6 +40,7 @@ AWS SDK for Java| v1.9.0 |
 ** DeleteMessageBatch
 ** ListDeadLetterSourceQueues
 ** ListQueues
+** PurgeQueue
 ** SendMessageBatch
 * Renamed the GetURL operation to Get Queue URL.
 * Added support for proxy settings.

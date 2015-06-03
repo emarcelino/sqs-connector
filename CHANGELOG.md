@@ -10,7 +10,7 @@ Supported Mule Runtime Versions: 3.5.x or Higher
 Supported API versions:
 -----------------------
 
-AWS SDK for Java : v1.9.0 
+AWS SDK for Java : v1.9.39 
 
 Supported Actions:
 
@@ -25,6 +25,7 @@ Supported Actions:
 * GetQueueUrl
 * ListDeadLetterSourceQueues
 * ListQueues
+* PurgeQueue
 * ReceiveMessage
 * RemovePermission
 * SendMessage
@@ -37,7 +38,7 @@ Custom Actions:
 
 New Features and Functionality
 ------------------------------
-- Upgraded AWS SDK for Java to 1.9.0.
+- Upgraded AWS SDK for Java to 1.9.39.
 - Upgraded Anypoint Connector Devkit to 3.6.1
 - The following new actions have been added :
 * ChangeMessageVisibility
@@ -46,6 +47,7 @@ New Features and Functionality
 * DeleteMessageBatch
 * ListDeadLetterSourceQueues
 * ListQueues
+* PurgeQueue
 * SendMessageBatch
 - The GetURL operation has been renamed to Get Queue URL.
 - Added support for proxy settings.
