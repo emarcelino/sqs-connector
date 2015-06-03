@@ -15,7 +15,6 @@ import org.mule.modules.sqs.SQSConnector;
 import org.mule.modules.sqs.automation.SmokeTests;
 import org.mule.modules.sqs.automation.testcases.*;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
-import org.mule.tools.devkit.ctf.platform.PlatformManager;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(SmokeTests.class)
@@ -39,8 +38,6 @@ public class SmokeTestSuite {
 
     @AfterClass
     public static void shutdownSuite() throws Exception {
-        ConnectorTestContext<SQSConnector> context = ConnectorTestContext.getInstance(SQSConnector.class);
-        PlatformManager platformManager = context.getPlatformManager();
-        platformManager.shutdown();
+        ConnectorTestContext.shutDown();
     }
 }

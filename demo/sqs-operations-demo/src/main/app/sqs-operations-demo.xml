@@ -4,7 +4,7 @@
 	xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns:sqs="http://www.mulesoft.org/schema/mule/sqs" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.1"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -16,13 +16,16 @@ http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mul
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
 	<http:listener-config name="HTTP_Listener_Configuration"
 		host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration" />
-	<sqs:config name="Amazon_SQS_Connection_Management"
-		accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" defaultQueueName="${sqs.queueName}"
-		region="${sqs.region}" doc:name="Amazon SQS: Connection Management" />
+    <sqs:config name="Amazon_SQS_Configuration" accessKey="${sqs.accessKey}" secretKey="${sqs.secretKey}" defaultQueueName="${sqs.queueName}" region="${sqs.region}" doc:name="Amazon SQS: Configuration"/>
+    <flow name="sqs-operations-form-Flow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/>
+        <parse-template location="sqs-operations-demo.html" doc:name="Parse Template"/>
+        <set-property propertyName="Content-Type" value="text/html" doc:name="Property"/>
+    </flow>
 	<flow name="sqs-add-permission-operation-demo-flow">
 		<http:listener config-ref="HTTP_Listener_Configuration"
 			path="/addpermission" doc:name="HTTP" />
-		<sqs:add-permission config-ref="Amazon_SQS_Connection_Management"
+		<sqs:add-permission config-ref="Amazon_SQS_Configuration"
 			label="#[message.inboundProperties.'http.query.params'.label]"
 			doc:name="Add Permission">
 			<sqs:account-ids>
@@ -39,21 +42,19 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 	<flow name="sqs-create-delete-queue-operations-demo-flow">
 		<http:listener config-ref="HTTP_Listener_Configuration"
 			path="/createdeletequeue" doc:name="HTTP" />
-		<sqs:create-queue config-ref="Amazon_SQS_Connection_Management"
+		<sqs:create-queue config-ref="Amazon_SQS_Configuration"
 			queueName="#[message.inboundProperties.'http.query.params'.name]"
-			doc:name="Create Queue" />
+			doc:name="Create Queue" >
+            <sqs:attributes>
+                <sqs:attribute key="#[message.inboundProperties.'http.query.params'.attributeKey]">#[message.inboundProperties.'http.query.params'.attributeValue]</sqs:attribute>
+            </sqs:attributes>
+        </sqs:create-queue>
 		<logger message="Successfully created queue : #[payload.queueUrl]"
 			level="INFO" doc:name="Display Created Queue URL" />
-		<sqs:delete-queue config-ref="Amazon_SQS_Connection_Management"
+		<sqs:delete-queue config-ref="Amazon_SQS_Configuration"
 			queueUrl="#[payload.queueUrl]" doc:name="Delete Queue" />
 		<set-payload value="Create and Delete Queue operations successful"
 			doc:name="Set Payload" />
-	</flow>
-	<flow name="sqs-list-dead-letter-queues-operation-demo-flow">
-		<http:listener config-ref="HTTP_Listener_Configuration"
-			path="/listdeadletter" doc:name="HTTP" />
-		<sqs:list-dead-letter-source-queues
-			config-ref="Amazon_SQS_Connection_Management" doc:name="List Dead Letter Queues" />
 	</flow>
 	<flow name="sqs-send-message-operation-demo-flow">
 		<http:listener config-ref="HTTP_Listener_Configuration"
@@ -68,28 +69,23 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 			return messageAttributes;
 			]]></scripting:script>
 		</scripting:transformer>
-
-		<sqs:send-message config-ref="Amazon_SQS_Connection_Management"
-			message="#[message.inboundProperties.'http.query.params'.msg]"
-			doc:name="Send Message">
-			<sqs:message-attributes ref="#[payload]" />
-		</sqs:send-message>
+        <sqs:send-message config-ref="Amazon_SQS_Configuration" message="#[message.inboundProperties.'http.query.params'.msg]" doc:name="Send Message">
+            <sqs:message-attributes ref="#[payload]"/>
+        </sqs:send-message>
         <json:object-to-json-transformer doc:name="Object to JSON"/>
         <logger message="Sent Message : #[payload]" level="INFO" doc:name="Display Sent Message"/>
 		<sqs:get-approximate-number-of-messages
-			config-ref="Amazon_SQS_Connection_Management" doc:name="Get Count of Messages in queue" />
+			config-ref="Amazon_SQS_Configuration" doc:name="Get Count of Messages in queue" />
         <logger message="Approx. messages in queue : #[payload]" level="INFO" doc:name="Count Messages in Queue"/>
-		<set-payload value="Operations successful, Please check the log console for output."
+		<set-payload value="Operations successful, Please check the mule console for message received ."
 			doc:name="Display Message Count" />
 	</flow>
 	<flow name="sqs-receive-delete-message-operations-demo-flow">
-		<sqs:receive-messages config-ref="Amazon_SQS_Connection_Management"
-			doc:name="Amazon SQS (Streaming) Receive Messages" />
+        <sqs:receive-messages config-ref="Amazon_SQS_Configuration" doc:name="Amazon SQS (Streaming) Receive Messages"/>
 		<logger message="Received Message : #[payload]" level="INFO"
 			doc:name="Display Message" />
         <logger message="Deleting message with handle : #[header:inbound:sqs.message.receipt.handle]" level="INFO" doc:name="Display Message Handle"/>
-		<sqs:delete-message config-ref="Amazon_SQS_Connection_Management"
-			doc:name="Delete Message" />
+        <sqs:delete-message config-ref="Amazon_SQS_Configuration" doc:name="Delete Message"/>
         <logger message="Message deleted sucessfully from queue." level="INFO" doc:name="Logger"/>
 	</flow>
 </mule>
