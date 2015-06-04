@@ -1,7 +1,7 @@
 Amazon SQS Anypoint Connector Release Notes
 ==========================================
 
-Date: 25-May-2015
+Date: 5-Jun-2015
 
 Version: 3.0.0
 
